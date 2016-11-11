@@ -1,5 +1,5 @@
 //
-//  Constants.swift
+//  Transactions.swift
 //  Splitzee
 //
 //  Created by Mohit Katyal on 11/10/16.
@@ -7,3 +7,10 @@
 //
 
 import Foundation
+import UIKit
+
+struct constants
+{
+
+
+}

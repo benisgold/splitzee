@@ -7,3 +7,66 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseAuth
+import FirebaseStorage
+import FirebaseDatabase
+
+class transactions{
+    
+    var groupID: String?
+    var toMember: Bool?
+    var memberID: String?
+    var amount: Double?
+    var approved: Bool?
+    
+    init(key:String, userDict: [String: AnyObject])
+    {
+        let uid = key
+        
+        
+        if let group = userDict["groupID"] as? String{
+            groupID = group
+        }
+        else
+        {
+            groupID = "error"
+        }
+        
+        if let sendToMember = userDict["toMember"] as? Bool{
+            toMember = sendToMember
+        }
+        else
+        {
+            toMember = false
+        }
+        
+        if let member = userDict["memberID"] as? String{
+            memberID = member
+        }
+        else
+        {
+            memberID = "error"
+        }
+        
+        if let amountSent = userDict["amount"] as? Double{
+            amount = amountSent
+        }
+        else
+        {
+            amount = 0
+        }
+        
+        if let approvedTransaction = userDict["approved"] as? Bool{
+            approved = approvedTransaction
+        }
+        else
+        {
+            approved = false
+        }
+        
+        
+        
+    }
+    
+}
