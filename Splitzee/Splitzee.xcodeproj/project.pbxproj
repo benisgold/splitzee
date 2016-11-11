@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92D6884493178F722134FC95 /* Pods_Splitzee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */; };
 		E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC61DD560350002D910 /* AppDelegate.swift */; };
 		E42ABDC91DD560350002D910 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC81DD560350002D910 /* ViewController.swift */; };
 		E42ABDCC1DD560350002D910 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42ABDCA1DD560350002D910 /* Main.storyboard */; };
@@ -39,6 +40,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Splitzee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		23D1D6CE709231144655F652 /* Pods-Splitzee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.debug.xcconfig"; sourceTree = "<group>"; };
+		2ED719F80BC691C40D89EACD /* Pods-Splitzee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.release.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.release.xcconfig"; sourceTree = "<group>"; };
+		3D3D6978E54DFE012792301F /* Pods_SplitzeeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitzeeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AE8F8CEEA22D37D388148301 /* Pods_SplitzeeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitzeeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ABDC31DD560350002D910 /* Splitzee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Splitzee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ABDC61DD560350002D910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E42ABDC81DD560350002D910 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -64,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92D6884493178F722134FC95 /* Pods_Splitzee.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +91,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2733541BC61328D4563A8C87 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */,
+				AE8F8CEEA22D37D388148301 /* Pods_SplitzeeTests.framework */,
+				3D3D6978E54DFE012792301F /* Pods_SplitzeeUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E42ABDBA1DD560340002D910 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +108,8 @@
 				E42ABDDA1DD560360002D910 /* SplitzeeTests */,
 				E42ABDE51DD560360002D910 /* SplitzeeUITests */,
 				E42ABDC41DD560350002D910 /* Products */,
+				FE4D26408B1FE6C94CD06A45 /* Pods */,
+				2733541BC61328D4563A8C87 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -148,6 +167,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		FE4D26408B1FE6C94CD06A45 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				23D1D6CE709231144655F652 /* Pods-Splitzee.debug.xcconfig */,
+				2ED719F80BC691C40D89EACD /* Pods-Splitzee.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -155,9 +183,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E42ABDEB1DD560360002D910 /* Build configuration list for PBXNativeTarget "Splitzee" */;
 			buildPhases = (
+				D5933881A44711C2A84974CB /* [CP] Check Pods Manifest.lock */,
 				E42ABDBF1DD560340002D910 /* Sources */,
 				E42ABDC01DD560340002D910 /* Frameworks */,
 				E42ABDC11DD560340002D910 /* Resources */,
+				B3E93900664B39567A7EE055 /* [CP] Embed Pods Frameworks */,
+				F72F2360A832E6C9444C7315 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -279,6 +310,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B3E93900664B39567A7EE055 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D5933881A44711C2A84974CB /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		F72F2360A832E6C9444C7315 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E42ABDBF1DD560340002D910 /* Sources */ = {
@@ -441,6 +520,7 @@
 		};
 		E42ABDEC1DD560360002D910 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 23D1D6CE709231144655F652 /* Pods-Splitzee.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TDF4CS47G4;
@@ -454,6 +534,7 @@
 		};
 		E42ABDED1DD560360002D910 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2ED719F80BC691C40D89EACD /* Pods-Splitzee.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = TDF4CS47G4;
@@ -542,6 +623,7 @@
 				E42ABDED1DD560360002D910 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E42ABDEE1DD560360002D910 /* Build configuration list for PBXNativeTarget "SplitzeeTests" */ = {
 			isa = XCConfigurationList;
@@ -550,6 +632,7 @@
 				E42ABDF01DD560360002D910 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E42ABDF11DD560360002D910 /* Build configuration list for PBXNativeTarget "SplitzeeUITests" */ = {
 			isa = XCConfigurationList;
@@ -558,6 +641,7 @@
 				E42ABDF31DD560360002D910 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
