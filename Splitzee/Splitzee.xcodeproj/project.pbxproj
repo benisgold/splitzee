@@ -17,10 +17,9 @@
 		E42ABDE71DD560360002D910 /* SplitzeeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDE61DD560360002D910 /* SplitzeeUITests.swift */; };
 		E42ABDF61DD562E80002D910 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDF51DD562E80002D910 /* Users.swift */; };
 		E42ABDF81DD562F70002D910 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDF71DD562F70002D910 /* Groups.swift */; };
-		E42ABDFD1DD5646D0002D910 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDFC1DD5646D0002D910 /* Login.swift */; };
-		E42ABDFF1DD5647D0002D910 /* CreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDFE1DD5647D0002D910 /* CreateAccount.swift */; };
 		E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABE001DD5653B0002D910 /* Transactions.swift */; };
 		E42ABE031DD56CD50002D910 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = E42ABE021DD56CD50002D910 /* GoogleService-Info-2.plist */; };
+		E42ABE051DD56F170002D910 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABE041DD56F170002D910 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,10 +60,9 @@
 		E42ABDE81DD560360002D910 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E42ABDF51DD562E80002D910 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
 		E42ABDF71DD562F70002D910 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
-		E42ABDFC1DD5646D0002D910 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
-		E42ABDFE1DD5647D0002D910 /* CreateAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccount.swift; sourceTree = "<group>"; };
 		E42ABE001DD5653B0002D910 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transactions.swift; path = ../Transactions.swift; sourceTree = "<group>"; };
 		E42ABE021DD56CD50002D910 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-2.plist"; sourceTree = "<group>"; };
+		E42ABE041DD56F170002D910 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,11 +159,10 @@
 		E42ABDF41DD562A00002D910 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E42ABE041DD56F170002D910 /* Constants.swift */,
 				E42ABE001DD5653B0002D910 /* Transactions.swift */,
 				E42ABDF51DD562E80002D910 /* Users.swift */,
 				E42ABDF71DD562F70002D910 /* Groups.swift */,
-				E42ABDFC1DD5646D0002D910 /* Login.swift */,
-				E42ABDFE1DD5647D0002D910 /* CreateAccount.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -371,10 +368,9 @@
 				E42ABDC91DD560350002D910 /* ViewController.swift in Sources */,
 				E42ABDF61DD562E80002D910 /* Users.swift in Sources */,
 				E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */,
-				E42ABDFD1DD5646D0002D910 /* Login.swift in Sources */,
-				E42ABDFF1DD5647D0002D910 /* CreateAccount.swift in Sources */,
 				E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */,
 				E42ABDF81DD562F70002D910 /* Groups.swift in Sources */,
+				E42ABE051DD56F170002D910 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,5 +1,5 @@
 //
-//  CreateAccount.swift
+//  Constants.swift
 //  Splitzee
 //
 //  Created by Mohit Katyal on 11/10/16.
