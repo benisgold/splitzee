@@ -7,3 +7,12 @@
 //
 
 import Foundation
+
+class Group {
+    
+    var memberIDs : [String]?
+    var adminIDs : [String]?
+    var transactionIDs : [String]?
+    var total : Double?
+
+}
