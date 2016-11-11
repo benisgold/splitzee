@@ -20,6 +20,7 @@
 		E42ABDFD1DD5646D0002D910 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDFC1DD5646D0002D910 /* Login.swift */; };
 		E42ABDFF1DD5647D0002D910 /* CreateAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDFE1DD5647D0002D910 /* CreateAccount.swift */; };
 		E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABE001DD5653B0002D910 /* Transactions.swift */; };
+		E42ABE031DD56CD50002D910 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = E42ABE021DD56CD50002D910 /* GoogleService-Info-2.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		E42ABDFC1DD5646D0002D910 /* Login.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		E42ABDFE1DD5647D0002D910 /* CreateAccount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccount.swift; sourceTree = "<group>"; };
 		E42ABE001DD5653B0002D910 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transactions.swift; path = ../Transactions.swift; sourceTree = "<group>"; };
+		E42ABE021DD56CD50002D910 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-2.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +130,7 @@
 			children = (
 				E42ABDC61DD560350002D910 /* AppDelegate.swift */,
 				E42ABDC81DD560350002D910 /* ViewController.swift */,
+				E42ABE021DD56CD50002D910 /* GoogleService-Info-2.plist */,
 				E42ABDF41DD562A00002D910 /* Model */,
 				E42ABDCA1DD560350002D910 /* Main.storyboard */,
 				E42ABDCD1DD560350002D910 /* Assets.xcassets */,
@@ -291,6 +294,7 @@
 			files = (
 				E42ABDD11DD560350002D910 /* LaunchScreen.storyboard in Resources */,
 				E42ABDCE1DD560350002D910 /* Assets.xcassets in Resources */,
+				E42ABE031DD56CD50002D910 /* GoogleService-Info-2.plist in Resources */,
 				E42ABDCC1DD560350002D910 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
