@@ -18,11 +18,11 @@ class transactions{
     var toMember: Bool?
     var memberID: String?
     var amount: Double?
-    var approved: Bool?
+    var transactionID: String?
     
     init(key:String, userDict: [String: AnyObject])
     {
-        let uid = key
+        let transactionID = key
         
         
         if let group = userDict["groupID"] as? String{
@@ -57,13 +57,7 @@ class transactions{
             amount = 0
         }
         
-        if let approvedTransaction = userDict["approved"] as? Bool{
-            approved = approvedTransaction
-        }
-        else
-        {
-            approved = false
-        }
+       
         
         
         
