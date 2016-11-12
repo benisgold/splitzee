@@ -12,13 +12,14 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class transactions{
+class Transactions{
     
-    var groupID: String?
+    var transactionID: String?
     var toMember: Bool?
     var memberID: String?
+    var groupID: String?
     var amount: Double?
-    var transactionID: String?
+    
     
     init(key:String, userDict: [String: AnyObject])
     {
@@ -57,10 +58,7 @@ class transactions{
             amount = 0
         }
         
-       
-        
-        
-        
+      
     }
     
 }
