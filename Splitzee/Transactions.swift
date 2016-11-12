@@ -59,6 +59,12 @@ class Transaction{
         }
         
         //Update Money for Group
+        
+        let ref = FIRDatabase.database().reference()
+        
+        
+        ref.child("Transactions/\(transactionID)").setValue()
+
       
     }
     
@@ -73,12 +79,24 @@ class Transaction{
     
     
     func deleteTransactions(){
-        
+        let ref = FIRDatabase.database().reference()
+        ref.child("Transactions/\(transactionID)").removeValue()
     }
     
     
-    func getUser(){
+    func getUser(withBlock: @escaping (User) -> Void ){
+        let ref = FIRDatabase.database().reference()
+        ref.child("Members/\(memberID!)").observe(.value, with: { snapshot -> Void in
+            // Get user value
+            if snapshot.exists(){
+                if let userDict = snapshot.value as? [String: AnyObject]{
+                    let user = User(key: snapshot.key, userDict: userDict)
+                    withBlock(user)
+                }
+            }
+        })
         
     }
+
     
 }
