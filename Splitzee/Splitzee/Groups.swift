@@ -68,19 +68,17 @@ class Group {
     }
     
     
-    func getAllUsers() -> [User] {
+    func getAllUsers(withBlock: @escaping (User) -> Void) {
         let ref = FIRDatabase.database().reference()
-        var users : [User] = []
         for id in memberIDs {
             ref.child("Users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let curr = User(key: id, userDict: snapshot.value as! [String : AnyObject])
-                users.append(curr)
+                withBlock(curr)
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
-        return users
     }
     
     func getGroupPic(withBlock: @escaping (UIImage) -> Void) {
@@ -97,34 +95,29 @@ class Group {
         })
     }
     
-    func getTransactions() -> [Transaction] {
+    func getTransactions(withBlock: @escaping (Transaction) -> Void) {
         let ref = FIRDatabase.database().reference()
-        var transactions : [Transaction] = []
         for id in transactionIDs {
             ref.child("Transactions").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
-                transactions.append(curr)
+                withBlock(curr)
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
-        return transactions
     }
     
-    func getRequests() -> [Request] {
+    func getRequests(withBlock: @escaping (Request) -> Void) {
         let ref = FIRDatabase.database().reference()
-        var requests : [Request] = []
         for id in requestIDs {
             ref.child("Requests").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let curr = Request(key: id, requestDict: snapshot.value as! [String : AnyObject])
-                requests.append(curr)
+                withBlock(curr)
             }) { (error) in
                 print(error.localizedDescription)
             }
         }
-        return requests
     }
-        
 }
