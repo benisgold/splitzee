@@ -21,7 +21,7 @@ class CurrentUser{
     var transactionIDs: [String] = []
     var groupIDs: [String] = []
     var groupAdminIDs: [String] = []
-    var groupMemberAmounts: [String : Double] = []
+    var groupMemberAmounts: [String : Double] = [:]
     var requestIDs: [String] = []
     var uid: String = ""
     
@@ -70,21 +70,21 @@ class CurrentUser{
     
     func getProfPic(withBlock: @escaping (UIImage) -> Void) {
         let storageRef = FIRStorage.storage().reference()
-        let imageRef = storageRef.child(profPicURL!)
+        let imageRef = storageRef.child(profPicURL)
         
         imageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
             if (error != nil) {
                 print("An error occured: \(error)")
             } else {
                 let image = UIImage(data: data!)
-                withBlock(image)
+                withBlock(image!)
             }
         })
     }
     
     func getTransactions(withBlock: @escaping (Transaction) -> Void) {
         let ref = FIRDatabase.database().reference()
-        for id in transactionIDs! {
+        for id in transactionIDs {
             ref.child("Transactions").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
@@ -109,7 +109,7 @@ class CurrentUser{
     }
     func getGroups(withBlock: @escaping (Group) -> Void) {
         let ref = FIRDatabase.database().reference()
-        for id in groupIDs! {
+        for id in groupIDs {
             ref.child("Groups").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 let curr = Group(key: id, groupDict: snapshot.value as! [String: AnyObject])
@@ -122,7 +122,7 @@ class CurrentUser{
     
     func getName(withBlock: @escaping (User) -> Void) {
         let ref = FIRDatabase.database().reference()
-        ref.child("User/\(username!)").observe(.value, with: { snapshot -> Void in
+        ref.child("User").child(uid).observe(.value, with: { snapshot -> Void in
             // Get user name value
             if snapshot.exists(){
                 if let username = snapshot.value as? String {
