@@ -101,15 +101,15 @@ class currentUser{
         
     }
     
-    func getRequests() {
+    func getRequests(withBlock: (Request) -> Void) {
         
     }
     
-    func getGroups() {
+    func getGroups(withBlock: (Group) -> Void) {
         
     }
     
-    func getName() {
+    func getName(withBlock: (User) -> Void) {
         
     }
     
