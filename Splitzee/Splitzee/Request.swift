@@ -22,7 +22,7 @@ class Request{
     
     init(key:String, requestDict: [String: AnyObject])
     {
-        let transactionID = key
+        requestID = key
         
         
         if let group = requestDict["groupID"] as? String{
@@ -74,6 +74,9 @@ class Request{
     
     func deleteRequest(){
         
+        let ref = FIRDatabase.database().reference()
+        ref.child("Requests/\(requestID)").removeValue()
+        
     }
     
     
@@ -83,8 +86,6 @@ class Request{
         ref.child("Members/\(memberID!)").observe(.value, with: { snapshot -> Void in
             // Get user value
             if snapshot.exists(){
-            
-            
                 if let userDict = snapshot.value as? [String: AnyObject]{
                     let user = User(key: snapshot.key, userDict: userDict)
                     withBlock(user)
@@ -97,11 +98,20 @@ class Request{
     
     func approveRequest(){
     
+        // Create transaction from second init
+        let ref = FIRDatabase.database().reference()
+        let key = ref.child("Transactions").childByAutoId().key
+        ref.child("Transactions/\(key)").setValue(["Amount": amount, "Member": memberID, "Group": groupID, "toMember": groupToMember])
+        
+        // Delete request
+        self.deleteRequest()
     }
     
     
     
     func rejectRequest(){
+        
+        self.deleteRequest()
         
     }
     

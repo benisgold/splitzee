@@ -15,7 +15,7 @@ import FirebaseDatabase
 class Transaction{
     
     var transactionID: String?
-    var toMember: Bool?
+    var groupToMember: Bool?
     var memberID: String?
     var groupID: String?
     var amount: Double?
@@ -34,12 +34,12 @@ class Transaction{
             groupID = "error"
         }
         
-        if let sendToMember = transactionDict["toMember"] as? Bool{
-            toMember = sendToMember
+        if let sendToMember = transactionDict["groupToMember"] as? Bool{
+            groupToMember = sendToMember
         }
         else
         {
-            toMember = false
+            groupToMember = false
         }
         
         if let member = transactionDict["memberID"] as? String{
@@ -58,16 +58,17 @@ class Transaction{
             amount = 0
         }
         
+        //Update Money for Group
       
     }
     
     
-    init(amount: Double, memberID: String, groupID: String, toMember: Bool)
+    init(amount: Double, memberID: String, groupID: String, groupToMember: Bool)
     {
         self.amount = amount
         self.memberID = memberID
         self.groupID = groupID
-        self.toMember = toMember
+        self.groupToMember = groupToMember
     }
     
     
