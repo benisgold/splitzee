@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class currentUser{
+class CurrentUser{
     
     
     //User Variables
@@ -83,10 +83,42 @@ class currentUser{
         
     }
     
+    //optional
+    func logout() {
+        
+    }
     
+    //optional
+    func signIn() {
+        
+    }
     
+    func getProfPic() {
     
+    }
     
+    func getTransactions() {
+        
+    }
     
+    func getRequests() {
+        
+    }
+    
+    func getGroups() {
+        
+    }
+    
+    func getName() {
+        
+    }
+    
+    func sendNewRequest(amount: Double, memberID: String, groupID: String) {
+        
+    }
+    
+    func sendNewTransaction(amount: Double, memberID: String, groupID: String) {
+        
+    }
     
 }
