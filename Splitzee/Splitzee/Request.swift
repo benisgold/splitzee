@@ -14,6 +14,51 @@ import FirebaseDatabase
 
 class Request{
     
+    var requestID : String?
+    var memberID: String?
+    var groupToMember: Bool?
+    var groupID: String?
+    var amount: Double?
+    
+    init(key:String, userDict: [String: AnyObject])
+    {
+        let transactionID = key
+        
+        
+        if let group = userDict["groupID"] as? String{
+            groupID = group
+        }
+        else
+        {
+            groupID = "error"
+        }
+        
+        if let sendToMember = userDict["groupToMember"] as? Bool{
+            groupToMember = sendToMember
+        }
+        else
+        {
+            groupToMember = false
+        }
+        
+        if let member = userDict["memberID"] as? String{
+            memberID = member
+        }
+        else
+        {
+            memberID = "error"
+        }
+        
+        if let amountSent = userDict["amount"] as? Double{
+            amount = amountSent
+        }
+        else
+        {
+            amount = 0
+        }
+        
+        
+    }
     
     
 }

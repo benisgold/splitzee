@@ -18,10 +18,6 @@ class User{
     //User Variables
     var name: String?
     var profPicURL: String?
-    var email: String?
-    var transactionIDs: [String]?
-    var groupAdminIDs: [String]?
-    var groupMemberAmounts: [String : Double]?
     var uid: String?
     
     
@@ -48,37 +44,9 @@ class User{
             profPicURL = "error"
         }
         
-        if let mail = userDict["email"] as? String{
-            email = mail
-        }
-        else
-        {
-            email = "error"
-        }
+    
         
-        if let transaction = userDict["transactionIDs"] as? [String]{
-            transactionIDs = transaction
-        }
-        else
-        {
-            transactionIDs = ["error"]
-        }
-        
-        if let admin = userDict["groupAdminIDs"] as? [String]{
-            groupAdminIDs = admin
-        }
-        else
-        {
-            groupAdminIDs = ["error"]
-        }
-        
-        if let member = userDict["groupMemberAmounts"] as? [String:Double]{
-            groupMemberAmounts = member
-        }
-        else
-        {
-            groupMemberAmounts = ["error": 0]
-        }
+     
         
             
     }
