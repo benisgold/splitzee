@@ -61,4 +61,23 @@ class Transaction{
       
     }
     
+    
+    init(amount: Double, memberID: String, groupID: String, toMember: Bool)
+    {
+        self.amount = amount
+        self.memberID = memberID
+        self.groupID = groupID
+        self.toMember = toMember
+    }
+    
+    
+    func deleteTransactions(){
+        
+    }
+    
+    
+    func getUser(){
+        
+    }
+    
 }
