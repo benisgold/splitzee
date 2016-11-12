@@ -10,20 +10,19 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
-class CurrentUser{
-    
+
+class CurrentUser {
     
     //User Variables
-    var name: String?
-    var profPicURL: String?
-    var email: String?
-    var transactionIDs: [String]?
-    var groupIDs: [String]?
-    var groupAdminIDs: [String]?
-    var groupMemberAmounts: [String : Double]?
+    var name: String = ""
+    var profPicURL: String = ""
+    var email: String = ""
+    var transactionIDs: [String] = []
+    var groupIDs: [String] = []
+    var groupAdminIDs: [String] = []
+    var groupMemberAmounts: [String : Double] = []
     var requestIDs: [String] = []
-    var uid: String?
-    
+    var uid: String = ""
     
     //Initiating variables
     
@@ -35,51 +34,26 @@ class CurrentUser{
         if let username = currentUserDict["name"] as? String{
             name = username
         }
-        else
-        {
-            name = "error"
-        }
         
         if let pic = currentUserDict["profPicURL"] as? String{
             profPicURL = pic
-        }
-        else
-        {
-            profPicURL = "error"
         }
         
         if let mail = currentUserDict["email"] as? String{
             email = mail
         }
-        else
-        {
-            email = "error"
-        }
         
         if let transaction = currentUserDict["transactionIDs"] as? [String]{
             transactionIDs = transaction
-        }
-        else
-        {
-            transactionIDs = ["error"]
         }
         
         if let admin = currentUserDict["groupAdminIDs"] as? [String]{
             groupAdminIDs = admin
         }
-        else
-        {
-            groupAdminIDs = ["error"]
-        }
         
         if let member = currentUserDict["groupMemberAmounts"] as? [String:Double]{
             groupMemberAmounts = member
         }
-        else
-        {
-            groupMemberAmounts = ["error": 0]
-        }
-        
         
     }
     
@@ -102,7 +76,7 @@ class CurrentUser{
                 print("An error occured: \(error)")
             } else {
                 let image = UIImage(data: data!)
-                withBlock(image!)
+                withBlock(image)
             }
         })
     }
@@ -145,8 +119,17 @@ class CurrentUser{
         }
     }
     
-    func getName(withBlock: (User) -> Void) {
-        
+    func getName(withBlock: @escaping (User) -> Void) {
+        let ref = FIRDatabase.database().reference()
+        ref.child("User/\(username!)").observe(.value, with: { snapshot -> Void in
+            // Get user name value
+            if snapshot.exists(){
+                if let username = snapshot.value as? String {
+                    let username = User(key: snapshot.key, userDict: username)
+                    withBlock(username)
+                }
+            }
+        })
     }
     
     func sendNewRequest(amount: Double, memberID: String, groupID: String) {
