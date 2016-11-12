@@ -21,7 +21,7 @@ class Transaction{
     var amount: Double?
     
     
-    init(key:String, transactionDict: [String: AnyObject])
+    init(key: String, transactionDict: [String: AnyObject])
     {
         transactionID = key
         

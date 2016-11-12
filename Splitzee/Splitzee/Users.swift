@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class User{
+class User {
 
 
     //User Variables
@@ -25,23 +25,15 @@ class User{
     
     init(key:String, userDict: [String: AnyObject])
     {
-        let uid = key
+        uid = key
         
         
         if let username = userDict["name"] as? String{
             name = username
         }
-        else
-        {
-            name = "error"
-        }
         
         if let pic = userDict["profPicURL"] as? String{
             profPicURL = pic
-        }
-        else
-        {
-            profPicURL = "error"
         }
         
     
@@ -49,9 +41,20 @@ class User{
   
 
     
-    func getProfilePicture(){
+    func getProfilePic(withBlock: @escaping (UIImage) -> Void) {
+        let storageRef = FIRStorage.storage().reference()
+        let imageRef = storageRef.child(profPicURL!)
         
+        imageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
+            if (error != nil) {
+                print("An error occured: \(error)")
+            } else {
+                let image = UIImage(data: data!)
+                withBlock(image!)
+            }
+        })
     }
+
     
     
     
