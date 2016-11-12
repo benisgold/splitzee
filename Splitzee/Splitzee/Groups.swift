@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Group {
     
@@ -16,7 +17,8 @@ class Group {
     var adminIDs : [String]?
     var transactionIDs : [String]?
     var total : Double?
-    
+    var name : String?
+    var pic: String?
     
 
     init(key:String, userDict: [String: AnyObject])
@@ -55,9 +57,34 @@ class Group {
         {
             total = 0
         }
-        
-        
-}
+    }
     
+    init(name: String, total: Double?, pic: String) {
+        self.name = name
+        
+        if let amnt = total {
+            self.total = amnt
+        } else {
+            self.total = 0.0
+        }
+        
+        self.pic = pic
+    }
     
+    func getAllUsers() {
+        
+    }
+    
+    func getGroupPic() {
+        
+    }
+    
+    func getTransactions() {
+        
+    }
+    
+    func getRequests() {
+        
+    }
+        
 }
