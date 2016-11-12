@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class Transactions{
+class Transaction{
     
     var transactionID: String?
     var toMember: Bool?
@@ -23,7 +23,7 @@ class Transactions{
     
     init(key:String, transactionDict: [String: AnyObject])
     {
-        let transactionID = key
+        transactionID = key
         
         
         if let group = transactionDict["groupID"] as? String{
