@@ -11,7 +11,8 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class CurrentUser {
+class CurrentUser{
+
     
     //User Variables
     var name: String = ""
@@ -124,9 +125,9 @@ class CurrentUser {
         ref.child("User").child(uid).observe(.value, with: { snapshot -> Void in
             // Get user name value
             if snapshot.exists(){
-                if let username = snapshot.value as? String {
-                    let username = User(key: snapshot.key, userDict: username)
-                    withBlock(username)
+                if let userDict = snapshot.value as? [String: AnyObject] {
+                    let user = User(key: snapshot.key, userDict: userDict)
+                    withBlock(user)
                 }
             }
         })
@@ -134,9 +135,13 @@ class CurrentUser {
     
     func sendNewRequest(amount: Double, memberID: String, groupID: String) {
         
+    
+        
+        
     }
     
     func sendNewTransaction(amount: Double, memberID: String, groupID: String) {
+     
         
     }
     

@@ -59,12 +59,6 @@ class Transaction{
         }
         
         //Update Money for Group
-        
-        let ref = FIRDatabase.database().reference()
-        
-        
-        ref.child("Transactions/\(transactionID)").setValue()
-
       
     }
     
@@ -75,6 +69,7 @@ class Transaction{
         self.memberID = memberID
         self.groupID = groupID
         self.groupToMember = groupToMember
+        
     }
     
     
@@ -97,6 +92,24 @@ class Transaction{
         })
         
     }
+    
+    func updateMoney(withBlock: @escaping (Group) -> Void ){
+        let ref = FIRDatabase.database().reference()
+        ref.child("Group/\(groupID!)").observe(.value, with: { snapshot -> Void in
+            // Get user value
+            if snapshot.exists(){
+                if let groupDict = snapshot.value as? [String: AnyObject]{
+                    let group = Group(key: snapshot.key, groupDict: groupDict)
+                    withBlock(group)
+                }
+            }
+        })
+        
+    }
+
+    
+
+    
 
     func updateMoney(withBlock: @escaping (Group) -> Void ){
         let ref = FIRDatabase.database().reference()
