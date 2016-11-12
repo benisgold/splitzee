@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
+
 class CurrentUser{
     
     
@@ -154,6 +155,7 @@ class CurrentUser{
     }
     
     func sendNewTransaction(amount: Double, memberID: String, groupID: String) {
+     
         
     }
     
