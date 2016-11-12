@@ -21,12 +21,12 @@ class Transactions{
     var amount: Double?
     
     
-    init(key:String, userDict: [String: AnyObject])
+    init(key:String, transactionDict: [String: AnyObject])
     {
         let transactionID = key
         
         
-        if let group = userDict["groupID"] as? String{
+        if let group = transactionDict["groupID"] as? String{
             groupID = group
         }
         else
@@ -34,7 +34,7 @@ class Transactions{
             groupID = "error"
         }
         
-        if let sendToMember = userDict["toMember"] as? Bool{
+        if let sendToMember = transactionDict["toMember"] as? Bool{
             toMember = sendToMember
         }
         else
@@ -42,7 +42,7 @@ class Transactions{
             toMember = false
         }
         
-        if let member = userDict["memberID"] as? String{
+        if let member = transactionDict["memberID"] as? String{
             memberID = member
         }
         else
@@ -50,7 +50,7 @@ class Transactions{
             memberID = "error"
         }
         
-        if let amountSent = userDict["amount"] as? Double{
+        if let amountSent = transactionDict["amount"] as? Double{
             amount = amountSent
         }
         else

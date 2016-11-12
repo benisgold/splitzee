@@ -27,12 +27,12 @@ class currentUser{
     
     //Initiating variables
     
-    init(key:String, userDict: [String: AnyObject])
+    init(key:String, currentUserDict: [String: AnyObject])
     {
         let uid = key
         
         
-        if let username = userDict["name"] as? String{
+        if let username = currentUserDict["name"] as? String{
             name = username
         }
         else
@@ -40,7 +40,7 @@ class currentUser{
             name = "error"
         }
         
-        if let pic = userDict["profPicURL"] as? String{
+        if let pic = currentUserDict["profPicURL"] as? String{
             profPicURL = pic
         }
         else
@@ -48,7 +48,7 @@ class currentUser{
             profPicURL = "error"
         }
         
-        if let mail = userDict["email"] as? String{
+        if let mail = currentUserDict["email"] as? String{
             email = mail
         }
         else
@@ -56,7 +56,7 @@ class currentUser{
             email = "error"
         }
         
-        if let transaction = userDict["transactionIDs"] as? [String]{
+        if let transaction = currentUserDict["transactionIDs"] as? [String]{
             transactionIDs = transaction
         }
         else
@@ -64,7 +64,7 @@ class currentUser{
             transactionIDs = ["error"]
         }
         
-        if let admin = userDict["groupAdminIDs"] as? [String]{
+        if let admin = currentUserDict["groupAdminIDs"] as? [String]{
             groupAdminIDs = admin
         }
         else
@@ -72,7 +72,7 @@ class currentUser{
             groupAdminIDs = ["error"]
         }
         
-        if let member = userDict["groupMemberAmounts"] as? [String:Double]{
+        if let member = currentUserDict["groupMemberAmounts"] as? [String:Double]{
             groupMemberAmounts = member
         }
         else

@@ -21,12 +21,12 @@ class Group {
     var pic: String?
     
 
-    init(key:String, userDict: [String: AnyObject])
+    init(key:String, groupDict: [String: AnyObject])
     {
         let groupID = key
         
         
-        if let member = userDict["memberIDs"] as? [String]{
+        if let member = groupDict["memberIDs"] as? [String]{
             memberIDs = member
         }
         else
@@ -34,7 +34,7 @@ class Group {
             memberIDs = ["error"]
         }
         
-        if let admin = userDict["adminIDs"] as? [String]{
+        if let admin = groupDict["adminIDs"] as? [String]{
             adminIDs = admin
         }
         else
@@ -42,7 +42,7 @@ class Group {
             adminIDs = ["error"]
         }
         
-        if let transactions = userDict["transactionIDs"] as? [String]{
+        if let transactions = groupDict["transactionIDs"] as? [String]{
             transactionIDs = transactions
         }
         else
@@ -50,7 +50,7 @@ class Group {
             transactionIDs = ["error"]
         }
         
-        if let totalMoney = userDict["total"] as? Double{
+        if let totalMoney = groupDict["total"] as? Double{
             total = totalMoney
         }
         else

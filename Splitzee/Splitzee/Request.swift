@@ -20,12 +20,12 @@ class Request{
     var groupID: String?
     var amount: Double?
     
-    init(key:String, userDict: [String: AnyObject])
+    init(key:String, requestDict: [String: AnyObject])
     {
         let transactionID = key
         
         
-        if let group = userDict["groupID"] as? String{
+        if let group = requestDict["groupID"] as? String{
             groupID = group
         }
         else
@@ -33,7 +33,7 @@ class Request{
             groupID = "error"
         }
         
-        if let sendToMember = userDict["groupToMember"] as? Bool{
+        if let sendToMember = requestDict["groupToMember"] as? Bool{
             groupToMember = sendToMember
         }
         else
@@ -41,7 +41,7 @@ class Request{
             groupToMember = false
         }
         
-        if let member = userDict["memberID"] as? String{
+        if let member = requestDict["memberID"] as? String{
             memberID = member
         }
         else
@@ -49,7 +49,7 @@ class Request{
             memberID = "error"
         }
         
-        if let amountSent = userDict["amount"] as? Double{
+        if let amountSent = requestDict["amount"] as? Double{
             amount = amountSent
         }
         else
@@ -60,5 +60,38 @@ class Request{
         
     }
     
+    
+    init(amount: Double, memberID: String, groupID: String, groupToMember: Bool)
+    {
+        self.amount = amount
+        self.memberID = memberID
+        self.groupID = groupID
+        self.groupToMember = groupToMember
+    }
+    
+    
+    
+    
+    func deleteRequest(){
+        
+    }
+    
+    
+    
+    func getUser(){
+        
+    }
+    
+    
+    
+    func approveRequest(){
+    
+    }
+    
+    
+    
+    func rejectRequest(){
+        
+    }
     
 }
