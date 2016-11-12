@@ -14,5 +14,7 @@ class Group {
     var adminIDs : [String]?
     var transactionIDs : [String]?
     var total : Double?
+    
+    
 
 }
