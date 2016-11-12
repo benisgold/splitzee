@@ -79,8 +79,11 @@ class User{
         {
             groupMemberAmounts = ["error": 0]
         }
+        
             
     }
+  
+
     
     
     

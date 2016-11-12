@@ -20,6 +20,7 @@
 		E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABE001DD5653B0002D910 /* Transactions.swift */; };
 		E42ABE031DD56CD50002D910 /* GoogleService-Info-2.plist in Resources */ = {isa = PBXBuildFile; fileRef = E42ABE021DD56CD50002D910 /* GoogleService-Info-2.plist */; };
 		E42ABE051DD56F170002D910 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABE041DD56F170002D910 /* Constants.swift */; };
+		E4F85F891DD58EB600342329 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F85F881DD58EB600342329 /* Request.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		E42ABE001DD5653B0002D910 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transactions.swift; path = ../Transactions.swift; sourceTree = "<group>"; };
 		E42ABE021DD56CD50002D910 /* GoogleService-Info-2.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info-2.plist"; sourceTree = "<group>"; };
 		E42ABE041DD56F170002D910 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E4F85F881DD58EB600342329 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +163,7 @@
 			children = (
 				E42ABE041DD56F170002D910 /* Constants.swift */,
 				E42ABE001DD5653B0002D910 /* Transactions.swift */,
+				E4F85F881DD58EB600342329 /* Request.swift */,
 				E42ABDF51DD562E80002D910 /* Users.swift */,
 				E42ABDF71DD562F70002D910 /* Groups.swift */,
 			);
@@ -369,6 +372,7 @@
 				E42ABDF61DD562E80002D910 /* Users.swift in Sources */,
 				E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */,
 				E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */,
+				E4F85F891DD58EB600342329 /* Request.swift in Sources */,
 				E42ABDF81DD562F70002D910 /* Groups.swift in Sources */,
 				E42ABE051DD56F170002D910 /* Constants.swift in Sources */,
 			);
