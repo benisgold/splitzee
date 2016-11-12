@@ -45,15 +45,13 @@ class User{
         }
         
     
-        
-     
-        
-            
     }
   
 
     
-    
+    func getProfilePicture(){
+        
+    }
     
     
     

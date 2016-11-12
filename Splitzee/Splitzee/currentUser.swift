@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class CurrentUser{
+class currentUser{
     
     
     //User Variables
