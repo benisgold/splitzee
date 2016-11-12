@@ -5,13 +5,11 @@
 //  Created by Mohit Katyal on 11/10/16.
 //  Copyright © 2016 Mohit Katyal. All rights reserved.
 //
-
 import Foundation
 import Firebase
 import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
-
 class CurrentUser{
     
     
@@ -20,8 +18,10 @@ class CurrentUser{
     var profPicURL: String?
     var email: String?
     var transactionIDs: [String]?
+    var groupIDs: [String]?
     var groupAdminIDs: [String]?
     var groupMemberAmounts: [String : Double]?
+    var requestIDs: [String] = []
     var uid: String?
     
     
@@ -29,7 +29,7 @@ class CurrentUser{
     
     init(key:String, currentUserDict: [String: AnyObject])
     {
-        let uid = key
+        uid = key
         
         
         if let username = currentUserDict["name"] as? String{
@@ -93,20 +93,56 @@ class CurrentUser{
         
     }
     
-    func getProfPic() {
-    
+    func getProfPic(withBlock: @escaping (UIImage) -> Void) {
+        let storageRef = FIRStorage.storage().reference()
+        let imageRef = storageRef.child(profPicURL!)
+        
+        imageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
+            if (error != nil) {
+                print("An error occured: \(error)")
+            } else {
+                let image = UIImage(data: data!)
+                withBlock(image!)
+            }
+        })
     }
     
-    func getTransactions() {
-        
+    func getTransactions(withBlock: @escaping (Transaction) -> Void) {
+        let ref = FIRDatabase.database().reference()
+        for id in transactionIDs! {
+            ref.child("Transactions").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
+                withBlock(curr)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
     
-    func getRequests(withBlock: (Request) -> Void) {
-        
+    func getRequests(withBlock: @escaping (Request) -> Void) {
+        let ref = FIRDatabase.database().reference()
+        for id in requestIDs {
+            ref.child("Requests").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let curr = Request(key: id, requestDict: snapshot.value as! [String : AnyObject])
+                withBlock(curr)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
-    
-    func getGroups(withBlock: (Group) -> Void) {
-        
+    func getGroups(withBlock: @escaping (Group) -> Void) {
+        let ref = FIRDatabase.database().reference()
+        for id in groupIDs! {
+            ref.child("Groups").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                let curr = Group(key: id, groupDict: snapshot.value as! [String: AnyObject])
+                withBlock(curr)
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func getName(withBlock: (User) -> Void) {
