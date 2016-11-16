@@ -14,11 +14,12 @@ import FirebaseDatabase
 
 class Transaction{
     
-    var transactionID: String?
-    var groupToMember: Bool?
-    var memberID: String?
-    var groupID: String?
-    var amount: Double?
+    var transactionID: String!
+    var groupToMember: Bool!
+    var memberID: String!
+    var groupID: String!
+    var amount: Double!
+    var isApproved: Bool!
     
     
     init(key: String, transactionDict: [String: AnyObject])
@@ -58,7 +59,16 @@ class Transaction{
             amount = 0
         }
         
-        //Update Money for Group
+        if let approved = transactionDict["isApproved"] as? Bool{
+            isApproved = approved
+        }
+        else
+        {
+            isApproved = false
+        }
+
+        
+        
       
     }
     
@@ -73,12 +83,12 @@ class Transaction{
     }
     
     
-    func deleteTransactions(){
+    func deleteTransaction(){
         let ref = FIRDatabase.database().reference()
         ref.child("Transactions/\(transactionID)").removeValue()
     }
     
-    
+    //Gets the userID of the member the group is trying to send the money to
     func getUser(withBlock: @escaping (User) -> Void ){
         let ref = FIRDatabase.database().reference()
         ref.child("Members/\(memberID!)").observe(.value, with: { snapshot -> Void in
@@ -93,7 +103,8 @@ class Transaction{
         
     }
     
-    func updateMoney(withBlock: @escaping (Group) -> Void ){
+    //Gets current group so that one can update the money of the group
+    func getGroup(withBlock: @escaping (Group) -> Void ){
         let ref = FIRDatabase.database().reference()
         ref.child("Group/\(groupID!)").observe(.value, with: { snapshot -> Void in
             // Get user value
@@ -104,13 +115,35 @@ class Transaction{
                 }
             }
         })
+    
+    }
+    
+    func rejectTransaction(){
+        
+        self.deleteTransaction()
+        
+    }
+    
+    /* In the feed for our pending requests, it will now look for transactions 
+    that have the approved value of "false". Once it is set to true, the history
+    feed will now include this request*/
+    
+    func approveTransaction(){
+        isApproved = true
+        
+        //update money
+        self.getGroup(withBlock: { (group) -> Void in
+                var total = group.total
+                total += self.amount
+        let ref = FIRDatabase.database().reference()
+        ref.child("Groups/\(group.groupID)").setValue(total)
+            
+            })
         
     }
 
     
-
     
 
-    
-    
+
 }
