@@ -19,6 +19,7 @@ class AdminPageViewController: UIViewController {
     var totalAmount: UILabel!
     var collectionView: UICollectionView!
     var backgroundGradient: UIImageView!
+    let constants = Constants()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,8 @@ class AdminPageViewController: UIViewController {
         
         totalAmount = UILabel(frame: CGRect(x: view.frame.width * 0.397, y: view.frame.height * 0.213, width: view.frame.width * 0.208, height: view.frame.height * 0.045))
         totalAmount.text = "$100.00"
+        totalAmount.textColor = constants.fontMediumBlue
+//        totalAmount.font = UIFont(name: "SF-UI-Display-Thin", size: 30)
         totalAmount.textAlignment = .center
         view.addSubview(totalAmount)
         
@@ -76,7 +79,9 @@ class AdminPageViewController: UIViewController {
         let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.111))
         navBar.backgroundColor = UIColor.white
         let navTitle = UINavigationItem(title: "What's going on?") // change to group name
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : constants.fontMediumBlue]
         navBar.setItems([navTitle], animated: false)
+        
         view.addSubview(navBar)
     }
     
@@ -84,10 +89,10 @@ class AdminPageViewController: UIViewController {
         let items = ["Incoming", "Outgoing", "History"]
         segmentedView = UISegmentedControl(items: items)
         segmentedView.selectedSegmentIndex = 0
-        segmentedView.frame = CGRect(x: view.frame.width * 0.066, y: view.frame.height * 0.334, width: view.frame.width * 0.867, height: view.frame.height * 0.061)
+        segmentedView.frame = CGRect(x: view.frame.width * 0.066, y: view.frame.height * 0.334, width: view.frame.width * 0.867, height: 28)
         segmentedView.layer.cornerRadius = 3
         segmentedView.backgroundColor = UIColor.white
-        segmentedView.tintColor = UIColor.black
+        segmentedView.tintColor = constants.mediumBlue
         segmentedView.addTarget(self, action: #selector(switchView), for: .valueChanged)
         view.addSubview(segmentedView)
     }

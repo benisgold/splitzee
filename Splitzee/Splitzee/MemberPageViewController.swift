@@ -15,6 +15,7 @@ class MemberPageViewController: UIViewController {
     var newTransactionButton: UIButton!
     var collectionView: UICollectionView!
     var backgroundGradient: UIImageView!
+    let constants = Constants()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,7 +52,9 @@ class MemberPageViewController: UIViewController {
         let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.111))
         navBar.backgroundColor = UIColor.white
         let navTitle = UINavigationItem(title: "What's going on?") // change to group name
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : constants.fontMediumBlue]
         navBar.setItems([navTitle], animated: false)
+        
         view.addSubview(navBar)
     }
     
@@ -59,10 +62,10 @@ class MemberPageViewController: UIViewController {
         let items = ["Incoming", "Outgoing", "History"]
         segmentedView = UISegmentedControl(items: items)
         segmentedView.selectedSegmentIndex = 0
-        segmentedView.frame = CGRect(x: view.frame.width * 0.066, y: view.frame.height * 0.181, width: view.frame.width * 0.867, height: view.frame.height * 0.061)
+        segmentedView.frame = CGRect(x: view.frame.width * 0.066, y: view.frame.height * 0.181, width: view.frame.width * 0.867, height: 28)
         segmentedView.layer.cornerRadius = 3
         segmentedView.backgroundColor = UIColor.white
-        segmentedView.tintColor = UIColor.black
+        segmentedView.tintColor = constants.mediumBlue
         segmentedView.addTarget(self, action: #selector(switchView), for: .valueChanged)
         view.addSubview(segmentedView)
     }
@@ -71,7 +74,7 @@ class MemberPageViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603) , collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.246, width: view.frame.width, height: view.frame.height * 0.754) , collectionViewLayout: layout)
         collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "memberCell")
         collectionView.backgroundColor = UIColor.clear
         collectionView.delegate = self
