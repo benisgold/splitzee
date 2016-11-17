@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemberPageViewController: UIViewController {
+class MemberPageViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
