@@ -12,11 +12,13 @@ class NewAdminTransactionViewController: UIViewController {
     
     var userSelectTextField: UITextField!
     var amountTextField: UITextField!
-    var descriptionTextField: UITextField!
+    var descriptionTextField: UITextView!
+    var payButton: UIButton!
+    var requestButton: UIButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setUpUI()
         // Do any additional setup after loading the view.
     }
 
@@ -31,22 +33,36 @@ class NewAdminTransactionViewController: UIViewController {
         userSelectTextField.layer.masksToBounds = true
         userSelectTextField.layer.borderColor = UIColor.gray.cgColor
         userSelectTextField.layer.borderWidth = 1
-        userSelectTextField.placeholder = "Enter name, @username, or select above"
+        userSelectTextField.placeholder = "     Enter name, @username, or select above"
         view.addSubview(userSelectTextField)
         
-        amountTextField = UITextField(frame: CGRect(x: 0, y: 0.368*view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
+        amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367*view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         amountTextField.layer.masksToBounds = true
         amountTextField.layer.borderColor = UIColor.gray.cgColor
         amountTextField.layer.borderWidth = 1
-        amountTextField.placeholder = "$0.00"
+        amountTextField.placeholder = "     $0.00"
         view.addSubview(amountTextField)
         
-        descriptionTextField = UITextField(frame: CGRect(x: 0, y: 0.431*view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
+        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.430*view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
         descriptionTextField.layer.masksToBounds = true
         descriptionTextField.layer.borderColor = UIColor.gray.cgColor
         descriptionTextField.layer.borderWidth = 1
-        descriptionTextField.placeholder = "Enter a short description"
+        descriptionTextField.text = "Add a short description of the transaction"
         view.addSubview(descriptionTextField)
+        
+        payButton = UIButton(frame: CGRect(x: 0, y: 0.597*view.frame.height , width: 0.49*view.frame.width, height: view.frame.height * 0.089))
+        payButton.layer.masksToBounds = true
+        payButton.layer.borderColor = UIColor.gray.cgColor
+        payButton.layer.borderWidth = 1
+        payButton.setTitle("Confirm Payment", for: .normal)
+        view.addSubview(payButton)
+        
+        requestButton = UIButton(frame: CGRect(x: 0.5*view.frame.width, y: 0.597*view.frame.height , width: 0.49*view.frame.width, height: view.frame.height * 0.089))
+        requestButton.layer.masksToBounds = true
+        requestButton.layer.borderColor = UIColor.gray.cgColor
+        requestButton.layer.borderWidth = 1
+        requestButton.setTitle("Request Reimbursement", for: .normal)
+        view.addSubview(requestButton)
         
         
     }
