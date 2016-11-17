@@ -9,9 +9,20 @@
 import UIKit
 
 class AdminPageViewController: UINavigationController {
+    
+    var segmentedView: UISegmentedControl!
+    var groupsButton: UIButton!
+    var newTransactionButton: UIButton!
+    var addMoneyButton: UIButton!
+    var subtractMoneyButton: UIButton!
+    var total: UIImage!
+    var totalAmount: UILabel!
+    var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
+        setupUI()
 
         // Do any additional setup after loading the view.
     }
@@ -22,7 +33,46 @@ class AdminPageViewController: UINavigationController {
     }
     
     func setupUI() {
-        
+        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 80))
+        let navTitle = UINavigationItem(title: "What's going on?") // change to group name
+        view.addSubview(navBar)
+        navBar.setItems([navTitle], animated: false)
+        setupSegmentedControl()
+        setupCollectionView()
+    }
+    
+    func setupSegmentedControl() {
+        let items = ["Incoming", "Outgoing", "History"]
+        segmentedView = UISegmentedControl(items: items)
+        segmentedView.selectedSegmentIndex = 0
+        segmentedView.frame = CGRect(x: view.frame.width * 0.066, y: view.frame.height * 0.334, width: view.frame.width * 0.867, height: view.frame.height * 0.061)
+        segmentedView.layer.cornerRadius = 3
+        segmentedView.backgroundColor = UIColor.white
+        segmentedView.tintColor = UIColor.black
+        segmentedView.addTarget(self, action: #selector(switchView), for: .valueChanged)
+        view.addSubview(segmentedView)
+    }
+    
+    func setupCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603) , collectionViewLayout: layout)
+        collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "adminCell")
+        collectionView.backgroundColor = UIColor.black
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        view.addSubview(collectionView)
+    }
+    
+    func switchView(sender: UISegmentedControl) {
+        if (sender.selectedSegmentIndex == 0) {
+            // incoming
+        } else if (sender.selectedSegmentIndex == 1) {
+            // outgoing
+        } else {
+            // history
+        }
     }
 
     /*
@@ -35,4 +85,34 @@ class AdminPageViewController: UINavigationController {
     }
     */
 
+}
+
+extension AdminPageViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // some count
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminCell", for: indexPath) as! AdminCollectionViewCell
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview()
+        }
+        cell.awakeFromNib()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let adminCell = cell as! AdminCollectionViewCell
+        // set UI stuff
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: (view.frame.width / 3), height: view.frame.height * 0.25)
+    }
 }
