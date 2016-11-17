@@ -1,14 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SignInViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -18,9 +22,217 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="ome-rf-jeb" kind="show" id="6xy-Nu-nS1"/>
+                        <segue destination="yqa-0K-NYu" kind="show" id="5Si-zr-0v0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="321" y="-691"/>
+        </scene>
+        <!--Create Account View Controller-->
+        <scene sceneID="jlC-wF-vH0">
+            <objects>
+                <viewController id="ome-rf-jeb" customClass="CreateAccountViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Hdt-fs-GCZ"/>
+                        <viewControllerLayoutGuide type="bottom" id="2Ev-UP-i2T"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="j3z-xc-Wu3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" id="sAz-cr-zkl"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JDZ-Ri-jql" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1774" y="-691"/>
+        </scene>
+        <!--Create Group View Controller-->
+        <scene sceneID="gwq-nk-H7U">
+            <objects>
+                <viewController id="bqx-5z-ZdG" customClass="CreateGroupViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="5HS-uy-k3U"/>
+                        <viewControllerLayoutGuide type="bottom" id="jNb-8d-x4g"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="QO4-sD-kv3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="y9D-ok-41i" kind="show" id="fnX-s0-IHb"/>
+                        <segue destination="IR5-Su-HXa" kind="show" id="NWc-nF-rwN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lDx-ds-oQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1156" y="1762"/>
+        </scene>
+        <!--Admin Page View Controller-->
+        <scene sceneID="YfZ-rV-dfI">
+            <objects>
+                <viewController id="y9D-ok-41i" customClass="AdminPageViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8HH-Sw-R6j"/>
+                        <viewControllerLayoutGuide type="bottom" id="tkI-0T-yga"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="O00-6c-vpX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Doi-5i-myJ"/>
+                    <connections>
+                        <segue destination="pPd-y6-ep8" kind="show" id="s0N-yn-bEM"/>
+                        <segue destination="bqx-5z-ZdG" kind="show" id="iox-6q-LET"/>
+                        <segue destination="wXo-Y5-Yug" kind="show" id="O9e-sD-Me2"/>
+                        <segue destination="BYZ-38-t0r" kind="show" id="LTv-6k-BPz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="487-2r-2QQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1454" y="904"/>
+        </scene>
+        <!--New Admin Transaction View Controller-->
+        <scene sceneID="609-Oe-6xI">
+            <objects>
+                <viewController id="pPd-y6-ep8" customClass="NewAdminTransactionViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Gab-eN-s5F"/>
+                        <viewControllerLayoutGuide type="bottom" id="5GO-EY-db5"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pPb-Go-vx3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="yqa-0K-NYu" kind="show" id="EpA-Xs-KHC"/>
+                        <segue destination="y9D-ok-41i" kind="show" id="aLb-Ws-WMY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O2R-rC-tON" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2679" y="904"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="Kva-q9-Ve0">
+            <objects>
+                <viewController id="wXo-Y5-Yug" customClass="DetailViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WBr-dn-QGt"/>
+                        <viewControllerLayoutGuide type="bottom" id="efR-CG-NrF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="pEE-Zl-fyP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="y9D-ok-41i" kind="show" id="sUu-Bk-aAL"/>
+                        <segue destination="IR5-Su-HXa" kind="show" id="qih-Dc-3sb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9eW-GA-mE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4250" y="1762"/>
+        </scene>
+        <!--Member Page View Controller-->
+        <scene sceneID="tvE-kI-ywT">
+            <objects>
+                <viewController id="IR5-Su-HXa" customClass="MemberPageViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PEJ-uP-pzL"/>
+                        <viewControllerLayoutGuide type="bottom" id="UoP-J7-0yn"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="imP-Yp-uGB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="U9D-Ky-0dX"/>
+                    <connections>
+                        <segue destination="bqx-5z-ZdG" kind="show" id="F1N-IF-hwb"/>
+                        <segue destination="ptg-MC-QyH" kind="show" id="uFr-6T-gkh"/>
+                        <segue destination="wXo-Y5-Yug" kind="show" id="kvW-Tl-l3F"/>
+                        <segue destination="BYZ-38-t0r" kind="show" id="gJQ-V9-Wj9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lPR-ua-aYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1407" y="2569"/>
+        </scene>
+        <!--New Member Transaction View Controller-->
+        <scene sceneID="V19-RV-209">
+            <objects>
+                <viewController id="ptg-MC-QyH" customClass="NewMemberTransactionViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fmI-YU-ZIw"/>
+                        <viewControllerLayoutGuide type="bottom" id="c55-kb-jP9"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dtv-jA-ypr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="206-zG-3SN" kind="show" id="CoI-N0-YVl"/>
+                        <segue destination="IR5-Su-HXa" kind="show" id="6Bc-iD-98o"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dXX-j3-j0T" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2631" y="2569"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ULm-rx-Wn6">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yqa-0K-NYu" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DhM-8Q-5bz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="y9D-ok-41i" kind="relationship" relationship="rootViewController" id="D65-tt-mnl"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vOT-27-2MH" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="320.80000000000001" y="903.59820089955031"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1OL-Rr-Eus">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="206-zG-3SN" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dfU-7a-pdf">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="IR5-Su-HXa" kind="relationship" relationship="rootViewController" id="TgC-AV-ulp"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qxP-1j-hg9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="274" y="2569"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gJQ-V9-Wj9"/>
+        <segue reference="NWc-nF-rwN"/>
+        <segue reference="F1N-IF-hwb"/>
+        <segue reference="fnX-s0-IHb"/>
+        <segue reference="EpA-Xs-KHC"/>
+        <segue reference="kvW-Tl-l3F"/>
+    </inferredMetricsTieBreakers>
 </document>
