@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AdminPageViewController: UIViewController {
+class AdminPageViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +21,9 @@ class AdminPageViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    func setupUI() {
+        
+    }
 
     /*
     // MARK: - Navigation

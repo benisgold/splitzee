@@ -190,10 +190,10 @@
             </objects>
             <point key="canvasLocation" x="2631" y="2569"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Admin Page View Controller-->
         <scene sceneID="ULm-rx-Wn6">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yqa-0K-NYu" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yqa-0K-NYu" customClass="AdminPageViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="DhM-8Q-5bz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -208,10 +208,10 @@
             </objects>
             <point key="canvasLocation" x="320.80000000000001" y="903.59820089955031"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Member Page View Controller-->
         <scene sceneID="1OL-Rr-Eus">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="206-zG-3SN" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="206-zG-3SN" customClass="MemberPageViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="dfU-7a-pdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -228,11 +228,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="gJQ-V9-Wj9"/>
-        <segue reference="NWc-nF-rwN"/>
-        <segue reference="F1N-IF-hwb"/>
-        <segue reference="fnX-s0-IHb"/>
+        <segue reference="O9e-sD-Me2"/>
+        <segue reference="D65-tt-mnl"/>
         <segue reference="EpA-Xs-KHC"/>
-        <segue reference="kvW-Tl-l3F"/>
+        <segue reference="LTv-6k-BPz"/>
+        <segue reference="iox-6q-LET"/>
+        <segue reference="TgC-AV-ulp"/>
     </inferredMetricsTieBreakers>
 </document>
