@@ -31,6 +31,8 @@ class NewAdminTransactionViewController: UIViewController {
     
     func setUpUI() {
         
+        setupNavBar()
+        
         userSelectTextField = UITextField(frame: CGRect(x: 0, y: 0.306*view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         userSelectTextField.layer.masksToBounds = true
         userSelectTextField.layer.borderColor = UIColor.gray.cgColor
@@ -67,6 +69,14 @@ class NewAdminTransactionViewController: UIViewController {
         view.addSubview(requestButton)
         
         
+    }
+    
+    func setupNavBar() {
+        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.111))
+        navBar.backgroundColor = UIColor.white
+        let navTitle = UINavigationItem(title: "New Transaction")
+        navBar.setItems([navTitle], animated: false)
+        view.addSubview(navBar)
     }
     
     func setupCollectionView() {

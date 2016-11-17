@@ -8,14 +8,14 @@
 
 import UIKit
 
-class AdminPageViewController: UINavigationController {
+class AdminPageViewController: UIViewController {
     
     var segmentedView: UISegmentedControl!
     var groupsButton: UIButton!
     var newTransactionButton: UIButton!
     var addMoneyButton: UIButton!
     var subtractMoneyButton: UIButton!
-    var total: UIImage!
+    var totalLoopImage: UIImageView!
     var totalAmount: UILabel!
     var collectionView: UICollectionView!
     var backgroundGradient: UIImageView!
@@ -36,6 +36,36 @@ class AdminPageViewController: UINavigationController {
         backgroundGradient = UIImageView(frame: view.frame)
         backgroundGradient.image = #imageLiteral(resourceName: "whiteBlueGradientBG")
         view.addSubview(backgroundGradient)
+        
+        groupsButton = UIButton(frame: CGRect(x: view.frame.width * 0.053, y: view.frame.height * 0.296, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        groupsButton.setImage(#imageLiteral(resourceName: "menuSymbol"), for: .normal)
+        groupsButton.imageView?.contentMode = .scaleAspectFill
+        view.addSubview(groupsButton)
+        
+        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.296, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        newTransactionButton.setImage(#imageLiteral(resourceName: "pencilSymbol"), for: .normal)
+        newTransactionButton.imageView?.contentMode = .scaleAspectFit
+        view.addSubview(newTransactionButton)
+        
+        totalLoopImage = UIImageView(frame: CGRect(x: view.frame.width * 0.344, y: view.frame.height * 0.139, width: view.frame.width * 0.315, height: view.frame.height * 0.181))
+        totalLoopImage.image = #imageLiteral(resourceName: "Loop")
+        totalLoopImage.contentMode = .scaleAspectFit
+        view.addSubview(totalLoopImage)
+        
+        totalAmount = UILabel(frame: CGRect(x: view.frame.width * 0.397, y: view.frame.height * 0.213, width: view.frame.width * 0.208, height: view.frame.height * 0.045))
+        totalAmount.text = "$100.00"
+        totalAmount.textAlignment = .center
+        view.addSubview(totalAmount)
+        
+        addMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.182, width: view.frame.width * 0.075, height: view.frame.height * 0.046))
+        addMoneyButton.setImage(#imageLiteral(resourceName: "plusSign"), for: .normal)
+        addMoneyButton.imageView?.contentMode = .scaleAspectFill
+        view.addSubview(addMoneyButton)
+        
+        subtractMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.243, width: view.frame.width * 0.075, height: view.frame.height * 0.046))
+        subtractMoneyButton.setImage(#imageLiteral(resourceName: "minusSign"), for: .normal)
+        subtractMoneyButton.imageView?.contentMode = .scaleAspectFill
+        view.addSubview(subtractMoneyButton)
         
         setupNavBar()
         setupSegmentedControl()
