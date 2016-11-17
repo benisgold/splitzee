@@ -26,7 +26,8 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setupUI()
+        
         // Do any additional setup after loading the view.
     }
 
@@ -38,6 +39,10 @@ class SignInViewController: UIViewController {
     
     func setupUI() {
         
+        // background
+        background = UIImageView(image: #imageLiteral(resourceName: "purpleFogBG"))
+        background.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        self.view.addSubview(background)
         
         // splitzeeLogo
         splitzeeLogo = UIImageView(image: #imageLiteral(resourceName: "splitzeeStraight"))
@@ -71,11 +76,6 @@ class SignInViewController: UIViewController {
         // signinGoogle
         
         // signinFacebook
-        
-        // background
-        background = UIImageView(image: #imageLiteral(resourceName: "purpleFogBG"))
-        background.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        self.view.addSubview(background)
         
     }
     
