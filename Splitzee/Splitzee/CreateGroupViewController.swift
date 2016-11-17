@@ -9,27 +9,65 @@
 import UIKit
 
 class CreateGroupViewController: UIViewController {
-
+    
+    var xButton: UIButton!
+    var pictureButton: UIButton!
+    var createButton: UIButton!
+    var nameTextField: UITextField!
+    var codeTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
+        makeXButton()
+        makePictureButton()
+        makeCreateButton()
+        makeNameTextField()
+        makeCodeTextField()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func makeXButton() {
+        xButton = UIButton()
+        xButton.frame = CGRect(x: 0.879 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
+        xButton.setTitle("X", for: .normal)
+        xButton.setTitleColor(.black, for: .normal)
+        xButton.titleLabel?.textAlignment = .center
+        view.addSubview(xButton)
     }
-    */
-
+    
+    func makePictureButton() {
+        pictureButton = UIButton()
+        pictureButton.frame = CGRect(x: 0.356 * view.frame.width, y: 0.398 * view.frame.height, width: 0.267 * view.frame.width, height: 0.043 * view.frame.height)
+        pictureButton.setTitle("Select Group\nPhoto", for: .normal)
+        pictureButton.titleLabel?.numberOfLines = 2
+        pictureButton.setTitleColor(.black, for: .normal)
+        pictureButton.titleLabel?.textAlignment = .center
+        view.addSubview(pictureButton)
+    }
+    
+    func makeCreateButton() {
+        createButton = UIButton()
+        createButton.frame = CGRect(x: 0, y: 0.605 * view.frame.height, width: view.frame.width, height: 0.075 * view.frame.height)
+        createButton.setTitle("Create Group", for: .normal)
+        createButton.setTitleColor(.black, for: .normal)
+        createButton.titleLabel?.textAlignment = .center
+        view.addSubview(createButton)
+    }
+    
+    func makeNameTextField() {
+        nameTextField = UITextField()
+        nameTextField.frame = CGRect(x: 0, y: 0.218 * view.frame.height, width: view.frame.width, height: 0.068 * view.frame.height)
+        nameTextField.placeholder = "Set Group Name"
+        nameTextField.textAlignment = .center
+        view.addSubview(nameTextField)
+    }
+    
+    func makeCodeTextField() {
+        codeTextField = UITextField()
+        codeTextField.frame = CGRect(x: 0, y: 0.523 * view.frame.height, width: view.frame.width, height: 0.068 * view.frame.height)
+        codeTextField.placeholder = "Set group access code"
+        codeTextField.textAlignment = .center
+        view.addSubview(codeTextField)
+    }
+    
 }
