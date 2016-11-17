@@ -46,11 +46,16 @@ class SignInViewController: UIViewController {
         
         // splitzeeLogo
         splitzeeLogo = UIImageView(image: #imageLiteral(resourceName: "splitzeeStraight"))
-        splitzeeLogo.frame = CGRect(x: 0, y: view.frame.height * -0.01, width: view.frame.width, height: view.frame.height * 0.280)
+        splitzeeLogo.frame = CGRect(x: view.frame.width * 0.052, y: view.frame.height * -0.01, width: view.frame.width, height: view.frame.height * 0.250)
         splitzeeLogo.contentMode = .scaleAspectFit
         self.view.addSubview(splitzeeLogo)
         
         // pleaseSignIn
+        pleaseSignIn = UILabel(frame: CGRect(x: 0, y: view.frame.height * 0.245, width: view.frame.width, height: view.frame.height * 0.043))
+        pleaseSignIn.textColor = UIColor.white
+        pleaseSignIn.text = "Please sign in."
+        pleaseSignIn.textAlignment = .center
+        view.addSubview(pleaseSignIn)
         
         // plainDividingLine
         plainDividingLine = UIImageView(image: #imageLiteral(resourceName: "line"))
@@ -88,13 +93,17 @@ class SignInViewController: UIViewController {
         view.addSubview(createAccountButton)
         
         // forgotPassword
-        forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.586, width: view.frame.width * 0.330, height: view.frame.height * 0.023))
+        forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.586, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
         forgotPassword.text = "Forgot password?"
         forgotPassword.textAlignment = .center
         forgotPassword.textColor = constants.fontDarkGray
         view.addSubview(forgotPassword)
         
         // orDividingLine
+        orDividingLine = UIImageView(image: #imageLiteral(resourceName: "orLine"))
+        orDividingLine.frame = CGRect(x: view.frame.width * 0.098, y: view.frame.height * 0.650, width: view.frame.width * 0.804, height: view.frame.height * 0.01)
+        orDividingLine.contentMode = .scaleAspectFill
+        self.view.addSubview(orDividingLine)
         
         // signinGoogle
         
