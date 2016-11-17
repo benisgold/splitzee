@@ -16,9 +16,9 @@ class User {
 
 
     //User Variables
-    var name: String?
-    var profPicURL: String?
-    var uid: String?
+    var name: String!
+    var profPicURL: String!
+    var uid: String!
     
     
     //Initiating variables
@@ -31,9 +31,15 @@ class User {
         if let username = userDict["name"] as? String{
             name = username
         }
+        else {
+            name = "error"
+        }
         
         if let pic = userDict["profPicURL"] as? String{
             profPicURL = pic
+        }
+        else{
+            profPicURL = "error"
         }
         
     

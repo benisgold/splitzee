@@ -68,6 +68,8 @@ class CurrentUser{
         
     }
     
+    
+    //Gets the profile picture for your own profile page
     func getProfPic(withBlock: @escaping (UIImage) -> Void) {
         let storageRef = FIRStorage.storage().reference()
         let imageRef = storageRef.child(profPicURL)
@@ -82,6 +84,8 @@ class CurrentUser{
         })
     }
     
+    
+    //Gets all the transactions for the history
     func getTransactions(withBlock: @escaping (Transaction) -> Void) {
         let ref = FIRDatabase.database().reference()
         for id in transactionIDs {
@@ -95,18 +99,21 @@ class CurrentUser{
         }
     }
     
-    func getRequests(withBlock: @escaping (Request) -> Void) {
-        let ref = FIRDatabase.database().reference()
-        for id in requestIDs {
-            ref.child("Requests").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
-                let curr = Request(key: id, requestDict: snapshot.value as! [String : AnyObject])
-                withBlock(curr)
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        }
-    }
+    //Gets requests to be approved or not
+//    func getRequests(withBlock: @escaping (Request) -> Void) {
+//        let ref = FIRDatabase.database().reference()
+//        for id in requestIDs {
+//            ref.child("Requests").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+//                // Get user value
+//                let curr = Request(key: id, requestDict: snapshot.value as! [String : AnyObject])
+//                withBlock(curr)
+//            }) { (error) in
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
+    
+    //Gets all the groups for the sidebar
     func getGroups(withBlock: @escaping (Group) -> Void) {
         let ref = FIRDatabase.database().reference()
         for id in groupIDs {
@@ -120,6 +127,7 @@ class CurrentUser{
         }
     }
     
+    //Gets the name for your own profile page
     func getName(withBlock: @escaping (User) -> Void) {
         let ref = FIRDatabase.database().reference()
         ref.child("User").child(uid).observe(.value, with: { snapshot -> Void in
@@ -133,15 +141,22 @@ class CurrentUser{
         })
     }
     
-    func sendNewRequest(amount: Double, memberID: String, groupID: String) {
-        
+//    func sendNewRequest(amount: Double, memberID: String, groupID: String, groupToMember: Bool) {
+//    
+//        let ref = FIRDatabase.database().reference()
+//        let key = ref.child("Requests").childByAutoId().key
+//        ref.child("Requests/\(key)").setValue(["Amount": amount, "Member": memberID, "Group": groupID, "toMember": groupToMember])
+//      
+//        
+//        
+//    }
     
+
+    func sendNewTransaction(amount: Double, memberID: String, groupID: String, groupToMember: Bool) {
         
-        
-    }
-    
-    func sendNewTransaction(amount: Double, memberID: String, groupID: String) {
-     
+        let ref = FIRDatabase.database().reference()
+        let key = ref.child("Transactions").childByAutoId().key
+        ref.child("Transactions/\(key)").setValue(["Amount": amount, "Member": memberID, "Group": groupID, "toMember": groupToMember])
         
     }
     

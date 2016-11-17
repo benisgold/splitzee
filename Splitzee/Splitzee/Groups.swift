@@ -68,10 +68,10 @@ class Group {
     }
     
     
-    func getAllUsers(withBlock: @escaping (User) -> Void) {
+    func pollForUsers(withBlock: @escaping (User) -> Void) {
         let ref = FIRDatabase.database().reference()
         for id in memberIDs {
-            ref.child("Users").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child("Users").child(id).observe(.value, with: { (snapshot) in
                 // Get user value
                 let curr = User(key: id, userDict: snapshot.value as! [String : AnyObject])
                 withBlock(curr)
@@ -98,7 +98,7 @@ class Group {
     func getTransactions(withBlock: @escaping (Transaction) -> Void) {
         let ref = FIRDatabase.database().reference()
         for id in transactionIDs {
-            ref.child("Transactions").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child("Transactions").child(id).observe(.value, with: { (snapshot) in
                 // Get user value
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
                 withBlock(curr)
@@ -108,16 +108,16 @@ class Group {
         }
     }
     
-    func getRequests(withBlock: @escaping (Request) -> Void) {
-        let ref = FIRDatabase.database().reference()
-        for id in requestIDs {
-            ref.child("Requests").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
-                let curr = Request(key: id, requestDict: snapshot.value as! [String : AnyObject])
-                withBlock(curr)
-            }) { (error) in
-                print(error.localizedDescription)
-            }
-        }
-    }
+//    func getRequests(withBlock: @escaping (Request) -> Void) {
+//        let ref = FIRDatabase.database().reference()
+//        for id in requestIDs {
+//            ref.child("Requests").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+//                // Get user value
+//                let curr = Request(key: id, requestDict: snapshot.value as! [String : AnyObject])
+//                withBlock(curr)
+//            }) { (error) in
+//                print(error.localizedDescription)
+//            }
+//        }
+//    }
 }

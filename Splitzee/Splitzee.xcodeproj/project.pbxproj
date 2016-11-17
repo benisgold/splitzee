@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		14185DBB1DDD6FD400777AD8 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DBA1DDD6FD400777AD8 /* SignInViewController.swift */; };
+		14185DBD1DDD6FE900777AD8 /* CreateAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DBC1DDD6FE900777AD8 /* CreateAccountViewController.swift */; };
+		14185DBF1DDD709600777AD8 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DBE1DDD709600777AD8 /* CreateGroupViewController.swift */; };
+		14185DC11DDD70B000777AD8 /* AdminPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */; };
+		14185DC31DDD70B900777AD8 /* MemberPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC21DDD70B900777AD8 /* MemberPageViewController.swift */; };
+		14185DC51DDD70E200777AD8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC41DDD70E200777AD8 /* DetailViewController.swift */; };
+		14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */; };
+		14185DC91DDD712700777AD8 /* NewMemberTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */; };
 		92D6884493178F722134FC95 /* Pods_Splitzee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */; };
 		E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC61DD560350002D910 /* AppDelegate.swift */; };
 		E42ABDC91DD560350002D910 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC81DD560350002D910 /* ViewController.swift */; };
@@ -42,6 +50,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		14185DBA1DDD6FD400777AD8 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
+		14185DBC1DDD6FE900777AD8 /* CreateAccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateAccountViewController.swift; sourceTree = "<group>"; };
+		14185DBE1DDD709600777AD8 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
+		14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminPageViewController.swift; sourceTree = "<group>"; };
+		14185DC21DDD70B900777AD8 /* MemberPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberPageViewController.swift; sourceTree = "<group>"; };
+		14185DC41DDD70E200777AD8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAdminTransactionViewController.swift; sourceTree = "<group>"; };
+		14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemberTransactionViewController.swift; sourceTree = "<group>"; };
 		22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Splitzee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D1D6CE709231144655F652 /* Pods-Splitzee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.debug.xcconfig"; sourceTree = "<group>"; };
 		2ED719F80BC691C40D89EACD /* Pods-Splitzee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.release.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.release.xcconfig"; sourceTree = "<group>"; };
@@ -95,6 +111,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		14185DB91DDD6F7A00777AD8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				14185DBA1DDD6FD400777AD8 /* SignInViewController.swift */,
+				14185DBC1DDD6FE900777AD8 /* CreateAccountViewController.swift */,
+				14185DBE1DDD709600777AD8 /* CreateGroupViewController.swift */,
+				14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */,
+				14185DC21DDD70B900777AD8 /* MemberPageViewController.swift */,
+				14185DC41DDD70E200777AD8 /* DetailViewController.swift */,
+				14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */,
+				14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		2733541BC61328D4563A8C87 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +161,7 @@
 		E42ABDC51DD560350002D910 /* Splitzee */ = {
 			isa = PBXGroup;
 			children = (
+				14185DB91DDD6F7A00777AD8 /* View */,
 				E42ABDC61DD560350002D910 /* AppDelegate.swift */,
 				E42ABDC81DD560350002D910 /* ViewController.swift */,
 				E42ABE021DD56CD50002D910 /* GoogleService-Info-2.plist */,
@@ -371,14 +403,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				14185DBD1DDD6FE900777AD8 /* CreateAccountViewController.swift in Sources */,
 				E42ABDC91DD560350002D910 /* ViewController.swift in Sources */,
 				E42ABDF61DD562E80002D910 /* Users.swift in Sources */,
+				14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */,
 				E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */,
 				E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */,
+				14185DC11DDD70B000777AD8 /* AdminPageViewController.swift in Sources */,
 				E4F85F891DD58EB600342329 /* Request.swift in Sources */,
+				14185DBB1DDD6FD400777AD8 /* SignInViewController.swift in Sources */,
 				E42ABDF81DD562F70002D910 /* Groups.swift in Sources */,
+				14185DC91DDD712700777AD8 /* NewMemberTransactionViewController.swift in Sources */,
+				14185DC31DDD70B900777AD8 /* MemberPageViewController.swift in Sources */,
+				14185DBF1DDD709600777AD8 /* CreateGroupViewController.swift in Sources */,
 				E4FA71E11DD78D3B00FEFACC /* CurrentUser.swift in Sources */,
 				E42ABE051DD56F170002D910 /* Constants.swift in Sources */,
+				14185DC51DDD70E200777AD8 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
