@@ -22,9 +22,6 @@ class AdminPageViewController: UINavigationController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        backgroundGradient = UIImageView(frame: view.frame)
-        backgroundGradient.image = #imageLiteral(resourceName: "whiteBlueGradientBG")
-        view.addSubview(backgroundGradient)
         setupUI()
 
         // Do any additional setup after loading the view.
@@ -36,6 +33,9 @@ class AdminPageViewController: UINavigationController {
     }
     
     func setupUI() {
+        backgroundGradient = UIImageView(frame: view.frame)
+        backgroundGradient.image = #imageLiteral(resourceName: "whiteBlueGradientBG")
+        view.addSubview(backgroundGradient)
         setupNavBar()
         setupSegmentedControl()
         setupCollectionView()

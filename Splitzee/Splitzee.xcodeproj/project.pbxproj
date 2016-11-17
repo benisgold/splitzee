@@ -16,6 +16,7 @@
 		14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */; };
 		14185DC91DDD712700777AD8 /* NewMemberTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */; };
 		14185DCB1DDD8AA900777AD8 /* AdminCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DCA1DDD8AA900777AD8 /* AdminCollectionViewCell.swift */; };
+		14185DCD1DDD998F00777AD8 /* MemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DCC1DDD998F00777AD8 /* MemberCollectionViewCell.swift */; };
 		92D6884493178F722134FC95 /* Pods_Splitzee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */; };
 		E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC61DD560350002D910 /* AppDelegate.swift */; };
 		E42ABDC91DD560350002D910 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC81DD560350002D910 /* ViewController.swift */; };
@@ -60,6 +61,7 @@
 		14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAdminTransactionViewController.swift; sourceTree = "<group>"; };
 		14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemberTransactionViewController.swift; sourceTree = "<group>"; };
 		14185DCA1DDD8AA900777AD8 /* AdminCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminCollectionViewCell.swift; sourceTree = "<group>"; };
+		14185DCC1DDD998F00777AD8 /* MemberCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCollectionViewCell.swift; sourceTree = "<group>"; };
 		22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Splitzee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D1D6CE709231144655F652 /* Pods-Splitzee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.debug.xcconfig"; sourceTree = "<group>"; };
 		2ED719F80BC691C40D89EACD /* Pods-Splitzee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.release.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.release.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */,
 				14185DCA1DDD8AA900777AD8 /* AdminCollectionViewCell.swift */,
 				14185DC21DDD70B900777AD8 /* MemberPageViewController.swift */,
+				14185DCC1DDD998F00777AD8 /* MemberCollectionViewCell.swift */,
 				14185DC41DDD70E200777AD8 /* DetailViewController.swift */,
 				14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */,
 				14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */,
@@ -412,6 +415,7 @@
 				14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */,
 				E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */,
 				E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */,
+				14185DCD1DDD998F00777AD8 /* MemberCollectionViewCell.swift in Sources */,
 				14185DC11DDD70B000777AD8 /* AdminPageViewController.swift in Sources */,
 				E4F85F891DD58EB600342329 /* Request.swift in Sources */,
 				14185DBB1DDD6FD400777AD8 /* SignInViewController.swift in Sources */,
