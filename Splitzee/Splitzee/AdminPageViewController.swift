@@ -36,6 +36,7 @@ class AdminPageViewController: UINavigationController {
         backgroundGradient = UIImageView(frame: view.frame)
         backgroundGradient.image = #imageLiteral(resourceName: "whiteBlueGradientBG")
         view.addSubview(backgroundGradient)
+        
         setupNavBar()
         setupSegmentedControl()
         setupCollectionView()

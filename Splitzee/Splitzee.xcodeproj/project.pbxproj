@@ -121,15 +121,31 @@
 				14185DBA1DDD6FD400777AD8 /* SignInViewController.swift */,
 				14185DBC1DDD6FE900777AD8 /* CreateAccountViewController.swift */,
 				14185DBE1DDD709600777AD8 /* CreateGroupViewController.swift */,
-				14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */,
-				14185DCA1DDD8AA900777AD8 /* AdminCollectionViewCell.swift */,
-				14185DC21DDD70B900777AD8 /* MemberPageViewController.swift */,
-				14185DCC1DDD998F00777AD8 /* MemberCollectionViewCell.swift */,
+				14185DCE1DDD9D7700777AD8 /* AdminPage */,
+				14185DCF1DDD9D8200777AD8 /* MemberPage */,
 				14185DC41DDD70E200777AD8 /* DetailViewController.swift */,
 				14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */,
 				14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		14185DCE1DDD9D7700777AD8 /* AdminPage */ = {
+			isa = PBXGroup;
+			children = (
+				14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */,
+				14185DCA1DDD8AA900777AD8 /* AdminCollectionViewCell.swift */,
+			);
+			name = AdminPage;
+			sourceTree = "<group>";
+		};
+		14185DCF1DDD9D8200777AD8 /* MemberPage */ = {
+			isa = PBXGroup;
+			children = (
+				14185DC21DDD70B900777AD8 /* MemberPageViewController.swift */,
+				14185DCC1DDD998F00777AD8 /* MemberCollectionViewCell.swift */,
+			);
+			name = MemberPage;
 			sourceTree = "<group>";
 		};
 		2733541BC61328D4563A8C87 /* Frameworks */ = {
