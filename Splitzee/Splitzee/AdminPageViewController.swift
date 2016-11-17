@@ -18,10 +18,13 @@ class AdminPageViewController: UINavigationController {
     var total: UIImage!
     var totalAmount: UILabel!
     var collectionView: UICollectionView!
+    var backgroundGradient: UIImageView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor.white
+        backgroundGradient = UIImageView(frame: view.frame)
+        backgroundGradient.image = #imageLiteral(resourceName: "whiteBlueGradientBG")
+        view.addSubview(backgroundGradient)
         setupUI()
 
         // Do any additional setup after loading the view.
@@ -33,12 +36,17 @@ class AdminPageViewController: UINavigationController {
     }
     
     func setupUI() {
-        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: 80))
-        let navTitle = UINavigationItem(title: "What's going on?") // change to group name
-        view.addSubview(navBar)
-        navBar.setItems([navTitle], animated: false)
+        setupNavBar()
         setupSegmentedControl()
         setupCollectionView()
+    }
+    
+    func setupNavBar() {
+        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.111))
+        navBar.backgroundColor = UIColor.white
+        let navTitle = UINavigationItem(title: "What's going on?") // change to group name
+        navBar.setItems([navTitle], animated: false)
+        view.addSubview(navBar)
     }
     
     func setupSegmentedControl() {
@@ -59,7 +67,7 @@ class AdminPageViewController: UINavigationController {
         layout.minimumInteritemSpacing = 0
         collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603) , collectionViewLayout: layout)
         collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "adminCell")
-        collectionView.backgroundColor = UIColor.black
+        collectionView.backgroundColor = UIColor.clear
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
