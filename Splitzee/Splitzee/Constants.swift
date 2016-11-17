@@ -34,7 +34,7 @@ struct Constants
     let fontMediumDarkBlue: UIColor = UIColor(hue: 0.6833, saturation: 0.24, brightness: 1, alpha: 1.0) /* #c7c0ff */
     
     
-    
+        
     /*  COLORS FOR EACH VC - - - - - - - - - - - - - - - - - - - - - - - - - - - -
      
          Follow these instead of using the Sketch file!
