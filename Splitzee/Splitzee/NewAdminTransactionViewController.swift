@@ -52,14 +52,14 @@ class NewAdminTransactionViewController: UIViewController {
         descriptionTextField.text = "Add a short description of the transaction"
         view.addSubview(descriptionTextField)
         
-        payButton = UIButton(frame: CGRect(x: 0, y: 0.597*view.frame.height , width: 0.49*view.frame.width, height: view.frame.height * 0.089))
+        payButton = UIButton(frame: CGRect(x: 0, y: 0.597*view.frame.height , width: 0.5*view.frame.width, height: view.frame.height * 0.089))
         payButton.layer.masksToBounds = true
         payButton.layer.borderColor = UIColor.gray.cgColor
         payButton.layer.borderWidth = 1
         payButton.setTitle("Confirm Payment", for: .normal)
         view.addSubview(payButton)
         
-        requestButton = UIButton(frame: CGRect(x: 0.5*view.frame.width, y: 0.597*view.frame.height , width: 0.49*view.frame.width, height: view.frame.height * 0.089))
+        requestButton = UIButton(frame: CGRect(x: 0.5*view.frame.width, y: 0.597*view.frame.height , width: 0.5*view.frame.width, height: view.frame.height * 0.089))
         requestButton.layer.masksToBounds = true
         requestButton.layer.borderColor = UIColor.gray.cgColor
         requestButton.layer.borderWidth = 1
@@ -73,7 +73,7 @@ class NewAdminTransactionViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603) , collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.097, width: view.frame.width, height: view.frame.height * 0.203) , collectionViewLayout: layout)
         collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
         collectionView.backgroundColor = UIColor.black
         collectionView.delegate = self
@@ -89,7 +89,7 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         }
         
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            // some count
+            // should be returning the number of users
             return 0
         }
         
@@ -108,7 +108,7 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: (view.frame.width / 3), height: view.frame.height * 0.25)
+            return CGSize(width: 0.25 * view.frame.width, height: 0.203 * view.frame.height )
         }
     }
 
