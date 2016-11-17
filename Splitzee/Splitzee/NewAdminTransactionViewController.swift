@@ -15,10 +15,12 @@ class NewAdminTransactionViewController: UIViewController {
     var descriptionTextField: UITextView!
     var payButton: UIButton!
     var requestButton: UIButton!
+    var collectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        setupCollectionView()
         // Do any additional setup after loading the view.
     }
 
@@ -66,15 +68,48 @@ class NewAdminTransactionViewController: UIViewController {
         
         
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    func setupCollectionView() {
+        let layout = UICollectionViewFlowLayout()
+        layout.minimumLineSpacing = 0
+        layout.minimumInteritemSpacing = 0
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603) , collectionViewLayout: layout)
+        collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
+        collectionView.backgroundColor = UIColor.black
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        view.addSubview(collectionView)
     }
-    */
+    
+extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+        
+        func numberOfSections(in collectionView: UICollectionView) -> Int {
+            return 1
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            // some count
+            return 0
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! AdminCollectionViewCell
+            for subview in cell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            cell.awakeFromNib()
+            return cell
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+            let adminTransactionCell = cell as! AdminCollectionViewCell
+            // set UI stuff
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: (view.frame.width / 3), height: view.frame.height * 0.25)
+        }
+    }
+
 
 }
