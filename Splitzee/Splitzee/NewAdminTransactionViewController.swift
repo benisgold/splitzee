@@ -80,6 +80,7 @@ class NewAdminTransactionViewController: UIViewController {
         collectionView.dataSource = self
         view.addSubview(collectionView)
     }
+}
     
 extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
         
@@ -112,4 +113,4 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
     }
 
 
-}
+
