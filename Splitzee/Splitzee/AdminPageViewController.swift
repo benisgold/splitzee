@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AdminPageViewController: UINavigationController {
+class AdminPageViewController: UIViewController {
     
     var segmentedView: UISegmentedControl!
     var groupsButton: UIButton!
