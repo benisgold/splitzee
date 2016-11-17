@@ -15,14 +15,13 @@ import FirebaseDatabase
 class User {
 
 
-    //User Variables
-    var name: String!
-    var profPicURL: String!
-    var uid: String!
+    // User Variables
+    var name: String = ""
+    var profPicURL: String = ""
+    var uid: String = ""
     
     
-    //Initiating variables
-    
+    // Initiating variables
     init(key:String, userDict: [String: AnyObject])
     {
         uid = key
@@ -31,17 +30,10 @@ class User {
         if let username = userDict["name"] as? String{
             name = username
         }
-        else {
-            name = "error"
-        }
         
         if let pic = userDict["profPicURL"] as? String{
             profPicURL = pic
         }
-        else{
-            profPicURL = "error"
-        }
-        
     
     }
   
@@ -49,7 +41,7 @@ class User {
     
     func getProfilePic(withBlock: @escaping (UIImage) -> Void) {
         let storageRef = FIRStorage.storage().reference()
-        let imageRef = storageRef.child(profPicURL!)
+        let imageRef = storageRef.child(profPicURL)
         
         imageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
             if (error != nil) {

@@ -14,67 +14,41 @@ import FirebaseDatabase
 
 class Transaction{
     
-    var transactionID: String!
-    var groupToMember: Bool!
-    var memberID: String!
-    var groupID: String!
-    var amount: Double!
-    var isApproved: Bool!
+    var transactionID: String = ""
+    var groupToMember: Bool?
+    var memberID: String = ""
+    var groupID: String = ""
+    var amount: Double?
+    var isApproved: Bool?
     
     
-    init(key: String, transactionDict: [String: AnyObject])
-    {
+    init(key: String, transactionDict: [String: AnyObject]) {
         transactionID = key
         
         
         if let group = transactionDict["groupID"] as? String{
             groupID = group
         }
-        else
-        {
-            groupID = "error"
-        }
         
         if let sendToMember = transactionDict["groupToMember"] as? Bool{
             groupToMember = sendToMember
-        }
-        else
-        {
-            groupToMember = false
         }
         
         if let member = transactionDict["memberID"] as? String{
             memberID = member
         }
-        else
-        {
-            memberID = "error"
-        }
         
         if let amountSent = transactionDict["amount"] as? Double{
             amount = amountSent
-        }
-        else
-        {
-            amount = 0
         }
         
         if let approved = transactionDict["isApproved"] as? Bool{
             isApproved = approved
         }
-        else
-        {
-            isApproved = false
-        }
-
-        
-        
-      
     }
     
     
-    init(amount: Double, memberID: String, groupID: String, groupToMember: Bool)
-    {
+    init(amount: Double, memberID: String, groupID: String, groupToMember: Bool) {
         self.amount = amount
         self.memberID = memberID
         self.groupID = groupID
@@ -83,15 +57,15 @@ class Transaction{
     }
     
     
-    func deleteTransaction(){
+    func deleteTransaction() {
         let ref = FIRDatabase.database().reference()
         ref.child("Transactions/\(transactionID)").removeValue()
     }
     
-    //Gets the userID of the member the group is trying to send the money to
+    // Gets the userID of the member the group is trying to send the money to
     func getUser(withBlock: @escaping (User) -> Void ){
         let ref = FIRDatabase.database().reference()
-        ref.child("Members/\(memberID!)").observe(.value, with: { snapshot -> Void in
+        ref.child("Members/\(memberID)").observe(.value, with: { snapshot -> Void in
             // Get user value
             if snapshot.exists(){
                 if let userDict = snapshot.value as? [String: AnyObject]{
@@ -103,10 +77,10 @@ class Transaction{
         
     }
     
-    //Gets current group so that one can update the money of the group
-    func getGroup(withBlock: @escaping (Group) -> Void ){
+    // Gets current group so that one can update the money of the group
+    func getGroup(withBlock: @escaping (Group) -> Void) {
         let ref = FIRDatabase.database().reference()
-        ref.child("Group/\(groupID!)").observe(.value, with: { snapshot -> Void in
+        ref.child("Group/\(groupID)").observe(.value, with: { snapshot -> Void in
             // Get user value
             if snapshot.exists(){
                 if let groupDict = snapshot.value as? [String: AnyObject]{
@@ -118,32 +92,27 @@ class Transaction{
     
     }
     
-    func rejectTransaction(){
-        
-        self.deleteTransaction()
-        
+    func rejectTransaction() {
+        deleteTransaction()
     }
     
     /* In the feed for our pending requests, it will now look for transactions 
     that have the approved value of "false". Once it is set to true, the history
     feed will now include this request*/
     
-    func approveTransaction(){
+    func approveTransaction() {
         isApproved = true
         
-        //update money
-        self.getGroup(withBlock: { (group) -> Void in
+        // update money
+        getGroup(withBlock: { (group) -> Void in
                 var total = group.total
-                total += self.amount
+                if let amnt = self.amount {
+                    total += amnt
+                }
         let ref = FIRDatabase.database().reference()
         ref.child("Groups/\(group.groupID)").setValue(total)
             
             })
         
     }
-
-    
-    
-
-
 }

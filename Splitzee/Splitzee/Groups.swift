@@ -14,15 +14,15 @@ class Group {
     
     //var groupPicID: String?
     var groupID: String = ""
-    var memberIDs : [String] = []
-    var adminIDs : [String] = []
-    var transactionIDs : [String] = []
-    var requestIDs : [String] = []
-    var total : Double = 0
-    var name : String = ""
+    var memberIDs: [String] = []
+    var adminIDs: [String] = []
+    var transactionIDs: [String] = []
+    var requestIDs: [String] = []
+    var total: Double = 0
+    var name: String = ""
     var picURL: String = ""
 
-    init(key:String, groupDict: [String: AnyObject])
+    init(key: String, groupDict: [String:AnyObject])
     {
         groupID = key
         
@@ -73,11 +73,9 @@ class Group {
         for id in memberIDs {
             ref.child("Users").child(id).observe(.value, with: { (snapshot) in
                 // Get user value
-                let curr = User(key: id, userDict: snapshot.value as! [String : AnyObject])
+                let curr = User(key: id, userDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
-            }) { (error) in
-                print(error.localizedDescription)
-            }
+            })
         }
     }
     
@@ -102,9 +100,7 @@ class Group {
                 // Get user value
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
                 withBlock(curr)
-            }) { (error) in
-                print(error.localizedDescription)
-            }
+            })
         }
     }
     
