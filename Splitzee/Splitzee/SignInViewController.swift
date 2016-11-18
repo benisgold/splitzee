@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignInViewController: UIViewController {
     
@@ -123,6 +124,21 @@ class SignInViewController: UIViewController {
 
     }
     
+// ---------------FIREBASE----------------------------------------------------------------
+    override func viewDidAppear(_ animated: Bool) {
+        FIRAuth.auth()?.addStateDidChangeListener({ (auth : FIRAuth, user : FIRUser?) in
+            if let user = user {
+                self.signedIn(user)
+            } else {
+                print("Sign up or log in!")
+            }
+        })
+    }
+    
+    func signedIn(_ user: FIRUser?) {
+        AppState.sharedInstance.signedIn = true
+        performSegue(withIdentifier: "", sender: self)
+    }
 
     /*
     // MARK: - Navigation
