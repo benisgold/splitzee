@@ -8,7 +8,7 @@
 
 import UIKit
 
-class AdminCollectionViewCell: UICollectionViewCell {
+class AdminPendingTableViewCell: UITableViewCell {
     
     var memberPicView: UIImageView!
     var memberNameLabel: UILabel!
@@ -52,13 +52,18 @@ class AdminCollectionViewCell: UICollectionViewCell {
     func makeRejectButton() {
         rejectButton = UIButton()
         rejectButton.frame = CGRect(x: 0.248 * contentView.frame.width, y: 0.633 * contentView.frame.height, width: 0.340 * contentView.frame.width, height: 0.291 * contentView.frame.height)
+        rejectButton.layer.borderColor = constants.lightBlue.cgColor
+        rejectButton.titleLabel?.textColor = constants.fontMediumDarkBlue
+        rejectButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 14)
         contentView.addSubview(rejectButton)
     }
     
     func makeApproveButton() {
         approveButton = UIButton()
         approveButton.frame = CGRect(x: 0.603 * contentView.frame.width, y: 0.633 * contentView.frame.height, width: 0.340 * contentView.frame.width, height: 0.291 * contentView.frame.height)
-        approveButton.backgroundColor = constants.lightRed
+        approveButton.titleLabel?.textColor = UIColor.white
+        approveButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 14)
         contentView.addSubview(approveButton)
     }
+    
 }
