@@ -65,7 +65,7 @@ class SignInViewController: UIViewController {
         
         // inputEmailOrUsername
         inputEmailOrUsername = UITextField()
-        let inputEmailOrUsernamePlaceholder = NSAttributedString(string: String(describing: "Email or username"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputEmailOrUsernamePlaceholder = NSAttributedString(string: String(describing: "     Email or username"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputEmailOrUsername.attributedPlaceholder = inputEmailOrUsernamePlaceholder
         inputEmailOrUsername.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.329, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputEmailOrUsername.backgroundColor = UIColor.white
@@ -74,7 +74,7 @@ class SignInViewController: UIViewController {
         
         // inputPassword
         inputPassword = UITextField(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.410, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
-        let inputPasswordPlaceholder = NSAttributedString(string: String(describing: "Password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputPasswordPlaceholder = NSAttributedString(string: String(describing: "     Password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputPassword.attributedPlaceholder = inputPasswordPlaceholder
         inputPassword.backgroundColor = UIColor.white
         view.addSubview(inputPassword)
@@ -106,9 +106,21 @@ class SignInViewController: UIViewController {
         self.view.addSubview(orDividingLine)
         
         // signinGoogle
+        signInGoogle = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.694, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
+        signInGoogle.setTitle("Sign in with Google", for: .normal)
+        signInGoogle.backgroundColor = UIColor.clear
+        signInGoogle.layer.borderWidth = 1
+        signInGoogle.layer.borderColor = UIColor.white.cgColor
+        view.addSubview(signInGoogle)
         
         // signinFacebook
-        
+        signInFacebook = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.778, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
+        signInFacebook.setTitle("Sign in with Facebook", for: .normal)
+        signInFacebook.backgroundColor = UIColor.clear
+        signInFacebook.layer.borderWidth = 1
+        signInFacebook.layer.borderColor = UIColor.white.cgColor
+        view.addSubview(signInFacebook)
+
     }
     
 

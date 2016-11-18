@@ -68,7 +68,7 @@ class CreateAccountViewController: UIViewController {
         
         // inputFullName
         inputFullName = UITextField()
-        let inputFullNamePlaceholder = NSAttributedString(string: String(describing: "Full name"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputFullNamePlaceholder = NSAttributedString(string: String(describing: "     Full name"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputFullName.attributedPlaceholder = inputFullNamePlaceholder
         inputFullName.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.329, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputFullName.backgroundColor = UIColor.white
@@ -77,7 +77,7 @@ class CreateAccountViewController: UIViewController {
         
         // inputEmailOrUsername
         inputEmail = UITextField()
-        let inputEmailPlaceholder = NSAttributedString(string: String(describing: "Email or username"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputEmailPlaceholder = NSAttributedString(string: String(describing: "     Email or username"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputEmail.attributedPlaceholder = inputEmailPlaceholder
         inputEmail.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.409, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputEmail.backgroundColor = UIColor.white
@@ -86,7 +86,7 @@ class CreateAccountViewController: UIViewController {
         
         // inputPassword
         inputPassword = UITextField()
-        let inputPasswordPlaceholder = NSAttributedString(string: String(describing: "Password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputPasswordPlaceholder = NSAttributedString(string: String(describing: "     Password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputPassword.attributedPlaceholder = inputPasswordPlaceholder
         inputPassword.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.490, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputPassword.backgroundColor = UIColor.white
@@ -95,7 +95,7 @@ class CreateAccountViewController: UIViewController {
         
         // inputConfirmPassword
         inputConfirmPassword = UITextField()
-        let inputConfirmPasswordPlaceholder = NSAttributedString(string: String(describing: "Confirm password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputConfirmPasswordPlaceholder = NSAttributedString(string: String(describing: "     Confirm password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputConfirmPassword.attributedPlaceholder = inputConfirmPasswordPlaceholder
         inputConfirmPassword.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.571, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputConfirmPassword.backgroundColor = UIColor.white

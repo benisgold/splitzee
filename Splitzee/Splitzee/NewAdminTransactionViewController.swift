@@ -47,15 +47,14 @@ class NewAdminTransactionViewController: UIViewController {
         userSelectTextField.placeholder = "     Enter name, @username, or select above"
         view.addSubview(userSelectTextField)
         
-        amountTextField = UITextField(frame: CGRect(x: 0, y: 0.368 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
+        amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         amountTextField.layer.masksToBounds = true
         amountTextField.backgroundColor = UIColor.white
         amountTextField.layer.borderColor = constants.fontLightGray.cgColor
-        amountTextField.layer.borderWidth = 1
         amountTextField.placeholder = "     $0.00"
         view.addSubview(amountTextField)
         
-        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.431 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
+        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.428 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
         descriptionTextField.layer.masksToBounds = true
         descriptionTextField.backgroundColor = UIColor.white
         descriptionTextField.layer.borderColor = constants.fontLightGray.cgColor
@@ -75,7 +74,7 @@ class NewAdminTransactionViewController: UIViewController {
         
         requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.597 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         requestButton.layer.masksToBounds = true
-        requestButton.setTitle("Request Reimbursement", for: .normal)
+        requestButton.setTitle("Request Money", for: .normal)
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
         requestButton.layer.cornerRadius = 2
@@ -88,6 +87,7 @@ class NewAdminTransactionViewController: UIViewController {
         let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.111))
         navBar.backgroundColor = UIColor.white
         let navTitle = UINavigationItem(title: "New Transaction")
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : constants.fontMediumBlue]
         navBar.setItems([navTitle], animated: false)
         view.addSubview(navBar)
     }

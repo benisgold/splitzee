@@ -74,7 +74,7 @@ class CreateGroupViewController: UIViewController {
         nameTextField.textAlignment = .center
         nameTextField.textColor = constants.fontMediumGray
         nameTextField.backgroundColor = UIColor.white
-        nameTextField.layer.borderWidth = 0.5
+        nameTextField.layer.borderWidth = 0.75
         nameTextField.layer.borderColor = constants.fontLightGray.cgColor
         view.addSubview(nameTextField)
     }
@@ -86,7 +86,7 @@ class CreateGroupViewController: UIViewController {
         codeTextField.textAlignment = .center
         codeTextField.textColor = constants.fontMediumGray
         codeTextField.backgroundColor = UIColor.white
-        codeTextField.layer.borderWidth = 0.5
+        codeTextField.layer.borderWidth = 0.75
         codeTextField.layer.borderColor = constants.fontLightGray.cgColor
         view.addSubview(codeTextField)
     }
