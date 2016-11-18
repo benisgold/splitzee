@@ -10,12 +10,14 @@ import UIKit
 
 class NewAdminTransactionViewController: UIViewController {
     
+    var background: UIImageView!
     var userSelectTextField: UITextField!
     var amountTextField: UITextField!
     var descriptionTextField: UITextView!
     var payButton: UIButton!
     var requestButton: UIButton!
     var collectionView: UICollectionView!
+    let constants = Constants()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,41 +33,51 @@ class NewAdminTransactionViewController: UIViewController {
     
     func setUpUI() {
         
+        background = UIImageView(image: #imageLiteral(resourceName: "whiteBlueGradientBG"))
+        background.frame = view.frame
+        self.view.addSubview(background)
+        
         setupNavBar()
         
-        userSelectTextField = UITextField(frame: CGRect(x: 0, y: 0.306*view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
+        userSelectTextField = UITextField(frame: CGRect(x: 0, y: 0.306 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         userSelectTextField.layer.masksToBounds = true
-        userSelectTextField.layer.borderColor = UIColor.gray.cgColor
+        userSelectTextField.backgroundColor = UIColor.white
+        userSelectTextField.layer.borderColor = constants.fontLightGray.cgColor
         userSelectTextField.layer.borderWidth = 1
         userSelectTextField.placeholder = "     Enter name, @username, or select above"
         view.addSubview(userSelectTextField)
         
-        amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367*view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
+        amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         amountTextField.layer.masksToBounds = true
-        amountTextField.layer.borderColor = UIColor.gray.cgColor
-        amountTextField.layer.borderWidth = 1
+        amountTextField.backgroundColor = UIColor.white
+        amountTextField.layer.borderColor = constants.fontLightGray.cgColor
         amountTextField.placeholder = "     $0.00"
         view.addSubview(amountTextField)
         
-        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.430*view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
+        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.428 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
         descriptionTextField.layer.masksToBounds = true
-        descriptionTextField.layer.borderColor = UIColor.gray.cgColor
+        descriptionTextField.backgroundColor = UIColor.white
+        descriptionTextField.layer.borderColor = constants.fontLightGray.cgColor
         descriptionTextField.layer.borderWidth = 1
-        descriptionTextField.text = "Add a short description of the transaction"
+        descriptionTextField.delegate = self
+        descriptionTextField.text = "     Add a short description of the transaction"
+        descriptionTextField.textColor = constants.fontLightGray
         view.addSubview(descriptionTextField)
         
-        payButton = UIButton(frame: CGRect(x: 0, y: 0.597*view.frame.height , width: 0.5*view.frame.width, height: view.frame.height * 0.089))
+        payButton = UIButton(frame: CGRect(x: 0, y: 0.597*view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         payButton.layer.masksToBounds = true
-        payButton.layer.borderColor = UIColor.gray.cgColor
-        payButton.layer.borderWidth = 1
+        payButton.backgroundColor = constants.mediumBlue
         payButton.setTitle("Confirm Payment", for: .normal)
+        payButton.setTitleColor(UIColor.white, for: .normal)
+        payButton.layer.cornerRadius = 2
         view.addSubview(payButton)
         
-        requestButton = UIButton(frame: CGRect(x: 0.5*view.frame.width, y: 0.597*view.frame.height , width: 0.5*view.frame.width, height: view.frame.height * 0.089))
+        requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.597 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         requestButton.layer.masksToBounds = true
-        requestButton.layer.borderColor = UIColor.gray.cgColor
-        requestButton.layer.borderWidth = 1
-        requestButton.setTitle("Request Reimbursement", for: .normal)
+        requestButton.setTitle("Request Money", for: .normal)
+        requestButton.backgroundColor = constants.mediumBlue
+        requestButton.setTitleColor(UIColor.white, for: .normal)
+        requestButton.layer.cornerRadius = 2
         view.addSubview(requestButton)
         
         
@@ -75,6 +87,7 @@ class NewAdminTransactionViewController: UIViewController {
         let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.111))
         navBar.backgroundColor = UIColor.white
         let navTitle = UINavigationItem(title: "New Transaction")
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : constants.fontMediumBlue]
         navBar.setItems([navTitle], animated: false)
         view.addSubview(navBar)
     }
@@ -83,7 +96,7 @@ class NewAdminTransactionViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.097, width: view.frame.width, height: view.frame.height * 0.203) , collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.145, width: view.frame.width, height: view.frame.height * 0.137) , collectionViewLayout: layout)
         collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
         collectionView.backgroundColor = UIColor.black
         collectionView.delegate = self
@@ -120,7 +133,14 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: 0.25 * view.frame.width, height: 0.203 * view.frame.height )
         }
+}
+
+extension NewAdminTransactionViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == constants.fontLightGray {
+            textView.text = ""
+            textView.textColor = UIColor.black
+        }
     }
-
-
+}
 
