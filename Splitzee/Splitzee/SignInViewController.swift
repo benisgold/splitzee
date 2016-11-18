@@ -10,6 +10,19 @@ import UIKit
 
 class SignInViewController: UIViewController {
     
+    var splitzeeLogo: UIImageView!
+    var pleaseSignIn: UILabel!
+    var plainDividingLine: UIImageView!
+    var inputEmailOrUsername: UITextField!
+    var inputPassword: UITextField!
+    var signInButton: UIButton!
+    var createAccountButton: UIButton!
+    var forgotPassword: UILabel!
+    var orDividingLine: UIImageView!
+    var signInGoogle: UIButton!
+    var signInFacebook: UIButton!
+    var background: UIImageView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +33,50 @@ class SignInViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    func setupUI() {
+        
+        
+        // splitzeeLogo
+        splitzeeLogo = UIImageView(image: #imageLiteral(resourceName: "splitzeeStraight"))
+        splitzeeLogo.frame = CGRect(x: 0, y: 131, width: view.frame.width*0.389, height: view.frame.height*0.205)
+        self.view.addSubview(splitzeeLogo)
+        
+        // pleaseSignIn
+        
+        // plainDividingLine
+        plainDividingLine = UIImageView(image: #imageLiteral(resourceName: "line"))
+        plainDividingLine.frame = CGRect(x: 40, y: 208, width: 338, height: 3)
+        self.view.addSubview(plainDividingLine)
+        
+        // inputEmailOrUsername
+        inputEmailOrUsername = UITextField()
+        let inputEmailOrUsernamePlaceholder = NSAttributedString(string: "Email or username", attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        inputEmailOrUsername.attributedPlaceholder = inputEmailOrUsernamePlaceholder
+        inputEmailOrUsername.frame = CGRect(x: view.frame.width*0.077, y: view.frame.height*0.329, width: view.frame.width*0.845, height: view.frame.height*0.057)
+        // in progress!!!!! --------------
+        
+        // inputPassword
+        
+        // signinButton
+        
+        // createAccountButton
+        
+        // forgotPassword
+        
+        // orDividingLine
+        
+        // signinGoogle
+        
+        // signinFacebook
+        
+        // background
+        background = UIImageView(image: #imageLiteral(resourceName: "purpleFogBG"))
+        background.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
+        self.view.addSubview(background)
+        
     }
     
 
