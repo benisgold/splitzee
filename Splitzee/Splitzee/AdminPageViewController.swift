@@ -102,7 +102,7 @@ class AdminPageViewController: UIViewController {
         tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603))
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(AdminTableViewCell.self, forCellReuseIdentifier: "adminCell")
+        tableView.register(AdminPendingTableViewCell.self, forCellReuseIdentifier: "pendingAdminCell")
         view.addSubview(tableView)
     }
     
@@ -138,7 +138,7 @@ extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "adminCell", for: indexPath) as! AdminTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
         for subview in cell.contentView.subviews {
             subview.removeFromSuperview()
         }
@@ -147,6 +147,6 @@ extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! AdminTableViewCell
+        let cell = cell as! AdminPendingTableViewCell
     }
 }
