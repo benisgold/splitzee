@@ -98,10 +98,10 @@ class NewAdminTransactionViewController: UIViewController {
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
         collectionView = UICollectionView(frame: CGRect(x: 0.012 * view.frame.width , y: view.frame.height * 0.145, width: 0.988 * view.frame.width, height: view.frame.height * 0.137) , collectionViewLayout: layout)
-        collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
-        collectionView.backgroundColor = UIColor.black
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
+        collectionView.backgroundColor = UIColor.clear
         view.addSubview(collectionView)
     }
 }
@@ -118,7 +118,7 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! AdminCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
             for subview in cell.contentView.subviews {
                 subview.removeFromSuperview()
             }
@@ -127,7 +127,9 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         }
         
         func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-            let adminTransactionCell = cell as! AdminCollectionViewCell
+            let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
+            adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG")
+            adminTransactionCell.userName.text = "Mohit Katyal"
             // set UI stuff
         }
         
