@@ -85,15 +85,22 @@ class SignInViewController: UIViewController {
         signInButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.503, width: view.frame.width * 0.256, height: view.frame.height * 0.068))
         signInButton.setTitle("SIGN IN", for: .normal)
         signInButton.backgroundColor = constants.darkGray
+        
+        signInButton.addTarget(self, action: #selector(touchSignInButton), for: .touchUpInside)
+        self.performSegue(withIdentifier: "signInToAdminPage", sender: signInButton)
         view.addSubview(signInButton)
         
         // createAccountButton
         createAccountButton = UIButton(frame: CGRect(x: view.frame.width * 0.350, y: view.frame.height * 0.503, width: view.frame.width * 0.568, height: view.frame.height * 0.068))
         createAccountButton.setTitle("CREATE ACCOUNT", for: .normal)
         createAccountButton.backgroundColor = constants.red
+        
+        createAccountButton.addTarget(self, action: #selector(touchCreateAccountButton), for: .touchUpInside)
+        self.performSegue(withIdentifier: "signInToCreateAccount", sender: createAccountButton)
         view.addSubview(createAccountButton)
         
         // forgotPassword
+        
         forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.586, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
         forgotPassword.text = "Forgot password?"
         forgotPassword.textAlignment = .center
@@ -123,6 +130,18 @@ class SignInViewController: UIViewController {
         view.addSubview(signInFacebook)
 
     }
+    
+// ---------------FUNCTIONS---------------------------------------------------------------
+    
+    func touchCreateAccountButton(sender: UIButton!) {
+        performSegue(withIdentifier: "signInToCreateAccount", sender: self)
+    }
+    
+    func touchSignInButton(sender: UIButton!) {
+        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+    }
+    
+    
     
 // ---------------FIREBASE----------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {

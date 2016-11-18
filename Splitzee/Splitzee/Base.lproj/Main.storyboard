@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="ome-rf-jeb">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -23,8 +23,8 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <connections>
-                        <segue destination="ome-rf-jeb" kind="show" id="6xy-Nu-nS1"/>
-                        <segue destination="yqa-0K-NYu" kind="show" id="5Si-zr-0v0"/>
+                        <segue destination="ome-rf-jeb" kind="show" identifier="signInToCreateAccount" id="6xy-Nu-nS1"/>
+                        <segue destination="yqa-0K-NYu" kind="show" identifier="signInToAdminPage" id="5Si-zr-0v0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -45,7 +45,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" id="sAz-cr-zkl"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="createAccountToSignIn" id="sAz-cr-zkl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JDZ-Ri-jql" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -66,8 +66,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="y9D-ok-41i" kind="show" id="fnX-s0-IHb"/>
-                        <segue destination="IR5-Su-HXa" kind="show" id="NWc-nF-rwN"/>
+                        <segue destination="y9D-ok-41i" kind="show" identifier="createGroupToAdminPage" id="fnX-s0-IHb"/>
+                        <segue destination="IR5-Su-HXa" kind="show" identifier="createGroupToMemberPage" id="NWc-nF-rwN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lDx-ds-oQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -89,10 +89,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="Doi-5i-myJ"/>
                     <connections>
-                        <segue destination="pPd-y6-ep8" kind="show" id="s0N-yn-bEM"/>
-                        <segue destination="bqx-5z-ZdG" kind="show" id="iox-6q-LET"/>
-                        <segue destination="wXo-Y5-Yug" kind="show" id="O9e-sD-Me2"/>
-                        <segue destination="BYZ-38-t0r" kind="show" id="LTv-6k-BPz"/>
+                        <segue destination="pPd-y6-ep8" kind="show" identifier="adminPageToNewAdminTransaction" id="s0N-yn-bEM"/>
+                        <segue destination="bqx-5z-ZdG" kind="show" identifier="adminPageToCreateGroup" id="iox-6q-LET"/>
+                        <segue destination="wXo-Y5-Yug" kind="show" identifier="adminPageToDetail" id="O9e-sD-Me2"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="adminPageToSignIn" id="LTv-6k-BPz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="487-2r-2QQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -113,8 +113,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="yqa-0K-NYu" kind="show" id="EpA-Xs-KHC"/>
-                        <segue destination="y9D-ok-41i" kind="show" id="aLb-Ws-WMY"/>
+                        <segue destination="yqa-0K-NYu" kind="show" identifier="newAdminTransactionToAdminPage" id="EpA-Xs-KHC"/>
+                        <segue destination="y9D-ok-41i" kind="show" identifier="newAdminTransactionToAdminPage" id="aLb-Ws-WMY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O2R-rC-tON" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -135,8 +135,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="y9D-ok-41i" kind="show" id="sUu-Bk-aAL"/>
-                        <segue destination="IR5-Su-HXa" kind="show" id="qih-Dc-3sb"/>
+                        <segue destination="y9D-ok-41i" kind="show" identifier="detailToAdminPage" id="sUu-Bk-aAL"/>
+                        <segue destination="IR5-Su-HXa" kind="show" identifier="detailToMemberPage" id="qih-Dc-3sb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9eW-GA-mE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -158,10 +158,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="U9D-Ky-0dX"/>
                     <connections>
-                        <segue destination="bqx-5z-ZdG" kind="show" id="F1N-IF-hwb"/>
-                        <segue destination="ptg-MC-QyH" kind="show" id="uFr-6T-gkh"/>
-                        <segue destination="wXo-Y5-Yug" kind="show" id="kvW-Tl-l3F"/>
-                        <segue destination="BYZ-38-t0r" kind="show" id="gJQ-V9-Wj9"/>
+                        <segue destination="bqx-5z-ZdG" kind="show" identifier="memberPageToCreateGroup" id="F1N-IF-hwb"/>
+                        <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="uFr-6T-gkh"/>
+                        <segue destination="wXo-Y5-Yug" kind="show" identifier="memberPageToDetail" id="kvW-Tl-l3F"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="memberPageToSignIn" id="gJQ-V9-Wj9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPR-ua-aYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -182,8 +182,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="206-zG-3SN" kind="show" id="CoI-N0-YVl"/>
-                        <segue destination="IR5-Su-HXa" kind="show" id="6Bc-iD-98o"/>
+                        <segue destination="206-zG-3SN" kind="show" identifier="newMemberTransactionToMemberPage" id="CoI-N0-YVl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dXX-j3-j0T" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,11 +227,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6Bc-iD-98o"/>
-        <segue reference="D65-tt-mnl"/>
-        <segue reference="EpA-Xs-KHC"/>
-        <segue reference="iox-6q-LET"/>
-        <segue reference="LTv-6k-BPz"/>
+        <segue reference="gJQ-V9-Wj9"/>
+        <segue reference="qih-Dc-3sb"/>
         <segue reference="O9e-sD-Me2"/>
+        <segue reference="fnX-s0-IHb"/>
+        <segue reference="iox-6q-LET"/>
+        <segue reference="EpA-Xs-KHC"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -46,6 +46,9 @@ class AdminPageViewController: UIViewController {
         newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.296, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
         newTransactionButton.setImage(#imageLiteral(resourceName: "pencilSymbol"), for: .normal)
         newTransactionButton.imageView?.contentMode = .scaleAspectFit
+        
+        newTransactionButton.addTarget(self, action: #selector(touchNewAdminTransactionButton), for: .touchUpInside)
+        self.performSegue(withIdentifier: "adminPageToNewTransaction", sender: newTransactionButton)
         view.addSubview(newTransactionButton)
         
         totalLoopImage = UIImageView(frame: CGRect(x: view.frame.width * 0.344, y: view.frame.height * 0.139, width: view.frame.width * 0.315, height: view.frame.height * 0.181))
@@ -107,6 +110,10 @@ class AdminPageViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         view.addSubview(collectionView)
+    }
+    
+    func touchNewAdminTransactionButton(sender: UIButton!) {
+        performSegue(withIdentifier: "adminPageToNewAdminTransaction", sender: self)
     }
     
     func switchView(sender: UISegmentedControl) {

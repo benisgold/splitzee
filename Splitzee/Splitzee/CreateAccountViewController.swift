@@ -115,9 +115,21 @@ class CreateAccountViewController: UIViewController {
         backToLoginButton.backgroundColor = UIColor.clear
         backToLoginButton.layer.borderWidth = 1
         backToLoginButton.layer.borderColor = UIColor.white.cgColor
+        
+        backToLoginButton.addTarget(self, action: #selector(touchBackToLoginButton), for: .touchUpInside)
+        self.performSegue(withIdentifier: "createAccountToSignIn", sender: backToLoginButton)
         view.addSubview(backToLoginButton)
     }
 
+// -----------FUNCTIONS------------------------------------------------------------------------
+    
+    func touchBackToLoginButton(sender: UIButton!) {
+        performSegue(withIdentifier: "createAccountToSignIn", sender: self)
+    }
+
+    
+    
+    
     /*
     // MARK: - Navigation
 
