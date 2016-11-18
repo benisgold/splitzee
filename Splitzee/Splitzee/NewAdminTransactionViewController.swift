@@ -18,6 +18,7 @@ class NewAdminTransactionViewController: UIViewController {
     var requestButton: UIButton!
     var collectionView: UICollectionView!
     let constants = Constants()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -96,11 +97,11 @@ class NewAdminTransactionViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.145, width: view.frame.width, height: view.frame.height * 0.137) , collectionViewLayout: layout)
-        collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
-        collectionView.backgroundColor = UIColor.black
+        collectionView = UICollectionView(frame: CGRect(x: 0.012 * view.frame.width , y: view.frame.height * 0.145, width: 0.988 * view.frame.width, height: view.frame.height * 0.137) , collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
+        collectionView.backgroundColor = UIColor.clear
         view.addSubview(collectionView)
     }
 }
@@ -113,11 +114,11 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             // should be returning the number of users
-            return 0
+            return 1
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! AdminCollectionViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
             for subview in cell.contentView.subviews {
                 subview.removeFromSuperview()
             }
@@ -126,12 +127,14 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         }
         
         func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-            let adminTransactionCell = cell as! AdminCollectionViewCell
+            let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
+            adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG")
+            adminTransactionCell.userName.text = "Mohit Katyal"
             // set UI stuff
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 0.25 * view.frame.width, height: 0.203 * view.frame.height )
+            return CGSize(width: 0.316*view.frame.width , height: 0.203 * view.frame.height )
         }
 }
 
