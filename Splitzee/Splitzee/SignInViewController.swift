@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SignInViewController: UIViewController {
     
@@ -96,7 +97,7 @@ class SignInViewController: UIViewController {
         forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.586, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
         forgotPassword.text = "Forgot password?"
         forgotPassword.textAlignment = .center
-        forgotPassword.textColor = constants.fontDarkGray
+        forgotPassword.textColor = UIColor.white
         view.addSubview(forgotPassword)
         
         // orDividingLine
@@ -123,6 +124,21 @@ class SignInViewController: UIViewController {
 
     }
     
+// ---------------FIREBASE----------------------------------------------------------------
+    override func viewDidAppear(_ animated: Bool) {
+        FIRAuth.auth()?.addStateDidChangeListener({ (auth : FIRAuth, user : FIRUser?) in
+            if let user = user {
+                self.signedIn(user)
+            } else {
+                print("Sign up or log in!")
+            }
+        })
+    }
+    
+    func signedIn(_ user: FIRUser?) {
+        AppState.sharedInstance.signedIn = true
+        performSegue(withIdentifier: "", sender: self)
+    }
 
     /*
     // MARK: - Navigation
