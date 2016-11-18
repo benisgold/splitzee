@@ -48,7 +48,6 @@ class AdminPageViewController: UIViewController {
         newTransactionButton.imageView?.contentMode = .scaleAspectFit
         
         newTransactionButton.addTarget(self, action: #selector(touchNewAdminTransactionButton), for: .touchUpInside)
-        self.performSegue(withIdentifier: "adminPageToNewTransaction", sender: newTransactionButton)
         view.addSubview(newTransactionButton)
         
         totalLoopImage = UIImageView(frame: CGRect(x: view.frame.width * 0.344, y: view.frame.height * 0.139, width: view.frame.width * 0.315, height: view.frame.height * 0.181))

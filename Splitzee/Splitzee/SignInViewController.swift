@@ -87,7 +87,6 @@ class SignInViewController: UIViewController {
         signInButton.backgroundColor = constants.darkGray
         
         signInButton.addTarget(self, action: #selector(touchSignInButton), for: .touchUpInside)
-//        self.performSegue(withIdentifier: "signInToAdminPage", sender: signInButton)
         view.addSubview(signInButton)
         
         // createAccountButton
@@ -96,11 +95,9 @@ class SignInViewController: UIViewController {
         createAccountButton.backgroundColor = constants.red
         
         createAccountButton.addTarget(self, action: #selector(touchCreateAccountButton), for: .touchUpInside)
-//        self.performSegue(withIdentifier: "signInToCreateAccount", sender: createAccountButton)
         view.addSubview(createAccountButton)
         
         // forgotPassword
-        
         forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.586, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
         forgotPassword.text = "Forgot password?"
         forgotPassword.textAlignment = .center
