@@ -96,7 +96,7 @@ class SignInViewController: UIViewController {
         forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.586, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
         forgotPassword.text = "Forgot password?"
         forgotPassword.textAlignment = .center
-        forgotPassword.textColor = constants.fontDarkGray
+        forgotPassword.textColor = UIColor.white
         view.addSubview(forgotPassword)
         
         // orDividingLine
