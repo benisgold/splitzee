@@ -13,7 +13,7 @@ class MemberPageViewController: UIViewController {
     var segmentedView: UISegmentedControl!
     var groupsButton: UIButton!
     var newTransactionButton: UIButton!
-    var collectionView: UICollectionView!
+    var tableView: UITableView!
     var backgroundGradient: UIImageView!
     let constants = Constants()
 
@@ -71,16 +71,12 @@ class MemberPageViewController: UIViewController {
         view.addSubview(segmentedView)
     }
     
-    func setupCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.246, width: view.frame.width, height: view.frame.height * 0.754) , collectionViewLayout: layout)
-        collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "memberCell")
-        collectionView.backgroundColor = UIColor.clear
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        view.addSubview(collectionView)
+    func setupTableView() {
+        tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603))
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(MemberTablViewCell.self, forCellReuseIdentifier: "memberCell")
+        view.addSubview(tableView)
     }
     
     func switchView(sender: UISegmentedControl) {
@@ -105,19 +101,13 @@ class MemberPageViewController: UIViewController {
 
 }
 
-extension MemberPageViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // some count
+extension MemberPageViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "memberCell", for: indexPath) as! MemberCollectionViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberTablViewCell
         for subview in cell.contentView.subviews {
             subview.removeFromSuperview()
         }
@@ -125,12 +115,7 @@ extension MemberPageViewController: UICollectionViewDelegate, UICollectionViewDa
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let memberCell = cell as! MemberCollectionViewCell
-        // set UI stuff
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width / 3), height: view.frame.height * 0.25)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! MemberTablViewCell
     }
 }
