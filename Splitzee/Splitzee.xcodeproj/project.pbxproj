@@ -15,7 +15,7 @@
 		14185DC51DDD70E200777AD8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC41DDD70E200777AD8 /* DetailViewController.swift */; };
 		14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */; };
 		14185DC91DDD712700777AD8 /* NewMemberTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */; };
-		14185DCB1DDD8AA900777AD8 /* AdminCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DCA1DDD8AA900777AD8 /* AdminCollectionViewCell.swift */; };
+		14185DCB1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DCA1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift */; };
 		14185DCD1DDD998F00777AD8 /* MemberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DCC1DDD998F00777AD8 /* MemberCollectionViewCell.swift */; };
 		14185DE61DDE4EF500777AD8 /* SF-UI-Display-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DE21DDE4EED00777AD8 /* SF-UI-Display-Medium.otf */; };
 		14185DE71DDE4EF500777AD8 /* SF-UI-Text-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DE31DDE4EED00777AD8 /* SF-UI-Text-Bold.otf */; };
@@ -41,6 +41,7 @@
 		1447E3C41DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1447E3C31DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift */; };
 		149684011DDEC9C900529A70 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149684001DDEC9C900529A70 /* AppState.swift */; };
 		92D6884493178F722134FC95 /* Pods_Splitzee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */; };
+		B690C4371DDEE86000024A81 /* AdminHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690C4361DDEE86000024A81 /* AdminHistoryTableViewCell.swift */; };
 		E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC61DD560350002D910 /* AppDelegate.swift */; };
 		E42ABDC91DD560350002D910 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC81DD560350002D910 /* ViewController.swift */; };
 		E42ABDCC1DD560350002D910 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42ABDCA1DD560350002D910 /* Main.storyboard */; };
@@ -83,7 +84,7 @@
 		14185DC41DDD70E200777AD8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAdminTransactionViewController.swift; sourceTree = "<group>"; };
 		14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemberTransactionViewController.swift; sourceTree = "<group>"; };
-		14185DCA1DDD8AA900777AD8 /* AdminCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminCollectionViewCell.swift; sourceTree = "<group>"; };
+		14185DCA1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminPendingTableViewCell.swift; sourceTree = "<group>"; };
 		14185DCC1DDD998F00777AD8 /* MemberCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberCollectionViewCell.swift; sourceTree = "<group>"; };
 		14185DD11DDE4EE400777AD8 /* SF-UI-Display-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Black.otf"; path = "Fonts/San Francisco/SF-UI/SF-UI-Display-Black.otf"; sourceTree = SOURCE_ROOT; };
 		14185DD21DDE4EE400777AD8 /* SF-UI-Display-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Display-Bold.otf"; path = "Fonts/San Francisco/SF-UI/SF-UI-Display-Bold.otf"; sourceTree = SOURCE_ROOT; };
@@ -113,6 +114,7 @@
 		2ED719F80BC691C40D89EACD /* Pods-Splitzee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.release.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.release.xcconfig"; sourceTree = "<group>"; };
 		3D3D6978E54DFE012792301F /* Pods_SplitzeeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitzeeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE8F8CEEA22D37D388148301 /* Pods_SplitzeeTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitzeeTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B690C4361DDEE86000024A81 /* AdminHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		E42ABDC31DD560350002D910 /* Splitzee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Splitzee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ABDC61DD560350002D910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E42ABDC81DD560350002D910 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -180,7 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */,
-				14185DCA1DDD8AA900777AD8 /* AdminCollectionViewCell.swift */,
+				14185DCA1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift */,
+				B690C4361DDEE86000024A81 /* AdminHistoryTableViewCell.swift */,
 			);
 			name = AdminPage;
 			sourceTree = "<group>";
@@ -542,9 +545,10 @@
 				14185DC11DDD70B000777AD8 /* AdminPageViewController.swift in Sources */,
 				E4F85F891DD58EB600342329 /* Request.swift in Sources */,
 				14185DBB1DDD6FD400777AD8 /* SignInViewController.swift in Sources */,
-				14185DCB1DDD8AA900777AD8 /* AdminCollectionViewCell.swift in Sources */,
+				14185DCB1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift in Sources */,
 				1447E3C41DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift in Sources */,
 				E42ABDF81DD562F70002D910 /* Groups.swift in Sources */,
+				B690C4371DDEE86000024A81 /* AdminHistoryTableViewCell.swift in Sources */,
 				14185DC91DDD712700777AD8 /* NewMemberTransactionViewController.swift in Sources */,
 				14185DC31DDD70B900777AD8 /* MemberPageViewController.swift in Sources */,
 				14185DBF1DDD709600777AD8 /* CreateGroupViewController.swift in Sources */,
