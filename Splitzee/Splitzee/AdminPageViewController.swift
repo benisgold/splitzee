@@ -17,7 +17,7 @@ class AdminPageViewController: UIViewController {
     var subtractMoneyButton: UIButton!
     var totalLoopImage: UIImageView!
     var totalAmount: UILabel!
-    var collectionView: UICollectionView!
+    var tableView: UITableView!
     var backgroundGradient: UIImageView!
     let constants = Constants()
 
@@ -58,7 +58,6 @@ class AdminPageViewController: UIViewController {
         totalAmount = UILabel(frame: CGRect(x: view.frame.width * 0.397, y: view.frame.height * 0.213, width: view.frame.width * 0.208, height: view.frame.height * 0.045))
         totalAmount.text = "$100.00"
         totalAmount.textColor = constants.fontMediumBlue
-//        totalAmount.font = UIFont(name: "SF-UI-Display-Thin", size: 30)
         totalAmount.textAlignment = .center
         view.addSubview(totalAmount)
         
@@ -74,7 +73,7 @@ class AdminPageViewController: UIViewController {
         
         setupNavBar()
         setupSegmentedControl()
-        setupCollectionView()
+        setupTableView()
     }
     
     func setupNavBar() {
@@ -99,16 +98,12 @@ class AdminPageViewController: UIViewController {
         view.addSubview(segmentedView)
     }
     
-    func setupCollectionView() {
-        let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
-        layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603) , collectionViewLayout: layout)
-        collectionView.register(AdminCollectionViewCell.self, forCellWithReuseIdentifier: "adminCell")
-        collectionView.backgroundColor = UIColor.clear
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        view.addSubview(collectionView)
+    func setupTableView() {
+        tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603))
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(AdminTableViewCell.self, forCellReuseIdentifier: "adminCell")
+        view.addSubview(tableView)
     }
     
     func touchNewAdminTransactionButton(sender: UIButton!) {
@@ -137,19 +132,13 @@ class AdminPageViewController: UIViewController {
 
 }
 
-extension AdminPageViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // some count
+extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminCell", for: indexPath) as! AdminCollectionViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "adminCell", for: indexPath) as! AdminTableViewCell
         for subview in cell.contentView.subviews {
             subview.removeFromSuperview()
         }
@@ -157,12 +146,7 @@ extension AdminPageViewController: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let adminCell = cell as! AdminCollectionViewCell
-        // set UI stuff
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: (view.frame.width / 3), height: view.frame.height * 0.25)
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cell = cell as! AdminTableViewCell
     }
 }
