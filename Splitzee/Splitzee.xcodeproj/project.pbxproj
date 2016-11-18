@@ -38,6 +38,7 @@
 		14185DF81DDE4EF500777AD8 /* SF-UI-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DDF1DDE4EE400777AD8 /* SF-UI-Text-Regular.otf */; };
 		14185DF91DDE4EF500777AD8 /* SF-UI-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DE01DDE4EE400777AD8 /* SF-UI-Text-RegularItalic.otf */; };
 		14185DFA1DDE4EF500777AD8 /* SF-UI-Text-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DE11DDE4EE400777AD8 /* SF-UI-Text-SemiboldItalic.otf */; };
+		1447E3C41DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1447E3C31DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift */; };
 		92D6884493178F722134FC95 /* Pods_Splitzee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */; };
 		E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC61DD560350002D910 /* AppDelegate.swift */; };
 		E42ABDC91DD560350002D910 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC81DD560350002D910 /* ViewController.swift */; };
@@ -104,6 +105,7 @@
 		14185DE31DDE4EED00777AD8 /* SF-UI-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Text-Bold.otf"; path = "Fonts/San Francisco/SF-UI/SF-UI-Text-Bold.otf"; sourceTree = SOURCE_ROOT; };
 		14185DE41DDE4EED00777AD8 /* SF-UI-Text-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Text-LightItalic.otf"; path = "Fonts/San Francisco/SF-UI/SF-UI-Text-LightItalic.otf"; sourceTree = SOURCE_ROOT; };
 		14185DE51DDE4EED00777AD8 /* SF-UI-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Text-Semibold.otf"; path = "Fonts/San Francisco/SF-UI/SF-UI-Text-Semibold.otf"; sourceTree = SOURCE_ROOT; };
+		1447E3C31DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAdminTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Splitzee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D1D6CE709231144655F652 /* Pods-Splitzee.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.debug.xcconfig"; sourceTree = "<group>"; };
 		2ED719F80BC691C40D89EACD /* Pods-Splitzee.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Splitzee.release.xcconfig"; path = "Pods/Target Support Files/Pods-Splitzee/Pods-Splitzee.release.xcconfig"; sourceTree = "<group>"; };
@@ -166,7 +168,7 @@
 				14185DCE1DDD9D7700777AD8 /* AdminPage */,
 				14185DCF1DDD9D8200777AD8 /* MemberPage */,
 				14185DC41DDD70E200777AD8 /* DetailViewController.swift */,
-				14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */,
+				1447E3C51DDE8CEB00954A2B /* NewAdminTransaction */,
 				14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */,
 			);
 			name = View;
@@ -216,6 +218,15 @@
 				14185DE11DDE4EE400777AD8 /* SF-UI-Text-SemiboldItalic.otf */,
 			);
 			name = Fonts;
+			sourceTree = "<group>";
+		};
+		1447E3C51DDE8CEB00954A2B /* NewAdminTransaction */ = {
+			isa = PBXGroup;
+			children = (
+				14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */,
+				1447E3C31DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift */,
+			);
+			name = NewAdminTransaction;
 			sourceTree = "<group>";
 		};
 		2733541BC61328D4563A8C87 /* Frameworks */ = {
@@ -528,6 +539,7 @@
 				E4F85F891DD58EB600342329 /* Request.swift in Sources */,
 				14185DBB1DDD6FD400777AD8 /* SignInViewController.swift in Sources */,
 				14185DCB1DDD8AA900777AD8 /* AdminCollectionViewCell.swift in Sources */,
+				1447E3C41DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift in Sources */,
 				E42ABDF81DD562F70002D910 /* Groups.swift in Sources */,
 				14185DC91DDD712700777AD8 /* NewMemberTransactionViewController.swift in Sources */,
 				14185DC31DDD70B900777AD8 /* MemberPageViewController.swift in Sources */,
