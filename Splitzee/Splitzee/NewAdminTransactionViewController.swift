@@ -97,7 +97,7 @@ class NewAdminTransactionViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0.012 * view.frame.width , y: view.frame.height * 0.145, width: 0.988 * view.frame.width, height: view.frame.height * 0.137) , collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0.012 * view.frame.width , y: view.frame.height * 0.173, width: 0.988 * view.frame.width, height: 0.367*view.frame.height) , collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
@@ -134,7 +134,7 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 0.316*view.frame.width , height: 0.203 * view.frame.height )
+            return CGSize(width: 0.315*view.frame.width , height: 0.367*view.frame.height )
         }
 }
 
