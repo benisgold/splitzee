@@ -109,6 +109,7 @@ class CreateAccountViewController: UIViewController {
         createAccountButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.651 + (view.frame.height*0.0625), width: view.frame.width * 0.841, height: view.frame.height * 0.068))
         createAccountButton.setTitle("CREATE ACCOUNT", for: .normal)
         createAccountButton.backgroundColor = constants.red
+        createAccountButton.addTarget(self, action: #selector(createAccountPressed), for: .touchUpInside)
         view.addSubview(createAccountButton)
         
         // backToLoginButton
@@ -119,7 +120,7 @@ class CreateAccountViewController: UIViewController {
         backToLoginButton.layer.borderColor = UIColor.white.cgColor
         
         backToLoginButton.addTarget(self, action: #selector(touchBackToLoginButton), for: .touchUpInside)
-        self.performSegue(withIdentifier: "createAccountToSignIn", sender: backToLoginButton)
+//        self.performSegue(withIdentifier: "createAccountToSignIn", sender: backToLoginButton)
         view.addSubview(backToLoginButton)
     }
 
@@ -143,6 +144,7 @@ class CreateAccountViewController: UIViewController {
                 } else {
                     self.setDisplayName(user)
                     AppState.sharedInstance.signedIn = true
+                    self.signedIn(user)
                 }
                 
             })

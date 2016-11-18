@@ -87,7 +87,7 @@ class SignInViewController: UIViewController {
         signInButton.backgroundColor = constants.darkGray
         
         signInButton.addTarget(self, action: #selector(touchSignInButton), for: .touchUpInside)
-        self.performSegue(withIdentifier: "signInToAdminPage", sender: signInButton)
+//        self.performSegue(withIdentifier: "signInToAdminPage", sender: signInButton)
         view.addSubview(signInButton)
         
         // createAccountButton
@@ -96,7 +96,7 @@ class SignInViewController: UIViewController {
         createAccountButton.backgroundColor = constants.red
         
         createAccountButton.addTarget(self, action: #selector(touchCreateAccountButton), for: .touchUpInside)
-        self.performSegue(withIdentifier: "signInToCreateAccount", sender: createAccountButton)
+//        self.performSegue(withIdentifier: "signInToCreateAccount", sender: createAccountButton)
         view.addSubview(createAccountButton)
         
         // forgotPassword
@@ -159,7 +159,7 @@ class SignInViewController: UIViewController {
         inputEmail.text = ""
         inputPassword.text = ""
         
-        performSegue(withIdentifier: "", sender: self)
+        performSegue(withIdentifier: "signInToAdminPage", sender: self)
     }
     
     func logInClicked(sender: UIButton)
