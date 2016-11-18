@@ -14,7 +14,7 @@ class SignInViewController: UIViewController {
     var splitzeeLogo: UIImageView!
     var pleaseSignIn: UILabel!
     var plainDividingLine: UIImageView!
-    var inputEmailOrUsername: UITextField!
+    var inputEmail: UITextField!
     var inputPassword: UITextField!
     var signInButton: UIButton!
     var createAccountButton: UIButton!
@@ -64,13 +64,13 @@ class SignInViewController: UIViewController {
         plainDividingLine.contentMode = .scaleAspectFill
         self.view.addSubview(plainDividingLine)
         
-        // inputEmailOrUsername
-        inputEmailOrUsername = UITextField()
-        let inputEmailOrUsernamePlaceholder = NSAttributedString(string: String(describing: "     Email or username"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
-        inputEmailOrUsername.attributedPlaceholder = inputEmailOrUsernamePlaceholder
-        inputEmailOrUsername.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.329, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
-        inputEmailOrUsername.backgroundColor = UIColor.white
-        view.addSubview(inputEmailOrUsername)
+        // inputEmail
+        inputEmail = UITextField()
+        let inputEmailPlaceholder = NSAttributedString(string: String(describing: "     Email"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        inputEmail.attributedPlaceholder = inputEmailPlaceholder
+        inputEmail.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.329, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
+        inputEmail.backgroundColor = UIColor.white
+        view.addSubview(inputEmail)
         // in progress!!!!! -------------- need to add picture to text
         
         // inputPassword
@@ -137,7 +137,23 @@ class SignInViewController: UIViewController {
     
     func signedIn(_ user: FIRUser?) {
         AppState.sharedInstance.signedIn = true
+        inputEmail.text = ""
+        inputPassword.text = ""
+        
         performSegue(withIdentifier: "", sender: self)
+    }
+    
+    func logInClicked(sender: UIButton)
+    {
+        guard let email = inputEmail.text, let password = inputPassword.text else {return}
+        FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
+            if let error = error {
+                print(error)
+                return
+            } else {
+                self.signedIn(user)
+            }
+        }
     }
 
     /*
