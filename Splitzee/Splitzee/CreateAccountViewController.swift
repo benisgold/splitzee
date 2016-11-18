@@ -127,8 +127,42 @@ class CreateAccountViewController: UIViewController {
         performSegue(withIdentifier: "createAccountToSignIn", sender: self)
     }
 
+// -----------FIREBASE------------------------------------------------------------------------
+    //Should Create a new account
+    func createAccountPressed(_ sender: UIButton) {
+        if (inputPassword.text != inputConfirmPassword.text) {
+            // show popup!!
+        } else {
+            guard let email = inputEmail.text, let password = inputPassword.text, let name = inputFullName.text else {return}
+            FIRAuth.auth()?.createUser(withEmail: email, password: password,  completion: { (user, error) in
+                if let error = error{
+                    print(error)
+                    return
+                } else {
+                    self.setDisplayName(user)
+                    AppState.sharedInstance.signedIn = true
+                }
+                
+            })
+        }
+    }
     
+    func setDisplayName(_ user: FIRUser?) {
+        let changeRequest = user?.profileChangeRequest()
+        changeRequest?.displayName = user?.email!.components(separatedBy: "@")[0]
+        changeRequest?.commitChanges(completion: { (error) in
+            if let error = error {
+                print(error)
+                return
+            } else {
+                self.signedIn(FIRAuth.auth()?.currentUser)
+            }
+        })
+    }
     
+    func signedIn(_ user: FIRUser?) {
+        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+    }
     
     /*
     // MARK: - Navigation
