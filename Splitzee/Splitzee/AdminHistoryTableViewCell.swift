@@ -54,6 +54,7 @@ class AdminHistoryTableViewCell: UITableViewCell {
         resultLabel.textColor = constants.fontMediumDarkBlue
         resultLabel.font = UIFont(name: "SFUIText-Medium", size: 14)
         resultLabel.textAlignment = .center
+        resultLabel.layer.cornerRadius = 3
         contentView.addSubview(resultLabel)
     }
 
