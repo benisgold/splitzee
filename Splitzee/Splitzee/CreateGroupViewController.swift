@@ -31,7 +31,7 @@ class CreateGroupViewController: UIViewController {
     }
     
     func addBackground() {
-        background = UIImageView(image: #imageLiteral(resourceName: "purpleGradientDarkBG"))
+        background = UIImageView(image: #imageLiteral(resourceName: "whiteBlueGradientBG"))
         background.frame = view.frame
         self.view.addSubview(background)
         

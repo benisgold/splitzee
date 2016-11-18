@@ -29,6 +29,7 @@ class MemberPageViewController: UIViewController {
     }
     
     func setupUI() {
+        
         backgroundGradient = UIImageView(frame: view.frame)
         backgroundGradient.image = #imageLiteral(resourceName: "whiteBlueGradientBG")
         view.addSubview(backgroundGradient)
