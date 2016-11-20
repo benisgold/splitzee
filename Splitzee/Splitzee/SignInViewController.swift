@@ -164,7 +164,7 @@ class SignInViewController: UIViewController {
     }
     
     func touchSignInButton(sender: UIButton!) {
-        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+        performSegue(withIdentifier: "signInToMenu", sender: self)
     }
     
     
