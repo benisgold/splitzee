@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class CreateAccountViewController: UIViewController {
+class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     
     var background: UIImageView!
     var createYourAccount: UILabel!
@@ -22,18 +22,15 @@ class CreateAccountViewController: UIViewController {
     var inputConfirmPassword: UITextField!
     var createAccountButton: UIButton!
     var backToLoginButton: UIButton!
+    var userImage: UIImage!
     let constants = Constants()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .lightContent
         setupUI()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        initializeTextFields()
+        configureKeyboard()
     }
     
     func setupUI() {
@@ -45,7 +42,8 @@ class CreateAccountViewController: UIViewController {
         // createYourAccount
         createYourAccount = UILabel(frame: CGRect(x: 0, y: view.frame.height * 0.0856, width: view.frame.width, height: view.frame.height * 0.043))
         createYourAccount.textColor = UIColor.white
-        createYourAccount.text = "Create your account."
+        createYourAccount.text = "Create your account"
+        createYourAccount.font = UIFont(name: "SFUIText-Light", size: 27)
         createYourAccount.textAlignment = .center
         view.addSubview(createYourAccount)
         
@@ -70,57 +68,89 @@ class CreateAccountViewController: UIViewController {
         
         // inputFullName
         inputFullName = UITextField()
-        let inputFullNamePlaceholder = NSAttributedString(string: String(describing: "     Full name"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputFullNamePlaceholder = NSAttributedString(string: String(describing: "Full name"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputFullName.attributedPlaceholder = inputFullNamePlaceholder
+        inputFullName.font = UIFont(name: "SFUIText-Light", size: 14)
         inputFullName.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.329 + (view.frame.height*0.0625), width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputFullName.backgroundColor = UIColor.white
+        inputFullName.layer.cornerRadius = 3
+        inputFullName.autocapitalizationType = .words
+        inputFullName.autocorrectionType = .no
+        createInset(textField: inputFullName)
         view.addSubview(inputFullName)
         // in progress!!!!! -------------- need to add picture to text
         
         // inputEmailOrUsername
         inputEmail = UITextField()
-        let inputEmailPlaceholder = NSAttributedString(string: String(describing: "     Email or username"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputEmailPlaceholder = NSAttributedString(string: String(describing: "Email"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputEmail.attributedPlaceholder = inputEmailPlaceholder
+        inputEmail.font = UIFont(name: "SFUIText-Light", size: 14)
         inputEmail.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.409 + (view.frame.height*0.0625), width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputEmail.backgroundColor = UIColor.white
+        inputEmail.layer.cornerRadius = 3
+        inputEmail.keyboardType = .emailAddress
+        inputEmail.autocorrectionType = .no
+        createInset(textField: inputEmail)
         view.addSubview(inputEmail)
         // in progress!!!!! -------------- need to add picture to text
         
         // inputPassword
         inputPassword = UITextField()
-        let inputPasswordPlaceholder = NSAttributedString(string: String(describing: "     Password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputPasswordPlaceholder = NSAttributedString(string: String(describing: "Password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputPassword.attributedPlaceholder = inputPasswordPlaceholder
+        inputPassword.font = UIFont(name: "SFUIText-Light", size: 14)
         inputPassword.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.490 + (view.frame.height*0.0625), width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputPassword.backgroundColor = UIColor.white
+        inputPassword.layer.cornerRadius = 3
+        inputPassword.isSecureTextEntry = true
+        inputPassword.autocapitalizationType = .none
+        inputPassword.autocorrectionType = .no
+        createInset(textField: inputPassword)
         view.addSubview(inputPassword)
         // in progress!!!!! -------------- need to add picture to text
         
         // inputConfirmPassword
         inputConfirmPassword = UITextField()
-        let inputConfirmPasswordPlaceholder = NSAttributedString(string: String(describing: "     Confirm password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputConfirmPasswordPlaceholder = NSAttributedString(string: String(describing: "Confirm password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
         inputConfirmPassword.attributedPlaceholder = inputConfirmPasswordPlaceholder
+        inputConfirmPassword.font = UIFont(name: "SFUIText-Light", size: 14)
         inputConfirmPassword.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.571 + (view.frame.height*0.0625), width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputConfirmPassword.backgroundColor = UIColor.white
+        inputConfirmPassword.layer.cornerRadius = 3
+        inputConfirmPassword.isSecureTextEntry = true
+        inputConfirmPassword.autocapitalizationType = .none
+        inputConfirmPassword.autocorrectionType = .no
+        createInset(textField: inputConfirmPassword)
         view.addSubview(inputConfirmPassword)
         // in progress!!!!! -------------- need to add picture to text
         
         // createAccountButton
         createAccountButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.651 + (view.frame.height*0.0625), width: view.frame.width * 0.841, height: view.frame.height * 0.068))
         createAccountButton.setTitle("CREATE ACCOUNT", for: .normal)
+        createAccountButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 18)
         createAccountButton.backgroundColor = constants.red
         createAccountButton.addTarget(self, action: #selector(createAccountPressed), for: .touchUpInside)
+        createAccountButton.layer.cornerRadius = 3
         view.addSubview(createAccountButton)
         
         // backToLoginButton
         backToLoginButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.802 + (view.frame.height*0.0625), width: view.frame.width * 0.841, height: view.frame.height * 0.057))
         backToLoginButton.setTitle("Back to Login", for: .normal)
+        backToLoginButton.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 18)
         backToLoginButton.backgroundColor = UIColor.clear
         backToLoginButton.layer.borderWidth = 1
         backToLoginButton.layer.borderColor = UIColor.white.cgColor
-        
+        backToLoginButton.layer.cornerRadius = 3
         backToLoginButton.addTarget(self, action: #selector(touchBackToLoginButton), for: .touchUpInside)
 //        self.performSegue(withIdentifier: "createAccountToSignIn", sender: backToLoginButton)
         view.addSubview(backToLoginButton)
+    }
+    
+    func initializeTextFields() {
+        inputEmail.delegate = self
+        inputPassword.delegate = self
+        inputFullName.delegate = self
+        inputConfirmPassword.delegate = self
     }
 
 // -----------FUNCTIONS------------------------------------------------------------------------
@@ -128,28 +158,89 @@ class CreateAccountViewController: UIViewController {
     func touchBackToLoginButton(sender: UIButton!) {
         performSegue(withIdentifier: "createAccountToSignIn", sender: self)
     }
-
-// -----------FIREBASE------------------------------------------------------------------------
-    //Should Create a new account
-    func createAccountPressed(_ sender: UIButton) {
-        if (inputPassword.text != inputConfirmPassword.text) {
-            // show popup!!
-        } else {
-            guard let email = inputEmail.text, let password = inputPassword.text, let name = inputFullName.text else {return}
-            FIRAuth.auth()?.createUser(withEmail: email, password: password,  completion: { (user, error) in
-                if let error = error{
-                    print(error)
-                    return
-                } else {
-                    self.setDisplayName(user)
-                    AppState.sharedInstance.signedIn = true
-                    self.signedIn(user)
-                }
-                
-            })
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+    func createInset(textField: UITextField) {
+        let Inset = UITextView()
+        Inset.frame = CGRect(x: 0, y: 0, width: 0.048 * view.frame.width, height: textField.frame.height)
+        Inset.layer.cornerRadius = 3
+        textField.leftView = Inset
+        textField.leftViewMode = .always
+        view.addSubview(Inset)
+    }
+    
+    func configureKeyboard() {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+    }
+    
+//--------------Adding Images to the Create an Account Button---------------------------------
+    
+    
+    var imagePicker = UIImagePickerController()
+    
+    func loadImagesButtonTapped(sender:UIButton){
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let setImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            userImage = setImage
+            pictureButton.setImage(setImage, for: .normal)
+            view.addSubview(pictureButton)
+            dismiss(animated: true, completion: nil)
         }
     }
     
+    
+    
+    var clickedURL: URL?
+    
+    func storeImage(uid: String)
+    {
+        
+        
+        let storage = FIRStorage.storage()
+        let storageRef = storage.reference(forURL: "gs://splitzee-ebff4.appspot.com")
+        let imagesRef = storageRef.child("images/"+uid)
+        var data = NSData()
+        if let img = userImage {
+            data = UIImageJPEGRepresentation(img, 0.8)! as NSData
+            
+            
+            let uploadTask = imagesRef.put(data as Data, metadata: nil) { metadata, error in
+                if (error != nil) {
+                    
+                } else {
+                    
+                    self.clickedURL = metadata!.downloadURL()
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+// -----------FIREBASE------------------------------------------------------------------------
+    
+    //Signs in user
+    func signedIn(_ user: FIRUser?) {
+        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+    }
+    
+    //Sets display name of the user
     func setDisplayName(_ user: FIRUser?) {
         let changeRequest = user?.profileChangeRequest()
         changeRequest?.displayName = user?.email!.components(separatedBy: "@")[0]
@@ -163,18 +254,45 @@ class CreateAccountViewController: UIViewController {
         })
     }
     
-    func signedIn(_ user: FIRUser?) {
-        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+    //Should Create a new account
+    func createAccountPressed(_ sender: UIButton) {
+        if (inputPassword.text != inputConfirmPassword.text) {
+            let alertView = UIAlertController(title: "Password", message: "Passwords do not match.", preferredStyle: UIAlertControllerStyle.alert)
+            alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            }))
+        }
+        else {
+            guard let email = inputEmail.text, let password = inputPassword.text, let name = inputFullName.text else {return}
+            FIRAuth.auth()?.createUser(withEmail: email, password: password,  completion: { (user, error) in
+                if let error = error{
+                    print(error)
+                    return
+                } else {
+                    
+                    //Stores the image in firebase database
+                    let name = self.inputFullName.text
+                    let profPicURL = self.clickedURL
+                    
+                    let rootRef = FIRDatabase.database().reference()
+                    let userRef = rootRef.child("User")
+                    
+                    userRef.child(user!.uid).child("email").setValue(email)
+                    userRef.child(user!.uid).child("name").setValue(name)
+                    userRef.child(user!.uid).child("profPicURL").setValue(profPicURL)
+                    userRef.child(user!.uid).child("transactionIDs").setValue([])
+                    userRef.child(user!.uid).child("groupIDs").setValue([])
+                    userRef.child(user!.uid).child("groupAdminIDs").setValue([])
+                    
+                    // stores the image in firebase storage
+                    self.storeImage(uid: user!.uid)
+                    
+                    
+                    self.setDisplayName(user)
+                    AppState.sharedInstance.signedIn = true
+                    self.signedIn(user)
+                }
+                
+            })
+        }
     }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

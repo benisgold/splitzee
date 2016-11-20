@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class SignInViewController: UIViewController {
+class SignInViewController: UIViewController, UITextFieldDelegate {
     
     var splitzeeLogo: UIImageView!
     var pleaseSignIn: UILabel!
@@ -27,16 +27,11 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .lightContent
         setupUI()
-        
-        // Do any additional setup after loading the view.
+        initializeTextFields()
+        configureKeyboard()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     func setupUI() {
         
@@ -72,7 +67,10 @@ class SignInViewController: UIViewController {
         inputEmail.attributedPlaceholder = inputEmailPlaceholder
         inputEmail.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.329, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputEmail.backgroundColor = UIColor.white
+        inputEmail.autocapitalizationType = .none
+        inputEmail.keyboardType = .emailAddress
         inputEmail.layer.cornerRadius = 3
+        inputEmail.autocorrectionType = .no
         createInset(textField: inputEmail)
         view.addSubview(inputEmail)
         
@@ -89,6 +87,9 @@ class SignInViewController: UIViewController {
         inputPassword.backgroundColor = UIColor.white
         inputPassword.textColor = UIColor.black
         inputPassword.layer.cornerRadius = 3
+        inputPassword.isSecureTextEntry = true
+        inputPassword.autocapitalizationType = .none
+        inputPassword.autocorrectionType = .no
         createInset(textField: inputPassword)
         view.addSubview(inputPassword)
         // in progress!!!!! -------------- need to add picture to text
@@ -148,14 +149,11 @@ class SignInViewController: UIViewController {
 
     }
     
-    func createInset(textField: UITextField) {
-        let Inset = UITextView()
-        Inset.frame = CGRect(x: 0, y: 0, width: 0.048 * view.frame.width, height: textField.frame.height)
-        Inset.layer.cornerRadius = 3
-        textField.leftView = Inset
-        textField.leftViewMode = .always
-        view.addSubview(Inset)
+    func initializeTextFields() {
+        inputEmail.delegate = self
+        inputPassword.delegate = self
     }
+    
     
 // ---------------FUNCTIONS---------------------------------------------------------------
     
@@ -165,6 +163,24 @@ class SignInViewController: UIViewController {
     
     func touchSignInButton(sender: UIButton!) {
         performSegue(withIdentifier: "signInToMenu", sender: self)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+    func createInset(textField: UITextField) {
+        let Inset = UITextView()
+        Inset.frame = CGRect(x: 0, y: 0, width: 0.048 * view.frame.width, height: textField.frame.height)
+        Inset.layer.cornerRadius = 3
+        textField.leftView = Inset
+        textField.leftViewMode = .always
+        view.addSubview(Inset)
+    }
+    
+    func configureKeyboard() {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
     
