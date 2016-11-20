@@ -23,6 +23,7 @@ class AdminPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupSideBar()
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
@@ -143,6 +144,14 @@ class AdminPageViewController: UIViewController {
         }))
         self.present(alertViewSub, animated: true, completion: nil)
     }
+    
+    func setupSideBar() {
+        if revealViewController() != nil {
+            groupsButton.addTarget(self.revealViewController(), action: "revealToggle:", for: .touchUpInside)
+            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
+    
     /*
      // MARK: - Navigation
      // In a storyboard-based application, you will often want to do a little preparation before navigation

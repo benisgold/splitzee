@@ -12,7 +12,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class Transaction{
+class Transaction {
     
     var transactionID: String = ""
     var groupToMember: Bool?
