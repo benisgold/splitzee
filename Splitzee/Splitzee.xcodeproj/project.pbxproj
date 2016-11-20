@@ -39,6 +39,8 @@
 		14185DF91DDE4EF500777AD8 /* SF-UI-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DE01DDE4EE400777AD8 /* SF-UI-Text-RegularItalic.otf */; };
 		14185DFA1DDE4EF500777AD8 /* SF-UI-Text-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DE11DDE4EE400777AD8 /* SF-UI-Text-SemiboldItalic.otf */; };
 		142D6CF81DE1886000561003 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D6CF71DE1886000561003 /* SWRevealViewController.m */; };
+		142D6D011DE19ADC00561003 /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */; };
+		142D6D031DE19B0D00561003 /* SideBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D6D021DE19B0D00561003 /* SideBarViewController.swift */; };
 		1447E3C41DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1447E3C31DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift */; };
 		149684011DDEC9C900529A70 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 149684001DDEC9C900529A70 /* AppState.swift */; };
 		92D6884493178F722134FC95 /* Pods_Splitzee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */; };
@@ -112,6 +114,8 @@
 		142D6CF21DE16FD600561003 /* Splitzee-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Splitzee-Bridging-Header.h"; sourceTree = "<group>"; };
 		142D6CF61DE1886000561003 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		142D6CF71DE1886000561003 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
+		142D6D021DE19B0D00561003 /* SideBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarViewController.swift; sourceTree = "<group>"; };
 		1447E3C31DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAdminTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
 		149684001DDEC9C900529A70 /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Splitzee.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -288,6 +292,8 @@
 			children = (
 				142D6CF11DE16F7800561003 /* SWRevealViewController */,
 				149684001DDEC9C900529A70 /* AppState.swift */,
+				142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */,
+				142D6D021DE19B0D00561003 /* SideBarViewController.swift */,
 				14185DD01DDE4ECC00777AD8 /* Fonts */,
 				14185DB91DDD6F7A00777AD8 /* View */,
 				E42ABDC61DD560350002D910 /* AppDelegate.swift */,
@@ -570,8 +576,10 @@
 				E42ABDF81DD562F70002D910 /* Groups.swift in Sources */,
 				B690C43B1DE1678E00024A81 /* MemberHistoryTableViewCell.swift in Sources */,
 				B690C4371DDEE86000024A81 /* AdminHistoryTableViewCell.swift in Sources */,
+				142D6D031DE19B0D00561003 /* SideBarViewController.swift in Sources */,
 				14185DC91DDD712700777AD8 /* NewMemberTransactionViewController.swift in Sources */,
 				14185DC31DDD70B900777AD8 /* MemberPageViewController.swift in Sources */,
+				142D6D011DE19ADC00561003 /* SideBarTableViewCell.swift in Sources */,
 				14185DBF1DDD709600777AD8 /* CreateGroupViewController.swift in Sources */,
 				E4FA71E11DD78D3B00FEFACC /* CurrentUser.swift in Sources */,
 				E42ABE051DD56F170002D910 /* Constants.swift in Sources */,
