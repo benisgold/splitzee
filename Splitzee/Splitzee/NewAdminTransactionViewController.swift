@@ -85,12 +85,7 @@ class NewAdminTransactionViewController: UIViewController {
     }
     
     func setupNavBar() {
-        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.111))
-        navBar.backgroundColor = UIColor.white
-        let navTitle = UINavigationItem(title: "New Transaction")
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : constants.fontMediumBlue]
-        navBar.setItems([navTitle], animated: false)
-        view.addSubview(navBar)
+        self.title = "New Transaction"
     }
     
     func setupCollectionView() {

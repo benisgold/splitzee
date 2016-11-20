@@ -50,13 +50,7 @@ class MemberPageViewController: UIViewController {
     }
     
     func setupNavBar() {
-        let navBar: UINavigationBar = UINavigationBar(frame: CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height * 0.111))
-        navBar.backgroundColor = UIColor.white
-        let navTitle = UINavigationItem(title: "What's going on?") // change to group name
-        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : constants.fontMediumBlue]
-        navBar.setItems([navTitle], animated: false)
-        
-        view.addSubview(navBar)
+        self.title = "What's going on?" // change to group name
     }
     
     func setupSegmentedControl() {
