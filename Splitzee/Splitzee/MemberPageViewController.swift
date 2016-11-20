@@ -82,6 +82,13 @@ class MemberPageViewController: UIViewController {
             // history
         }
     }
+    
+    func setupSideBar() {
+        if revealViewController() != nil {
+            groupsButton.addTarget(self.revealViewController(), action: "revealToggle:", for: .touchUpInside)
+            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
 
     /*
     // MARK: - Navigation
