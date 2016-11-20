@@ -220,11 +220,13 @@
                     </view>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="menuToSignIn" id="VDx-dd-OSK"/>
+                        <segue destination="206-zG-3SN" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="FZC-vR-Vsi"/>
+                        <segue destination="yqa-0K-NYu" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="7Fh-Zm-Fyh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G35-8T-syK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2340" y="1762"/>
+            <point key="canvasLocation" x="-2350" y="1762"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="beR-of-Ey3">
@@ -268,11 +270,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="fwC-6M-vd3"/>
         <segue reference="vwX-Y2-3jy"/>
+        <segue reference="FZC-vR-Vsi"/>
+        <segue reference="7Fh-Zm-Fyh"/>
+        <segue reference="VDx-dd-OSK"/>
+        <segue reference="D65-tt-mnl"/>
         <segue reference="kvW-Tl-l3F"/>
         <segue reference="F1N-IF-hwb"/>
-        <segue reference="D65-tt-mnl"/>
-        <segue reference="VDx-dd-OSK"/>
-        <segue reference="Puo-HA-7aO"/>
     </inferredMetricsTieBreakers>
 </document>
