@@ -20,6 +20,7 @@ class MemberPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupSideBar()
         // Do any additional setup after loading the view.
     }
 
@@ -89,6 +90,7 @@ class MemberPageViewController: UIViewController {
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
+    
 
     /*
     // MARK: - Navigation
