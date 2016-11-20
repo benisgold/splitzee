@@ -5,9 +5,7 @@
 //  Created by Vidya Ravikumar on 11/16/16.
 //  Copyright © 2016 Mohit Katyal. All rights reserved.
 //
-
 import UIKit
-
 class AdminPageViewController: UIViewController {
     
     var segmentedView: UISegmentedControl!
@@ -22,14 +20,11 @@ class AdminPageViewController: UIViewController {
     let constants = Constants()
     var alertViewAdd: UIAlertController!
     var alertViewSub: UIAlertController!
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-
         // Do any additional setup after loading the view.
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -40,12 +35,12 @@ class AdminPageViewController: UIViewController {
         backgroundGradient.image = #imageLiteral(resourceName: "whiteBlueGradientBG")
         view.addSubview(backgroundGradient)
         
-        groupsButton = UIButton(frame: CGRect(x: view.frame.width * 0.053, y: view.frame.height * 0.296, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        groupsButton = UIButton(frame: CGRect(x: view.frame.width * 0.048, y: view.frame.height * 0.337, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
         groupsButton.setImage(#imageLiteral(resourceName: "menuSymbol"), for: .normal)
         groupsButton.imageView?.contentMode = .scaleAspectFill
         view.addSubview(groupsButton)
         
-        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.296, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.337, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
         newTransactionButton.setImage(#imageLiteral(resourceName: "pencilSymbol"), for: .normal)
         newTransactionButton.imageView?.contentMode = .scaleAspectFit
         
@@ -63,13 +58,13 @@ class AdminPageViewController: UIViewController {
         totalAmount.textAlignment = .center
         view.addSubview(totalAmount)
         
-        addMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.182, width: view.frame.width * 0.075, height: view.frame.height * 0.046))
+        addMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.182, width: view.frame.width * 0.075 + 15, height: view.frame.height * 0.046 + 15))
         addMoneyButton.setImage(#imageLiteral(resourceName: "plusSign"), for: .normal)
         addMoneyButton.imageView?.contentMode = .scaleAspectFill
         addMoneyButton.addTarget(self, action: #selector(addMoneyPressed), for: .touchUpInside)
         view.addSubview(addMoneyButton)
         
-        subtractMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.243, width: view.frame.width * 0.075, height: view.frame.height * 0.046))
+        subtractMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.243, width: view.frame.width * 0.075 + 15, height: view.frame.height * 0.046 + 15))
         subtractMoneyButton.setImage(#imageLiteral(resourceName: "minusSign"), for: .normal)
         subtractMoneyButton.imageView?.contentMode = .scaleAspectFill
         subtractMoneyButton.addTarget(self, action: #selector(subMoneyPressed), for: .touchUpInside)
@@ -81,14 +76,15 @@ class AdminPageViewController: UIViewController {
     }
     
     func setupNavBar() {
-        self.title = "What's going on?" // change to group name
+        self.title = "Group Name" // change to group name
+        // self.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
     }
     
     func setupSegmentedControl() {
         let items = ["Incoming", "Outgoing", "History"]
         segmentedView = UISegmentedControl(items: items)
         segmentedView.selectedSegmentIndex = 0
-        segmentedView.frame = CGRect(x: view.frame.width * 0.066, y: view.frame.height * 0.334, width: view.frame.width * 0.867, height: 28)
+        segmentedView.frame = CGRect(x: view.frame.width * 0.145, y: view.frame.height * 0.334, width: view.frame.width * 0.720, height: 28)
         segmentedView.layer.cornerRadius = 3
         segmentedView.backgroundColor = UIColor.white
         segmentedView.tintColor = constants.mediumBlue
@@ -147,19 +143,15 @@ class AdminPageViewController: UIViewController {
         }))
         self.present(alertViewSub, animated: true, completion: nil)
     }
-
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 }
-
 extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0

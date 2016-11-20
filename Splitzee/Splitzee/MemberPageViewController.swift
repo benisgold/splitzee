@@ -50,14 +50,14 @@ class MemberPageViewController: UIViewController {
     }
     
     func setupNavBar() {
-        self.title = "What's going on?" // change to group name
+        self.title = "Group Name" // change to group name
     }
     
     func setupSegmentedControl() {
         let items = ["Incoming", "Outgoing", "History"]
         segmentedView = UISegmentedControl(items: items)
         segmentedView.selectedSegmentIndex = 0
-        segmentedView.frame = CGRect(x: view.frame.width * 0.066, y: view.frame.height * 0.181, width: view.frame.width * 0.867, height: 28)
+        segmentedView.frame = CGRect(x: view.frame.width * 0.142, y: view.frame.height * 0.140, width: view.frame.width * 0.720, height: 28)
         segmentedView.layer.cornerRadius = 3
         segmentedView.backgroundColor = UIColor.white
         segmentedView.tintColor = constants.mediumBlue
@@ -66,7 +66,7 @@ class MemberPageViewController: UIViewController {
     }
     
     func setupTableView() {
-        tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603))
+        tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.185, width: view.frame.width, height: view.frame.height * 0.820))
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(MemberPendingTableViewCell.self, forCellReuseIdentifier: "memberCell")

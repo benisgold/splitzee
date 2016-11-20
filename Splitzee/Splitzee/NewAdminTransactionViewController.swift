@@ -5,9 +5,7 @@
 //  Created by Vidya Ravikumar on 11/16/16.
 //  Copyright © 2016 Mohit Katyal. All rights reserved.
 //
-
 import UIKit
-
 class NewAdminTransactionViewController: UIViewController {
     
     var background: UIImageView!
@@ -19,14 +17,12 @@ class NewAdminTransactionViewController: UIViewController {
     var collectionView: UICollectionView!
     let constants = Constants()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
         setupCollectionView()
         // Do any additional setup after loading the view.
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -71,6 +67,7 @@ class NewAdminTransactionViewController: UIViewController {
         payButton.setTitle("Confirm Payment", for: .normal)
         payButton.setTitleColor(UIColor.white, for: .normal)
         payButton.layer.cornerRadius = 2
+        payButton.addTarget(self, action: #selector(touchPay), for: .touchUpInside)
         view.addSubview(payButton)
         
         requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.590 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
@@ -79,9 +76,8 @@ class NewAdminTransactionViewController: UIViewController {
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
         requestButton.layer.cornerRadius = 2
+        requestButton.addTarget(self, action: #selector(touchRequest), for: .touchUpInside)
         view.addSubview(requestButton)
-        
-        
     }
     
     func setupNavBar() {
@@ -93,7 +89,7 @@ class NewAdminTransactionViewController: UIViewController {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0 , y: 64, width: 0.988 * view.frame.width, height: userSelectTextField.frame.minY - 64) , collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0 , y: 80, width: 0.988 * view.frame.width, height: userSelectTextField.frame.minY - 64) , collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
@@ -103,40 +99,48 @@ class NewAdminTransactionViewController: UIViewController {
         
         view.addSubview(collectionView)
     }
-}
     
-extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-        
-        func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return 1
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            // should be returning the number of users
-            return 7
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
-            for subview in cell.contentView.subviews {
-                subview.removeFromSuperview()
-            }
-            cell.awakeFromNib()
-            return cell
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-            let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
-            adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG") //Should be actual image
-            adminTransactionCell.userName.text = "Mohit K." //Should be actual user's name
-            // set UI stuff
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
-        }
+    func touchPay(sender: UIButton!) {
+        performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+    }
+    
+    func touchRequest(sender: UIButton!) {
+        performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+    }
+    
 }
 
+extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // should be returning the number of users
+        return 7
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview()
+        }
+        cell.awakeFromNib()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
+        adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG") //Should be actual image
+        adminTransactionCell.userName.text = "Mohit K." //Should be actual user's name
+        // set UI stuff
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
+    }
+}
 extension NewAdminTransactionViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == constants.fontLightGray {
@@ -145,4 +149,3 @@ extension NewAdminTransactionViewController: UITextViewDelegate {
         }
     }
 }
-
