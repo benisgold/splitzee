@@ -46,6 +46,7 @@
 		92D6884493178F722134FC95 /* Pods_Splitzee.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 22E43F74723C5B69AB1DF0BF /* Pods_Splitzee.framework */; };
 		B690C4371DDEE86000024A81 /* AdminHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690C4361DDEE86000024A81 /* AdminHistoryTableViewCell.swift */; };
 		B690C43B1DE1678E00024A81 /* MemberHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690C43A1DE1678E00024A81 /* MemberHistoryTableViewCell.swift */; };
+		B690C43C1DE1D5B800024A81 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FA71E01DD78D3B00FEFACC /* CurrentUser.swift */; };
 		E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC61DD560350002D910 /* AppDelegate.swift */; };
 		E42ABDC91DD560350002D910 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC81DD560350002D910 /* ViewController.swift */; };
 		E42ABDCC1DD560350002D910 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42ABDCA1DD560350002D910 /* Main.storyboard */; };
@@ -59,7 +60,6 @@
 		E42ABE031DD56CD50002D910 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E42ABE021DD56CD50002D910 /* GoogleService-Info.plist */; };
 		E42ABE051DD56F170002D910 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABE041DD56F170002D910 /* Constants.swift */; };
 		E4F85F891DD58EB600342329 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4F85F881DD58EB600342329 /* Request.swift */; };
-		E4FA71E11DD78D3B00FEFACC /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FA71E01DD78D3B00FEFACC /* CurrentUser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -567,6 +567,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B690C43C1DE1D5B800024A81 /* CurrentUser.swift in Sources */,
 				14185DBD1DDD6FE900777AD8 /* CreateAccountViewController.swift in Sources */,
 				E42ABDC91DD560350002D910 /* ViewController.swift in Sources */,
 				E42ABDF61DD562E80002D910 /* Users.swift in Sources */,
@@ -589,7 +590,6 @@
 				14185DC31DDD70B900777AD8 /* MemberPageViewController.swift in Sources */,
 				142D6D011DE19ADC00561003 /* SideBarTableViewCell.swift in Sources */,
 				14185DBF1DDD709600777AD8 /* CreateGroupViewController.swift in Sources */,
-				E4FA71E11DD78D3B00FEFACC /* CurrentUser.swift in Sources */,
 				E42ABE051DD56F170002D910 /* Constants.swift in Sources */,
 				14185DC51DDD70E200777AD8 /* DetailViewController.swift in Sources */,
 			);
