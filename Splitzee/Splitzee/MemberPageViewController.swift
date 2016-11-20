@@ -35,8 +35,10 @@ class MemberPageViewController: UIViewController {
         groupsButton.imageView?.contentMode = .scaleAspectFill
         view.addSubview(groupsButton)
         
-        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.143, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
-        newTransactionButton.setImage(#imageLiteral(resourceName: "pencilSymbol"), for: .normal)
+        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.138, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        newTransactionButton.setTitle("+", for: .normal)
+        newTransactionButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 43)
+        newTransactionButton.setTitleColor(constants.fontMediumBlue, for: .normal)
         newTransactionButton.imageView?.contentMode = .scaleAspectFit
         view.addSubview(newTransactionButton)
         

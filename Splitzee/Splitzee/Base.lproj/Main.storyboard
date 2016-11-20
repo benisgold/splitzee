@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yqa-0K-NYu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="wXo-Y5-Yug">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -270,13 +270,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="D65-tt-mnl"/>
+        <segue reference="sUu-Bk-aAL"/>
+        <segue reference="kvW-Tl-l3F"/>
+        <segue reference="qih-Dc-3sb"/>
+        <segue reference="F1N-IF-hwb"/>
+        <segue reference="CoI-N0-YVl"/>
         <segue reference="7Fh-Zm-Fyh"/>
         <segue reference="fwC-6M-vd3"/>
-        <segue reference="vwX-Y2-3jy"/>
-        <segue reference="FZC-vR-Vsi"/>
         <segue reference="VDx-dd-OSK"/>
-        <segue reference="iox-6q-LET"/>
-        <segue reference="O9e-sD-Me2"/>
     </inferredMetricsTieBreakers>
 </document>
