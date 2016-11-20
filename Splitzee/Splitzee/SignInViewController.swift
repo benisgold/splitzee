@@ -185,7 +185,7 @@ class SignInViewController: UIViewController {
         inputEmail.text = ""
         inputPassword.text = ""
         
-        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+        performSegue(withIdentifier: "signInToMenu", sender: self)
     }
     
     func logInClicked(sender: UIButton)
