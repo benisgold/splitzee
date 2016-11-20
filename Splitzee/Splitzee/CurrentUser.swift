@@ -1,10 +1,10 @@
-//  
+//
 //    Users.swift
 //    Splitzee
-//  
+//
 //    Created by Mohit Katyal on 11/10/16.
 //    Copyright © 2016 Mohit Katyal. All rights reserved.
-//  
+//
 import Foundation
 import Firebase
 import FirebaseAuth
@@ -21,14 +21,11 @@ class CurrentUser {
     var transactionIDs: [String] = []
     var groupIDs: [String] = []
     var groupAdminIDs: [String] = []
-    var groupMemberAmounts: [String:Double] = [:]
-    var requestIDs: [String] = []
     var uid: String = ""
     
     // Initiating variables
     
-    init(key: String, currentUserDict: [String: AnyObject])
-     {
+    init(key: String, currentUserDict: [String: AnyObject]) {
         uid = key
         
         
@@ -52,8 +49,8 @@ class CurrentUser {
             groupAdminIDs = admin
         }
         
-        if let member = currentUserDict["groupMemberAmounts"] as? [String:Double] {
-            groupMemberAmounts = member
+        if let group = currentUserDict["groupIDs"] as? [String] {
+            groupIDs = group
         }
         
     }
@@ -97,20 +94,6 @@ class CurrentUser {
         }
     }
     
-    // Gets requests to be approved or not
-    //     func getRequests(withBlock: @escaping (Request) -> Void)  {
-    //         let ref = FIRDatabase.database().reference()
-    //         for id in requestIDs  {
-    //             ref.child("Requests").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
-    //                 //  Get user value
-    //                 let curr = Request(key: id, requestDict: snapshot.value as! [String : AnyObject])
-    //                 withBlock(curr)
-    //             })  { (error) in
-    //                 print(error.localizedDescription)
-    //             }
-    //         }
-    //     }
-    
     // Gets all the groups for the sidebar
     func getGroups(withBlock: @escaping (Group) -> Void)  {
         let ref = FIRDatabase.database().reference()
@@ -137,19 +120,7 @@ class CurrentUser {
         })
     }
     
-    //     func sendNewRequest(amount: Double, memberID: String, groupID: String, groupToMember: Bool)  {
-    // 
-    //         let ref = FIRDatabase.database().reference()
-    //         let key = ref.child("Requests").childByAutoId().key
-    //         ref.child("Requests/\(key)").setValue(["Amount": amount, "Member": memberID, "Group": groupID, "toMember": groupToMember])
-    // 
-    // 
-    // 
-    //     }
-    
-    
     func sendNewTransaction(amount: Double, memberID: String, groupID: String, groupToMember: Bool)  {
-        
         let ref = FIRDatabase.database().reference()
         let key = ref.child("Transactions").childByAutoId().key
         ref.child("Transactions/\(key)").setValue(["Amount": amount, "Member": memberID, "Group": groupID, "toMember": groupToMember])
