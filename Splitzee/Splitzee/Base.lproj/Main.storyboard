@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="66r-rf-rxp">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -24,7 +24,7 @@
                     </view>
                     <connections>
                         <segue destination="ome-rf-jeb" kind="show" identifier="signInToCreateAccount" id="6xy-Nu-nS1"/>
-                        <segue destination="yqa-0K-NYu" kind="show" identifier="signInToAdminPage" id="5Si-zr-0v0"/>
+                        <segue destination="66r-rf-rxp" kind="show" identifier="signInToMenu" id="Puo-HA-7aO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -92,7 +92,6 @@
                         <segue destination="pPd-y6-ep8" kind="show" identifier="adminPageToNewAdminTransaction" id="s0N-yn-bEM"/>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="adminPageToCreateGroup" id="iox-6q-LET"/>
                         <segue destination="wXo-Y5-Yug" kind="show" identifier="adminPageToDetail" id="O9e-sD-Me2"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="adminPageToSignIn" id="LTv-6k-BPz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="487-2r-2QQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -161,7 +160,6 @@
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="memberPageToCreateGroup" id="F1N-IF-hwb"/>
                         <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="uFr-6T-gkh"/>
                         <segue destination="wXo-Y5-Yug" kind="show" identifier="memberPageToDetail" id="kvW-Tl-l3F"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="memberPageToSignIn" id="gJQ-V9-Wj9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPR-ua-aYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -194,7 +192,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yqa-0K-NYu" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DhM-8Q-5bz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DhM-8Q-5bz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -220,17 +218,44 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="menuToSignIn" id="VDx-dd-OSK"/>
+                        <segue destination="206-zG-3SN" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="FZC-vR-Vsi"/>
+                        <segue destination="yqa-0K-NYu" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="7Fh-Zm-Fyh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G35-8T-syK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-649" y="2569"/>
+            <point key="canvasLocation" x="-2350" y="1762"/>
+        </scene>
+        <!--Reveal View Controller-->
+        <scene sceneID="beR-of-Ey3">
+            <objects>
+                <viewController id="0rH-r4-XVk" customClass="SWRevealViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PFK-h7-yT1"/>
+                        <viewControllerLayoutGuide type="bottom" id="kYk-fB-hEO"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="W8S-MX-leH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="66r-rf-rxp" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="fwC-6M-vd3"/>
+                        <segue destination="IR5-Su-HXa" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="vwX-Y2-3jy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3Th-Lm-mhb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-114" y="3352"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1OL-Rr-Eus">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="206-zG-3SN" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dfU-7a-pdf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dfU-7a-pdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -245,11 +270,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NWc-nF-rwN"/>
-        <segue reference="iox-6q-LET"/>
+        <segue reference="fwC-6M-vd3"/>
+        <segue reference="vwX-Y2-3jy"/>
+        <segue reference="FZC-vR-Vsi"/>
+        <segue reference="7Fh-Zm-Fyh"/>
+        <segue reference="VDx-dd-OSK"/>
         <segue reference="D65-tt-mnl"/>
-        <segue reference="5Si-zr-0v0"/>
-        <segue reference="LTv-6k-BPz"/>
-        <segue reference="O9e-sD-Me2"/>
+        <segue reference="kvW-Tl-l3F"/>
+        <segue reference="F1N-IF-hwb"/>
     </inferredMetricsTieBreakers>
 </document>

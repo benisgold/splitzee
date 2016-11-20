@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SideBarViewController: UIViewController {
     
@@ -21,6 +22,7 @@ class SideBarViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupTableView()
+        
         
         // Do any additional setup after loading the view.
     }
@@ -65,6 +67,7 @@ class SideBarViewController: UIViewController {
         logoutButton.backgroundColor = UIColor.clear
         logoutButton.setTitle("Logout", for: .normal)
         logoutButton.setTitleColor(UIColor.white, for: .normal)
+        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         view.addSubview(logoutButton)
     }
     
@@ -74,28 +77,45 @@ class SideBarViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(SideBarTableViewCell.self, forCellReuseIdentifier: "sideBarCell")
+        self.automaticallyAdjustsScrollViewInsets = false
+        tableView.contentInset = UIEdgeInsets.zero
         view.addSubview(tableView)
+    }
+    
+    func logout() {
+        do {
+            try FIRAuth.auth()?.signOut()
+            AppState.sharedInstance.signedIn = false
+            dismiss(animated: true, completion: nil)
+            performSegue(withIdentifier: "menuToSignIn", sender: self)
+        } catch let error as NSError {
+            print(error)
+        }
     }
     
     /*
      // MARK: - Navigation
-     
      // In a storyboard-based application, you will often want to do a little preparation before navigation
      override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
      // Get the new view controller using segue.destinationViewController.
      // Pass the selected object to the new view controller.
      }
      */
-    
 }
 
 extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sideBarCell", for: indexPath) as! SideBarTableViewCell
+
         for subview in cell.contentView.subviews {
             subview.removeFromSuperview()
         }
@@ -104,6 +124,13 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! SideBarTableViewCell
+        let sideBarCell = cell as! SideBarTableViewCell
+        sideBarCell.label.text = "admin" // Either admin or member
+        sideBarCell.name.text = "Mobile Developers of Berkeley" // Group name
+        sideBarCell.options.text = "..." // Always "..."
+        
+        
     }
+    
+   
 }

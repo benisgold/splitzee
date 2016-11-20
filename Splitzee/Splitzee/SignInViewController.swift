@@ -162,7 +162,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func touchSignInButton(sender: UIButton!) {
-        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+        performSegue(withIdentifier: "signInToMenu", sender: self)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -201,7 +201,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputEmail.text = ""
         inputPassword.text = ""
         
-        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+        performSegue(withIdentifier: "signInToMenu", sender: self)
     }
     
     func logInClicked(sender: UIButton)

@@ -182,6 +182,7 @@
 				14185DCE1DDD9D7700777AD8 /* AdminPage */,
 				14185DCF1DDD9D8200777AD8 /* MemberPage */,
 				14185DC41DDD70E200777AD8 /* DetailViewController.swift */,
+				142D6D041DE19B8F00561003 /* SideBar */,
 				1447E3C51DDE8CEB00954A2B /* NewAdminTransaction */,
 				14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */,
 			);
@@ -246,6 +247,15 @@
 			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
+		142D6D041DE19B8F00561003 /* SideBar */ = {
+			isa = PBXGroup;
+			children = (
+				142D6D021DE19B0D00561003 /* SideBarViewController.swift */,
+				142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */,
+			);
+			name = SideBar;
+			sourceTree = "<group>";
+		};
 		1447E3C51DDE8CEB00954A2B /* NewAdminTransaction */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,8 +302,6 @@
 			children = (
 				142D6CF11DE16F7800561003 /* SWRevealViewController */,
 				149684001DDEC9C900529A70 /* AppState.swift */,
-				142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */,
-				142D6D021DE19B0D00561003 /* SideBarViewController.swift */,
 				14185DD01DDE4ECC00777AD8 /* Fonts */,
 				14185DB91DDD6F7A00777AD8 /* View */,
 				E42ABDC61DD560350002D910 /* AppDelegate.swift */,
