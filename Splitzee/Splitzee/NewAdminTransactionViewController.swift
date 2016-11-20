@@ -96,7 +96,7 @@ class NewAdminTransactionViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
-        collectionView.backgroundColor = UIColor.clear
+        collectionView.backgroundColor = UIColor.black
         view.addSubview(collectionView)
     }
 }
@@ -123,8 +123,8 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         
         func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
             let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
-            adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG")
-            adminTransactionCell.userName.text = "Mohit Katyal"
+            adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG") //Should be actual image
+            adminTransactionCell.userName.text = "Mohit Katyal" //Should be actual user's name
             // set UI stuff
         }
         

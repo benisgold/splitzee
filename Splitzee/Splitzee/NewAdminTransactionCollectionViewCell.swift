@@ -34,7 +34,6 @@ class NewAdminTransactionCollectionViewCell: UICollectionViewCell {
         //User's name
         userName = UILabel()
         userName = UILabel(frame: CGRect(x: 0.190 * contentView.frame.width , y: 0.871 * contentView.frame.height, width: 0.620*contentView.frame.width , height: 0.103 * contentView.frame.height ))
-        userName.text = "User's name" // Should be get the actual users name
         userName.textAlignment = .center
         userName.textColor = UIColor.white
         contentView.addSubview(userName)
