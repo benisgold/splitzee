@@ -21,7 +21,7 @@ class CreateGroupViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        UIApplication.shared.statusBarStyle = .lightContent
         addBackground()
         makeXButton()
         makePictureButton()
@@ -31,7 +31,7 @@ class CreateGroupViewController: UIViewController {
     }
     
     func addBackground() {
-        background = UIImageView(image: #imageLiteral(resourceName: "whiteBlueGradientBG"))
+        background = UIImageView(image: #imageLiteral(resourceName: "purpleFogBG"))
         background.frame = view.frame
         self.view.addSubview(background)
         
@@ -42,9 +42,10 @@ class CreateGroupViewController: UIViewController {
     
     func makeXButton() {
         xButton = UIButton()
-        xButton.frame = CGRect(x: 0.879 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
+        xButton.frame = CGRect(x: 0.900 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
+        xButton.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 22)
         xButton.setTitle("X", for: .normal)
-        xButton.setTitleColor(.black, for: .normal)
+        xButton.setTitleColor(constants.fontMediumGray, for: .normal)
         xButton.titleLabel?.textAlignment = .center
         view.addSubview(xButton)
     }
@@ -60,9 +61,11 @@ class CreateGroupViewController: UIViewController {
     func makeCreateButton() {
         createButton = UIButton()
         createButton.frame = CGRect(x: 0, y: 0.605 * view.frame.height, width: view.frame.width, height: 0.075 * view.frame.height)
+        createButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 20 )
         createButton.setTitle("Create Group", for: .normal)
         createButton.setTitleColor(.white, for: .normal)
         createButton.titleLabel?.textAlignment = .center
+        createButton.layer.cornerRadius = 3
         createButton.backgroundColor = constants.mediumBlue
         view.addSubview(createButton)
     }
@@ -70,10 +73,12 @@ class CreateGroupViewController: UIViewController {
     func makeNameTextField() {
         nameTextField = UITextField()
         nameTextField.frame = CGRect(x: 0, y: 0.218 * view.frame.height, width: view.frame.width, height: 0.068 * view.frame.height)
-        nameTextField.placeholder = "New Group Name"
+        nameTextField.font = UIFont(name: "SFUIText-Regular", size: 22)
+        nameTextField.placeholder = "Group name"
         nameTextField.textAlignment = .center
-        nameTextField.textColor = constants.fontMediumGray
+        nameTextField.autocorrectionType = .no
         nameTextField.backgroundColor = UIColor.white
+        nameTextField.layer.cornerRadius = 3
         nameTextField.layer.borderWidth = 0.75
         nameTextField.layer.borderColor = constants.fontLightGray.cgColor
         view.addSubview(nameTextField)
@@ -82,11 +87,14 @@ class CreateGroupViewController: UIViewController {
     func makeCodeTextField() {
         codeTextField = UITextField()
         codeTextField.frame = CGRect(x: 0, y: view.frame.height * 0.523, width: view.frame.width, height: 0.068 * view.frame.height)
-        codeTextField.placeholder = "Set group access code"
+        codeTextField.font = UIFont(name: "SFUIText-Light", size: 18)
+        codeTextField.placeholder = "Access code"
+        codeTextField.isSecureTextEntry = true
+        codeTextField.autocorrectionType = .no
         codeTextField.textAlignment = .center
-        codeTextField.textColor = constants.fontMediumGray
         codeTextField.backgroundColor = UIColor.white
         codeTextField.layer.borderWidth = 0.75
+        codeTextField.layer.cornerRadius = 3
         codeTextField.layer.borderColor = constants.fontLightGray.cgColor
         view.addSubview(codeTextField)
     }
