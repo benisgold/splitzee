@@ -20,6 +20,10 @@ class AdminPageViewController: UIViewController {
     var tableView: UITableView!
     var backgroundGradient: UIImageView!
     let constants = Constants()
+    var alertViewAdd: UIAlertController!
+    var alertAddTextField: UITextField!
+    var alterViewSub: UIAlertController!
+    var alertSubTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,6 +68,7 @@ class AdminPageViewController: UIViewController {
         addMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.182, width: view.frame.width * 0.075, height: view.frame.height * 0.046))
         addMoneyButton.setImage(#imageLiteral(resourceName: "plusSign"), for: .normal)
         addMoneyButton.imageView?.contentMode = .scaleAspectFill
+        addMoneyButton.addTarget(self, action: #selector(addMoneyPressed), for: .touchUpInside)
         view.addSubview(addMoneyButton)
         
         subtractMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.243, width: view.frame.width * 0.075, height: view.frame.height * 0.046))
@@ -112,6 +117,21 @@ class AdminPageViewController: UIViewController {
         } else {
             // history
         }
+    }
+    
+    func addMoneyPressed() {
+        alertViewAdd = UIAlertController(title: "Add an amount:", message: "", preferredStyle: UIAlertControllerStyle.alert)
+        alertViewAdd.addTextField { (textField) -> Void in
+            textField.placeholder = "$0.00"
+        }
+        alertViewAdd.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            let textF = self.alertViewAdd.textFields![0] as UITextField
+            print(textF.text)
+        }))
+        alertViewAdd.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertViewAdd, animated: true, completion: nil)
     }
 
     /*
