@@ -250,8 +250,8 @@
 		142D6D041DE19B8F00561003 /* SideBar */ = {
 			isa = PBXGroup;
 			children = (
-				142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */,
 				142D6D021DE19B0D00561003 /* SideBarViewController.swift */,
+				142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */,
 			);
 			name = SideBar;
 			sourceTree = "<group>";
