@@ -20,6 +20,7 @@ class MemberPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupSideBar()
         // Do any additional setup after loading the view.
     }
 
