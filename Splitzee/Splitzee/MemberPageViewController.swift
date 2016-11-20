@@ -15,18 +15,13 @@ class MemberPageViewController: UIViewController {
     var newTransactionButton: UIButton!
     var tableView: UITableView!
     var backgroundGradient: UIImageView!
+    var pending = true
     let constants = Constants()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupSideBar()
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setupUI() {
@@ -52,10 +47,14 @@ class MemberPageViewController: UIViewController {
     
     func setupNavBar() {
         self.title = "Group Name" // change to group name
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
     
     func setupSegmentedControl() {
         let items = ["Incoming", "Outgoing", "History"]
+        let attr = NSDictionary(object: UIFont(name: "SFUIText-Regular", size: 14.0)!, forKey: NSFontAttributeName as NSCopying)
+        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] , for: .normal)
         segmentedView = UISegmentedControl(items: items)
         segmentedView.selectedSegmentIndex = 0
         segmentedView.frame = CGRect(x: view.frame.width * 0.142, y: view.frame.height * 0.140, width: view.frame.width * 0.720, height: 28)
@@ -70,38 +69,30 @@ class MemberPageViewController: UIViewController {
         tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.185, width: view.frame.width, height: view.frame.height * 0.820))
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(MemberPendingTableViewCell.self, forCellReuseIdentifier: "memberCell")
+        tableView.register(MemberPendingTableViewCell.self, forCellReuseIdentifier: "pendingMemberCell")
+        tableView.register(MemberHistoryTableViewCell.self, forCellReuseIdentifier: "historyMemberCell")
         view.addSubview(tableView)
     }
     
     func switchView(sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0) {
-            // incoming
+            pending = true
+            //more
         } else if (sender.selectedSegmentIndex == 1) {
-            // outgoing
+            pending = true
+            //more
         } else {
-            // history
+            pending = false
+            //more
         }
     }
     
     func setupSideBar() {
         if revealViewController() != nil {
-            groupsButton.addTarget(self.revealViewController(), action: "revealToggle:", for: .touchUpInside)
+            groupsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
 extension MemberPageViewController: UITableViewDelegate, UITableViewDataSource {
@@ -110,15 +101,25 @@ extension MemberPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberPendingTableViewCell
-        for subview in cell.contentView.subviews {
-            subview.removeFromSuperview()
+        let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! MemberPendingTableViewCell
+        let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyMemberCell", for: indexPath) as! MemberHistoryTableViewCell
+        if pending {
+            for subview in pendingCell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            pendingCell.awakeFromNib()
+            return pendingCell
+        } else {
+            for subview in historyCell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            historyCell.awakeFromNib()
+            return historyCell
         }
-        cell.awakeFromNib()
-        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! MemberPendingTableViewCell
+        let pendingCell = cell as! MemberPendingTableViewCell
+        let historyCell = cell as! MemberHistoryTableViewCell
     }
 }

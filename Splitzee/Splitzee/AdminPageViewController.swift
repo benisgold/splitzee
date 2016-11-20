@@ -81,6 +81,7 @@ class AdminPageViewController: UIViewController {
     func setupNavBar() {
         self.title = "Group Name" // change to group name
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
     
     func setupSegmentedControl() {
