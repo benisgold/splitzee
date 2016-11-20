@@ -92,7 +92,6 @@
                         <segue destination="pPd-y6-ep8" kind="show" identifier="adminPageToNewAdminTransaction" id="s0N-yn-bEM"/>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="adminPageToCreateGroup" id="iox-6q-LET"/>
                         <segue destination="wXo-Y5-Yug" kind="show" identifier="adminPageToDetail" id="O9e-sD-Me2"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="adminPageToSignIn" id="LTv-6k-BPz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="487-2r-2QQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -161,7 +160,6 @@
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="memberPageToCreateGroup" id="F1N-IF-hwb"/>
                         <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="uFr-6T-gkh"/>
                         <segue destination="wXo-Y5-Yug" kind="show" identifier="memberPageToDetail" id="kvW-Tl-l3F"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="memberPageToSignIn" id="gJQ-V9-Wj9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPR-ua-aYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -220,10 +218,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="menuToSignIn" id="VDx-dd-OSK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G35-8T-syK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3185" y="1762"/>
+            <point key="canvasLocation" x="-2340" y="1762"/>
         </scene>
         <!--Reveal View Controller-->
         <scene sceneID="beR-of-Ey3">
@@ -267,11 +268,11 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="D65-tt-mnl"/>
-        <segue reference="LTv-6k-BPz"/>
-        <segue reference="Puo-HA-7aO"/>
         <segue reference="vwX-Y2-3jy"/>
         <segue reference="kvW-Tl-l3F"/>
         <segue reference="F1N-IF-hwb"/>
+        <segue reference="D65-tt-mnl"/>
+        <segue reference="VDx-dd-OSK"/>
+        <segue reference="Puo-HA-7aO"/>
     </inferredMetricsTieBreakers>
 </document>

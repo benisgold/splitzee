@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class SideBarViewController: UIViewController {
     
@@ -65,6 +66,7 @@ class SideBarViewController: UIViewController {
         logoutButton.backgroundColor = UIColor.clear
         logoutButton.setTitle("Logout", for: .normal)
         logoutButton.setTitleColor(UIColor.white, for: .normal)
+        logoutButton.addTarget(self, action: #selector(logout), for: .touchUpInside)
         view.addSubview(logoutButton)
     }
     
@@ -75,6 +77,17 @@ class SideBarViewController: UIViewController {
         tableView.dataSource = self
         tableView.register(SideBarTableViewCell.self, forCellReuseIdentifier: "sideBarCell")
         view.addSubview(tableView)
+    }
+    
+    func logout() {
+        do {
+            try FIRAuth.auth()?.signOut()
+            AppState.sharedInstance.signedIn = false
+            dismiss(animated: true, completion: nil)
+            performSegue(withIdentifier: "menuToSignIn", sender: self)
+        } catch let error as NSError {
+            print(error)
+        }
     }
     
     /*
