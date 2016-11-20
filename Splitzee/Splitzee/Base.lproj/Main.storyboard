@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="yqa-0K-NYu">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -163,6 +166,24 @@
             </objects>
             <point key="canvasLocation" x="1407" y="2569"/>
         </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="zV1-CJ-PHu">
+            <objects>
+                <tabBarController id="TI0-mn-Q7L" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="tHT-jC-SmG">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="206-zG-3SN" kind="relationship" relationship="viewControllers" id="LAY-kG-7WH"/>
+                        <segue destination="yqa-0K-NYu" kind="relationship" relationship="viewControllers" id="fTa-bE-qaz"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h2W-bA-Ae7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1641" y="4009"/>
+        </scene>
         <!--New Member Transaction View Controller-->
         <scene sceneID="V19-RV-209">
             <objects>
@@ -184,10 +205,11 @@
             </objects>
             <point key="canvasLocation" x="2631" y="2569"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="ULm-rx-Wn6">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yqa-0K-NYu" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="sRu-wt-Juu"/>
                     <toolbarItems/>
                     <value key="contentSizeForViewInPopover" type="size" width="376" height="667"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -220,8 +242,7 @@
                     </view>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="menuToSignIn" id="VDx-dd-OSK"/>
-                        <segue destination="206-zG-3SN" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="FZC-vR-Vsi"/>
-                        <segue destination="yqa-0K-NYu" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="7Fh-Zm-Fyh"/>
+                        <segue destination="bqx-5z-ZdG" kind="show" identifier="sideBarToCreateGroup" id="ZpV-Ib-JjI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G35-8T-syK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -244,16 +265,19 @@
                     <connections>
                         <segue destination="66r-rf-rxp" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="fwC-6M-vd3"/>
                         <segue destination="IR5-Su-HXa" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="vwX-Y2-3jy"/>
+                        <segue destination="206-zG-3SN" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="e3i-fZ-Tcz"/>
+                        <segue destination="yqa-0K-NYu" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="wqf-EH-PWA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3Th-Lm-mhb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-114" y="3352"/>
+            <point key="canvasLocation" x="-2751" y="3584"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Item-->
         <scene sceneID="1OL-Rr-Eus">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="206-zG-3SN" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Ixw-mr-Dk7"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dfU-7a-pdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -270,13 +294,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="D65-tt-mnl"/>
-        <segue reference="7Fh-Zm-Fyh"/>
-        <segue reference="fwC-6M-vd3"/>
-        <segue reference="vwX-Y2-3jy"/>
-        <segue reference="FZC-vR-Vsi"/>
         <segue reference="VDx-dd-OSK"/>
-        <segue reference="iox-6q-LET"/>
+        <segue reference="fwC-6M-vd3"/>
+        <segue reference="wqf-EH-PWA"/>
+        <segue reference="e3i-fZ-Tcz"/>
+        <segue reference="ZpV-Ib-JjI"/>
+        <segue reference="fnX-s0-IHb"/>
+        <segue reference="NWc-nF-rwN"/>
         <segue reference="O9e-sD-Me2"/>
     </inferredMetricsTieBreakers>
 </document>
