@@ -24,7 +24,7 @@ class NewAdminTransactionCollectionViewCell: UICollectionViewCell {
         
         //User's image
         userImage = UIImageView()
-        userImage.frame = CGRect(x: 0.205 * contentView.frame.width, y: 0.234 * contentView.frame.height , width: 0.589 * contentView.frame.width, height: 0.589 * contentView.frame.height)
+        userImage.frame = CGRect(x: 15, y: 60 , width: 95, height: 95)
         userImage.contentMode = .scaleAspectFill
         userImage.layer.cornerRadius = 0.5 * userImage.frame.size.width
         userImage.clipsToBounds = true
@@ -33,11 +33,11 @@ class NewAdminTransactionCollectionViewCell: UICollectionViewCell {
         
         //User's name
         userName = UILabel()
-        userName = UILabel(frame: CGRect(x: 0.190 * contentView.frame.width , y: 0.871 * contentView.frame.height, width: 0.620*contentView.frame.width , height: 0.103 * contentView.frame.height ))
-        userName.text = "User's name" // Should be get the actual users name
+        userName = UILabel(frame: CGRect(x: userImage.frame.minX , y: userImage.frame.maxY + 3, width: userImage.frame.width , height: 30))
         userName.textAlignment = .center
         userName.textColor = UIColor.white
         contentView.addSubview(userName)
+        userName.textColor = UIColor.black
         
         
         
