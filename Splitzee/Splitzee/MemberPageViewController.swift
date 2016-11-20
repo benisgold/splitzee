@@ -69,7 +69,7 @@ class MemberPageViewController: UIViewController {
         tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603))
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(MemberTableViewCell.self, forCellReuseIdentifier: "memberCell")
+        tableView.register(MemberPendingTableViewCell.self, forCellReuseIdentifier: "memberCell")
         view.addSubview(tableView)
     }
     
@@ -101,7 +101,7 @@ extension MemberPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "memberCell", for: indexPath) as! MemberPendingTableViewCell
         for subview in cell.contentView.subviews {
             subview.removeFromSuperview()
         }
@@ -110,6 +110,6 @@ extension MemberPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! MemberTableViewCell
+        let cell = cell as! MemberPendingTableViewCell
     }
 }
