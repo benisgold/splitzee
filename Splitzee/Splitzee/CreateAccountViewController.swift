@@ -12,7 +12,6 @@ import Firebase
 class CreateAccountViewController: UIViewController {
     
     var background: UIImageView!
-    var splitzeeLogo: UIImageView!
     var createYourAccount: UILabel!
     var plainDividingLineTop: UIImageView!
     var pictureButton: UIButton!
