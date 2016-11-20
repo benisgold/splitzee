@@ -65,7 +65,7 @@ class NewAdminTransactionViewController: UIViewController {
         descriptionTextField.textColor = constants.fontLightGray
         view.addSubview(descriptionTextField)
         
-        payButton = UIButton(frame: CGRect(x: 0, y: 0.597*view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
+        payButton = UIButton(frame: CGRect(x: 0, y: 0.590*view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         payButton.layer.masksToBounds = true
         payButton.backgroundColor = constants.mediumBlue
         payButton.setTitle("Confirm Payment", for: .normal)
@@ -73,7 +73,7 @@ class NewAdminTransactionViewController: UIViewController {
         payButton.layer.cornerRadius = 2
         view.addSubview(payButton)
         
-        requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.597 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
+        requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.590 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         requestButton.layer.masksToBounds = true
         requestButton.setTitle("Request Money", for: .normal)
         requestButton.backgroundColor = constants.mediumBlue
@@ -90,13 +90,17 @@ class NewAdminTransactionViewController: UIViewController {
     
     func setupCollectionView() {
         let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0.012 * view.frame.width , y: view.frame.height * 0.173, width: 0.988 * view.frame.width, height: 0.367*view.frame.height) , collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0 , y: 64, width: 0.988 * view.frame.width, height: userSelectTextField.frame.minY - 64) , collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
-        collectionView.backgroundColor = UIColor.black
+        collectionView.backgroundColor = UIColor.clear
+        
+        
+        
         view.addSubview(collectionView)
     }
 }
@@ -109,7 +113,7 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             // should be returning the number of users
-            return 1
+            return 7
         }
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -124,12 +128,12 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
             let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
             adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG") //Should be actual image
-            adminTransactionCell.userName.text = "Mohit Katyal" //Should be actual user's name
+            adminTransactionCell.userName.text = "Mohit K." //Should be actual user's name
             // set UI stuff
         }
         
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 0.315*view.frame.width , height: 0.367*view.frame.height )
+            return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
         }
 }
 
