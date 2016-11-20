@@ -53,7 +53,7 @@ class CreateGroupViewController: UIViewController {
     func makePictureButton() {
         pictureButton = UIButton()
         pictureButton.frame = CGRect(x: 0.338 * view.frame.width, y: 0.313 * view.frame.height, width: 0.323 * view.frame.width, height: 0.186 * view.frame.height)
-        pictureButton.setImage(#imageLiteral(resourceName: "selectNewPhoto"), for: .normal)
+        pictureButton.setImage(#imageLiteral(resourceName: "Picture"), for: .normal)
         pictureButton.contentMode = .scaleAspectFit
         view.addSubview(pictureButton)
     }
@@ -98,9 +98,5 @@ class CreateGroupViewController: UIViewController {
         codeTextField.layer.borderColor = constants.fontLightGray.cgColor
         view.addSubview(codeTextField)
     }
-    
-    
-    
-    
-    
 }
+

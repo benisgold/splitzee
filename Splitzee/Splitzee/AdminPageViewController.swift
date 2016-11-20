@@ -6,6 +6,7 @@
 //  Copyright © 2016 Mohit Katyal. All rights reserved.
 //
 import UIKit
+
 class AdminPageViewController: UIViewController {
     
     var segmentedView: UISegmentedControl!
@@ -20,15 +21,13 @@ class AdminPageViewController: UIViewController {
     let constants = Constants()
     var alertViewAdd: UIAlertController!
     var alertViewSub: UIAlertController!
+    var pending = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupUI()
         setupSideBar()
-        // Do any additional setup after loading the view.
-    }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func setupUI() {
@@ -41,31 +40,34 @@ class AdminPageViewController: UIViewController {
         groupsButton.imageView?.contentMode = .scaleAspectFill
         view.addSubview(groupsButton)
         
-        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.337, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
-        newTransactionButton.setImage(#imageLiteral(resourceName: "pencilSymbol"), for: .normal)
-        newTransactionButton.imageView?.contentMode = .scaleAspectFit
+        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.333, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        newTransactionButton.setTitle("+", for: .normal)
+        newTransactionButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 43)
+        newTransactionButton.setTitleColor(constants.fontMediumBlue, for: .normal)
         
         newTransactionButton.addTarget(self, action: #selector(touchNewAdminTransactionButton), for: .touchUpInside)
         view.addSubview(newTransactionButton)
         
-        totalLoopImage = UIImageView(frame: CGRect(x: view.frame.width * 0.344, y: view.frame.height * 0.139, width: view.frame.width * 0.315, height: view.frame.height * 0.181))
+        totalLoopImage = UIImageView(frame: CGRect(x: view.frame.width / 2 - 0.175 * view.frame.width, y: view.frame.height * 0.110, width: view.frame.width * 0.35, height: view.frame.height * 0.200))
         totalLoopImage.image = #imageLiteral(resourceName: "Loop")
         totalLoopImage.contentMode = .scaleAspectFit
         view.addSubview(totalLoopImage)
         
-        totalAmount = UILabel(frame: CGRect(x: view.frame.width * 0.397, y: view.frame.height * 0.213, width: view.frame.width * 0.208, height: view.frame.height * 0.045))
+        totalAmount = UILabel(frame: CGRect(x: view.frame.width / 2 - 0.175 * view.frame.width, y: view.frame.height * 0.19, width: view.frame.width * 0.35, height: view.frame.height * 0.045))
         totalAmount.text = "$100.00"
+        totalAmount.textAlignment = .center
+        totalAmount.font = UIFont(name: "SFUIText-Light", size: 18)
         totalAmount.textColor = constants.fontMediumBlue
         totalAmount.textAlignment = .center
         view.addSubview(totalAmount)
         
-        addMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.182, width: view.frame.width * 0.075 + 15, height: view.frame.height * 0.046 + 15))
+        addMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.155, width: view.frame.width * 0.075 + 15, height: view.frame.height * 0.046 + 15))
         addMoneyButton.setImage(#imageLiteral(resourceName: "plusSign"), for: .normal)
         addMoneyButton.imageView?.contentMode = .scaleAspectFill
         addMoneyButton.addTarget(self, action: #selector(addMoneyPressed), for: .touchUpInside)
         view.addSubview(addMoneyButton)
         
-        subtractMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.243, width: view.frame.width * 0.075 + 15, height: view.frame.height * 0.046 + 15))
+        subtractMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.216, width: view.frame.width * 0.075 + 15, height: view.frame.height * 0.046 + 15))
         subtractMoneyButton.setImage(#imageLiteral(resourceName: "minusSign"), for: .normal)
         subtractMoneyButton.imageView?.contentMode = .scaleAspectFill
         subtractMoneyButton.addTarget(self, action: #selector(subMoneyPressed), for: .touchUpInside)
@@ -78,11 +80,13 @@ class AdminPageViewController: UIViewController {
     
     func setupNavBar() {
         self.title = "Group Name" // change to group name
-        // self.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 80)
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
     }
     
     func setupSegmentedControl() {
         let items = ["Incoming", "Outgoing", "History"]
+        let attr = NSDictionary(object: UIFont(name: "SFUIText-Regular", size: 14.0)!, forKey: NSFontAttributeName as NSCopying)
+        UISegmentedControl.appearance().setTitleTextAttributes(attr as [NSObject : AnyObject] , for: .normal)
         segmentedView = UISegmentedControl(items: items)
         segmentedView.selectedSegmentIndex = 0
         segmentedView.frame = CGRect(x: view.frame.width * 0.145, y: view.frame.height * 0.334, width: view.frame.width * 0.720, height: 28)
@@ -98,6 +102,7 @@ class AdminPageViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(AdminPendingTableViewCell.self, forCellReuseIdentifier: "pendingAdminCell")
+        tableView.register(AdminHistoryTableViewCell.self, forCellReuseIdentifier: "historyAdminCell")
         view.addSubview(tableView)
     }
     
@@ -107,11 +112,14 @@ class AdminPageViewController: UIViewController {
     
     func switchView(sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0) {
-            // incoming
+            pending = true
+            //more
         } else if (sender.selectedSegmentIndex == 1) {
-            // outgoing
+            pending = true
+            //more
         } else {
-            // history
+            pending = false
+            //more
         }
     }
     
@@ -147,7 +155,7 @@ class AdminPageViewController: UIViewController {
     
     func setupSideBar() {
         if revealViewController() != nil {
-            groupsButton.addTarget(self.revealViewController(), action: "revealToggle:", for: .touchUpInside)
+            groupsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
             view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
@@ -164,18 +172,29 @@ class AdminPageViewController: UIViewController {
 extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 0
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
-        for subview in cell.contentView.subviews {
-            subview.removeFromSuperview()
+        let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
+        let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyAdminCell", for: indexPath) as! AdminHistoryTableViewCell
+        if pending {
+            for subview in pendingCell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            pendingCell.awakeFromNib()
+            return pendingCell
+        } else {
+            for subview in historyCell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            historyCell.awakeFromNib()
+            return historyCell
         }
-        cell.awakeFromNib()
-        return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let cell = cell as! AdminPendingTableViewCell
+        let pendingCell = cell as! AdminPendingTableViewCell
+        let historyCell = cell as! AdminHistoryTableViewCell
     }
 }
