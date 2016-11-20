@@ -125,7 +125,7 @@ class AdminPageViewController: UIViewController {
         }
         alertViewAdd.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.alertViewAdd.textFields![0] as UITextField
-            print(textF.text)
+            print(textF.text!)
         }))
         alertViewAdd.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             self.alertViewAdd.dismiss(animated: true, completion: nil)
@@ -140,7 +140,7 @@ class AdminPageViewController: UIViewController {
         }
         alertViewSub.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.alertViewSub.textFields![0] as UITextField
-            print(textF.text)
+            print(textF.text!)
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             self.alertViewAdd.dismiss(animated: true, completion: nil)
