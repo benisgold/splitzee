@@ -54,7 +54,8 @@ class SignInViewController: UIViewController {
         // pleaseSignIn
         pleaseSignIn = UILabel(frame: CGRect(x: 0, y: view.frame.height * 0.245, width: view.frame.width, height: view.frame.height * 0.043))
         pleaseSignIn.textColor = UIColor.white
-        pleaseSignIn.text = "Please sign in."
+        pleaseSignIn.font = UIFont(name: "SFUIText-Light", size: 27)
+        pleaseSignIn.text = "Sign in"
         pleaseSignIn.textAlignment = .center
         view.addSubview(pleaseSignIn)
         
@@ -66,7 +67,7 @@ class SignInViewController: UIViewController {
         
         // inputEmail
         inputEmail = UITextField()
-        let inputEmailPlaceholder = NSAttributedString(string: String(describing: "     Email"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputEmailPlaceholder = NSAttributedString(string: String(describing: "     Email"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 14)!])
         inputEmail.attributedPlaceholder = inputEmailPlaceholder
         inputEmail.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.329, width: view.frame.width * 0.841, height: view.frame.height * 0.057)
         inputEmail.backgroundColor = UIColor.white
@@ -75,7 +76,7 @@ class SignInViewController: UIViewController {
         
         // inputPassword
         inputPassword = UITextField(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.410, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
-        let inputPasswordPlaceholder = NSAttributedString(string: String(describing: "     Password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        let inputPasswordPlaceholder = NSAttributedString(string: String(describing: "     Password"), attributes: [NSForegroundColorAttributeName: UIColor.lightGray, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 14)!])
         inputPassword.attributedPlaceholder = inputPasswordPlaceholder
         inputPassword.backgroundColor = UIColor.white
         view.addSubview(inputPassword)
@@ -84,6 +85,7 @@ class SignInViewController: UIViewController {
         // signinButton
         signInButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.503, width: view.frame.width * 0.256, height: view.frame.height * 0.068))
         signInButton.setTitle("SIGN IN", for: .normal)
+        signInButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 14)
         signInButton.backgroundColor = constants.darkGray
         
         signInButton.addTarget(self, action: #selector(touchSignInButton), for: .touchUpInside)
@@ -92,6 +94,7 @@ class SignInViewController: UIViewController {
         // createAccountButton
         createAccountButton = UIButton(frame: CGRect(x: view.frame.width * 0.350, y: view.frame.height * 0.503, width: view.frame.width * 0.568, height: view.frame.height * 0.068))
         createAccountButton.setTitle("CREATE ACCOUNT", for: .normal)
+        createAccountButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 14)
         createAccountButton.backgroundColor = constants.red
         
         createAccountButton.addTarget(self, action: #selector(touchCreateAccountButton), for: .touchUpInside)
@@ -100,6 +103,7 @@ class SignInViewController: UIViewController {
         // forgotPassword
         forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.586, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
         forgotPassword.text = "Forgot password?"
+        forgotPassword.font = UIFont(name: "SFUIText-Regular", size: 14)
         forgotPassword.textAlignment = .center
         forgotPassword.textColor = UIColor.white
         view.addSubview(forgotPassword)
@@ -113,6 +117,7 @@ class SignInViewController: UIViewController {
         // signinGoogle
         signInGoogle = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.694, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
         signInGoogle.setTitle("Sign in with Google", for: .normal)
+        signInGoogle.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 18)
         signInGoogle.backgroundColor = UIColor.clear
         signInGoogle.layer.borderWidth = 1
         signInGoogle.layer.borderColor = UIColor.white.cgColor
@@ -121,6 +126,7 @@ class SignInViewController: UIViewController {
         // signinFacebook
         signInFacebook = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.778, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
         signInFacebook.setTitle("Sign in with Facebook", for: .normal)
+        signInFacebook.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 18)
         signInFacebook.backgroundColor = UIColor.clear
         signInFacebook.layer.borderWidth = 1
         signInFacebook.layer.borderColor = UIColor.white.cgColor
