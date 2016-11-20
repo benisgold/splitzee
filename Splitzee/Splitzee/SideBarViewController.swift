@@ -17,6 +17,7 @@ class SideBarViewController: UIViewController {
     var createGroupButton: UIButton!
     var joinGroupButton: UIButton!
     var logoutButton: UIButton!
+    var joinGroupAlert: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +52,7 @@ class SideBarViewController: UIViewController {
         createGroupButton.layer.borderWidth = 0.5
         createGroupButton.layer.borderColor = UIColor.white.cgColor
         createGroupButton.setTitleColor(UIColor.white, for: .normal)
+        createGroupButton.addTarget(self, action: #selector(createNewGroup), for: .touchUpInside)
         view.addSubview(createGroupButton)
         
         // joinGroupButton
@@ -60,6 +62,7 @@ class SideBarViewController: UIViewController {
         joinGroupButton.layer.borderWidth = 0.5
         joinGroupButton.layer.borderColor = UIColor.white.cgColor
         joinGroupButton.setTitleColor(UIColor.white, for: .normal)
+        joinGroupButton.addTarget(self, action: #selector(joinGroup), for: .touchUpInside)
         view.addSubview(joinGroupButton)
         
         // logoutButton
@@ -93,6 +96,24 @@ class SideBarViewController: UIViewController {
         }
     }
     
+    func createNewGroup() {
+        performSegue(withIdentifier: "sideBarToCreateGroup", sender: self)
+    }
+    
+    func joinGroup() {
+        joinGroupAlert = UIAlertController(title: "Join Group", message: "Enter group code:", preferredStyle: UIAlertControllerStyle.alert)
+        joinGroupAlert.addTextField { (textField) -> Void in
+        }
+        joinGroupAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            let textF = self.joinGroupAlert.textFields![0] as UITextField
+            print(textF.text!)
+        }))
+        joinGroupAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
+            self.joinGroupAlert.dismiss(animated: true, completion: nil)
+        }))
+        self.present(joinGroupAlert, animated: true, completion: nil)
+    }
+    
     /*
      // MARK: - Navigation
      // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -115,7 +136,6 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "sideBarCell", for: indexPath) as! SideBarTableViewCell
-
         for subview in cell.contentView.subviews {
             subview.removeFromSuperview()
         }
@@ -128,6 +148,7 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
         sideBarCell.label.text = "admin" // Either admin or member
         sideBarCell.name.text = "Mobile Developers of Berkeley" // Group name
         sideBarCell.options.text = "..." // Always "..."
+        sideBarCell.backgroundColor = UIColor.clear
         
         
     }

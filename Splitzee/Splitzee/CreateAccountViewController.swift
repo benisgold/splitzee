@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class CreateAccountViewController: UIViewController, UITextFieldDelegate {
+class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate ,UINavigationControllerDelegate {
     
     var background: UIImageView!
     var createYourAccount: UILabel!
@@ -24,10 +24,11 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     var backToLoginButton: UIButton!
     var userImage: UIImage!
     let constants = Constants()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
+        imagePicker.delegate = self
         setupUI()
         initializeTextFields()
         configureKeyboard()
@@ -55,9 +56,12 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         
         // pictureButton
         pictureButton = UIButton()
-        pictureButton.frame = CGRect(x: 0.338 * view.frame.width, y: 0.180 * view.frame.height, width: 0.323 * view.frame.width, height: 0.186 * view.frame.height)
+        pictureButton.frame = CGRect(x: 0.31 * view.frame.width, y: 0.170 * view.frame.height, width: 0.38 * view.frame.width, height: 0.38 * view.frame.width)
         pictureButton.setImage(#imageLiteral(resourceName: "selectNewPhoto"), for: .normal)
-        pictureButton.contentMode = .scaleAspectFit
+        pictureButton.contentMode = .scaleAspectFill
+        pictureButton.layer.cornerRadius = 0.5 * pictureButton.frame.size.width
+        pictureButton.clipsToBounds = true
+        pictureButton.addTarget(self, action: #selector(loadImagesButtonTapped), for: .touchUpInside)
         view.addSubview(pictureButton)
         
         // plainDividingLineBottom
@@ -142,7 +146,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         backToLoginButton.layer.borderColor = UIColor.white.cgColor
         backToLoginButton.layer.cornerRadius = 3
         backToLoginButton.addTarget(self, action: #selector(touchBackToLoginButton), for: .touchUpInside)
-//        self.performSegue(withIdentifier: "createAccountToSignIn", sender: backToLoginButton)
+        //        self.performSegue(withIdentifier: "createAccountToSignIn", sender: backToLoginButton)
         view.addSubview(backToLoginButton)
     }
     
@@ -152,8 +156,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         inputFullName.delegate = self
         inputConfirmPassword.delegate = self
     }
-
-// -----------FUNCTIONS------------------------------------------------------------------------
+    
+    // -----------FUNCTIONS------------------------------------------------------------------------
     
     func touchBackToLoginButton(sender: UIButton!) {
         performSegue(withIdentifier: "createAccountToSignIn", sender: self)
@@ -177,15 +181,14 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
-//--------------Adding Images to the Create an Account Button---------------------------------
+    //--------------Adding Images to the Create an Account Button---------------------------------
     
     
     var imagePicker = UIImagePickerController()
     
-    func loadImagesButtonTapped(sender:UIButton){
+    func loadImagesButtonTapped(sender: UIButton){
         imagePicker.allowsEditing = false
         imagePicker.sourceType = .photoLibrary
-        
         present(imagePicker, animated: true, completion: nil)
         
     }
@@ -193,13 +196,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         if let setImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             userImage = setImage
-            pictureButton.setImage(setImage, for: .normal)
-            view.addSubview(pictureButton)
+            pictureButton.setImage(userImage, for: .normal)
             dismiss(animated: true, completion: nil)
         }
     }
-    
-    
     
     var clickedURL: URL?
     
@@ -233,11 +233,11 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         dismiss(animated: true, completion: nil)
     }
     
-// -----------FIREBASE------------------------------------------------------------------------
+    // -----------FIREBASE------------------------------------------------------------------------
     
     //Signs in user
     func signedIn(_ user: FIRUser?) {
-        performSegue(withIdentifier: "signInToAdminPage", sender: self)
+        performSegue(withIdentifier: "createAccountToSignIn", sender: self)
     }
     
     //Sets display name of the user
@@ -254,27 +254,65 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
         })
     }
     
-    //Should Create a new account
+    // Creates a new account
     func createAccountPressed(_ sender: UIButton) {
-        if (inputPassword.text != inputConfirmPassword.text) {
-            let alertView = UIAlertController(title: "Password", message: "Passwords do not match.", preferredStyle: UIAlertControllerStyle.alert)
+        
+        
+        if ((inputFullName.text?.characters.count)! == 0 || (inputPassword.text?.characters.count)! == 0 || (inputConfirmPassword.text?.characters.count)! == 0 || (inputEmail.text?.characters.count)! == 0)
+        {
+            let alertView = UIAlertController(title: "Error"
+                , message: "One or more fields have not been filled.", preferredStyle: UIAlertControllerStyle.alert)
             alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             }))
+            self.present(alertView, animated: true, completion: nil)
+        }
+        
+        if (inputPassword.text != inputConfirmPassword.text) {
+            let alertView = UIAlertController(title: "Error", message: "Passwords do not match.", preferredStyle: UIAlertControllerStyle.alert)
+            alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            }))
+            self.present(alertView, animated: true, completion: nil)
+            
         }
         else {
             guard let email = inputEmail.text, let password = inputPassword.text, let name = inputFullName.text else {return}
             FIRAuth.auth()?.createUser(withEmail: email, password: password,  completion: { (user, error) in
                 if let error = error{
+                    if ((self.inputPassword.text?.characters.count)! < 6) {
+                        let alertView = UIAlertController(title: "Error", message: "Password must be at least six characters long.", preferredStyle: UIAlertControllerStyle.alert)
+                        alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+                        }))
+                        self.present(alertView, animated: true, completion: nil)
+                        
+                    } else {
+                        let alertView = UIAlertController(title: "Error", message: "Email is not correctly formatted or is already in existance.", preferredStyle: UIAlertControllerStyle.alert)
+                        alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+                        }))
+                        self.present(alertView, animated: true, completion: nil)
+                    }
+                    
                     print(error)
                     return
                 } else {
                     
                     //Stores the image in firebase database
-                    let name = self.inputFullName.text
+                    self.storeImage(uid: user!.uid)
                     let profPicURL = self.clickedURL
+                    if profPicURL == nil {
+                        let alertView = UIAlertController(title: "Error", message: "Please enter a profile picture.", preferredStyle: UIAlertControllerStyle.alert)
+                        alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+                        }))
+                        self.present(alertView, animated: true, completion: nil)
+                        
+                        return
+                    }
                     
+                    
+                    //Root Ref
                     let rootRef = FIRDatabase.database().reference()
                     let userRef = rootRef.child("User")
+                    
+                    
                     
                     userRef.child(user!.uid).child("email").setValue(email)
                     userRef.child(user!.uid).child("name").setValue(name)
@@ -284,12 +322,11 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate {
                     userRef.child(user!.uid).child("groupAdminIDs").setValue([])
                     
                     // stores the image in firebase storage
-                    self.storeImage(uid: user!.uid)
                     
-                    
-                    self.setDisplayName(user)
                     AppState.sharedInstance.signedIn = true
-                    self.signedIn(user)
+                    self.setDisplayName(user)
+                    
+                    
                 }
                 
             })
