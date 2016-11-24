@@ -201,15 +201,14 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         }
     }
     
-    var clickedURL: URL?
     
-    func storeImage(uid: String)
+    func storeImage(id:String, withBlock: @escaping (String?) -> Void)
     {
         
         
         let storage = FIRStorage.storage()
         let storageRef = storage.reference(forURL: "gs://splitzee-ebff4.appspot.com")
-        let imagesRef = storageRef.child("images/"+uid)
+        let imagesRef = storageRef.child("images/"+id)
         var data = NSData()
         if let img = userImage {
             data = UIImageJPEGRepresentation(img, 0.8)! as NSData
@@ -220,7 +219,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                     
                 } else {
                     
-                    self.clickedURL = metadata!.downloadURL()
+                    withBlock(String(describing: metadata!.downloadURL()))
                 }
             }
         }
@@ -296,40 +295,56 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                 } else {
                     
                     //Stores the image in firebase database
-                    self.storeImage(uid: user!.uid)
-                    let profPicURL = self.clickedURL
-                    if profPicURL == nil {
-                        let alertView = UIAlertController(title: "Error", message: "Please enter a profile picture.", preferredStyle: UIAlertControllerStyle.alert)
-                        alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
-                        }))
-                        self.present(alertView, animated: true, completion: nil)
-                        
-                        return
-                    }
                     
-                    
-                    //Root Ref
                     let rootRef = FIRDatabase.database().reference()
                     let userRef = rootRef.child("User")
+                    let key = rootRef.child("User").childByAutoId().key
+                    
+                    
+                    self.storeImage(id: key, withBlock: {(urlString) -> Void in
+                        
+                        if urlString == nil {
+                            let alertView = UIAlertController(title: "Error", message: "Please enter a profile picture.", preferredStyle: UIAlertControllerStyle.alert)
+                            alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+                            }))
+                            self.present(alertView, animated: true, completion: nil)
+                            
+                            return
+                        }
+                        else{
+                            
+                            
+                            
+                            
+                            userRef.child(key).child("email").setValue(email)
+                            userRef.child(key).child("name").setValue(name)
+                            userRef.child(key).child("profPicURL").setValue(urlString)
+                            userRef.child(key).child("transactionIDs").setValue([])
+                            userRef.child(key).child("groupIDs").setValue([])
+                            userRef.child(key).child("groupAdminIDs").setValue([])
+                            
+                            // stores the image in firebase storage
+                            
+                            AppState.sharedInstance.signedIn = true
+                            self.setDisplayName(user)
+                            
+                        }
+                    })
                     
                     
                     
-                    userRef.child(user!.uid).child("email").setValue(email)
-                    userRef.child(user!.uid).child("name").setValue(name)
-                    userRef.child(user!.uid).child("profPicURL").setValue(profPicURL)
-                    userRef.child(user!.uid).child("transactionIDs").setValue([])
-                    userRef.child(user!.uid).child("groupIDs").setValue([])
-                    userRef.child(user!.uid).child("groupAdminIDs").setValue([])
                     
-                    // stores the image in firebase storage
                     
-                    AppState.sharedInstance.signedIn = true
-                    self.setDisplayName(user)
                     
                     
                 }
                 
+                
             })
+            
+            
+            
         }
+        
     }
 }
