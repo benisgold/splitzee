@@ -41,7 +41,6 @@ class NewAdminTransactionCollectionViewCell: UICollectionViewCell {
         
         
         
-        
     }
     
 }

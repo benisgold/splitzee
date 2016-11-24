@@ -6,7 +6,7 @@
 //  Copyright © 2016 Mohit Katyal. All rights reserved.
 //
 import UIKit
-class NewAdminTransactionViewController: UIViewController {
+class NewAdminTransactionViewController: UIViewController, UITextFieldDelegate {
     
     var background: UIImageView!
     var userSelectTextField: UITextField!
@@ -29,7 +29,6 @@ class NewAdminTransactionViewController: UIViewController {
     }
     
     func setUpUI() {
-        
         background = UIImageView(image: #imageLiteral(resourceName: "whiteBlueGradientBG"))
         background.frame = view.frame
         self.view.addSubview(background)
@@ -40,24 +39,37 @@ class NewAdminTransactionViewController: UIViewController {
         userSelectTextField.layer.masksToBounds = true
         userSelectTextField.backgroundColor = UIColor.white
         userSelectTextField.layer.borderColor = constants.fontLightGray.cgColor
+        userSelectTextField.autocorrectionType = .no
         userSelectTextField.layer.borderWidth = 1
-        userSelectTextField.placeholder = "     Enter name, @username, or select above"
+        userSelectTextField.placeholder = "Enter names or select above"
+        userSelectTextField.font = UIFont(name: "SFUIText-Light", size: 14)
+        createInset(textField: userSelectTextField)
+        userSelectTextField.delegate = self
         view.addSubview(userSelectTextField)
         
         amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         amountTextField.layer.masksToBounds = true
+        amountTextField.autocorrectionType = .no
         amountTextField.backgroundColor = UIColor.white
         amountTextField.layer.borderColor = constants.fontLightGray.cgColor
-        amountTextField.placeholder = "     $0.00"
+        amountTextField.placeholder = "$0.00"
+        amountTextField.font = UIFont(name: "SFUIText-Light", size: 14)
+        createInset(textField: amountTextField)
+        amountTextField.delegate = self
         view.addSubview(amountTextField)
         
-        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.428 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
+        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.428 * view.frame.height, width: view.frame.width, height: view.frame.height * 0.164))
         descriptionTextField.layer.masksToBounds = true
         descriptionTextField.backgroundColor = UIColor.white
         descriptionTextField.layer.borderColor = constants.fontLightGray.cgColor
         descriptionTextField.layer.borderWidth = 1
         descriptionTextField.delegate = self
-        descriptionTextField.text = "     Add a short description of the transaction"
+        descriptionTextField.isScrollEnabled = false
+        descriptionTextField.text = "Add a short description of the transaction"
+        descriptionTextField.textContainer.maximumNumberOfLines = 5;
+        descriptionTextField.textContainer.lineBreakMode = .byTruncatingTail
+        descriptionTextField.font = UIFont(name: "SFUIText-Light", size: 14)
+        descriptionTextField.textContainerInset = UIEdgeInsetsMake(15, 15, 15, 15)
         descriptionTextField.textColor = constants.fontLightGray
         view.addSubview(descriptionTextField)
         
@@ -66,7 +78,7 @@ class NewAdminTransactionViewController: UIViewController {
         payButton.backgroundColor = constants.mediumBlue
         payButton.setTitle("Confirm Payment", for: .normal)
         payButton.setTitleColor(UIColor.white, for: .normal)
-        payButton.layer.cornerRadius = 2
+        payButton.layer.cornerRadius = 3
         payButton.addTarget(self, action: #selector(touchPay), for: .touchUpInside)
         view.addSubview(payButton)
         
@@ -75,13 +87,16 @@ class NewAdminTransactionViewController: UIViewController {
         requestButton.setTitle("Request Money", for: .normal)
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
-        requestButton.layer.cornerRadius = 2
+        requestButton.layer.cornerRadius = 3
         requestButton.addTarget(self, action: #selector(touchRequest), for: .touchUpInside)
         view.addSubview(requestButton)
     }
     
     func setupNavBar() {
         self.title = "New Transaction"
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
+        self.navigationController?.navigationBar.barTintColor = UIColor.white
+
     }
     
     func setupCollectionView() {
@@ -94,6 +109,7 @@ class NewAdminTransactionViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
         collectionView.backgroundColor = UIColor.clear
+        collectionView.showsHorizontalScrollIndicator = false
         
         
         
@@ -106,6 +122,23 @@ class NewAdminTransactionViewController: UIViewController {
     
     func touchRequest(sender: UIButton!) {
         performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+    func createInset(textField: UITextField) {
+        let Inset = UITextView()
+        Inset.frame = CGRect(x: 0, y: 0, width: 0.048 * view.frame.width, height: textField.frame.height)
+        textField.leftView = Inset
+        textField.leftViewMode = .always
+        view.addSubview(Inset)
+    }
+    
+    func configureKeyboard() {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
 }
@@ -134,6 +167,7 @@ extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollect
         let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
         adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG") //Should be actual image
         adminTransactionCell.userName.text = "Mohit K." //Should be actual user's name
+        adminTransactionCell.userName.font = UIFont(name: "SFUIText-Regular", size: 14)
         // set UI stuff
     }
     
@@ -145,7 +179,16 @@ extension NewAdminTransactionViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.textColor == constants.fontLightGray {
             textView.text = ""
+            textView.font = UIFont(name: "SFUIText-Light", size: 14)
             textView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing (_ textView: UITextView) {
+        if textView.text.isEmpty || textView.text == "" {
+            textView.textColor = constants.fontLightGray
+            textView.font = UIFont(name: "SFUIText-Light", size: 14)
+            textView.text = "Add a short description of the transaction"
         }
     }
 }
