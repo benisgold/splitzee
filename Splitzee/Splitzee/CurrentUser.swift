@@ -22,6 +22,7 @@ class CurrentUser {
     var groupIDs: [String] = []
     var groupAdminIDs: [String] = []
     var uid: String = ""
+    var currentGroupID: String = ""
     
     // Initiating variables
     
