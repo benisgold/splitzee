@@ -21,7 +21,6 @@ class MemberPageViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        setupSideBar()
     }
     
     func setupUI() {
@@ -86,13 +85,6 @@ class MemberPageViewController: UIViewController {
         } else {
             pending = false
             //more
-        }
-    }
-    
-    func setupSideBar() {
-        if revealViewController() != nil {
-            groupsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         }
     }
 }

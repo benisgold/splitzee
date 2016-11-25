@@ -38,7 +38,6 @@
 		14185DF81DDE4EF500777AD8 /* SF-UI-Text-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DDF1DDE4EE400777AD8 /* SF-UI-Text-Regular.otf */; };
 		14185DF91DDE4EF500777AD8 /* SF-UI-Text-RegularItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DE01DDE4EE400777AD8 /* SF-UI-Text-RegularItalic.otf */; };
 		14185DFA1DDE4EF500777AD8 /* SF-UI-Text-SemiboldItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14185DE11DDE4EE400777AD8 /* SF-UI-Text-SemiboldItalic.otf */; };
-		142D6CF81DE1886000561003 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 142D6CF71DE1886000561003 /* SWRevealViewController.m */; };
 		142D6D011DE19ADC00561003 /* SideBarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */; };
 		142D6D031DE19B0D00561003 /* SideBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 142D6D021DE19B0D00561003 /* SideBarViewController.swift */; };
 		1447E3C41DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1447E3C31DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift */; };
@@ -111,9 +110,6 @@
 		14185DE31DDE4EED00777AD8 /* SF-UI-Text-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Text-Bold.otf"; path = "Fonts/San Francisco/SF-UI/SF-UI-Text-Bold.otf"; sourceTree = SOURCE_ROOT; };
 		14185DE41DDE4EED00777AD8 /* SF-UI-Text-LightItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Text-LightItalic.otf"; path = "Fonts/San Francisco/SF-UI/SF-UI-Text-LightItalic.otf"; sourceTree = SOURCE_ROOT; };
 		14185DE51DDE4EED00777AD8 /* SF-UI-Text-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "SF-UI-Text-Semibold.otf"; path = "Fonts/San Francisco/SF-UI/SF-UI-Text-Semibold.otf"; sourceTree = SOURCE_ROOT; };
-		142D6CF21DE16FD600561003 /* Splitzee-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Splitzee-Bridging-Header.h"; sourceTree = "<group>"; };
-		142D6CF61DE1886000561003 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
-		142D6CF71DE1886000561003 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
 		142D6D001DE19ADC00561003 /* SideBarTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarTableViewCell.swift; sourceTree = "<group>"; };
 		142D6D021DE19B0D00561003 /* SideBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideBarViewController.swift; sourceTree = "<group>"; };
 		1447E3C31DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAdminTransactionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -237,16 +233,6 @@
 			name = Fonts;
 			sourceTree = "<group>";
 		};
-		142D6CF11DE16F7800561003 /* SWRevealViewController */ = {
-			isa = PBXGroup;
-			children = (
-				142D6CF61DE1886000561003 /* SWRevealViewController.h */,
-				142D6CF71DE1886000561003 /* SWRevealViewController.m */,
-				142D6CF21DE16FD600561003 /* Splitzee-Bridging-Header.h */,
-			);
-			name = SWRevealViewController;
-			sourceTree = "<group>";
-		};
 		142D6D041DE19B8F00561003 /* SideBar */ = {
 			isa = PBXGroup;
 			children = (
@@ -300,7 +286,6 @@
 		E42ABDC51DD560350002D910 /* Splitzee */ = {
 			isa = PBXGroup;
 			children = (
-				142D6CF11DE16F7800561003 /* SWRevealViewController */,
 				149684001DDEC9C900529A70 /* AppState.swift */,
 				14185DD01DDE4ECC00777AD8 /* Fonts */,
 				14185DB91DDD6F7A00777AD8 /* View */,
@@ -571,7 +556,6 @@
 				14185DBD1DDD6FE900777AD8 /* CreateAccountViewController.swift in Sources */,
 				E42ABDC91DD560350002D910 /* ViewController.swift in Sources */,
 				E42ABDF61DD562E80002D910 /* Users.swift in Sources */,
-				142D6CF81DE1886000561003 /* SWRevealViewController.m in Sources */,
 				14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */,
 				E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */,
 				149684011DDEC9C900529A70 /* AppState.swift in Sources */,
@@ -750,7 +734,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MDB.Splitzee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Splitzee/Splitzee-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -767,7 +750,6 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MDB.Splitzee;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "Splitzee/Splitzee-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

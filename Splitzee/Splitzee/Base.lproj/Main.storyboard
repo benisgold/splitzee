@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="pPd-y6-ep8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -89,6 +92,7 @@
                         <segue destination="pPd-y6-ep8" kind="show" identifier="adminPageToNewAdminTransaction" id="s0N-yn-bEM"/>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="adminPageToCreateGroup" id="iox-6q-LET"/>
                         <segue destination="wXo-Y5-Yug" kind="show" identifier="adminPageToDetail" id="O9e-sD-Me2"/>
+                        <segue destination="66r-rf-rxp" kind="show" identifier="adminToSideBar" id="v58-A6-mWW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="487-2r-2QQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -157,29 +161,12 @@
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="memberPageToCreateGroup" id="F1N-IF-hwb"/>
                         <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="uFr-6T-gkh"/>
                         <segue destination="wXo-Y5-Yug" kind="show" identifier="memberPageToDetail" id="kvW-Tl-l3F"/>
+                        <segue destination="66r-rf-rxp" kind="show" identifier="adminToSideBar" id="scX-H4-iYG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPR-ua-aYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1407" y="2569"/>
-        </scene>
-        <!--Tab Bar Controller-->
-        <scene sceneID="zV1-CJ-PHu">
-            <objects>
-                <tabBarController id="TI0-mn-Q7L" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" id="tHT-jC-SmG">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </tabBar>
-                    <connections>
-                        <segue destination="206-zG-3SN" kind="relationship" relationship="viewControllers" id="LAY-kG-7WH"/>
-                        <segue destination="yqa-0K-NYu" kind="relationship" relationship="viewControllers" id="fTa-bE-qaz"/>
-                    </connections>
-                </tabBarController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h2W-bA-Ae7" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1641" y="4009"/>
+            <point key="canvasLocation" x="1454" y="2569"/>
         </scene>
         <!--New Member Transaction View Controller-->
         <scene sceneID="V19-RV-209">
@@ -211,7 +198,7 @@
                     <value key="contentSizeForViewInPopover" type="size" width="376" height="667"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DhM-8Q-5bz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DhM-8Q-5bz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -240,35 +227,13 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="menuToSignIn" id="VDx-dd-OSK"/>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="sideBarToCreateGroup" id="ZpV-Ib-JjI"/>
+                        <segue destination="yqa-0K-NYu" kind="show" identifier="sideBarToAdmin" id="s1q-BY-aCH"/>
+                        <segue destination="206-zG-3SN" kind="show" identifier="sideBarToMember" id="mP4-ea-MFw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G35-8T-syK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2350" y="1762"/>
-        </scene>
-        <!--Reveal View Controller-->
-        <scene sceneID="beR-of-Ey3">
-            <objects>
-                <viewController id="0rH-r4-XVk" customClass="SWRevealViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="PFK-h7-yT1"/>
-                        <viewControllerLayoutGuide type="bottom" id="kYk-fB-hEO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="W8S-MX-leH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="66r-rf-rxp" kind="custom" identifier="sw_rear" customClass="SWRevealViewControllerSegueSetController" id="fwC-6M-vd3"/>
-                        <segue destination="IR5-Su-HXa" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="vwX-Y2-3jy"/>
-                        <segue destination="206-zG-3SN" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="e3i-fZ-Tcz"/>
-                        <segue destination="yqa-0K-NYu" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="wqf-EH-PWA"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="3Th-Lm-mhb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2751" y="3584"/>
+            <point key="canvasLocation" x="-2143" y="1762"/>
         </scene>
         <!--Item-->
         <scene sceneID="1OL-Rr-Eus">
@@ -276,7 +241,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="206-zG-3SN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Ixw-mr-Dk7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dfU-7a-pdf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dfU-7a-pdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -291,13 +256,13 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kvW-Tl-l3F"/>
-        <segue reference="qih-Dc-3sb"/>
-        <segue reference="F1N-IF-hwb"/>
         <segue reference="VDx-dd-OSK"/>
-        <segue reference="fwC-6M-vd3"/>
-        <segue reference="e3i-fZ-Tcz"/>
-        <segue reference="aLb-Ws-WMY"/>
-        <segue reference="EpA-Xs-KHC"/>
+        <segue reference="scX-H4-iYG"/>
+        <segue reference="NWc-nF-rwN"/>
+        <segue reference="F1N-IF-hwb"/>
+        <segue reference="fnX-s0-IHb"/>
+        <segue reference="kvW-Tl-l3F"/>
+        <segue reference="mP4-ea-MFw"/>
+        <segue reference="s1q-BY-aCH"/>
     </inferredMetricsTieBreakers>
 </document>

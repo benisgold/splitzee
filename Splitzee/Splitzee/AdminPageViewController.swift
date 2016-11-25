@@ -27,7 +27,6 @@ class AdminPageViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        setupSideBar()
     }
     
     func setupUI() {
@@ -152,13 +151,6 @@ class AdminPageViewController: UIViewController {
             self.alertViewAdd.dismiss(animated: true, completion: nil)
         }))
         self.present(alertViewSub, animated: true, completion: nil)
-    }
-    
-    func setupSideBar() {
-        if revealViewController() != nil {
-            groupsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
     }
     
     /*
