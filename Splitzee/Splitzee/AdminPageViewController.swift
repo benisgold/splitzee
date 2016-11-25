@@ -25,21 +25,23 @@ class AdminPageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
     }
     
     func setupUI() {
+        // BACKGROUND
         backgroundGradient = UIImageView(frame: view.frame)
         backgroundGradient.image = #imageLiteral(resourceName: "whiteBlueGradientBG")
         view.addSubview(backgroundGradient)
         
+        // GROUPS BUTTON LEFT
         groupsButton = UIButton(frame: CGRect(x: view.frame.width * 0.048, y: view.frame.height * 0.337, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
         groupsButton.setImage(#imageLiteral(resourceName: "menuSymbol"), for: .normal)
         groupsButton.imageView?.contentMode = .scaleAspectFill
         groupsButton.addTarget(self, action: #selector(groupsPressed), for: .touchUpInside)
         view.addSubview(groupsButton)
         
+        // NEW TRANSACTION BUTTON RIGHT
         newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.333, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
         newTransactionButton.setTitle("+", for: .normal)
         newTransactionButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 43)
@@ -48,11 +50,13 @@ class AdminPageViewController: UIViewController {
         newTransactionButton.addTarget(self, action: #selector(touchNewAdminTransactionButton), for: .touchUpInside)
         view.addSubview(newTransactionButton)
         
+        // BALANCE CIRCLE
         totalLoopImage = UIImageView(frame: CGRect(x: view.frame.width / 2 - 0.175 * view.frame.width, y: view.frame.height * 0.110, width: view.frame.width * 0.35, height: view.frame.height * 0.200))
         totalLoopImage.image = #imageLiteral(resourceName: "Loop")
         totalLoopImage.contentMode = .scaleAspectFit
         view.addSubview(totalLoopImage)
         
+        // BALANCE AMOUNT
         totalAmount = UILabel(frame: CGRect(x: view.frame.width / 2 - 0.175 * view.frame.width, y: view.frame.height * 0.19, width: view.frame.width * 0.35, height: view.frame.height * 0.045))
         totalAmount.text = "$100.00"
         totalAmount.textAlignment = .center
@@ -61,12 +65,14 @@ class AdminPageViewController: UIViewController {
         totalAmount.textAlignment = .center
         view.addSubview(totalAmount)
         
+        // ADD BUTTON
         addMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.155, width: view.frame.width * 0.075 + 15, height: view.frame.height * 0.046 + 15))
         addMoneyButton.setImage(#imageLiteral(resourceName: "plusSign"), for: .normal)
         addMoneyButton.imageView?.contentMode = .scaleAspectFill
         addMoneyButton.addTarget(self, action: #selector(addMoneyPressed), for: .touchUpInside)
         view.addSubview(addMoneyButton)
         
+        // SUBTRACT BUTTON
         subtractMoneyButton = UIButton(frame: CGRect(x: view.frame.width * 0.693, y: view.frame.height * 0.216, width: view.frame.width * 0.075 + 15, height: view.frame.height * 0.046 + 15))
         subtractMoneyButton.setImage(#imageLiteral(resourceName: "minusSign"), for: .normal)
         subtractMoneyButton.imageView?.contentMode = .scaleAspectFill
@@ -103,6 +109,7 @@ class AdminPageViewController: UIViewController {
     }
     
     func setupTableView() {
+        
         tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603))
         tableView.delegate = self
         tableView.dataSource = self
