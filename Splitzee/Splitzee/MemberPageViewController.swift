@@ -32,6 +32,7 @@ class MemberPageViewController: UIViewController {
         groupsButton = UIButton(frame: CGRect(x: view.frame.width * 0.053, y: view.frame.height * 0.143, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
         groupsButton.setImage(#imageLiteral(resourceName: "menuSymbol"), for: .normal)
         groupsButton.imageView?.contentMode = .scaleAspectFill
+        groupsButton.addTarget(self, action: #selector(groupsPressed), for: .touchUpInside)
         view.addSubview(groupsButton)
         
         newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.138, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
@@ -44,6 +45,10 @@ class MemberPageViewController: UIViewController {
         setupNavBar()
         setupSegmentedControl()
         setupTableView()
+    }
+    
+    func groupsPressed() {
+        performSegue(withIdentifier: "memberToSideBar", sender: self)
     }
     
     func setupNavBar() {

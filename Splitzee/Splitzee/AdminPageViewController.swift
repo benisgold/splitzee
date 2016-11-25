@@ -37,6 +37,7 @@ class AdminPageViewController: UIViewController {
         groupsButton = UIButton(frame: CGRect(x: view.frame.width * 0.048, y: view.frame.height * 0.337, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
         groupsButton.setImage(#imageLiteral(resourceName: "menuSymbol"), for: .normal)
         groupsButton.imageView?.contentMode = .scaleAspectFill
+        groupsButton.addTarget(self, action: #selector(groupsPressed), for: .touchUpInside)
         view.addSubview(groupsButton)
         
         newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.333, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
@@ -75,6 +76,10 @@ class AdminPageViewController: UIViewController {
         setupNavBar()
         setupSegmentedControl()
         setupTableView()
+    }
+    
+    func groupsPressed() {
+        performSegue(withIdentifier: "adminToSideBar", sender: self)
     }
     
     func setupNavBar() {

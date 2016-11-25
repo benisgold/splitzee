@@ -161,7 +161,7 @@
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="memberPageToCreateGroup" id="F1N-IF-hwb"/>
                         <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="uFr-6T-gkh"/>
                         <segue destination="wXo-Y5-Yug" kind="show" identifier="memberPageToDetail" id="kvW-Tl-l3F"/>
-                        <segue destination="66r-rf-rxp" kind="show" identifier="adminToSideBar" id="scX-H4-iYG"/>
+                        <segue destination="66r-rf-rxp" kind="show" identifier="memberToSideBar" id="scX-H4-iYG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPR-ua-aYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -227,8 +227,8 @@
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="menuToSignIn" id="VDx-dd-OSK"/>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="sideBarToCreateGroup" id="ZpV-Ib-JjI"/>
-                        <segue destination="yqa-0K-NYu" kind="show" identifier="sideBarToAdmin" id="s1q-BY-aCH"/>
-                        <segue destination="206-zG-3SN" kind="show" identifier="sideBarToMember" id="mP4-ea-MFw"/>
+                        <segue destination="y9D-ok-41i" kind="show" identifier="sideBarToAdmin" id="QEd-Ga-1kE"/>
+                        <segue destination="IR5-Su-HXa" kind="show" identifier="sideBarToMember" id="YNm-gx-R2h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G35-8T-syK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -257,12 +257,10 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="VDx-dd-OSK"/>
-        <segue reference="scX-H4-iYG"/>
-        <segue reference="NWc-nF-rwN"/>
-        <segue reference="F1N-IF-hwb"/>
-        <segue reference="fnX-s0-IHb"/>
-        <segue reference="kvW-Tl-l3F"/>
-        <segue reference="mP4-ea-MFw"/>
-        <segue reference="s1q-BY-aCH"/>
+        <segue reference="Puo-HA-7aO"/>
+        <segue reference="ZpV-Ib-JjI"/>
+        <segue reference="YNm-gx-R2h"/>
+        <segue reference="aLb-Ws-WMY"/>
+        <segue reference="O9e-sD-Me2"/>
     </inferredMetricsTieBreakers>
 </document>

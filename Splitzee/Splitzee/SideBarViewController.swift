@@ -89,7 +89,6 @@ class SideBarViewController: UIViewController {
         do {
             try FIRAuth.auth()?.signOut()
             AppState.sharedInstance.signedIn = false
-            dismiss(animated: true, completion: nil)
             performSegue(withIdentifier: "menuToSignIn", sender: self)
         } catch let error as NSError {
             print(error)
