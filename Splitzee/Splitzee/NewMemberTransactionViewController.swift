@@ -17,6 +17,7 @@ class NewMemberTransactionViewController: UIViewController {
     var groupImage: UIImageView!
     var groupLabel: UILabel!
     var alertWrongFormat: UIAlertController!
+    var currUser: CurrentUser!
     let constants = Constants()
     
     override func viewDidLoad() {
@@ -90,7 +91,7 @@ class NewMemberTransactionViewController: UIViewController {
     
     func pay() {
         if (checkFormat()) {
-            
+//            newTransaction(groupID: <#T##String#>, memberID: <#T##String#>, amount: <#T##Double#>)
         }
     }
     
@@ -98,6 +99,10 @@ class NewMemberTransactionViewController: UIViewController {
         if (checkFormat()) {
             
         }
+    }
+    
+    func newTransaction(groupID: String, memberID: String, amount: Double) {
+        
     }
     
     func checkFormat() -> Bool {

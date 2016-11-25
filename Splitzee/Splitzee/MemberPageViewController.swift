@@ -16,6 +16,7 @@ class MemberPageViewController: UIViewController {
     var tableView: UITableView!
     var backgroundGradient: UIImageView!
     var pending = true
+    var currUser: CurrentUser!
     let constants = Constants()
 
     override func viewDidLoad() {

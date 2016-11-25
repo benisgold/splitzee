@@ -17,6 +17,7 @@ class DetailViewController: UIViewController {
     var descriptionLabel: UILabel!
     var rejectButton: UIButton!
     var approveButton: UIButton!
+    var currUser: CurrentUser!
     let constants = Constants()
     
     override func viewDidLoad() {

@@ -15,6 +15,7 @@ class NewAdminTransactionViewController: UIViewController, UITextFieldDelegate {
     var payButton: UIButton!
     var requestButton: UIButton!
     var collectionView: UICollectionView!
+    var currUser: CurrentUser!
     let constants = Constants()
     
     override func viewDidLoad() {

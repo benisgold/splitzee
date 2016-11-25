@@ -18,6 +18,7 @@ class SideBarViewController: UIViewController {
     var joinGroupButton: UIButton!
     var logoutButton: UIButton!
     var joinGroupAlert: UIAlertController!
+    var currUser: CurrentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
