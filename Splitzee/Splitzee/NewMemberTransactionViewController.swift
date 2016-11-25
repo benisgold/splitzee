@@ -91,7 +91,10 @@ class NewMemberTransactionViewController: UIViewController {
     
     func pay() {
         if (checkFormat()) {
-//            newTransaction(groupID: <#T##String#>, memberID: <#T##String#>, amount: <#T##Double#>)
+            var amt = amountTextField.text!
+            amt.remove(at: (amt.startIndex))
+            let amount: Double = (Double)(amt)!
+            newTransaction(groupID: currUser.currentGroupID, memberID: currUser.uid, amount: amount)
         }
     }
     
