@@ -313,12 +313,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                         }
                             
                         else{
-                            userRef.child(key).child("email").setValue(email)
-                            userRef.child(key).child("name").setValue(name)
-                            userRef.child(key).child("profPicURL").setValue(urlString)
-                            userRef.child(key).child("transactionIDs").setValue([])
-                            userRef.child(key).child("groupIDs").setValue([])
-                            userRef.child(key).child("groupAdminIDs").setValue([])
+                            
+                            userRef.child(key).setValue(["email": email,"name": name, "profPicURL": urlString, "transactionIDs": [], "groupIDs" : [], "groupAdminIDs" : []])
                             
                             // stores the image in firebase storage
                             

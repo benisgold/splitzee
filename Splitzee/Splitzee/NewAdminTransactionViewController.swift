@@ -10,7 +10,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 
-class NewAdminTransactionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class NewAdminTransactionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     var background: UIImageView!
     var userSelectTextField: UITextField!
@@ -89,7 +89,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDeleg
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
         requestButton.layer.cornerRadius = 2
-        requestButton.addTarget(self, action: #selector(pressRequest), for: .touchUpInside)
+       // requestButton.addTarget(self, action: #selector(pressRequest), for: .touchUpInside)
         view.addSubview(requestButton)
     }
     
@@ -121,18 +121,19 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDeleg
     
     func pollForUsers(){
         
-        rootRef.child("Users").queryOrderedByKey().observe(.childAdded, with: {
+        rootRef.child("User").queryOrderedByKey().observe(.childAdded, with: {
             snapshot in
-            let userKey = snapshot.key
+            let userKey = snapshot.key as? String
             let userDict = snapshot.value as? [String: AnyObject]
-            let user = User(key: userKey, userDict: userDict!)
+            let user = User(key: userKey!, userDict: userDict!)
             self.membersList.insert(user, at: 0)
         })
         DispatchQueue.main.async(execute: {
             self.collectionView.reloadData()
             
-        }
-        
+        })
+    }
+    
         
         //    func pressPay(sender: UIButton!)
         //    {
@@ -150,11 +151,11 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDeleg
         
         
         
-        func pressRequest(sender: UIButton!)
+        func pressRequest(sender: UIButton)
         {
             performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
-            
         }
+    
         
         
         //-------------------Setting up collectionView--------------------
@@ -187,10 +188,10 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDeleg
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
         }
-    }
     
     
-    extension NewAdminTransactionViewController: UITextViewDelegate {
+}
+extension NewAdminTransactionViewController: UITextViewDelegate {
         func textViewDidBeginEditing(_ textView: UITextView) {
             if textView.textColor == constants.fontLightGray {
                 textView.text = ""
