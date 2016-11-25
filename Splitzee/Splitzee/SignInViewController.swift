@@ -24,6 +24,8 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var signInFacebook: UIButton!
     var background: UIImageView!
     let constants = Constants()
+    var currUser: CurrentUser!
+    var alertWrongFormat: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func setupUI() {
-        
         // background
         background = UIImageView(image: #imageLiteral(resourceName: "purpleFogBG"))
         background.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
@@ -162,7 +163,27 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     func touchSignInButton(sender: UIButton!) {
-        performSegue(withIdentifier: "signInToMenu", sender: self)
+        if ((inputEmail.text?.isEmpty)! || (inputPassword.text?.isEmpty)!) {
+            alert(msg: "Please enter both an email and password.")
+        } else {
+            guard let email = inputEmail.text, let password = inputPassword.text else {return}
+            FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
+                if let error = error {
+                    self.alert(msg: "There has been an error! \(error.localizedDescription)")
+                    return
+                } else {
+                    self.signedIn(user)
+                }
+            }
+        }
+    }
+    
+    func alert(msg: String) {
+        alertWrongFormat = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        alertWrongFormat.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.alertWrongFormat.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertWrongFormat, animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -201,19 +222,29 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputEmail.text = ""
         inputPassword.text = ""
         
-        performSegue(withIdentifier: "signInToMenu", sender: self)
+        let dbRef = FIRDatabase.database().reference()
+        
+        user?.getTokenWithCompletion({ (token, error) in
+            if let error = error {
+                self.alert(msg: error.localizedDescription)
+            } else {
+                if (self.currUser) != nil {
+                    self.performSegue(withIdentifier: "signInToMenu", sender: self)
+                } else {
+                    dbRef.child("User").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+                        let value = snapshot.value as! [String:AnyObject]
+                        self.currUser = CurrentUser(key: token!, currentUserDict: value)
+                        self.performSegue(withIdentifier: "signInToMenu", sender: self)
+                    })
+                }
+            }
+        })
     }
     
-    func logInClicked(sender: UIButton)
-    {
-        guard let email = inputEmail.text, let password = inputPassword.text else {return}
-        FIRAuth.auth()?.signIn(withEmail: email, password: password) { (user, error) in
-            if let error = error {
-                print(error)
-                return
-            } else {
-                self.signedIn(user)
-            }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "signInToMenu") {
+            let nextVC = segue.destination as! SideBarViewController
+            nextVC.currUser = currUser
         }
     }
 

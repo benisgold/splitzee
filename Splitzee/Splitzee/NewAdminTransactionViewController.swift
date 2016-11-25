@@ -119,8 +119,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDeleg
     
     
     
-    func pollForUsers(){
-        
+    func pollForUsers() {
         rootRef.child("Users").queryOrderedByKey().observe(.childAdded, with: {
             snapshot in
             let userKey = snapshot.key
@@ -128,11 +127,14 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDeleg
             let user = User(key: userKey, userDict: userDict!)
             self.membersList.insert(user, at: 0)
         })
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async {
             self.collectionView.reloadData()
-            
         }
+    }
         
+        
+    
+    
         
         //    func pressPay(sender: UIButton!)
         //    {
@@ -187,12 +189,11 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDeleg
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
         }
-    }
-    
-    
-    extension NewAdminTransactionViewController: UITextViewDelegate {
+}
+
+extension NewAdminTransactionViewController: UITextViewDelegate {
         func textViewDidBeginEditing(_ textView: UITextView) {
-            if textView.textColor == constants.fontLightGray {
+            if textView.textColor == self.constants.fontLightGray {
                 textView.text = ""
                 textView.textColor = UIColor.black
             }
