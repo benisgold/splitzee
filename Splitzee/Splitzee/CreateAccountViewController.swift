@@ -298,7 +298,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                     
                     let rootRef = FIRDatabase.database().reference()
                     let userRef = rootRef.child("User")
-                    let key = rootRef.child("User").childByAutoId().key
+                    let key = userRef.childByAutoId().key
                     
                     
                     self.storeImage(id: key, withBlock: {(urlString) -> Void in
@@ -311,11 +311,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                             
                             return
                         }
+                            
                         else{
-                            
-                            
-                            
-                            
                             userRef.child(key).child("email").setValue(email)
                             userRef.child(key).child("name").setValue(name)
                             userRef.child(key).child("profPicURL").setValue(urlString)

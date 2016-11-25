@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import Firebase
 
-class CreateGroupViewController: UIViewController {
+
+class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate ,UINavigationControllerDelegate {
     
     var background: UIImageView!
     var whiteBoxInBackground: UILabel!
@@ -16,18 +18,29 @@ class CreateGroupViewController: UIViewController {
     var pictureButton: UIButton!
     var createButton: UIButton!
     var nameTextField: UITextField!
-    var codeTextField: UITextField!
+    var memberCodeTextField: UITextField!
+    var adminCodeTextField: UITextField!
+    var userImage: UIImage!
     let constants = Constants()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
+        setUpUI()
+        imagePicker.delegate = self
+        initializeTextFields()
+        configureKeyboard()
+        
+    }
+    
+    func setUpUI(){
         addBackground()
         makeXButton()
         makePictureButton()
         makeCreateButton()
         makeNameTextField()
-        makeCodeTextField()
+        makeMemberCodeTextField()
+        makeAdminCodeTextField()
     }
     
     func addBackground() {
@@ -35,7 +48,7 @@ class CreateGroupViewController: UIViewController {
         background.frame = view.frame
         self.view.addSubview(background)
         
-        whiteBoxInBackground = UILabel(frame: CGRect(x: 0, y: view.frame.height * 0.151, width: view.frame.width, height: view.frame.height * 0.542))
+        whiteBoxInBackground = UILabel(frame: CGRect(x: 0, y: view.frame.height * 0.151, width: view.frame.width, height: view.frame.height * 0.65))
         whiteBoxInBackground.backgroundColor = UIColor.white
         view.addSubview(whiteBoxInBackground)
     }
@@ -47,31 +60,30 @@ class CreateGroupViewController: UIViewController {
         xButton.setTitle("X", for: .normal)
         xButton.setTitleColor(constants.fontMediumGray, for: .normal)
         xButton.titleLabel?.textAlignment = .center
-        xButton.addTarget(self, action: #selector(xPressed), for: .touchUpInside)
         view.addSubview(xButton)
-    }
-    
-    func xPressed() {
-        dismiss(animated: true, completion: nil)
     }
     
     func makePictureButton() {
         pictureButton = UIButton()
-        pictureButton.frame = CGRect(x: 0.338 * view.frame.width, y: 0.313 * view.frame.height, width: 0.323 * view.frame.width, height: 0.186 * view.frame.height)
+        pictureButton.frame = CGRect(x: 0.338 * view.frame.width, y: 0.313 * view.frame.height, width: 0.323 * view.frame.width, height: 0.323 * view.frame.width)
         pictureButton.setImage(#imageLiteral(resourceName: "Picture"), for: .normal)
-        pictureButton.contentMode = .scaleAspectFit
+        pictureButton.contentMode = .scaleAspectFill
+        pictureButton.layer.cornerRadius = 0.5 * pictureButton.frame.size.width
+        pictureButton.clipsToBounds = true
+        pictureButton.addTarget(self, action: #selector(loadImagesButtonTapped), for: .touchUpInside)
         view.addSubview(pictureButton)
     }
     
     func makeCreateButton() {
         createButton = UIButton()
-        createButton.frame = CGRect(x: 0, y: 0.605 * view.frame.height, width: view.frame.width, height: 0.075 * view.frame.height)
+        createButton.frame = CGRect(x: 0, y: 0.666 * view.frame.height, width: view.frame.width, height: 0.1 * view.frame.height)
         createButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 20 )
         createButton.setTitle("Create Group", for: .normal)
         createButton.setTitleColor(.white, for: .normal)
         createButton.titleLabel?.textAlignment = .center
         createButton.layer.cornerRadius = 3
         createButton.backgroundColor = constants.mediumBlue
+        createButton.addTarget(self, action: #selector(createGroup), for: .touchUpInside)
         view.addSubview(createButton)
     }
     
@@ -89,19 +101,193 @@ class CreateGroupViewController: UIViewController {
         view.addSubview(nameTextField)
     }
     
-    func makeCodeTextField() {
-        codeTextField = UITextField()
-        codeTextField.frame = CGRect(x: 0, y: view.frame.height * 0.523, width: view.frame.width, height: 0.068 * view.frame.height)
-        codeTextField.font = UIFont(name: "SFUIText-Light", size: 18)
-        codeTextField.placeholder = "Access code"
-        codeTextField.isSecureTextEntry = true
-        codeTextField.autocorrectionType = .no
-        codeTextField.textAlignment = .center
-        codeTextField.backgroundColor = UIColor.white
-        codeTextField.layer.borderWidth = 0.75
-        codeTextField.layer.cornerRadius = 3
-        codeTextField.layer.borderColor = constants.fontLightGray.cgColor
-        view.addSubview(codeTextField)
+    func makeMemberCodeTextField() {
+        memberCodeTextField = UITextField()
+        memberCodeTextField.frame = CGRect(x: 0, y: view.frame.height * 0.523, width: view.frame.width, height: 0.068 * view.frame.height)
+        memberCodeTextField.font = UIFont(name: "SFUIText-Light", size: 18)
+        memberCodeTextField.placeholder = "Enter access code for members"
+        memberCodeTextField.isSecureTextEntry = true
+        memberCodeTextField.autocorrectionType = .no
+        memberCodeTextField.textAlignment = .center
+        memberCodeTextField.backgroundColor = UIColor.white
+        memberCodeTextField.layer.borderWidth = 0.75
+        memberCodeTextField.layer.cornerRadius = 3
+        memberCodeTextField.layer.borderColor = constants.fontLightGray.cgColor
+        view.addSubview(memberCodeTextField)
     }
+    func makeAdminCodeTextField() {
+        adminCodeTextField = UITextField()
+        adminCodeTextField.frame = CGRect(x: 0, y: view.frame.height * 0.592, width: view.frame.width, height: 0.068 * view.frame.height)
+        adminCodeTextField.font = UIFont(name: "SFUIText-Light", size: 18)
+        adminCodeTextField.placeholder = "Enter access code for administrators"
+        adminCodeTextField.isSecureTextEntry = true
+        adminCodeTextField.autocorrectionType = .no
+        adminCodeTextField.textAlignment = .center
+        adminCodeTextField.backgroundColor = UIColor.white
+        adminCodeTextField.layer.borderWidth = 0.75
+        adminCodeTextField.layer.cornerRadius = 3
+        adminCodeTextField.layer.borderColor = constants.fontLightGray.cgColor
+        view.addSubview(adminCodeTextField)
+    }
+    
+    //-------------------Controller---------------------------------------------------------------
+    
+    
+    
+    func initializeTextFields() {
+        nameTextField.delegate = self
+        memberCodeTextField.delegate = self
+        adminCodeTextField.delegate = self
+    }
+    
+    
+    func touchBackToLoginButton(sender: UIButton!) {
+        performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func createInset(textField: UITextField) {
+        let Inset = UITextView()
+        Inset.frame = CGRect(x: 0, y: 0, width: 0.048 * view.frame.width, height: textField.frame.height)
+        Inset.layer.cornerRadius = 3
+        textField.leftView = Inset
+        textField.leftViewMode = .always
+        view.addSubview(Inset)
+    }
+    
+    func configureKeyboard() {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+    }
+    
+    //--------------Adding Images to the Create an Account Button---------------------------------
+    
+    
+    var imagePicker = UIImagePickerController()
+    
+    func loadImagesButtonTapped(sender: UIButton){
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        present(imagePicker, animated: true, completion: nil)
+        
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        if let setImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+            userImage = setImage
+            pictureButton.setImage(userImage, for: .normal)
+            dismiss(animated: true, completion: nil)
+        }
+    }
+    
+    
+    
+    func storeImage(id: String, withBlock: @escaping (String?) -> Void)
+    {
+        
+        let storage = FIRStorage.storage()
+        let storageRef = storage.reference(forURL: "gs://splitzee-ebff4.appspot.com")
+        let imagesRef = storageRef.child("images/"+id)
+        var data = NSData()
+        if let img = userImage {
+            data = UIImageJPEGRepresentation(img, 0.8)! as NSData
+            
+            
+            let uploadTask = imagesRef.put(data as Data, metadata: nil) { metadata, error in
+                if (error != nil) {
+                    
+                } else {
+                    
+                    withBlock(String(describing: metadata!.downloadURL()))
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    func imagePickerControllerDidCancel(picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    // -----------FIREBASE------------------------------------------------------------------------
+    
+    
+    
+    //Sets display name of the user
+    
+    
+    // Creates a new group
+    func createGroup(_ sender: UIButton) {
+        
+        
+        if ((nameTextField.text?.characters.count)! == 0 || (memberCodeTextField.text?.characters.count)! == 0 || (adminCodeTextField.text?.characters.count)! == 0 )
+        {
+            let alertView = UIAlertController(title: "Error"
+                , message: "One or more fields have not been filled.", preferredStyle: UIAlertControllerStyle.alert)
+            alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            }))
+            self.present(alertView, animated: true, completion: nil)
+        } else if (memberCodeTextField.text == adminCodeTextField.text) {
+            let alertView = UIAlertController(title: "Error", message: "Member and Administrator access codes cannot be the same.", preferredStyle: UIAlertControllerStyle.alert)
+            alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            }))
+            self.present(alertView, animated: true, completion: nil)
+            
+        }
+            
+        else {
+            
+            //Stores the image in firebase database
+            
+            let rootRef = FIRDatabase.database().reference()
+            let groupRef = rootRef.child("Group")
+            let key = groupRef.childByAutoId().key
+            
+            self.storeImage(id: key, withBlock: {(urlString) -> Void in
+                
+                if urlString == nil {
+                    let alertView = UIAlertController(title: "Error", message: "Please enter a group picture.", preferredStyle: UIAlertControllerStyle.alert)
+                    alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+                    }))
+                    self.present(alertView, animated: true, completion: nil)
+                }
+                else{
+                    
+                    groupRef.child(key).child("name").setValue(self.nameTextField.text)
+                    groupRef.child(key).child("memberCode").setValue(self.memberCodeTextField.text)
+                    groupRef.child(key).child("adminCode").setValue(self.adminCodeTextField.text)
+                    groupRef.child(key).child("picURL").setValue(urlString)
+                    
+                    groupRef.child(key).child("transactionIDs").setValue([])
+                    groupRef.child(key).child("memberIDs").setValue([])
+                    groupRef.child(key).child("adminIDs").setValue([])
+                    groupRef.child(key).child("requestIDs").setValue([])
+                    groupRef.child(key).child("total").setValue(0.00)
+                    
+                    
+                    self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
+                }
+            })
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        }
+        
+    }
+    
+    
 }
+
+
 
