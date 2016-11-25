@@ -36,10 +36,8 @@ class NewAdminTransactionCollectionViewCell: UICollectionViewCell {
         userName = UILabel(frame: CGRect(x: userImage.frame.minX , y: userImage.frame.maxY + 3, width: userImage.frame.width , height: 30))
         userName.textAlignment = .center
         userName.textColor = UIColor.white
-        contentView.addSubview(userName)
         userName.textColor = UIColor.black
-        
-        
+        contentView.addSubview(userName)
         
         
     }
