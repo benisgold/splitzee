@@ -9,13 +9,15 @@
 import UIKit
 
 class NewMemberTransactionViewController: UIViewController {
-    var userSelectTextField: UITextField!
+    
     var amountTextField: UITextField!
     var descriptionTextField: UITextView!
     var payButton: UIButton!
     var requestButton: UIButton!
     var groupImage: UIImageView!
     var groupLabel: UILabel!
+    var alertWrongFormat: UIAlertController!
+    var currUser: CurrentUser!
     let constants = Constants()
     
     override func viewDidLoad() {
@@ -74,6 +76,7 @@ class NewMemberTransactionViewController: UIViewController {
         payButton.setTitle("Confirm Payment", for: .normal)
         payButton.setTitleColor(UIColor.white, for: .normal)
         payButton.layer.cornerRadius = 2
+        payButton.addTarget(self, action: #selector(pay), for: .touchUpInside)
         view.addSubview(payButton)
         
         requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.597 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
@@ -82,10 +85,51 @@ class NewMemberTransactionViewController: UIViewController {
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
         requestButton.layer.cornerRadius = 2
+        requestButton.addTarget(self, action: #selector(requested), for: .touchUpInside)
         view.addSubview(requestButton)
+    }
+    
+    func pay() {
+        if (checkFormat()) {
+            var amt = amountTextField.text!
+            amt.remove(at: (amt.startIndex))
+            let amount: Double = (Double)(amt)!
+            newTransaction(groupID: currUser.currentGroupID, memberID: currUser.uid, amount: amount)
+        }
+    }
+    
+    func requested() {
+        if (checkFormat()) {
+            
+        }
+    }
+    
+    func newTransaction(groupID: String, memberID: String, amount: Double) {
         
     }
     
+    func checkFormat() -> Bool {
+        if (amountTextField.text?.isEmpty)! {
+            alert(msg: "Please input an amount.")
+            return false
+        } else if (descriptionTextField.text.isEmpty) {
+            alert(msg: "Please input a description.")
+            return false
+        } else if (amountTextField.text?.commonPrefix(with: "$") != "$") {
+            alert(msg: "The amount does not have the correct format: $0.00")
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    func alert(msg: String) {
+        alertWrongFormat = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        alertWrongFormat.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.alertWrongFormat.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertWrongFormat, animated: true, completion: nil)
+    }
     
 }
 

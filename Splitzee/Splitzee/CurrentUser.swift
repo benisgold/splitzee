@@ -22,6 +22,7 @@ class CurrentUser {
     var groupIDs: [String] = []
     var groupAdminIDs: [String] = []
     var uid: String = ""
+    var currentGroupID: String = ""
     
     // Initiating variables
     
@@ -53,6 +54,17 @@ class CurrentUser {
             groupIDs = group
         }
         
+    }
+    
+    init(key: String, name: String, profPicURL: String, email: String, transactionIDs: [String], groupIDs: [String], groupAdminIDs: [String], currentGroupID: String) {
+        uid = key
+        self.name = name
+        self.profPicURL = profPicURL
+        self.email = email
+        self.transactionIDs = transactionIDs
+        self.groupIDs = groupIDs
+        self.groupAdminIDs = groupAdminIDs
+        self.currentGroupID = currentGroupID
     }
     
     // optional

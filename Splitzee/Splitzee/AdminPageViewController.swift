@@ -27,7 +27,6 @@ class AdminPageViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
-        setupSideBar()
     }
     
     func setupUI() {
@@ -38,6 +37,7 @@ class AdminPageViewController: UIViewController {
         groupsButton = UIButton(frame: CGRect(x: view.frame.width * 0.048, y: view.frame.height * 0.337, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
         groupsButton.setImage(#imageLiteral(resourceName: "menuSymbol"), for: .normal)
         groupsButton.imageView?.contentMode = .scaleAspectFill
+        groupsButton.addTarget(self, action: #selector(groupsPressed), for: .touchUpInside)
         view.addSubview(groupsButton)
         
         newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.333, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
@@ -76,6 +76,10 @@ class AdminPageViewController: UIViewController {
         setupNavBar()
         setupSegmentedControl()
         setupTableView()
+    }
+    
+    func groupsPressed() {
+        performSegue(withIdentifier: "adminToSideBar", sender: self)
     }
     
     func setupNavBar() {
@@ -149,16 +153,9 @@ class AdminPageViewController: UIViewController {
             print(textF.text!)
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
-            self.alertViewAdd.dismiss(animated: true, completion: nil)
+            self.alertViewSub.dismiss(animated: true, completion: nil)
         }))
         self.present(alertViewSub, animated: true, completion: nil)
-    }
-    
-    func setupSideBar() {
-        if revealViewController() != nil {
-            groupsButton.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
-            view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
     }
     
     /*

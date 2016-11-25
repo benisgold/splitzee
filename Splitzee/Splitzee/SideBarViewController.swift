@@ -18,9 +18,13 @@ class SideBarViewController: UIViewController {
     var joinGroupButton: UIButton!
     var logoutButton: UIButton!
     var joinGroupAlert: UIAlertController!
+    var currUser: CurrentUser!
+    var groups: [Group]! = []
+    var numAdminGroups: Int! = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getGroupNames()
         setupUI()
         setupTableView()
         
@@ -31,6 +35,30 @@ class SideBarViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func getGroupNames() {
+        for groupID in currUser.groupAdminIDs {
+            let dbRef = FIRDatabase.database().reference()
+            dbRef.child("Group").child(groupID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? [String:AnyObject]
+                let currGroup = Group(key: groupID, groupDict: value!)
+                self.groups.append(currGroup)
+            }) { (error) in
+                print(error)
+            }
+        }
+        numAdminGroups = groups.count
+        for groupID in currUser.groupIDs {
+            let dbRef = FIRDatabase.database().reference()
+            dbRef.child("Group").child(groupID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let value = snapshot.value as? [String:AnyObject]
+                let currGroup = Group(key: groupID, groupDict: value!)
+                self.groups.append(currGroup)
+            }) { (error) in
+                print(error)
+            }
+        }
     }
     
     func setupUI() {
@@ -89,7 +117,6 @@ class SideBarViewController: UIViewController {
         do {
             try FIRAuth.auth()?.signOut()
             AppState.sharedInstance.signedIn = false
-            dismiss(animated: true, completion: nil)
             performSegue(withIdentifier: "menuToSignIn", sender: self)
         } catch let error as NSError {
             print(error)
@@ -131,7 +158,7 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return groups.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -145,13 +172,20 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let sideBarCell = cell as! SideBarTableViewCell
-        sideBarCell.label.text = "admin" // Either admin or member
-        sideBarCell.name.text = "Mobile Developers of Berkeley" // Group name
-        sideBarCell.options.text = "..." // Always "..."
+        if (indexPath.row >= numAdminGroups) {
+            sideBarCell.label.text = "member"
+        } else {
+            sideBarCell.label.text = "admin"
+        }
+        sideBarCell.name.text = groups[indexPath.row].name
+//        sideBarCell.options.text = "..." // Always "..."
         sideBarCell.backgroundColor = UIColor.clear
         
         
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "sideBarToMember", sender: self)
+    }
    
 }

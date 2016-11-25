@@ -39,7 +39,6 @@ class NewAdminTransactionCollectionViewCell: UICollectionViewCell {
         userName.textColor = UIColor.black
         contentView.addSubview(userName)
         
-        
     }
     
 }

@@ -6,7 +6,11 @@
 //  Copyright © 2016 Mohit Katyal. All rights reserved.
 //
 import UIKit
-class NewAdminTransactionViewController: UIViewController {
+import Firebase
+import FirebaseDatabase
+import FirebaseStorage
+
+class NewAdminTransactionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     var background: UIImageView!
     var userSelectTextField: UITextField!
@@ -17,10 +21,19 @@ class NewAdminTransactionViewController: UIViewController {
     var collectionView: UICollectionView!
     let constants = Constants()
     
+    
+    let rootRef: FIRDatabaseReference! = nil
+    //var key: UInt!
+    var membersList = [User]()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
+        let rootRef = FIRDatabase.database().reference()
+        pollForUsers()
         setupCollectionView()
+        
         // Do any additional setup after loading the view.
     }
     override func didReceiveMemoryWarning() {
@@ -67,7 +80,7 @@ class NewAdminTransactionViewController: UIViewController {
         payButton.setTitle("Confirm Payment", for: .normal)
         payButton.setTitleColor(UIColor.white, for: .normal)
         payButton.layer.cornerRadius = 2
-        payButton.addTarget(self, action: #selector(touchPay), for: .touchUpInside)
+        //payButton.addTarget(self, action: #selector(pressPay), for: .touchUpInside)
         view.addSubview(payButton)
         
         requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.590 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
@@ -76,7 +89,7 @@ class NewAdminTransactionViewController: UIViewController {
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
         requestButton.layer.cornerRadius = 2
-        requestButton.addTarget(self, action: #selector(touchRequest), for: .touchUpInside)
+       // requestButton.addTarget(self, action: #selector(pressRequest), for: .touchUpInside)
         view.addSubview(requestButton)
     }
     
@@ -100,52 +113,97 @@ class NewAdminTransactionViewController: UIViewController {
         view.addSubview(collectionView)
     }
     
-    func touchPay(sender: UIButton!) {
-        performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+    
+    
+    //-------------------- Functions---------------------------------------------------
+    
+    
+    
+    func pollForUsers(){
+        
+        rootRef.child("User").queryOrderedByKey().observe(.childAdded, with: {
+            snapshot in
+            let userKey = snapshot.key as? String
+            let userDict = snapshot.value as? [String: AnyObject]
+            let user = User(key: userKey!, userDict: userDict!)
+            self.membersList.insert(user, at: 0)
+        })
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+            
+        }
     }
     
-    func touchRequest(sender: UIButton!) {
-        performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
-    }
+
+        
+        
     
+    
+        
+        //    func pressPay(sender: UIButton!)
+        //    {
+        //
+        //        let transactionDict: [String:AnyObject]
+        //        transactionDict = ["amount": amountTextField.text as AnyObject, "memberID": membersList as AnyObject, "groupID": membersList as AnyObject, "groupToMember": false as AnyObject, "isApproved": true as AnyObject]
+        //
+        //        let rootRef = FIRDatabase.database().reference()
+        //        let key = rootRef.child("Transaction").childByAutoId().key
+        //
+        //        Transaction.init(key: key, transactionDict: transactionDict)
+        //
+        //        performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+        //        }
+        
+        
+        
+        func pressRequest(sender: UIButton)
+        {
+            performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+        }
+    
+        
+        
+        //-------------------Setting up collectionView--------------------
+        
+        func numberOfSections(in collectionView: UICollectionView) -> Int {
+            return 1
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+            // should be returning the number of users
+            return membersList.count
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
+            for subview in cell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            cell.awakeFromNib()
+            return cell
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+            let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
+            //adminTransactionCell.userImage.image = membersList[indexPath.row].profPicURL //Should be actual image
+            adminTransactionCell.userName.text = membersList[indexPath.row].name //Should be actual user's name
+            // set UI stuff
+        }
+        
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
+        }
+
 }
 
-extension NewAdminTransactionViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // should be returning the number of users
-        return 7
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
-        for subview in cell.contentView.subviews {
-            subview.removeFromSuperview()
-        }
-        cell.awakeFromNib()
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
-        adminTransactionCell.userImage.image = #imageLiteral(resourceName: "purpleFogBG") //Should be actual image
-        adminTransactionCell.userName.text = "Mohit K." //Should be actual user's name
-        // set UI stuff
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
-    }
-}
 extension NewAdminTransactionViewController: UITextViewDelegate {
-    func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == constants.fontLightGray {
-            textView.text = ""
-            textView.textColor = UIColor.black
+        func textViewDidBeginEditing(_ textView: UITextView) {
+            if textView.textColor == self.constants.fontLightGray {
+                textView.text = ""
+                textView.textColor = UIColor.black
+            }
         }
-    }
 }
+
+
+
