@@ -47,7 +47,12 @@ class CreateGroupViewController: UIViewController {
         xButton.setTitle("X", for: .normal)
         xButton.setTitleColor(constants.fontMediumGray, for: .normal)
         xButton.titleLabel?.textAlignment = .center
+        xButton.addTarget(self, action: #selector(xPressed), for: .touchUpInside)
         view.addSubview(xButton)
+    }
+    
+    func xPressed() {
+        dismiss(animated: true, completion: nil)
     }
     
     func makePictureButton() {
