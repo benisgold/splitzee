@@ -153,7 +153,7 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "sideBarToAdmin", sender: self)
+        performSegue(withIdentifier: "sideBarToMember", sender: self)
     }
    
 }

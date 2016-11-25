@@ -40,11 +40,16 @@ class MemberPageViewController: UIViewController {
         newTransactionButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 43)
         newTransactionButton.setTitleColor(constants.fontMediumBlue, for: .normal)
         newTransactionButton.imageView?.contentMode = .scaleAspectFit
+        newTransactionButton.addTarget(self, action: #selector(newTransactionPressed), for: .touchUpInside)
         view.addSubview(newTransactionButton)
         
         setupNavBar()
         setupSegmentedControl()
         setupTableView()
+    }
+    
+    func newTransactionPressed() {
+        performSegue(withIdentifier: "memberPageToNewMemberTransaction", sender: self)
     }
     
     func groupsPressed() {

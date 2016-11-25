@@ -153,7 +153,7 @@ class AdminPageViewController: UIViewController {
             print(textF.text!)
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
-            self.alertViewAdd.dismiss(animated: true, completion: nil)
+            self.alertViewSub.dismiss(animated: true, completion: nil)
         }))
         self.present(alertViewSub, animated: true, completion: nil)
     }
