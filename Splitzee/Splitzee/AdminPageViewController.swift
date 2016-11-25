@@ -109,8 +109,7 @@ class AdminPageViewController: UIViewController {
     }
     
     func setupTableView() {
-        
-        tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603))
+        tableView = UITableView(frame: CGRect(x: 0, y: view.frame.height * 0.397, width: view.frame.width, height: view.frame.height * 0.603), style: UITableViewStyle.plain)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(AdminPendingTableViewCell.self, forCellReuseIdentifier: "pendingAdminCell")
@@ -176,7 +175,7 @@ class AdminPageViewController: UIViewController {
 }
 extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return 3
         
     }
     
