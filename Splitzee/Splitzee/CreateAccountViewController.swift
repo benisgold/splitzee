@@ -24,6 +24,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
     var backToLoginButton: UIButton!
     var userImage: UIImage!
     let constants = Constants()
+    var currUser: CurrentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -239,6 +240,13 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         performSegue(withIdentifier: "createAccountToSignIn", sender: self)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if (segue.identifier == "createAccountToSignIn") {
+            let nextVC = segue.destination as! SignInViewController
+            nextVC.currUser = currUser
+        }
+    }
+    
     //Sets display name of the user
     func setDisplayName(_ user: FIRUser?) {
         let changeRequest = user?.profileChangeRequest()
@@ -297,11 +305,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                     //Stores the image in firebase database
                     
                     let rootRef = FIRDatabase.database().reference()
-                    let userRef = rootRef.child("User")
-                    let key = userRef.childByAutoId().key
+                    let key = user?.uid
+                    let userRef = rootRef.child("User").child(key!)
                     
-                    
-                    self.storeImage(id: key, withBlock: {(urlString) -> Void in
+                    self.storeImage(id: key!, withBlock: {(urlString) -> Void in
                         
                         if urlString == nil {
                             let alertView = UIAlertController(title: "Error", message: "Please enter a profile picture.", preferredStyle: UIAlertControllerStyle.alert)
@@ -314,7 +321,10 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                             
                         else{
                             
-                            userRef.child(key).setValue(["email": email,"name": name, "profPicURL": urlString, "transactionIDs": [], "groupIDs" : [], "groupAdminIDs" : []])
+                            userRef.child(key!).setValue(["email": email,"name": name, "profPicURL": urlString, "transactionIDs": [], "groupIDs" : [], "groupAdminIDs" : []])
+                        
+                            
+                            self.currUser = CurrentUser(key: key!, name: name, profPicURL: urlString!, email: email, transactionIDs: [], groupIDs: [], groupAdminIDs: [], currentGroupID: "")
                             
                             // stores the image in firebase storage
                             

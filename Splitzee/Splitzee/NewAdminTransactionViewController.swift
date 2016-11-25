@@ -128,11 +128,16 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             let user = User(key: userKey!, userDict: userDict!)
             self.membersList.insert(user, at: 0)
         })
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async {
             self.collectionView.reloadData()
             
-        })
+        }
     }
+    
+
+        
+        
+    
     
         
         //    func pressPay(sender: UIButton!)
@@ -188,12 +193,12 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
         }
-    
-    
+
 }
+
 extension NewAdminTransactionViewController: UITextViewDelegate {
         func textViewDidBeginEditing(_ textView: UITextView) {
-            if textView.textColor == constants.fontLightGray {
+            if textView.textColor == self.constants.fontLightGray {
                 textView.text = ""
                 textView.textColor = UIColor.black
             }
