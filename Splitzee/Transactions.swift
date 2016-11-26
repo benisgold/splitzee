@@ -95,6 +95,8 @@ class Transaction {
     }
     
     
+    
+    
     // Gets current group so that one can update the money of the group
     func getGroup(withBlock: @escaping (Group) -> Void) {
         let ref = FIRDatabase.database().reference()
