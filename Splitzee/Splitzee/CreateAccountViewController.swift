@@ -146,7 +146,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         backToLoginButton.layer.borderColor = UIColor.white.cgColor
         backToLoginButton.layer.cornerRadius = 3
         backToLoginButton.addTarget(self, action: #selector(touchBackToLoginButton), for: .touchUpInside)
-        //        self.performSegue(withIdentifier: "createAccountToSignIn", sender: backToLoginButton)
         view.addSubview(backToLoginButton)
     }
     
@@ -314,7 +313,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                             
                         else{
                             
-                            userRef.child(key!).setValue(["email": email,"name": name, "profPicURL": urlString, "transactionIDs": [], "groupIDs" : [], "groupAdminIDs" : []])
+                            userRef.setValue(["email": email,"name": name, "profPicURL": urlString, "transactionIDs": [], "groupIDs" : [], "groupAdminIDs" : []])
                             
                             // stores the image in firebase storage
                             

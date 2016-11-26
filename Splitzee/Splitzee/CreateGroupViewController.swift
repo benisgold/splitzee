@@ -241,6 +241,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
             let rootRef = FIRDatabase.database().reference()
             let groupRef = rootRef.child("Group")
             let key = groupRef.childByAutoId().key
+            let userRef = rootRef.child("User").child(currUser.uid)
             
             self.storeImage(id: key, withBlock: {(urlString) -> Void in
                 
@@ -259,6 +260,20 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     groupRef.child(key).child("adminIDs").setValue([self.currUser.uid])
                     groupRef.child(key).child("requestIDs").setValue([])
                     groupRef.child(key).child("total").setValue(0.00)
+                    
+                    var memberIDs: [String] = []
+                    var adminIDs: [String] = []
+                    userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                        let userDict = snapshot.value as! [String:AnyObject]
+                        memberIDs = userDict["memberIDs"] as! [String]
+                        adminIDs = userDict["adminIDs"] as! [String]
+                    })
+                    
+                    memberIDs.append(key)
+                    adminIDs.append(key)
+                    
+                    userRef.child("memberIDs").setValue(memberIDs)
+                    userRef.child("adminIDs").setValue(adminIDs)
                     
                     self.dismiss(animated: true, completion: nil)
                     self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
