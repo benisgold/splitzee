@@ -68,6 +68,7 @@
                     <connections>
                         <segue destination="y9D-ok-41i" kind="show" identifier="createGroupToAdminPage" id="fnX-s0-IHb"/>
                         <segue destination="IR5-Su-HXa" kind="show" identifier="createGroupToMemberPage" id="NWc-nF-rwN"/>
+                        <segue destination="66r-rf-rxp" kind="show" identifier="createGroupToSidebar" id="mKs-wR-qsN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lDx-ds-oQ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -232,10 +233,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="sAz-cr-zkl"/>
-        <segue reference="Puo-HA-7aO"/>
-        <segue reference="YNm-gx-R2h"/>
-        <segue reference="fnX-s0-IHb"/>
+        <segue reference="NWc-nF-rwN"/>
         <segue reference="iox-6q-LET"/>
+        <segue reference="fnX-s0-IHb"/>
+        <segue reference="mKs-wR-qsN"/>
+        <segue reference="sAz-cr-zkl"/>
     </inferredMetricsTieBreakers>
 </document>

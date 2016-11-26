@@ -60,6 +60,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         xButton.setTitle("X", for: .normal)
         xButton.setTitleColor(constants.fontMediumGray, for: .normal)
         xButton.titleLabel?.textAlignment = .center
+        xButton.addTarget(self, action: #selector(xButtonPressed), for: .touchUpInside)
         view.addSubview(xButton)
     }
     
@@ -183,7 +184,9 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         }
     }
     
-    
+    func xButtonPressed() {
+        performSegue(withIdentifier: "createGroupToSidebar", sender: self)
+    }
     
     func storeImage(id: String, withBlock: @escaping (String?) -> Void)
     {
@@ -224,7 +227,6 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     // Creates a new group
     func createGroup(_ sender: UIButton) {
         
-        
         if ((nameTextField.text?.characters.count)! == 0 || (memberCodeTextField.text?.characters.count)! == 0 || (adminCodeTextField.text?.characters.count)! == 0 )
         {
             let alertView = UIAlertController(title: "Error"
@@ -237,7 +239,6 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
             alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             }))
             self.present(alertView, animated: true, completion: nil)
-            
         }
             
         else {
