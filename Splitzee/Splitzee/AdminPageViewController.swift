@@ -87,7 +87,8 @@ class AdminPageViewController: UIViewController {
     }
     
     func groupsPressed() {
-        performSegue(withIdentifier: "adminToSideBar", sender: self)
+//        performSegue(withIdentifier: "adminToSideBar", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     func setupNavBar() {

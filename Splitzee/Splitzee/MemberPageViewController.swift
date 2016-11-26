@@ -54,7 +54,8 @@ class MemberPageViewController: UIViewController {
     }
     
     func groupsPressed() {
-        performSegue(withIdentifier: "memberToSideBar", sender: self)
+//        performSegue(withIdentifier: "memberToSideBar", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     func setupNavBar() {

@@ -158,7 +158,8 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         
         func pressRequest(sender: UIButton)
         {
-            performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+//            performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+            dismiss(animated: true, completion: nil)
         }
     
         
