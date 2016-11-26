@@ -22,9 +22,11 @@ class AdminPageViewController: UIViewController {
     var alertViewAdd: UIAlertController!
     var alertViewSub: UIAlertController!
     var pending = true
+    var currUser: CurrentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currUser = CurrentUser()
         setupUI()
     }
     

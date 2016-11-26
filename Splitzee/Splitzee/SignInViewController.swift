@@ -24,7 +24,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var signInFacebook: UIButton!
     var background: UIImageView!
     let constants = Constants()
-    var currUser: CurrentUser!
     var alertWrongFormat: UIAlertController!
     
     override func viewDidLoad() {
@@ -221,31 +220,21 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         AppState.sharedInstance.signedIn = true
         inputEmail.text = ""
         inputPassword.text = ""
+        performSegue(withIdentifier: "signInToMenu", sender: self)
         
-        let dbRef = FIRDatabase.database().reference()
-        
-        user?.getTokenWithCompletion({ (token, error) in
-            if let error = error {
-                self.alert(msg: error.localizedDescription)
-            } else {
-                if (self.currUser) != nil {
-                    self.performSegue(withIdentifier: "signInToMenu", sender: self)
-                } else {
-                    dbRef.child("User").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-                        let value = snapshot.value as! [String:AnyObject]
-                        self.currUser = CurrentUser(key: token!, currentUserDict: value)
-                        self.performSegue(withIdentifier: "signInToMenu", sender: self)
-                    })
-                }
-            }
-        })
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "signInToMenu") {
-            let nextVC = segue.destination as! SideBarViewController
-            nextVC.currUser = currUser
-        }
+//        let dbRef = FIRDatabase.database().reference()
+//        
+//        user?.getTokenWithCompletion({ (token, error) in
+//            if let error = error {
+//                self.alert(msg: error.localizedDescription)
+//            } else {
+//                dbRef.child("User").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+//                    let value = snapshot.value as! [String:AnyObject]
+//                    self.currUser = CurrentUser(key: token!, currentUserDict: value)
+//                    self.performSegue(withIdentifier: "signInToMenu", sender: self)
+//                })
+//            }
+//        })
     }
 
     /*

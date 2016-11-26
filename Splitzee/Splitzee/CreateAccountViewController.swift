@@ -24,7 +24,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
     var backToLoginButton: UIButton!
     var userImage: UIImage!
     let constants = Constants()
-    var currUser: CurrentUser!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -240,13 +239,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         performSegue(withIdentifier: "createAccountToSignIn", sender: self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if (segue.identifier == "createAccountToSignIn") {
-            let nextVC = segue.destination as! SignInViewController
-            nextVC.currUser = currUser
-        }
-    }
-    
     //Sets display name of the user
     func setDisplayName(_ user: FIRUser?) {
         let changeRequest = user?.profileChangeRequest()
@@ -322,9 +314,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                         else{
                             
                             userRef.child(key!).setValue(["email": email,"name": name, "profPicURL": urlString, "transactionIDs": [], "groupIDs" : [], "groupAdminIDs" : []])
-                        
-                            
-                            self.currUser = CurrentUser(key: key!, name: name, profPicURL: urlString!, email: email, transactionIDs: [], groupIDs: [], groupAdminIDs: [], currentGroupID: "")
                             
                             // stores the image in firebase storage
                             

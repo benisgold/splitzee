@@ -24,6 +24,7 @@ class SideBarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currUser = CurrentUser()
         getGroupNames()
         setupUI()
         setupTableView()
