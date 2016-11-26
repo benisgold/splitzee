@@ -160,7 +160,8 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
     // -----------FUNCTIONS------------------------------------------------------------------------
     
     func touchBackToLoginButton(sender: UIButton!) {
-        performSegue(withIdentifier: "createAccountToSignIn", sender: self)
+//        performSegue(withIdentifier: "createAccountToSignIn", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

@@ -200,7 +200,10 @@ extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let pendingCell = cell as! AdminPendingTableViewCell
-        let historyCell = cell as! AdminHistoryTableViewCell
+        if let pendingCell = cell as? AdminPendingTableViewCell {
+            
+        } else if let historyCell = cell as? AdminHistoryTableViewCell {
+            
+        }
     }
 }
