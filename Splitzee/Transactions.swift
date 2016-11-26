@@ -76,17 +76,22 @@ class Transaction {
         })
     }
     
-    func getUser(withBlock: @escaping (User) -> Void ){
-        let ref = FIRDatabase.database().reference()
-        ref.child("Members/\(memberID)").observe(.value, with: { snapshot -> Void in
-            // Get user value
-            if snapshot.exists(){
-                if let userDict = snapshot.value as? [String: AnyObject]{
-                    let user = User(key: snapshot.key, userDict: userDict)
-                    withBlock(user)
+    // Gets the userIDs of all members within a group (used for Admin transactions)
+    func getMembersArray(withBlock: @escaping (User) -> Void ){
+        var membersArray = [String]()
+        for member in membersArray {
+            let ref = FIRDatabase.database().reference()
+            ref.child("Members/\(memberID)").observe(.value, with: { snapshot -> Void in
+                // Get user value
+                if snapshot.exists(){
+                    if let userDict = snapshot.value as? [String: AnyObject]{
+                        let user = User(key: snapshot.key, userDict: userDict)
+                        withBlock(user)
+                    }
                 }
-            }
-        })
+            })
+            membersArray.append(member)
+        }
     }
     
     

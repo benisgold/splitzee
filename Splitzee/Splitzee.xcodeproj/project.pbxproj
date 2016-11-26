@@ -52,8 +52,8 @@
 		E42ABDD11DD560350002D910 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42ABDCF1DD560350002D910 /* LaunchScreen.storyboard */; };
 		E42ABDDC1DD560360002D910 /* SplitzeeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDDB1DD560360002D910 /* SplitzeeTests.swift */; };
 		E42ABDE71DD560360002D910 /* SplitzeeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDE61DD560360002D910 /* SplitzeeUITests.swift */; };
-		E42ABDF61DD562E80002D910 /* Users.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDF51DD562E80002D910 /* Users.swift */; };
-		E42ABDF81DD562F70002D910 /* Groups.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDF71DD562F70002D910 /* Groups.swift */; };
+		E42ABDF61DD562E80002D910 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDF51DD562E80002D910 /* User.swift */; };
+		E42ABDF81DD562F70002D910 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDF71DD562F70002D910 /* Group.swift */; };
 		E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABE001DD5653B0002D910 /* Transactions.swift */; };
 		E42ABE031DD56CD50002D910 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E42ABE021DD56CD50002D910 /* GoogleService-Info.plist */; };
 		E42ABE051DD56F170002D910 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABE041DD56F170002D910 /* Constants.swift */; };
@@ -132,8 +132,8 @@
 		E42ABDE21DD560360002D910 /* SplitzeeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitzeeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ABDE61DD560360002D910 /* SplitzeeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitzeeUITests.swift; sourceTree = "<group>"; };
 		E42ABDE81DD560360002D910 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E42ABDF51DD562E80002D910 /* Users.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Users.swift; sourceTree = "<group>"; };
-		E42ABDF71DD562F70002D910 /* Groups.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Groups.swift; sourceTree = "<group>"; };
+		E42ABDF51DD562E80002D910 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E42ABDF71DD562F70002D910 /* Group.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		E42ABE001DD5653B0002D910 /* Transactions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Transactions.swift; path = ../Transactions.swift; sourceTree = "<group>"; };
 		E42ABE021DD56CD50002D910 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E42ABE041DD56F170002D910 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -322,9 +322,9 @@
 				E42ABE041DD56F170002D910 /* Constants.swift */,
 				E42ABE001DD5653B0002D910 /* Transactions.swift */,
 				E4F85F881DD58EB600342329 /* Request.swift */,
-				E42ABDF51DD562E80002D910 /* Users.swift */,
+				E42ABDF51DD562E80002D910 /* User.swift */,
 				E4FA71E01DD78D3B00FEFACC /* CurrentUser.swift */,
-				E42ABDF71DD562F70002D910 /* Groups.swift */,
+				E42ABDF71DD562F70002D910 /* Group.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -552,7 +552,7 @@
 				B690C43C1DE1D5B800024A81 /* CurrentUser.swift in Sources */,
 				14185DBD1DDD6FE900777AD8 /* CreateAccountViewController.swift in Sources */,
 				E42ABDC91DD560350002D910 /* ViewController.swift in Sources */,
-				E42ABDF61DD562E80002D910 /* Users.swift in Sources */,
+				E42ABDF61DD562E80002D910 /* User.swift in Sources */,
 				14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */,
 				E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */,
 				149684011DDEC9C900529A70 /* AppState.swift in Sources */,
@@ -563,7 +563,7 @@
 				14185DBB1DDD6FD400777AD8 /* SignInViewController.swift in Sources */,
 				14185DCB1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift in Sources */,
 				1447E3C41DDE8CE200954A2B /* NewAdminTransactionCollectionViewCell.swift in Sources */,
-				E42ABDF81DD562F70002D910 /* Groups.swift in Sources */,
+				E42ABDF81DD562F70002D910 /* Group.swift in Sources */,
 				B690C43B1DE1678E00024A81 /* MemberHistoryTableViewCell.swift in Sources */,
 				B690C4371DDEE86000024A81 /* AdminHistoryTableViewCell.swift in Sources */,
 				142D6D031DE19B0D00561003 /* SideBarViewController.swift in Sources */,
