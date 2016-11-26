@@ -103,17 +103,4 @@ class Group {
             })
         }
     }
-    
-//    func getRequests(withBlock: @escaping (Request) -> Void) {
-//        let ref = FIRDatabase.database().reference()
-//        for id in requestIDs {
-//            ref.child("Requests").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
-//                // Get user value
-//                let curr = Request(key: id, requestDict: snapshot.value as! [String : AnyObject])
-//                withBlock(curr)
-//            }) { (error) in
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
 }

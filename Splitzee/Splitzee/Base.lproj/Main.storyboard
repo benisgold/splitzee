@@ -91,7 +91,6 @@
                     <connections>
                         <segue destination="pPd-y6-ep8" kind="show" identifier="adminPageToNewAdminTransaction" id="s0N-yn-bEM"/>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="adminPageToCreateGroup" id="iox-6q-LET"/>
-                        <segue destination="wXo-Y5-Yug" kind="show" identifier="adminPageToDetail" id="O9e-sD-Me2"/>
                         <segue destination="66r-rf-rxp" kind="show" identifier="adminToSideBar" id="v58-A6-mWW"/>
                     </connections>
                 </viewController>
@@ -121,28 +120,6 @@
             </objects>
             <point key="canvasLocation" x="2679" y="904"/>
         </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="Kva-q9-Ve0">
-            <objects>
-                <viewController id="wXo-Y5-Yug" customClass="DetailViewController" customModule="Splitzee" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="WBr-dn-QGt"/>
-                        <viewControllerLayoutGuide type="bottom" id="efR-CG-NrF"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="pEE-Zl-fyP">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <connections>
-                        <segue destination="y9D-ok-41i" kind="show" identifier="detailToAdminPage" id="sUu-Bk-aAL"/>
-                        <segue destination="IR5-Su-HXa" kind="show" identifier="detailToMemberPage" id="qih-Dc-3sb"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="9eW-GA-mE8" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4250" y="1762"/>
-        </scene>
         <!--Member Page View Controller-->
         <scene sceneID="tvE-kI-ywT">
             <objects>
@@ -160,7 +137,6 @@
                     <connections>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="memberPageToCreateGroup" id="F1N-IF-hwb"/>
                         <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="uFr-6T-gkh"/>
-                        <segue destination="wXo-Y5-Yug" kind="show" identifier="memberPageToDetail" id="kvW-Tl-l3F"/>
                         <segue destination="66r-rf-rxp" kind="show" identifier="memberToSideBar" id="scX-H4-iYG"/>
                     </connections>
                 </viewController>
@@ -256,11 +232,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="qih-Dc-3sb"/>
-        <segue reference="O9e-sD-Me2"/>
-        <segue reference="sUu-Bk-aAL"/>
-        <segue reference="iox-6q-LET"/>
+        <segue reference="YNm-gx-R2h"/>
         <segue reference="v58-A6-mWW"/>
+        <segue reference="fnX-s0-IHb"/>
+        <segue reference="iox-6q-LET"/>
         <segue reference="sAz-cr-zkl"/>
     </inferredMetricsTieBreakers>
 </document>

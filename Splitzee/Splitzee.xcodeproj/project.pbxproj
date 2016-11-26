@@ -12,7 +12,6 @@
 		14185DBF1DDD709600777AD8 /* CreateGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DBE1DDD709600777AD8 /* CreateGroupViewController.swift */; };
 		14185DC11DDD70B000777AD8 /* AdminPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */; };
 		14185DC31DDD70B900777AD8 /* MemberPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC21DDD70B900777AD8 /* MemberPageViewController.swift */; };
-		14185DC51DDD70E200777AD8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC41DDD70E200777AD8 /* DetailViewController.swift */; };
 		14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */; };
 		14185DC91DDD712700777AD8 /* NewMemberTransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */; };
 		14185DCB1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14185DCA1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift */; };
@@ -84,7 +83,6 @@
 		14185DBE1DDD709600777AD8 /* CreateGroupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGroupViewController.swift; sourceTree = "<group>"; };
 		14185DC01DDD70B000777AD8 /* AdminPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminPageViewController.swift; sourceTree = "<group>"; };
 		14185DC21DDD70B900777AD8 /* MemberPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberPageViewController.swift; sourceTree = "<group>"; };
-		14185DC41DDD70E200777AD8 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		14185DC61DDD711C00777AD8 /* NewAdminTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewAdminTransactionViewController.swift; sourceTree = "<group>"; };
 		14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewMemberTransactionViewController.swift; sourceTree = "<group>"; };
 		14185DCA1DDD8AA900777AD8 /* AdminPendingTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdminPendingTableViewCell.swift; sourceTree = "<group>"; };
@@ -177,7 +175,6 @@
 				14185DBE1DDD709600777AD8 /* CreateGroupViewController.swift */,
 				14185DCE1DDD9D7700777AD8 /* AdminPage */,
 				14185DCF1DDD9D8200777AD8 /* MemberPage */,
-				14185DC41DDD70E200777AD8 /* DetailViewController.swift */,
 				142D6D041DE19B8F00561003 /* SideBar */,
 				1447E3C51DDE8CEB00954A2B /* NewAdminTransaction */,
 				14185DC81DDD712700777AD8 /* NewMemberTransactionViewController.swift */,
@@ -575,7 +572,6 @@
 				142D6D011DE19ADC00561003 /* SideBarTableViewCell.swift in Sources */,
 				14185DBF1DDD709600777AD8 /* CreateGroupViewController.swift in Sources */,
 				E42ABE051DD56F170002D910 /* Constants.swift in Sources */,
-				14185DC51DDD70E200777AD8 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
