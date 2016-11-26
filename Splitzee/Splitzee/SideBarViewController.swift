@@ -21,6 +21,8 @@ class SideBarViewController: UIViewController {
     var currUser: CurrentUser!
     var groups: [Group]! = []
     var numAdminGroups: Int! = 0
+    var firstLoad: Bool = true
+    var alertView: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +31,18 @@ class SideBarViewController: UIViewController {
         setupUI()
         setupTableView()
         
-        
         // Do any additional setup after loading the view.
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        currUser = CurrentUser()
+        getGroupNames()
+        setupTableView()
     }
     
     func getGroupNames() {
@@ -112,13 +119,15 @@ class SideBarViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.contentInset = UIEdgeInsets.zero
         view.addSubview(tableView)
+        if groups.count == 0 {
+            alert("Create or join a new group!")
+        }
     }
     
     func logout() {
         do {
             try FIRAuth.auth()?.signOut()
             AppState.sharedInstance.signedIn = false
-//            performSegue(withIdentifier: "menuToSignIn", sender: self)
             dismiss(animated: true, completion: nil)
         } catch let error as NSError {
             print(error)
@@ -141,6 +150,14 @@ class SideBarViewController: UIViewController {
             self.joinGroupAlert.dismiss(animated: true, completion: nil)
         }))
         self.present(joinGroupAlert, animated: true, completion: nil)
+    }
+    
+    func alert(_ msg: String) {
+        alertView = UIAlertController(title: "You aren't part of any groups!", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.alertView.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertView, animated: true, completion: nil)
     }
     
     /*
@@ -180,7 +197,6 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
             sideBarCell.label.text = "admin"
         }
         sideBarCell.name.text = groups[indexPath.row].name
-//        sideBarCell.options.text = "..." // Always "..."
         sideBarCell.backgroundColor = UIColor.clear
         
         

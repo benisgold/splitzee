@@ -22,6 +22,8 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     var adminCodeTextField: UITextField!
     var userImage: UIImage!
     let constants = Constants()
+    var currUser: CurrentUser!
+    var alertView: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +32,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         imagePicker.delegate = self
         initializeTextFields()
         configureKeyboard()
-        
+        currUser = CurrentUser()
     }
     
     func setUpUI(){
@@ -141,11 +143,6 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         adminCodeTextField.delegate = self
     }
     
-    
-    func touchBackToLoginButton(sender: UIButton!) {
-        performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -162,6 +159,14 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     func configureKeyboard() {
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+    }
+    
+    func alert(title: String, msg: String) {
+        alertView = UIAlertController(title: title, message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.alertView.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertView, animated: true, completion: nil)
     }
     
     //--------------Adding Images to the Create an Account Button---------------------------------
@@ -185,7 +190,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     }
     
     func xButtonPressed() {
-        performSegue(withIdentifier: "createGroupToSidebar", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     func storeImage(id: String, withBlock: @escaping (String?) -> Void)
@@ -197,7 +202,6 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         var data = NSData()
         if let img = userImage {
             data = UIImageJPEGRepresentation(img, 0.8)! as NSData
-            
             
             let uploadTask = imagesRef.put(data as Data, metadata: nil) { metadata, error in
                 if (error != nil) {
@@ -227,24 +231,13 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     // Creates a new group
     func createGroup(_ sender: UIButton) {
         
-        if ((nameTextField.text?.characters.count)! == 0 || (memberCodeTextField.text?.characters.count)! == 0 || (adminCodeTextField.text?.characters.count)! == 0 )
-        {
-            let alertView = UIAlertController(title: "Error"
-                , message: "One or more fields have not been filled.", preferredStyle: UIAlertControllerStyle.alert)
-            alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
-            }))
-            self.present(alertView, animated: true, completion: nil)
+        if ((nameTextField.text?.characters.count)! == 0 || (memberCodeTextField.text?.characters.count)! == 0 || (adminCodeTextField.text?.characters.count)! == 0 ) {
+            alert(title: "Error", msg: "One or more fields have not been filled.")
         } else if (memberCodeTextField.text == adminCodeTextField.text) {
-            let alertView = UIAlertController(title: "Error", message: "Member and Administrator access codes cannot be the same.", preferredStyle: UIAlertControllerStyle.alert)
-            alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
-            }))
-            self.present(alertView, animated: true, completion: nil)
+            alert(title: "Error", msg: "Member and Administrator access codes cannot be the same.")
         }
-            
-        else {
-            
             //Stores the image in firebase database
-            
+        else {
             let rootRef = FIRDatabase.database().reference()
             let groupRef = rootRef.child("Group")
             let key = groupRef.childByAutoId().key
@@ -252,12 +245,9 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
             self.storeImage(id: key, withBlock: {(urlString) -> Void in
                 
                 if urlString == nil {
-                    let alertView = UIAlertController(title: "Error", message: "Please enter a group picture.", preferredStyle: UIAlertControllerStyle.alert)
-                    alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
-                    }))
-                    self.present(alertView, animated: true, completion: nil)
+                    self.alert(title: "Error", msg: "Please enter a group picture.")
                 }
-                else{
+                else {
                     
                     groupRef.child(key).child("name").setValue(self.nameTextField.text)
                     groupRef.child(key).child("memberCode").setValue(self.memberCodeTextField.text)
@@ -265,29 +255,17 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     groupRef.child(key).child("picURL").setValue(urlString)
                     
                     groupRef.child(key).child("transactionIDs").setValue([])
-                    groupRef.child(key).child("memberIDs").setValue([])
-                    groupRef.child(key).child("adminIDs").setValue([])
+                    groupRef.child(key).child("memberIDs").setValue([self.currUser.uid])
+                    groupRef.child(key).child("adminIDs").setValue([self.currUser.uid])
                     groupRef.child(key).child("requestIDs").setValue([])
                     groupRef.child(key).child("total").setValue(0.00)
                     
-                    
+                    self.dismiss(animated: true, completion: nil)
                     self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
                 }
             })
-            
-            
-            
-            
-            
-            
-            
-            
-            
         }
-        
     }
-    
-    
 }
 
 

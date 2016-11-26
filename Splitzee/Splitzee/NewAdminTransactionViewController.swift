@@ -20,12 +20,13 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var requestButton: UIButton!
     var collectionView: UICollectionView!
     let constants = Constants()
+    var groupID: String!
     
     
     let rootRef: FIRDatabaseReference! = nil
     //var key: UInt!
     var membersList = [User]()
-    
+    var selectedMembers = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +90,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
         requestButton.layer.cornerRadius = 2
-       // requestButton.addTarget(self, action: #selector(pressRequest), for: .touchUpInside)
         view.addSubview(requestButton)
     }
     
@@ -108,8 +108,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
         collectionView.backgroundColor = UIColor.clear
         
-        
-        
         view.addSubview(collectionView)
     }
     
@@ -123,9 +121,9 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         
         rootRef.child("User").queryOrderedByKey().observe(.childAdded, with: {
             snapshot in
-            let userKey = snapshot.key as? String
+            let userKey = snapshot.key as String
             let userDict = snapshot.value as? [String: AnyObject]
-            let user = User(key: userKey!, userDict: userDict!)
+            let user = User(key: userKey, userDict: userDict!)
             self.membersList.insert(user, at: 0)
         })
         DispatchQueue.main.async {
@@ -133,27 +131,23 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             
         }
     }
+        
+            func pressPay(sender: UIButton!)
+            {
+                for member in selectedMembers {
+                    let transactionDict: [String:AnyObject]
+                    transactionDict = ["amount": amountTextField.text as AnyObject, "memberID": member.uid as AnyObject, "groupID": groupID as AnyObject, "groupToMember": false as AnyObject, "isApproved": true as AnyObject]
+            
+                    let rootRef = FIRDatabase.database().reference()
+                    let key = rootRef.child("Transaction").childByAutoId().key
+            
+                    let trans = Transaction(key: key, transactionDict: transactionDict)
+                }
+        
+                //performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+                dismiss(animated: true, completion: nil)
+            }
     
-
-        
-        
-    
-    
-        
-        //    func pressPay(sender: UIButton!)
-        //    {
-        //
-        //        let transactionDict: [String:AnyObject]
-        //        transactionDict = ["amount": amountTextField.text as AnyObject, "memberID": membersList as AnyObject, "groupID": membersList as AnyObject, "groupToMember": false as AnyObject, "isApproved": true as AnyObject]
-        //
-        //        let rootRef = FIRDatabase.database().reference()
-        //        let key = rootRef.child("Transaction").childByAutoId().key
-        //
-        //        Transaction.init(key: key, transactionDict: transactionDict)
-        //
-        //        performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
-        //        }
-        
         
         
         func pressRequest(sender: UIButton)
@@ -194,6 +188,17 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
             return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
         }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? NewAdminTransactionCollectionViewCell
+        if cell?.backgroundColor == UIColor.black {
+            cell?.backgroundColor = UIColor.clear
+            selectedMembers = selectedMembers.filter { $0.uid != selectedMembers[indexPath.row].uid }
+        } else {
+            cell?.backgroundColor = UIColor.black
+            selectedMembers.append(membersList[indexPath.row])
+        }
+    }
 
 }
 
