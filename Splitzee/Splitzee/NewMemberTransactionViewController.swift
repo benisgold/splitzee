@@ -96,27 +96,29 @@ class NewMemberTransactionViewController: UIViewController {
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
-            newTransaction()
+            newTransaction((String)(amount), false)
         }
     }
     
     func requested() {
         if (checkFormat()) {
-            
+            var amt = amountTextField.text!
+            amt.remove(at: (amt.startIndex))
+            let amount: Double = (Double)(amt)!
+            newTransaction((String)(amount), true)
         }
     }
     
-    func newTransaction() {
+    func newTransaction(_ amt: String, _ groupToMember: Bool) {
         
         let transactionDict: [String:AnyObject]
        
-        transactionDict = ["amount": amountTextField.text as AnyObject, "memberIDs": currUser.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": true as AnyObject, "isApproved": false as AnyObject]
+        transactionDict = ["amount": amt as AnyObject, "memberIDs": currUser.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": false as AnyObject]
         
         let rootRef = FIRDatabase.database().reference()
         let key = rootRef.child("Transaction").childByAutoId().key
-        
-        let trans = Transaction(key: key, transactionDict: transactionDict)
-
+        rootRef.child("Transaction").child(key).setValue(transactionDict)
+        dismiss(animated: true, completion: nil)
     }
     
     func checkFormat() -> Bool {
