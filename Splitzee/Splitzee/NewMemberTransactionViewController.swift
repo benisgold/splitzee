@@ -23,6 +23,7 @@ class NewMemberTransactionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currUser = CurrentUser()
         setUpUI()
         // Do any additional setup after loading the view.
     }

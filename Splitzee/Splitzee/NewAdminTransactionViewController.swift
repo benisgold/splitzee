@@ -21,7 +21,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var collectionView: UICollectionView!
     let constants = Constants()
     var groupID: String!
-    var currUser = CurrentUser()
+    var currUser: CurrentUser!
     
     
     let rootRef: FIRDatabaseReference! = nil
@@ -31,6 +31,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        currUser = CurrentUser()
         setUpUI()
         let rootRef = FIRDatabase.database().reference()
         pollForUsers()

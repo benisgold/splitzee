@@ -46,7 +46,6 @@
 		B690C43B1DE1678E00024A81 /* MemberHistoryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690C43A1DE1678E00024A81 /* MemberHistoryTableViewCell.swift */; };
 		B690C43C1DE1D5B800024A81 /* CurrentUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4FA71E01DD78D3B00FEFACC /* CurrentUser.swift */; };
 		E42ABDC71DD560350002D910 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC61DD560350002D910 /* AppDelegate.swift */; };
-		E42ABDC91DD560350002D910 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E42ABDC81DD560350002D910 /* ViewController.swift */; };
 		E42ABDCC1DD560350002D910 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42ABDCA1DD560350002D910 /* Main.storyboard */; };
 		E42ABDCE1DD560350002D910 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E42ABDCD1DD560350002D910 /* Assets.xcassets */; };
 		E42ABDD11DD560350002D910 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E42ABDCF1DD560350002D910 /* LaunchScreen.storyboard */; };
@@ -121,7 +120,6 @@
 		B690C43A1DE1678E00024A81 /* MemberHistoryTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberHistoryTableViewCell.swift; sourceTree = "<group>"; };
 		E42ABDC31DD560350002D910 /* Splitzee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Splitzee.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E42ABDC61DD560350002D910 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E42ABDC81DD560350002D910 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E42ABDCB1DD560350002D910 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E42ABDCD1DD560350002D910 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E42ABDD01DD560350002D910 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -287,7 +285,6 @@
 				14185DD01DDE4ECC00777AD8 /* Fonts */,
 				14185DB91DDD6F7A00777AD8 /* View */,
 				E42ABDC61DD560350002D910 /* AppDelegate.swift */,
-				E42ABDC81DD560350002D910 /* ViewController.swift */,
 				E42ABE021DD56CD50002D910 /* GoogleService-Info.plist */,
 				E42ABDF41DD562A00002D910 /* Model */,
 				E42ABDCA1DD560350002D910 /* Main.storyboard */,
@@ -551,7 +548,6 @@
 			files = (
 				B690C43C1DE1D5B800024A81 /* CurrentUser.swift in Sources */,
 				14185DBD1DDD6FE900777AD8 /* CreateAccountViewController.swift in Sources */,
-				E42ABDC91DD560350002D910 /* ViewController.swift in Sources */,
 				E42ABDF61DD562E80002D910 /* User.swift in Sources */,
 				14185DC71DDD711C00777AD8 /* NewAdminTransactionViewController.swift in Sources */,
 				E42ABE011DD5653B0002D910 /* Transactions.swift in Sources */,

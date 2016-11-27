@@ -21,6 +21,7 @@ class MemberPageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        currUser = CurrentUser()
         setupUI()
     }
     

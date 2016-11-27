@@ -25,7 +25,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var background: UIImageView!
     let constants = Constants()
     var alertWrongFormat: UIAlertController!
-    var currUser = CurrentUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,11 +73,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputEmail.autocorrectionType = .no
         createInset(textField: inputEmail)
         view.addSubview(inputEmail)
-        
-//        // mailSymbol
-//        let mailImage = UIImageView(image: #imageLiteral(resourceName: "mailSymbol"))
-//        mailImage.frame = CGRect(x: 0.830 * view.frame.width, y: 0.344 * view.frame.height, width: 0.140 * view.frame.width, height: 0.038 * view.frame.height)
-//        view.addSubview(mailImage)
         
         // inputPassword
         inputPassword = UITextField(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.410, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
@@ -211,8 +205,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         FIRAuth.auth()?.addStateDidChangeListener({ (auth : FIRAuth, user : FIRUser?) in
             if let user = user {
                 self.signedIn(user)
-            } else {
-                print("Sign up or log in!")
             }
         })
     }
@@ -222,20 +214,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputEmail.text = ""
         inputPassword.text = ""
         performSegue(withIdentifier: "signInToMenu", sender: self)
-        
-        let dbRef = FIRDatabase.database().reference()
-        
-        user?.getTokenWithCompletion({ (token, error) in
-            if let error = error {
-                self.alert(msg: error.localizedDescription)
-            } else {
-                dbRef.child("User").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let value = snapshot.value as! [String:AnyObject]
-                    self.currUser = CurrentUser(key: token!, currentUserDict: value)
-                    self.performSegue(withIdentifier: "signInToMenu", sender: self)
-                })
-            }
-        })
     }
 
     /*
