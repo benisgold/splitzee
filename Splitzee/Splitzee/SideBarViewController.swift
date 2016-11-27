@@ -46,27 +46,15 @@ class SideBarViewController: UIViewController {
     }
     
     func getGroupNames() {
-        for groupID in currUser.groupAdminIDs {
-            let dbRef = FIRDatabase.database().reference()
-            dbRef.child("Group").child(groupID).observeSingleEvent(of: .value, with: { (snapshot) in
-                let value = snapshot.value as? [String:AnyObject]
-                let currGroup = Group(key: groupID, groupDict: value!)
-                self.groups.append(currGroup)
-            }) { (error) in
-                print(error)
-            }
-        }
+        currUser.getAdminGroups(withBlock: { (group) in
+            self.groups.append(group)
+        })
+
         numAdminGroups = groups.count
-        for groupID in currUser.groupIDs {
-            let dbRef = FIRDatabase.database().reference()
-            dbRef.child("Group").child(groupID).observeSingleEvent(of: .value, with: { (snapshot) in
-                let value = snapshot.value as? [String:AnyObject]
-                let currGroup = Group(key: groupID, groupDict: value!)
-                self.groups.append(currGroup)
-            }) { (error) in
-                print(error)
-            }
-        }
+        
+        currUser.getGroups(withBlock: { (group) in
+            self.groups.append(group)
+        })
     }
     
     func setupUI() {

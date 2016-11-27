@@ -13,21 +13,22 @@ import FirebaseDatabase
 
 class CurrentUser {
     
-    
     // User Variables
     var name: String = ""
     var profPicURL: String = ""
     var email: String = ""
-    var transactionIDs: [String] = []
-    var groupIDs: [String] = []
-    var groupAdminIDs: [String] = []
+    var transactionIDs: [String]? = []
+    var groupIDs: [String]? = []
+    var groupAdminIDs: [String]? = []
     var uid: String = ""
-    var currentGroupID: String = ""
     var dbRef: FIRDatabaseReference!
+    var currentGroupID: String = ""
     
     // Initiating variables
     
     init(key: String, currentUserDict: [String: AnyObject]) {
+        dbRef = FIRDatabase.database().reference()
+        
         uid = key
         
         
@@ -58,6 +59,7 @@ class CurrentUser {
     }
     
     init(key: String, name: String, profPicURL: String, email: String, transactionIDs: [String], groupIDs: [String], groupAdminIDs: [String], currentGroupID: String) {
+        dbRef = FIRDatabase.database().reference()
         uid = key
         self.name = name
         self.profPicURL = profPicURL
@@ -65,34 +67,25 @@ class CurrentUser {
         self.transactionIDs = transactionIDs
         self.groupIDs = groupIDs
         self.groupAdminIDs = groupAdminIDs
-        self.currentGroupID = currentGroupID
     }
     
     init() {
         dbRef = FIRDatabase.database().reference()
         uid = (FIRAuth.auth()?.currentUser?.uid)!
-    }
-    
-    // optional
-    func logout()  {
-        
-    }
-    
-    // optional
-    func signIn()  {
-        
+        setData()
     }
     
     func setData() {
+        dbRef = FIRDatabase.database().reference()
         dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
-            let value = snapshot.value as? NSDictionary
+            let value = snapshot.value as? [String:AnyObject]
             self.name = (value?["name"] as? String)!
             self.profPicURL = (value?["profPicURL"] as? String)!
             self.email = (value?["email"] as? String)!
-            self.transactionIDs = (value?["transactionIDs"] as? [String])!
-            self.groupIDs = (value?["groupIDs"] as? [String])!
-            self.groupAdminIDs = (value?["groupAdminIDs"] as? [String])!
+            self.transactionIDs = value?["transactionIDs"] as? [String]
+            self.groupIDs = value?["memberIDs"] as? [String]
+            self.groupAdminIDs = value?["adminIDs"] as? [String]
         }) { (error) in
             print(error.localizedDescription)
         }
@@ -119,7 +112,7 @@ class CurrentUser {
     func getTransactions(withBlock: @escaping (Transaction) -> Void)  {
         setData()
         let ref = FIRDatabase.database().reference()
-        for id in transactionIDs  {
+        for id in transactionIDs!  {
             ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
@@ -129,13 +122,25 @@ class CurrentUser {
     }
     
     // Gets all the groups for the sidebar
-    func getGroup(withBlock: @escaping (Group) -> Void)  {
+    func getGroups(withBlock: @escaping (Group) -> Void)  {
         setData()
         let ref = FIRDatabase.database().reference()
-        for id in groupIDs  {
-            ref.child("Groups").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
+        for id in groupIDs!  {
+            ref.child("Group").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
                 let curr = Group(key: id, groupDict: snapshot.value as! [String: AnyObject])
+                withBlock(curr)
+            })
+        }
+    }
+    
+    // Gets all admin groups for the sidebar
+    func getAdminGroups(withBlock: @escaping (Group) -> Void) {
+        setData()
+        let ref = FIRDatabase.database().reference()
+        for id in groupAdminIDs! {
+            ref.child("Group").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+                let curr = Group(key: id, groupDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })
         }
@@ -161,6 +166,10 @@ class CurrentUser {
         let key = ref.child("Transactions").childByAutoId().key
         ref.child("Transactions/\(key)").setValue(["Amount": amount, "Member": memberID, "Group": groupID, "toMember": groupToMember])
         
+    }
+    
+    func setCurrentGroup(_ groupID: String) {
+        currentGroupID = groupID
     }
     
 }
