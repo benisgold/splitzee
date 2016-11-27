@@ -33,7 +33,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         super.viewDidLoad()
         currUser = CurrentUser()
         setUpUI()
-        let rootRef = FIRDatabase.database().reference()
         pollForUsers()
         setupCollectionView()
         
@@ -120,7 +119,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     
     func pollForUsers(){
-        
         rootRef.child("User").queryOrderedByKey().observe(.childAdded, with: {
             snapshot in
             let userKey = snapshot.key as String
@@ -134,71 +132,70 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         }
     }
         
-            func pressPay(sender: UIButton!)
-            {
-                for member in selectedMembers {
-                    let transactionDict: [String:AnyObject]
-                    transactionDict = ["amount": amountTextField.text as AnyObject, "memberIDs": member.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": true as AnyObject, "isApproved": true as AnyObject]
-            
-                    let rootRef = FIRDatabase.database().reference()
-                    let key = rootRef.child("Transaction").childByAutoId().key
-            
-                    let trans = Transaction(key: key, transactionDict: transactionDict)
-                }
-        
-                performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
-                dismiss(animated: true, completion: nil)
-            }
+    func pressPay(sender: UIButton!)
+    {
+        for member in selectedMembers {
+            var amt = amountTextField.text!
+            amt.remove(at: (amt.startIndex))
+            let amount: Double = (Double)(amt)!
+            newTransaction(amt: (String)(amount), memberID: member.uid, groupToMember: true)
+        }
+    }
     
         
         
-        func pressRequest(sender: UIButton)
-        {
-            for member in selectedMembers {
-                let transactionDict: [String:AnyObject]
-                transactionDict = ["amount": amountTextField.text as AnyObject, "memberIDs": member.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": true as AnyObject, "isApproved": false as AnyObject]
-                
-                let rootRef = FIRDatabase.database().reference()
-                let key = rootRef.child("Transaction").childByAutoId().key
-                
-                let trans = Transaction(key: key, transactionDict: transactionDict)
-            }
-            performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
-            dismiss(animated: true, completion: nil)
+    func pressRequest(sender: UIButton)
+    {
+        for member in selectedMembers {
+            var amt = amountTextField.text!
+            amt.remove(at: (amt.startIndex))
+            let amount: Double = (Double)(amt)!
+            newTransaction(amt: (String)(amount), memberID: member.uid, groupToMember: false)
         }
+    }
     
+    func newTransaction(amt: String, memberID: String, groupToMember: Bool) {
+        let transactionDict: [String:AnyObject]
+        
+        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": true as AnyObject]
+        
+        let rootRef = FIRDatabase.database().reference()
+        let key = rootRef.child("Transaction").childByAutoId().key
+        rootRef.child("Transaction").child(key).setValue(transactionDict)
+        dismiss(animated: true, completion: nil)
+    }
         
         
-        //-------------------Setting up collectionView--------------------
-        
-        func numberOfSections(in collectionView: UICollectionView) -> Int {
-            return 1
+//-------------------Setting up collectionView--------------------
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        // should be returning the number of users
+        return membersList.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
+        for subview in cell.contentView.subviews {
+            subview.removeFromSuperview()
         }
-        
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            // should be returning the number of users
-            return membersList.count
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
-            for subview in cell.contentView.subviews {
-                subview.removeFromSuperview()
-            }
-            cell.awakeFromNib()
-            return cell
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-            let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
-            //adminTransactionCell.userImage.image = membersList[indexPath.row].profPicURL //Should be actual image
-            adminTransactionCell.userName.text = membersList[indexPath.row].name //Should be actual user's name
-            // set UI stuff
-        }
-        
-        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
-        }
+        cell.awakeFromNib()
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
+        //adminTransactionCell.userImage.image = membersList[indexPath.row].profPicURL //Should be actual image
+        adminTransactionCell.userName.text = membersList[indexPath.row].name //Should be actual user's name
+        // set UI stuff
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
+    }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? NewAdminTransactionCollectionViewCell
@@ -214,12 +211,12 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
 }
 
 extension NewAdminTransactionViewController: UITextViewDelegate {
-        func textViewDidBeginEditing(_ textView: UITextView) {
-            if textView.textColor == self.constants.fontLightGray {
-                textView.text = ""
-                textView.textColor = UIColor.black
-            }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == self.constants.fontLightGray {
+            textView.text = ""
+            textView.textColor = UIColor.black
         }
+    }
 }
 
 

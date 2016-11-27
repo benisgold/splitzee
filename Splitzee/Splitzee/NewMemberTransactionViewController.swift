@@ -110,10 +110,9 @@ class NewMemberTransactionViewController: UIViewController {
     }
     
     func newTransaction(_ amt: String, _ groupToMember: Bool) {
-        
         let transactionDict: [String:AnyObject]
        
-        transactionDict = ["amount": amt as AnyObject, "memberIDs": currUser.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": false as AnyObject]
+        transactionDict = ["amount": amt as AnyObject, "memberID": currUser.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": false as AnyObject]
         
         let rootRef = FIRDatabase.database().reference()
         let key = rootRef.child("Transaction").childByAutoId().key
