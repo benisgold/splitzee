@@ -129,7 +129,7 @@ class CurrentUser {
     }
     
     // Gets all the groups for the sidebar
-    func getGroups(withBlock: @escaping (Group) -> Void)  {
+    func getGroup(withBlock: @escaping (Group) -> Void)  {
         setData()
         let ref = FIRDatabase.database().reference()
         for id in groupIDs  {

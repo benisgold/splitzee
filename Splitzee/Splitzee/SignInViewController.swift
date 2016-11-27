@@ -25,6 +25,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var background: UIImageView!
     let constants = Constants()
     var alertWrongFormat: UIAlertController!
+    var currUser = CurrentUser()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -222,19 +223,19 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputPassword.text = ""
         performSegue(withIdentifier: "signInToMenu", sender: self)
         
-//        let dbRef = FIRDatabase.database().reference()
-//        
-//        user?.getTokenWithCompletion({ (token, error) in
-//            if let error = error {
-//                self.alert(msg: error.localizedDescription)
-//            } else {
-//                dbRef.child("User").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
-//                    let value = snapshot.value as! [String:AnyObject]
-//                    self.currUser = CurrentUser(key: token!, currentUserDict: value)
-//                    self.performSegue(withIdentifier: "signInToMenu", sender: self)
-//                })
-//            }
-//        })
+        let dbRef = FIRDatabase.database().reference()
+        
+        user?.getTokenWithCompletion({ (token, error) in
+            if let error = error {
+                self.alert(msg: error.localizedDescription)
+            } else {
+                dbRef.child("User").child((user?.uid)!).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as! [String:AnyObject]
+                    self.currUser = CurrentUser(key: token!, currentUserDict: value)
+                    self.performSegue(withIdentifier: "signInToMenu", sender: self)
+                })
+            }
+        })
     }
 
     /*

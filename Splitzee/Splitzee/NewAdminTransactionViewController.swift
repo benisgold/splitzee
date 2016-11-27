@@ -21,6 +21,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var collectionView: UICollectionView!
     let constants = Constants()
     var groupID: String!
+    var currUser = CurrentUser()
     
     
     let rootRef: FIRDatabaseReference! = nil
@@ -136,7 +137,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             {
                 for member in selectedMembers {
                     let transactionDict: [String:AnyObject]
-                    transactionDict = ["amount": amountTextField.text as AnyObject, "memberID": member.uid as AnyObject, "groupID": groupID as AnyObject, "groupToMember": false as AnyObject, "isApproved": true as AnyObject]
+                    transactionDict = ["amount": amountTextField.text as AnyObject, "memberIDs": member.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": true as AnyObject, "isApproved": true as AnyObject]
             
                     let rootRef = FIRDatabase.database().reference()
                     let key = rootRef.child("Transaction").childByAutoId().key
@@ -144,7 +145,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
                     let trans = Transaction(key: key, transactionDict: transactionDict)
                 }
         
-                //performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+                performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
                 dismiss(animated: true, completion: nil)
             }
     
@@ -152,7 +153,16 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         
         func pressRequest(sender: UIButton)
         {
-//            performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
+            for member in selectedMembers {
+                let transactionDict: [String:AnyObject]
+                transactionDict = ["amount": amountTextField.text as AnyObject, "memberIDs": member.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": true as AnyObject, "isApproved": false as AnyObject]
+                
+                let rootRef = FIRDatabase.database().reference()
+                let key = rootRef.child("Transaction").childByAutoId().key
+                
+                let trans = Transaction(key: key, transactionDict: transactionDict)
+            }
+            performSegue(withIdentifier: "newAdminTransactionToAdminPage", sender: self)
             dismiss(animated: true, completion: nil)
         }
     

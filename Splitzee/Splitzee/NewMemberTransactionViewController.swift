@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Firebase
 
 class NewMemberTransactionViewController: UIViewController {
     
@@ -94,7 +95,7 @@ class NewMemberTransactionViewController: UIViewController {
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
-            newTransaction(groupID: currUser.currentGroupID, memberID: currUser.uid, amount: amount)
+            newTransaction()
         }
     }
     
@@ -104,8 +105,17 @@ class NewMemberTransactionViewController: UIViewController {
         }
     }
     
-    func newTransaction(groupID: String, memberID: String, amount: Double) {
+    func newTransaction() {
         
+        let transactionDict: [String:AnyObject]
+       
+        transactionDict = ["amount": amountTextField.text as AnyObject, "memberIDs": currUser.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": true as AnyObject, "isApproved": false as AnyObject]
+        
+        let rootRef = FIRDatabase.database().reference()
+        let key = rootRef.child("Transaction").childByAutoId().key
+        
+        let trans = Transaction(key: key, transactionDict: transactionDict)
+
     }
     
     func checkFormat() -> Bool {
