@@ -175,7 +175,7 @@
                     <value key="contentSizeForViewInPopover" type="size" width="376" height="667"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DhM-8Q-5bz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DhM-8Q-5bz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -218,7 +218,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="206-zG-3SN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Ixw-mr-Dk7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dfU-7a-pdf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dfU-7a-pdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
