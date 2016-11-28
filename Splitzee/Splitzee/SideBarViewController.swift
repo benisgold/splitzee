@@ -162,7 +162,10 @@ class SideBarViewController: UIViewController {
         }
         joinGroupAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.joinGroupAlert.textFields![0] as UITextField
-            print(textF.text!)
+            self.currUser.joinGroup(groupCode: textF.text!)
+//            print(textF.text!)
+            self.setupTableView()
+            self.getGroupNames()
         }))
         joinGroupAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             self.joinGroupAlert.dismiss(animated: true, completion: nil)

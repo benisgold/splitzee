@@ -172,4 +172,20 @@ class CurrentUser {
         currentGroupID = groupID
     }
     
+    func joinGroup(groupCode: String) {
+        let dbRef = FIRDatabase.database().reference()
+        dbRef.child("Group").queryOrderedByKey().observe(.childAdded, with: { (snapshot) in
+            let groupDict = snapshot.value as! [String:AnyObject]
+            let key = snapshot.key 
+            let groupAdminCode = groupDict["adminCode"] as! String
+            let groupMemberCode = groupDict["memberCode"] as! String
+            if groupCode == groupAdminCode {
+                self.groupAdminIDs?.append(key)
+            } else if groupCode == groupMemberCode {
+                self.groupAdminIDs?.append(key)
+                self.groupIDs?.append(key)
+            }
+        })
+    }
+    
 }
