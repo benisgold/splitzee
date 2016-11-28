@@ -30,10 +30,10 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     var user: User!
     var transaction: Transaction!
    
-    var transactionList: [Transaction]!
-    var historyList: [Transaction]!
-    var incomingList: [Transaction]!
-    var outgoingList: [Transaction]!
+    var transactionList: [Transaction] = []
+    var historyList: [Transaction] = []
+    var incomingList: [Transaction] = []
+    var outgoingList: [Transaction] = []
 
     
     
@@ -160,6 +160,11 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         alertViewAdd.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.alertViewAdd.textFields![0] as UITextField
+            if let amountToAdd = Double(textF.text!) {
+                self.group.addToTotal(amount: amountToAdd)
+            } else {
+                print("malformedAmount")
+            }
             print(textF.text!)
         }))
         alertViewAdd.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
@@ -176,7 +181,11 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         alertViewSub.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.alertViewSub.textFields![0] as UITextField
-            print(textF.text!)
+            if let amountToAdd = Double(textF.text!) {
+                self.group.addToTotal(amount: (amountToAdd * -1))
+            } else {
+                print("malformedAmount")
+            }
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             self.alertViewSub.dismiss(animated: true, completion: nil)

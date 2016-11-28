@@ -106,4 +106,12 @@ class Group: Hashable, Equatable {
             })
         }
     }
+    
+    func addToTotal(amount: Double) {
+        total += amount
+        let rootRef = FIRDatabase.database().reference()
+        let groupRef = rootRef.child("Group")
+        groupRef.child(groupID).child(Constants.GroupFields.total).setValue(total)
+        
+    }
 }

@@ -245,11 +245,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
             
             self.storeImage(id: key, withBlock: {(urlString) -> Void in
                 
-                if urlString == nil {
-                    self.alert(title: "Error", msg: "Please enter a group picture.")
-                }
-                else {
-                    
+                if let urlString = urlString {
                     groupRef.child(key).child(Constants.GroupFields.name).setValue(self.nameTextField.text)
                     groupRef.child(key).child(Constants.GroupFields.memberCode).setValue(self.memberCodeTextField.text)
                     groupRef.child(key).child(Constants.GroupFields.adminCode).setValue(self.adminCodeTextField.text)
@@ -264,8 +260,16 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     var adminIDs: [String] = []
                     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
                         let userDict = snapshot.value as! [String:AnyObject]
-                        memberIDs = userDict[Constants.UserFields.groupIDs] as! [String]
-                        adminIDs = userDict[Constants.UserFields.groupAdminIDs] as! [String]
+                        
+                        if let groupMemberIDs = userDict[Constants.UserFields.groupIDs] as? [String] {
+                            memberIDs = groupMemberIDs
+                        }
+                        
+                        if let groupAdminIDs = userDict[Constants.UserFields.groupAdminIDs] as? [String] {
+                            adminIDs = groupAdminIDs
+                        }
+                        
+                        
                         memberIDs.append(key)
                         adminIDs.append(key)
                         
@@ -277,9 +281,8 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                             self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
                         }
                     })
-                    
-                    
-                    
+                } else {
+                    self.alert(title: "Error", msg: "Please enter a group picture.")
                 }
             })
         }
