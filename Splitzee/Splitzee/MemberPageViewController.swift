@@ -20,6 +20,10 @@ class MemberPageViewController: UIViewController {
     let constants = Constants()
     var group: Group!
 
+    var transactionList: [Transaction]!
+    var historyList: [Transaction]!
+    var incomingList: [Transaction]!
+    var outgoingList: [Transaction]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -102,6 +106,23 @@ class MemberPageViewController: UIViewController {
             //more
         }
     }
+    
+    func setUpTableLists(){
+        currUser.getTransactions(withBlock: {(transaction) -> Void in
+            self.transactionList.append(transaction)
+        })
+        for trans in transactionList{
+            if trans.isApproved == false {
+                historyList.append(trans)
+            }
+            else if trans.groupToMember == true {
+                outgoingList.append(trans)
+            }
+            else {
+                incomingList.append(trans)
+            }
+        }
+    }
 }
 
 extension MemberPageViewController: UITableViewDelegate, UITableViewDataSource {
@@ -128,7 +149,13 @@ extension MemberPageViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let pendingCell = cell as! MemberPendingTableViewCell
-        let historyCell = cell as! MemberHistoryTableViewCell
+        if let pendingCell = tableView.cellForRow(at: indexPath) as? MemberPendingTableViewCell {
+            pendingCell.memberPicView.image =
+            pendingCell.memberNameLabel =
+            pendingCell.descriptionLabel = 
+        } else if let historyCell = tableView.cellForRow(at: indexPath) as? MemberHistoryTableViewCell {
+            
+        }
     }
+    
 }

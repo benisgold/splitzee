@@ -87,7 +87,7 @@ class NewMemberTransactionViewController: UIViewController {
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
         requestButton.layer.cornerRadius = 2
-        requestButton.addTarget(self, action: #selector(requested), for: .touchUpInside)
+        requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
         view.addSubview(requestButton)
     }
     
@@ -96,23 +96,25 @@ class NewMemberTransactionViewController: UIViewController {
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
-            newTransaction((String)(amount), false)
+            let dsc = descriptionTextField.text!
+            newTransaction((String)(amount), (String) (dsc), false)
         }
     }
     
-    func requested() {
+    func request() {
         if (checkFormat()) {
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
-            newTransaction((String)(amount), true)
+            let dsc = descriptionTextField.text!
+            newTransaction((String)(amount), (String) (dsc), true)
         }
     }
     
-    func newTransaction(_ amt: String, _ groupToMember: Bool) {
+    func newTransaction(_ amt: String, _ dsc: String, _ groupToMember: Bool) {
         let transactionDict: [String:AnyObject]
         
-        transactionDict = ["amount": amt as AnyObject, "memberID": currUser.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": false as AnyObject]
+        transactionDict = ["amount": amt as AnyObject, "memberID": currUser.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": false as AnyObject, "description": dsc as AnyObject]
         
         let rootRef = FIRDatabase.database().reference()
         let key = rootRef.child("Transaction").childByAutoId().key

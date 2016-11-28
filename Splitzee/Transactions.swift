@@ -20,39 +20,45 @@ class Transaction {
     var groupID: String = ""
     var amount: Double?
     var isApproved: Bool?
+    var description: String = ""
     
     
     init(key: String, transactionDict: [String: AnyObject]) {
         transactionID = key
         
         
-        if let group = transactionDict["groupID"] as? String{
+        if let group = transactionDict[Constants.TransactionFields.groupID] as? String{
             groupID = group
         }
         
-        if let sendToMember = transactionDict["groupToMember"] as? Bool{
+        if let sendToMember = transactionDict[Constants.TransactionFields.groupToMember] as? Bool{
             groupToMember = sendToMember
         }
         
-        if let member = transactionDict["memberID"] as? String{
+        if let member = transactionDict[Constants.TransactionFields.memberID] as? String{
             memberID = member
         }
         
-        if let amountSent = transactionDict["amount"] as? Double{
+        if let amountSent = transactionDict[Constants.TransactionFields.amount] as? Double{
             amount = amountSent
         }
         
-        if let approved = transactionDict["isApproved"] as? Bool{
+        if let approved = transactionDict[Constants.TransactionFields.isApproved] as? Bool{
             isApproved = approved
+        }
+        
+        if let descriptionText = transactionDict["description"] as? String{
+            description = descriptionText
         }
     }
     
     
-    init(amount: Double, memberID: String, groupID: String, groupToMember: Bool) {
+    init(amount: Double, memberID: String, groupID: String, groupToMember: Bool, description: String) {
         self.amount = amount
         self.memberID = memberID
         self.groupID = groupID
         self.groupToMember = groupToMember
+        self.description = description
         
     }
     
