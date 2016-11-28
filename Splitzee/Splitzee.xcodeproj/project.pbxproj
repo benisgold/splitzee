@@ -316,8 +316,8 @@
 		E42ABDF41DD562A00002D910 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				E42ABE041DD56F170002D910 /* Constants.swift */,
 				E42ABE001DD5653B0002D910 /* Transactions.swift */,
+				E42ABE041DD56F170002D910 /* Constants.swift */,
 				E4F85F881DD58EB600342329 /* Request.swift */,
 				E42ABDF51DD562E80002D910 /* User.swift */,
 				E4FA71E01DD78D3B00FEFACC /* CurrentUser.swift */,

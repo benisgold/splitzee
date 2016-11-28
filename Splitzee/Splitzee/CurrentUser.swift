@@ -121,6 +121,8 @@ class CurrentUser {
         }
     }
     
+    
+    
     // Gets all the groups for the sidebar
     func getGroups(withBlock: @escaping (Group) -> Void)  {
         //        setData()
