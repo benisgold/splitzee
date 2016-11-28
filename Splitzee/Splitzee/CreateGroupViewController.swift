@@ -267,16 +267,20 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                         let userDict = snapshot.value as! [String:AnyObject]
                         memberIDs = userDict["memberIDs"] as! [String]
                         adminIDs = userDict["adminIDs"] as! [String]
+                        memberIDs.append(key)
+                        adminIDs.append(key)
+                        
+                        userRef.child("memberIDs").setValue(memberIDs)
+                        userRef.child("adminIDs").setValue(adminIDs)
+                        
+                        DispatchQueue.main.async {
+                            self.dismiss(animated: true, completion: nil)
+                            self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
+                        }
                     })
                     
-                    memberIDs.append(key)
-                    adminIDs.append(key)
                     
-                    userRef.child("memberIDs").setValue(memberIDs)
-                    userRef.child("adminIDs").setValue(adminIDs)
                     
-                    self.dismiss(animated: true, completion: nil)
-                    self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
                 }
             })
         }

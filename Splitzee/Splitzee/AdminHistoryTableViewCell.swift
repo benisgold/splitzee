@@ -9,7 +9,7 @@
 import UIKit
 
 class AdminHistoryTableViewCell: UITableViewCell {
-
+    
     var memberPicView: UIImageView!
     var memberNameLabel: UILabel!
     var descriptionLabel: UILabel!
@@ -57,5 +57,5 @@ class AdminHistoryTableViewCell: UITableViewCell {
         resultLabel.layer.cornerRadius = 3
         contentView.addSubview(resultLabel)
     }
-
+    
 }

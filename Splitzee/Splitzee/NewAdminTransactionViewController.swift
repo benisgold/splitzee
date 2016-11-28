@@ -25,7 +25,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     
     let rootRef: FIRDatabaseReference! = nil
-    //var key: UInt!
     var membersList = [User]()
     var selectedMembers = [User]()
     
@@ -131,7 +130,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             
         }
     }
-        
+    
     func pressPay(sender: UIButton!)
     {
         for member in selectedMembers {
@@ -142,8 +141,8 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         }
     }
     
-        
-        
+    
+    
     func pressRequest(sender: UIButton)
     {
         for member in selectedMembers {
@@ -164,9 +163,9 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         rootRef.child("Transaction").child(key).setValue(transactionDict)
         dismiss(animated: true, completion: nil)
     }
-        
-        
-//-------------------Setting up collectionView--------------------
+    
+    
+    //-------------------Setting up collectionView--------------------
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -207,7 +206,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             selectedMembers.append(membersList[indexPath.row])
         }
     }
-
+    
 }
 
 extension NewAdminTransactionViewController: UITextViewDelegate {

@@ -9,7 +9,7 @@
 import UIKit
 
 class NewAdminTransactionCollectionViewCell: UICollectionViewCell {
- 
+    
     var userImage: UIImageView!
     var userName: UILabel!
     

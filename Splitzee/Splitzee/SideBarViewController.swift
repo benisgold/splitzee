@@ -20,16 +20,48 @@ class SideBarViewController: UIViewController {
     var joinGroupAlert: UIAlertController!
     var currUser: CurrentUser!
     var groups: [Group]! = []
+    var adminGroups: [Group] {
+        let filteredGroups: [Group] = groups.filter({ (currGroup: Group) -> Bool in
+            if (currUser.groupAdminIDs != nil) {
+                return (currUser.groupAdminIDs!.contains(currGroup.groupID)) ? true : false
+            } else {
+                return false
+            }
+        })
+        return Array(Set<Group>(filteredGroups)) //Get rid of duplicates and return
+    }
+    var regularGroups: [Group] {
+        let filteredGroups: [Group] = groups.filter({ (currGroup: Group) -> Bool in
+            if (currUser.groupIDs != nil) {
+                return (currUser.groupIDs!.contains(currGroup.groupID)) ? true : false
+            } else {
+                return false
+            }
+        }) //Filter out to only the groups we need, aka groups that we are not an admin of
+        return Array(Set<Group>(filteredGroups)) //Get rid of duplicates and return
+    }
     var numAdminGroups: Int! = 0
     var firstLoad: Bool = true
     var alertView: UIAlertController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currUser = CurrentUser()
-        getGroupNames()
-        setupUI()
-        setupTableView()
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        dbRef.child("User").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            self.currUser = CurrentUser(key: uid!, currentUserDict: snapshot.value as! [String: AnyObject])
+            DispatchQueue.main.async {
+                self.setupUI()
+                self.setupTableView()
+                
+                self.getGroupNames()
+            }
+            
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         
         // Do any additional setup after loading the view.
     }
@@ -39,21 +71,17 @@ class SideBarViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        currUser = CurrentUser()
-        getGroupNames()
-        setupTableView()
-    }
-    
     func getGroupNames() {
         currUser.getAdminGroups(withBlock: { (group) in
             self.groups.append(group)
+            self.numAdminGroups = self.numAdminGroups + 1
+            self.tableView.reloadData()
         })
-
-        numAdminGroups = groups.count
+        
         
         currUser.getGroups(withBlock: { (group) in
             self.groups.append(group)
+            self.tableView.reloadData()
         })
     }
     
@@ -107,9 +135,9 @@ class SideBarViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.contentInset = UIEdgeInsets.zero
         view.addSubview(tableView)
-        if groups.count == 0 {
-            alert("Create or join a new group!")
-        }
+        //        if groups.count == 0 {
+        //            alert("Create or join a new group!")
+        //        }
     }
     
     func logout() {
@@ -161,11 +189,16 @@ class SideBarViewController: UIViewController {
 extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        if section == 0 {
+            
+            return adminGroups.count
+        } else {
+            return regularGroups.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -179,19 +212,22 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let sideBarCell = cell as! SideBarTableViewCell
-        if (indexPath.row >= numAdminGroups) {
-            sideBarCell.label.text = "member"
-        } else {
+        if (indexPath.section == 0) {
             sideBarCell.label.text = "admin"
+            sideBarCell.name.text = adminGroups[indexPath.row].name
+            
+        } else {
+            sideBarCell.label.text = "member"
+            sideBarCell.name.text = regularGroups[indexPath.row].name
+            
         }
-        sideBarCell.name.text = groups[indexPath.row].name
-        sideBarCell.backgroundColor = UIColor.clear
         
+        sideBarCell.backgroundColor = UIColor.clear
         
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "sideBarToMember", sender: self)
     }
-   
+    
 }

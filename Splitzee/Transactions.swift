@@ -109,44 +109,44 @@ class Transaction {
                 }
             }
         })
-    
+        
     }
     
     /*
-    func getTransactions(withBlock: @escaping (Transaction) -> Void) {
-        let ref = FIRDatabase.database().reference()
-        for id in transactionID {
-            ref.child("Transactions").child(id).observe(.value, with: { (snapshot) in
-                let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
-                withBlock(curr)
-            })
-        }
-    }
+     func getTransactions(withBlock: @escaping (Transaction) -> Void) {
+     let ref = FIRDatabase.database().reference()
+     for id in transactionID {
+     ref.child("Transactions").child(id).observe(.value, with: { (snapshot) in
+     let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
+     withBlock(curr)
+     })
+     }
+     }
      */
-
+    
     
     
     func rejectTransaction() {
         deleteTransaction()
     }
     
-    /* In the feed for our pending requests, it will now look for transactions 
-    that have the approved value of "false". Once it is set to true, the history
-    feed will now include this request*/
+    /* In the feed for our pending requests, it will now look for transactions
+     that have the approved value of "false". Once it is set to true, the history
+     feed will now include this request*/
     
     func approveTransaction() {
         isApproved = true
         
         // update money
         getGroup(withBlock: { (group) -> Void in
-                var total = group.total
-                if let amnt = self.amount {
-                    total += amnt
-                }
-        let ref = FIRDatabase.database().reference()
-        ref.child("Groups/\(group.groupID)").setValue(total)
+            var total = group.total
+            if let amnt = self.amount {
+                total += amnt
+            }
+            let ref = FIRDatabase.database().reference()
+            ref.child("Groups/\(group.groupID)").setValue(total)
             
-            })
+        })
         
     }
 }

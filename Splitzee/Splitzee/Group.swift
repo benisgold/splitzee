@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import Firebase
 
-class Group {
+class Group: Hashable, Equatable {
     
     //var groupPicID: String?
     var groupID: String = ""
@@ -21,7 +21,15 @@ class Group {
     var total: Double = 0
     var name: String = ""
     var picURL: String = ""
-
+    
+    var hashValue: Int {
+        return self.groupID.hashValue
+    }
+    
+    static func == (lhs: Group, rhs: Group) -> Bool {
+        return lhs.groupID == rhs.groupID
+    }
+    
     init(key: String, groupDict: [String:AnyObject])
     {
         groupID = key

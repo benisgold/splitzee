@@ -13,8 +13,8 @@ import FirebaseStorage
 import FirebaseDatabase
 
 class User {
-
-
+    
+    
     // User Variables
     var name: String = ""
     var profPicURL: String = ""
@@ -34,10 +34,10 @@ class User {
         if let pic = userDict["profPicURL"] as? String{
             profPicURL = pic
         }
-    
+        
     }
-  
-
+    
+    
     
     func getProfilePic(withBlock: @escaping (UIImage) -> Void) {
         let storageRef = FIRStorage.storage().reference()
@@ -53,8 +53,8 @@ class User {
         })
     }
     
-
-
+    
+    
     
     
     
