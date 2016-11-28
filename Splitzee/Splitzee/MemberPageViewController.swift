@@ -24,10 +24,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     var group: Group!
     var user: User!
 
-    var transactionList: [Transaction]!
-    var historyList: [Transaction]!
-    var incomingList: [Transaction]!
-    var outgoingList: [Transaction]!
+    var transactionList: [Transaction] = []
+    var historyList: [Transaction] = []
+    var incomingList: [Transaction] = []
+    var outgoingList: [Transaction] = []
     
     
     override func viewDidLoad() {

@@ -20,6 +20,8 @@ class Group: Hashable, Equatable {
     var total: Double = 0
     var name: String = ""
     var picURL: String = ""
+    var adminCode = ""
+    var memberCode = ""
     
     var hashValue: Int {
         return self.groupID.hashValue
@@ -55,6 +57,14 @@ class Group: Hashable, Equatable {
         
         if let totalMoney = groupDict[Constants.GroupFields.total] as? Double{
             total = totalMoney
+        }
+        
+        if let groupAdminCode = groupDict[Constants.GroupFields.adminCode] as? String {
+            adminCode = groupAdminCode
+        }
+        
+        if let groupMemberCode = groupDict[Constants.GroupFields.memberCode] as? String {
+            memberCode = groupMemberCode
         }
     }
     
