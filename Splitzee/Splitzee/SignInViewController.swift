@@ -215,6 +215,13 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputPassword.text = ""
         performSegue(withIdentifier: "signInToMenu", sender: self)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "signInToMenu" {
+            let nextVC = segue.destination as! SideBarViewController
+            nextVC.currUser = CurrentUser()
+        }
+    }
 
     /*
     // MARK: - Navigation

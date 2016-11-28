@@ -26,8 +26,7 @@ class SideBarViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currUser = CurrentUser()
-        getGroupNames()
+        currUser.setData()
         setupUI()
         setupTableView()
         
@@ -40,7 +39,6 @@ class SideBarViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        currUser = CurrentUser()
         getGroupNames()
         setupTableView()
     }

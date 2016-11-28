@@ -93,7 +93,7 @@ class CurrentUser {
     
     // Gets the profile picture for your own profile page
     func getProfPic(withBlock: @escaping (UIImage) -> Void)  {
-        setData()
+//        setData()
         let storageRef = FIRStorage.storage().reference()
         let imageRef = storageRef.child(profPicURL)
         
@@ -110,7 +110,7 @@ class CurrentUser {
     
     // Gets all the transactions for the history
     func getTransactions(withBlock: @escaping (Transaction) -> Void)  {
-        setData()
+//        setData()
         let ref = FIRDatabase.database().reference()
         for id in transactionIDs!  {
             ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
@@ -123,7 +123,7 @@ class CurrentUser {
     
     // Gets all the groups for the sidebar
     func getGroups(withBlock: @escaping (Group) -> Void)  {
-        setData()
+//        setData()
         let ref = FIRDatabase.database().reference()
         for id in groupIDs!  {
             ref.child("Group").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
@@ -136,7 +136,7 @@ class CurrentUser {
     
     // Gets all admin groups for the sidebar
     func getAdminGroups(withBlock: @escaping (Group) -> Void) {
-        setData()
+//        setData()
         let ref = FIRDatabase.database().reference()
         for id in groupAdminIDs! {
             ref.child("Group").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -148,7 +148,7 @@ class CurrentUser {
     
     // Gets the name for your own profile page
     func getName(withBlock: @escaping (User) -> Void)  {
-        setData()
+//        setData()
         let ref = FIRDatabase.database().reference()
         ref.child("User").child(uid).observe(.value, with:  { snapshot -> Void in
             //  Get user name value
