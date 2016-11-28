@@ -122,7 +122,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         segmentedView.layer.cornerRadius = 3
         segmentedView.backgroundColor = UIColor.white
         segmentedView.tintColor = constants.mediumBlue
-        //segmentedView.addTarget(self, action: #selector(switchView), for: .valueChanged)
+        segmentedView.addTarget(self, action: #selector(switchView), for: .valueChanged)
         view.addSubview(segmentedView)
     }
     
@@ -139,18 +139,18 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         performSegue(withIdentifier: "adminPageToNewAdminTransaction", sender: self)
     }
     
-//    func switchView(sender: UISegmentedControl) {
-//        if (sender.selectedSegmentIndex == 0) {
-//            pending = true
-//            //more
-//        } else if (sender.selectedSegmentIndex == 1) {
-//            pending = true
-//            //more
-//        } else {
-//            pending = false
-//            //more
-//        }
-//    }
+    func switchView(sender: UISegmentedControl) {
+        if (sender.selectedSegmentIndex == 0) {
+            pending = true
+            //more
+        } else if (sender.selectedSegmentIndex == 1) {
+            pending = true
+            //more
+        } else {
+            pending = false
+            //more
+        }
+    }
     
     func addMoneyPressed() {
         alertViewAdd = UIAlertController(title: "Add an amount:", message: "", preferredStyle: UIAlertControllerStyle.alert)
@@ -165,6 +165,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             self.alertViewAdd.dismiss(animated: true, completion: nil)
         }))
         self.present(alertViewAdd, animated: true, completion: nil)
+        
     }
     
     func subMoneyPressed() {
@@ -281,9 +282,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
 //Populates the cell with data
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
        
-       
-        
-        
         
         switch(segmentedView.selectedSegmentIndex)
         {
@@ -308,6 +306,10 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
                 })
             })
             
+            
+            //Sets description of each transaction
+            pendingCell?.descriptionLabel.text = String(describing: incomingList[indexPath.row].description)
+            
         case 1:
             
             let pendingCell = cell as? AdminPendingTableViewCell
@@ -328,6 +330,8 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
                 })
             })
             
+            //Sets description of each transaction
+            pendingCell?.descriptionLabel.text = String(describing: outgoingList[indexPath.row].description)
             
         case 2:
             
@@ -352,6 +356,9 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
                     historyCell?.memberPicView.image = UIImage
                 })
             })
+            
+            //Sets description of each transaction
+            historyCell?.descriptionLabel.text = String(describing: historyList[indexPath.row].description)
             
         default:
             

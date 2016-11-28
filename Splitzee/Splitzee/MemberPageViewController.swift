@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MemberPageViewController: UIViewController {
+class MemberPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var segmentedView: UISegmentedControl!
     var groupsButton: UIButton!
@@ -19,11 +19,13 @@ class MemberPageViewController: UIViewController {
     var currUser: CurrentUser!
     let constants = Constants()
     var group: Group!
+    var user: User!
 
     var transactionList: [Transaction]!
     var historyList: [Transaction]!
     var incomingList: [Transaction]!
     var outgoingList: [Transaction]!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +109,11 @@ class MemberPageViewController: UIViewController {
         }
     }
     
+
+
+    //-----------------functions----------------------------------
+    
+    //Create lists for different tables
     func setUpTableLists(){
         currUser.getTransactions(withBlock: {(transaction) -> Void in
             self.transactionList.append(transaction)
@@ -115,7 +122,7 @@ class MemberPageViewController: UIViewController {
             if trans.isApproved == false {
                 historyList.append(trans)
             }
-            else if trans.groupToMember == true {
+            else if trans.groupToMember == false {
                 outgoingList.append(trans)
             }
             else {
@@ -123,39 +130,163 @@ class MemberPageViewController: UIViewController {
             }
         }
     }
-}
-
-extension MemberPageViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    
+    //-----------------Sets up the tableviews---------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        
+        switch(segmentedView.selectedSegmentIndex)
+        {
+        case 0:
+            return incomingList.count
+            
+        case 1:
+            return outgoingList.count
+            
+        case 2:
+            return historyList.count
+            
+        default:
+            return 0
+            
+        }
     }
     
+    
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! MemberPendingTableViewCell
-        let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyMemberCell", for: indexPath) as! MemberHistoryTableViewCell
-        if pending {
+        
+        switch(segmentedView.selectedSegmentIndex)
+            
+        {
+            
+        case 0:
+            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! AdminPendingTableViewCell
+            for subview in pendingCell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            pendingCell.awakeFromNib()
+            
+            
+            return pendingCell
+            
+        case 1:
+            
+            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! AdminPendingTableViewCell
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
             pendingCell.awakeFromNib()
             return pendingCell
-        } else {
+            
+        case 2:
+            
+            let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyMemberCell", for: indexPath) as! AdminHistoryTableViewCell
             for subview in historyCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
             historyCell.awakeFromNib()
             return historyCell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let pendingCell = tableView.cellForRow(at: indexPath) as? MemberPendingTableViewCell {
-            pendingCell.memberPicView.image =
-            pendingCell.memberNameLabel =
-            pendingCell.descriptionLabel = 
-        } else if let historyCell = tableView.cellForRow(at: indexPath) as? MemberHistoryTableViewCell {
+            
+            
+        default:
+            
+            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! AdminPendingTableViewCell
+            for subview in pendingCell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            pendingCell.awakeFromNib()
+            return pendingCell
+            
             
         }
+        
     }
+    
+    
+    //Populates the cell with data
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        
+        switch(segmentedView.selectedSegmentIndex)
+        {
+        case 0:
+            
+            let pendingCell = cell as? MemberPendingTableViewCell
+            
+            //Displays the amount of money transferred
+            pendingCell?.resultLabel.text = "$" + String(describing: incomingList[indexPath.row].amount)
+            
+            
+            //Sets the Name of each user at each index
+                pendingCell?.memberNameLabel.text = group.name
+        
+            
+            //Gets the image of the group
+            group.getGroupPic(withBlock: { (UIImage) -> Void in
+                    pendingCell?.memberPicView.image = UIImage
+                })
+            
+            
+            //Sets description of each transaction
+            pendingCell?.descriptionLabel.text = String(describing: incomingList[indexPath.row].description)
+            
+        case 1:
+            
+            let pendingCell = cell as? MemberPendingTableViewCell
+            
+            //Displays the amount of money transferred
+            pendingCell?.resultLabel.text = "$" + String(describing: outgoingList[indexPath.row].amount)
+            
+            //Sets the Name of each user at each index
+            user.getUser(UserID: outgoingList[indexPath.row].memberID, withBlock:{(User) -> Void in
+                pendingCell?.memberNameLabel.text = User.name
+            })
+            
+            //Gets the image of the group
+            group.getGroupPic(withBlock: { (UIImage) -> Void in
+                pendingCell?.memberPicView.image = UIImage
+            })
+            
+            //Sets description of each transaction
+            pendingCell?.descriptionLabel.text = String(describing: outgoingList[indexPath.row].description)
+            
+        case 2:
+            
+            let historyCell = cell as? MemberHistoryTableViewCell
+            
+            //Displays the amount of money transferred
+            if historyList[indexPath.row].groupToMember == false {
+                historyCell?.resultLabel.text = "-$" + String(describing: historyList[indexPath.row].amount)
+            } else {
+                historyCell?.resultLabel.text = "+$" + String(describing: historyList[indexPath.row].amount)
+            }
+            
+            
+            //Sets the Name of each user at each index
+            user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
+                historyCell?.memberNameLabel.text = User.name
+            })
+            
+            
+            //Gets image of the group
+            group.getGroupPic(withBlock: { (UIImage) -> Void in
+                historyCell?.memberPicView.image = UIImage
+            })
+            
+            //Sets description of each transaction
+            historyCell?.descriptionLabel.text = String(describing: historyList[indexPath.row].description)
+            
+        default:
+            
+            let pendingCell = cell as? AdminPendingTableViewCell
+            
+        }
+        
+    }
+    
+    
+    
+    
     
 }
