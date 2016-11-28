@@ -49,24 +49,27 @@ class SideBarViewController: UIViewController {
         super.viewDidLoad()
         let dbRef = FIRDatabase.database().reference()
         let uid = FIRAuth.auth()?.currentUser?.uid
-        dbRef.child("User").child(uid!).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            self.currUser = CurrentUser(key: uid!, currentUserDict: snapshot.value as! [String: AnyObject])
-            DispatchQueue.main.async {
-                self.setupUI()
-                self.setupTableView()
+        if let uid = uid {
+            dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.setupUI()
+                    self.setupTableView()
+                    
+                    self.getGroupNames()
+                    
+                    //                if self.groups.count == 0 {
+                    //                    self.alert("Create or join a new group!")
+                    //                }
+                }
                 
-                self.getGroupNames()
                 
-//                if self.groups.count == 0 {
-//                    self.alert("Create or join a new group!")
-//                }
+            }) { (error) in
+                print(error.localizedDescription)
             }
-            
-            
-        }) { (error) in
-            print(error.localizedDescription)
         }
+        
         
         // Do any additional setup after loading the view.
     }

@@ -250,28 +250,27 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                 }
                 else {
                     
-                    groupRef.child(key).child("name").setValue(self.nameTextField.text)
-                    groupRef.child(key).child("memberCode").setValue(self.memberCodeTextField.text)
-                    groupRef.child(key).child("adminCode").setValue(self.adminCodeTextField.text)
-                    groupRef.child(key).child("picURL").setValue(urlString)
+                    groupRef.child(key).child(Constants.GroupFields.name).setValue(self.nameTextField.text)
+                    groupRef.child(key).child(Constants.GroupFields.memberCode).setValue(self.memberCodeTextField.text)
+                    groupRef.child(key).child(Constants.GroupFields.adminCode).setValue(self.adminCodeTextField.text)
+                    groupRef.child(key).child(Constants.GroupFields.picURL).setValue(urlString)
                     
-                    groupRef.child(key).child("transactionIDs").setValue([])
-                    groupRef.child(key).child("memberIDs").setValue([self.currUser.uid])
-                    groupRef.child(key).child("adminIDs").setValue([self.currUser.uid])
-                    groupRef.child(key).child("requestIDs").setValue([])
-                    groupRef.child(key).child("total").setValue(0.00)
+                    groupRef.child(key).child(Constants.GroupFields.transactionIDs).setValue([])
+                    groupRef.child(key).child(Constants.GroupFields.memberIDs).setValue([self.currUser.uid])
+                    groupRef.child(key).child(Constants.GroupFields.adminIDs).setValue([self.currUser.uid])
+                    groupRef.child(key).child(Constants.GroupFields.total).setValue(0.00)
                     
                     var memberIDs: [String] = []
                     var adminIDs: [String] = []
                     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
                         let userDict = snapshot.value as! [String:AnyObject]
-                        memberIDs = userDict["memberIDs"] as! [String]
-                        adminIDs = userDict["adminIDs"] as! [String]
+                        memberIDs = userDict[Constants.UserFields.groupIDs] as! [String]
+                        adminIDs = userDict[Constants.UserFields.groupAdminIDs] as! [String]
                         memberIDs.append(key)
                         adminIDs.append(key)
                         
-                        userRef.child("memberIDs").setValue(memberIDs)
-                        userRef.child("adminIDs").setValue(adminIDs)
+                        userRef.child(Constants.UserFields.groupIDs).setValue(memberIDs)
+                        userRef.child(Constants.UserFields.groupAdminIDs).setValue(adminIDs)
                         
                         DispatchQueue.main.async {
                             self.dismiss(animated: true, completion: nil)
