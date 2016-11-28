@@ -4,17 +4,25 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Pods-Splitzee.xcscheme</key>
+		<key>Splitzee.xcscheme</key>
 		<dict>
-			<key>isShown</key>
-			<false/>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>CCA8518377291B74AB4F472DA5390228</key>
+		<key>E42ABDC21DD560340002D910</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E42ABDD61DD560360002D910</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E42ABDE11DD560360002D910</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -197,9 +197,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
     }
     
     
-    func storeImage(id:String, withBlock: @escaping (String?) -> Void)
-    {
-        
+    func storeImage(id:String, withBlock: @escaping (String?) -> Void) {
         
         let storage = FIRStorage.storage()
         let storageRef = storage.reference(forURL: "gs://splitzee-ebff4.appspot.com")
@@ -207,7 +205,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         var data = NSData()
         if let img = userImage {
             data = UIImageJPEGRepresentation(img, 0.8)! as NSData
-            
             
             let uploadTask = imagesRef.put(data as Data, metadata: nil) { metadata, error in
                 if (error != nil) {
@@ -271,7 +268,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         else {
             guard let email = inputEmail.text, let password = inputPassword.text, let name = inputFullName.text else {return}
             FIRAuth.auth()?.createUser(withEmail: email, password: password,  completion: { (user, error) in
-                if let error = error{
+                if let error = error {
                     if ((self.inputPassword.text?.characters.count)! < 6) {
                         let alertView = UIAlertController(title: "Error", message: "Password must be at least six characters long.", preferredStyle: UIAlertControllerStyle.alert)
                         alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
@@ -297,24 +294,20 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                     
                     self.storeImage(id: key!, withBlock: {(urlString) -> Void in
                         
-                        if urlString == nil {
+                        if let urlString = urlString {
+                            userRef.setValue([Constants.UserFields.email: email,Constants.UserFields.name: name, Constants.UserFields.profPicURL: urlString, Constants.UserFields.transactionIDs: [String](), Constants.UserFields.groupIDs : [String](), Constants.UserFields.groupAdminIDs : [String]()])
+                            
+                            // stores the image in firebase storage
+                            
+                            AppState.sharedInstance.signedIn = true
+                            self.setDisplayName(user)
+                        } else {
                             let alertView = UIAlertController(title: "Error", message: "Please enter a profile picture.", preferredStyle: UIAlertControllerStyle.alert)
                             alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
                             }))
                             self.present(alertView, animated: true, completion: nil)
                             
                             return
-                        }
-                            
-                        else{
-                            
-                            userRef.setValue(["email": email,"name": name, "profPicURL": urlString, "transactionIDs": [], "groupIDs" : [], "groupAdminIDs" : []])
-                            
-                            // stores the image in firebase storage
-                            
-                            AppState.sharedInstance.signedIn = true
-                            self.setDisplayName(user)
-                            
                         }
                     })
                     

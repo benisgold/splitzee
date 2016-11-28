@@ -37,27 +37,27 @@ class CurrentUser {
         uid = key
         
         
-        if let username = currentUserDict["name"] as? String  {
+        if let username = currentUserDict[Constants.UserFields.name] as? String  {
             name = username
         }
         
-        if let pic = currentUserDict["profPicURL"] as? String {
+        if let pic = currentUserDict[Constants.UserFields.profPicURL] as? String {
             profPicURL = pic
         }
         
-        if let mail = currentUserDict["email"] as? String {
+        if let mail = currentUserDict[Constants.UserFields.email] as? String {
             email = mail
         }
         
-        if let transaction = currentUserDict["transactionIDs"] as? [String] {
+        if let transaction = currentUserDict[Constants.UserFields.transactionIDs] as? [String] {
             transactionIDs = transaction
         }
         
-        if let admin = currentUserDict["adminIDs"] as? [String] {
+        if let admin = currentUserDict[Constants.UserFields.groupAdminIDs] as? [String] {
             groupAdminIDs = admin
         }
         
-        if let group = currentUserDict["memberIDs"] as? [String] {
+        if let group = currentUserDict[Constants.UserFields.groupIDs] as? [String] {
             groupIDs = group
         }
         
@@ -121,6 +121,8 @@ class CurrentUser {
         }
     }
     
+    
+    
     // Gets all the groups for the sidebar
     func getGroups(withBlock: @escaping (Group) -> Void)  {
         //        setData()
@@ -164,12 +166,28 @@ class CurrentUser {
     func sendNewTransaction(amount: Double, memberID: String, groupID: String, groupToMember: Bool)  {
         let ref = FIRDatabase.database().reference()
         let key = ref.child("Transactions").childByAutoId().key
-        ref.child("Transactions/\(key)").setValue(["Amount": amount, "Member": memberID, "Group": groupID, "toMember": groupToMember])
+        ref.child("Transactions/\(key)").setValue([Constants.TransactionFields.amount: amount, Constants.TransactionFields.memberID: memberID, Constants.TransactionFields.groupID: groupID, Constants.TransactionFields.groupToMember: groupToMember])
         
     }
     
     func setCurrentGroup(_ groupID: String) {
         currentGroupID = groupID
+    }
+    
+    func joinGroup(groupCode: String) {
+        let dbRef = FIRDatabase.database().reference()
+        dbRef.child("Group").queryOrderedByKey().observe(.childAdded, with: { (snapshot) in
+            let groupDict = snapshot.value as! [String:AnyObject]
+            let key = snapshot.key 
+            let groupAdminCode = groupDict[Constants.GroupFields.adminCode] as! String
+            let groupMemberCode = groupDict[Constants.GroupFields.memberCode] as! String
+            if groupCode == groupAdminCode {
+                self.groupAdminIDs?.append(key)
+            } else if groupCode == groupMemberCode {
+                self.groupAdminIDs?.append(key)
+                self.groupIDs?.append(key)
+            }
+        })
     }
     
 }
