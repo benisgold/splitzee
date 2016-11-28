@@ -66,6 +66,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         approveButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 14)
         approveButton.layer.cornerRadius = 3
         contentView.addSubview(approveButton)
+        
     }
     
     

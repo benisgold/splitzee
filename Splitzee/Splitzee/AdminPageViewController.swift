@@ -205,6 +205,8 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
 }
+    
+    
 
 
 //-----------------Sets up the tableviews---------------------------
@@ -293,6 +295,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             pendingCell?.approveButton.setTitle("$" + String(describing: incomingList[indexPath.row].amount)
                 , for: .normal)
             
+
             
             //Sets the Name of each user at each index
             user.getUser(UserID: incomingList[indexPath.row].memberID, withBlock:{(User) -> Void in
@@ -309,6 +312,8 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             //Sets description of each transaction
             pendingCell?.descriptionLabel.text = String(describing: incomingList[indexPath.row].description)
+            
+
             
         case 1:
             

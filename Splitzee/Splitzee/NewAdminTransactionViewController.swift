@@ -13,7 +13,7 @@ import FirebaseStorage
 class NewAdminTransactionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     var background: UIImageView!
-    var userSelectTextField: UITextField!
+  //var userSelectTextField: UITextField!
     var amountTextField: UITextField!
     var descriptionTextField: UITextView!
     var payButton: UIButton!
@@ -48,14 +48,14 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         
         setupNavBar()
         
-        userSelectTextField = UITextField(frame: CGRect(x: 0, y: 0.306 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
-        userSelectTextField.layer.masksToBounds = true
-        userSelectTextField.backgroundColor = UIColor.white
-        userSelectTextField.layer.borderColor = constants.fontLightGray.cgColor
-        userSelectTextField.layer.borderWidth = 1
-        userSelectTextField.placeholder = "     Enter name, @username, or select above"
-        view.addSubview(userSelectTextField)
-        
+//        userSelectTextField = UITextField(frame: CGRect(x: 0, y: 0.306 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
+//        userSelectTextField.layer.masksToBounds = true
+//        userSelectTextField.backgroundColor = UIColor.white
+//        userSelectTextField.layer.borderColor = constants.fontLightGray.cgColor
+//        userSelectTextField.layer.borderWidth = 1
+//        userSelectTextField.placeholder = "     Enter name, @username, or select above"
+//        view.addSubview(userSelectTextField)
+//        
         amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         amountTextField.layer.masksToBounds = true
         amountTextField.backgroundColor = UIColor.white
@@ -100,7 +100,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 0
         layout.minimumInteritemSpacing = 0
-        collectionView = UICollectionView(frame: CGRect(x: 0 , y: 80, width: 0.988 * view.frame.width, height: userSelectTextField.frame.minY - 64) , collectionViewLayout: layout)
+        collectionView = UICollectionView(frame: CGRect(x: 0 , y: 80, width: 0.988 * view.frame.width, height: view.frame.height * 0.367 - 80) , collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(NewAdminTransactionCollectionViewCell.self, forCellWithReuseIdentifier: "adminTransactionCell")
@@ -193,11 +193,16 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
-        //adminTransactionCell.userImage.image = membersList[indexPath.row].profPicURL //Should be actual image
-        adminTransactionCell.userName.text = membersList[indexPath.row].name //Should be actual user's name
-        // set UI stuff
+        
+        //Sets the names for all the members
+        adminTransactionCell.userName.text = membersList[indexPath.row].name
+        
+        //sets profile pictures for all the members
+        membersList[indexPath.row].getProfilePic(withBlock:{(UIImage) -> Void in
+                adminTransactionCell.userImage.image = UIImage
+            })
+        
     }
-    
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

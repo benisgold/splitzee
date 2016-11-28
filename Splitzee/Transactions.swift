@@ -140,7 +140,7 @@ class Transaction {
      that have the approved value of "false". Once it is set to true, the history
      feed will now include this request*/
     
-    func approveTransaction() {
+    func approveTransaction(sender: UIButton!) {
         isApproved = true
         
         // update money

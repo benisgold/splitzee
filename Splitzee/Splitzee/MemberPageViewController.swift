@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
+
 
 class MemberPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     

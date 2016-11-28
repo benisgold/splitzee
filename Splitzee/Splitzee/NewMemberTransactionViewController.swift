@@ -43,15 +43,26 @@ class NewMemberTransactionViewController: UIViewController {
         
         groupImage = UIImageView(frame: CGRect(x: 0.326 * view.frame.width, y: 0.145 * view.frame.height, width: 0.345 * view.frame.width, height: 0.160 * view.frame.height))
         groupImage.contentMode = .scaleAspectFit
-        groupImage.image = #imageLiteral(resourceName: "selectNewPhoto")// Should have the group image
         groupImage.clipsToBounds = true
+        
+        getGroup(withBlock: {(currGroup) -> Void in
+            currGroup.getGroupPic(withBlock: {(image) -> Void in
+            self.groupImage.image = image
+                
+            })
+        })
+        
         view.addSubview(groupImage)
         
         groupLabel = UILabel(frame: CGRect(x: 0, y: 0.306 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         groupLabel.layer.masksToBounds = true
         groupLabel.textColor = constants.fontDarkGray
         groupLabel.textAlignment = .center
-        groupLabel.text = "International Justice League of Super Acquaintances" // Should have the group name
+        
+        getGroup(withBlock: {(currGroup) -> Void in
+                self.groupLabel.text = currGroup.name
+            })
+        
         view.addSubview(groupLabel)
         
         amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
@@ -144,8 +155,25 @@ class NewMemberTransactionViewController: UIViewController {
         }))
         self.present(alertWrongFormat, animated: true, completion: nil)
     }
+    //-------Firebase----------------------------
+    
+func getGroup(withBlock: @escaping (Group) -> Void) {
+        let ref = FIRDatabase.database().reference()
+        ref.child("Group/\(currUser.currentGroupID)").observe(.value, with: { snapshot -> Void in
+            // Get user value
+            if snapshot.exists(){
+                if let groupDict = snapshot.value as? [String: AnyObject]{
+                    let group = Group(key: snapshot.key, groupDict: groupDict)
+                    withBlock(group)
+                }
+            }
+        })
+    }
+ 
     
 }
+
+//--------------------------------------------
 
 extension NewMemberTransactionViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
@@ -155,3 +183,7 @@ extension NewMemberTransactionViewController: UITextViewDelegate {
         }
     }
 }
+
+
+
+
