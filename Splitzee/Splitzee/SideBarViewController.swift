@@ -19,7 +19,7 @@ class SideBarViewController: UIViewController {
     var logoutButton: UIButton!
     var joinGroupAlert: UIAlertController!
     var currUser: CurrentUser!
-    var groups: [Group]! = []
+    var groups: [Group] = []
     var adminGroups: [Group] {
         let filteredGroups: [Group] = groups.filter({ (currGroup: Group) -> Bool in
             return (currUser.groupAdminIDs.contains(currGroup.groupID)) ? true : false
@@ -158,10 +158,12 @@ class SideBarViewController: UIViewController {
         }
         joinGroupAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.joinGroupAlert.textFields![0] as UITextField
-            self.currUser.joinGroup(groupCode: textF.text!)
+            self.currUser.joinGroup(groupCode: textF.text!, withBlock: {
+                self.setupTableView()
+                self.getGroupNames()
+            })
 //            print(textF.text!)
-            self.setupTableView()
-            self.getGroupNames()
+            
         }))
         joinGroupAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             self.joinGroupAlert.dismiss(animated: true, completion: nil)

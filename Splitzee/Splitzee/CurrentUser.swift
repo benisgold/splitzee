@@ -174,7 +174,7 @@ class CurrentUser {
         currentGroupID = groupID
     }
     
-    func joinGroup(groupCode: String) {
+    func joinGroup(groupCode: String, withBlock: @escaping () -> Void) {
         let dbRef = FIRDatabase.database().reference()
         let userRef = dbRef.child("User").child(uid)
         let groupRef = dbRef.child("Group")
@@ -198,6 +198,7 @@ class CurrentUser {
                 userRef.child(Constants.UserFields.groupAdminIDs).setValue(self.groupAdminIDs)
                 groupRef.child(group.groupID).child(Constants.GroupFields.memberIDs).setValue(self.uid)
                 groupRef.child(group.groupID).child(Constants.GroupFields.adminIDs).setValue(self.uid)
+                withBlock()
             }
             
         })
