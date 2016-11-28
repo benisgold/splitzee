@@ -162,7 +162,10 @@ class SideBarViewController: UIViewController {
         }
         joinGroupAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.joinGroupAlert.textFields![0] as UITextField
-            print(textF.text!)
+            self.currUser.joinGroup(groupCode: textF.text!)
+//            print(textF.text!)
+            self.setupTableView()
+            self.getGroupNames()
         }))
         joinGroupAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             self.joinGroupAlert.dismiss(animated: true, completion: nil)
@@ -181,9 +184,10 @@ class SideBarViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sideBarToMember" {
             let nextVC = segue.destination as! MemberPageViewController
+            nextVC.group = selectedGroup
         } else if segue.identifier == "sideBarToAdmin" {
             let nextVC = segue.destination as! AdminPageViewController
-            
+            nextVC.group = selectedGroup
         }
     }
     
@@ -206,9 +210,9 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             
-            return adminGroups.count
+            return numAdminGroups
         } else {
-            return regularGroups.count
+            return groups.count - numAdminGroups
         }
     }
     
@@ -239,7 +243,7 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         selectedGroup = groups[indexPath.row]
-        if (indexPath.row < numAdminGroups) {
+        if (indexPath.section == 0) {
             performSegue(withIdentifier: "sideBarToAdmin", sender: self)
         } else {
             performSegue(withIdentifier: "sideBarToMember", sender: self)

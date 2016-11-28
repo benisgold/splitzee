@@ -6,6 +6,8 @@
 //  Copyright © 2016 Mohit Katyal. All rights reserved.
 //
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class AdminPageViewController: UIViewController {
     
@@ -24,10 +26,20 @@ class AdminPageViewController: UIViewController {
     var pending = true
     var currUser: CurrentUser!
     var group: Group!
+    let rootRef = FIRDatabase.database().reference()
+   
+    var transactionList: [Transaction]!
+    var historyList: [Transaction]!
+    var incomingList: [Transaction]!
+    var outgoingList: [Transaction]!
+
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         currUser = CurrentUser()
+        setUpTableLists()
         setupUI()
     }
     
@@ -85,6 +97,8 @@ class AdminPageViewController: UIViewController {
         setupNavBar()
         setupSegmentedControl()
         setupTableView()
+        
+        
     }
     
     func groupsPressed() {
@@ -165,12 +179,42 @@ class AdminPageViewController: UIViewController {
             self.alertViewSub.dismiss(animated: true, completion: nil)
         }))
         self.present(alertViewSub, animated: true, completion: nil)
+        
+        
     }
 
-}
+    
 //-----------------functions----------------------------------
+
+    //Create lists for different tables
+    func setUpTableLists(){
+        currUser.getTransactions(withBlock: {(transaction) -> Void in
+            self.transactionList.append(transaction)
+        })
+        for trans in transactionList{
+            if trans.isApproved == false {
+                historyList.append(trans)
+            }
+            else if trans.groupToMember == true {
+                outgoingList.append(trans)
+            }
+            else {
+                incomingList.append(trans)
+            }
+        }
+}
+    
+func setHistoryCells(){
+       
+    
+    
+}
+    
+    
+    
     
 
+}
     
     
 
@@ -178,7 +222,11 @@ class AdminPageViewController: UIViewController {
 //-----------------Sets up the tableviews---------------------------
 extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        
+        
+            return 3
+
+        
         
     }
     
