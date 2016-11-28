@@ -50,13 +50,13 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         pleaseSignIn = UILabel(frame: CGRect(x: 0, y: view.frame.height * 0.230, width: view.frame.width, height: view.frame.height * 0.043))
         pleaseSignIn.textColor = UIColor.white
         pleaseSignIn.font = UIFont(name: "SFUIText-Light", size: 27)
-        pleaseSignIn.text = "Sign in"
+        pleaseSignIn.text = "Please sign in"
         pleaseSignIn.textAlignment = .center
         view.addSubview(pleaseSignIn)
         
         // plainDividingLine
         plainDividingLine = UIImageView(image: #imageLiteral(resourceName: "line"))
-        plainDividingLine.frame = CGRect(x: view.frame.width * 0.098, y: view.frame.height * 0.283, width: view.frame.width * 0.804, height: view.frame.height * 0.01)
+        plainDividingLine.frame = CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.283, width: view.frame.width * 0.841, height: view.frame.height * 0.01)
         plainDividingLine.contentMode = .scaleAspectFill
         self.view.addSubview(plainDividingLine)
         
@@ -69,7 +69,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputEmail.backgroundColor = UIColor.white
         inputEmail.autocapitalizationType = .none
         inputEmail.keyboardType = .emailAddress
-        inputEmail.layer.cornerRadius = 3
         inputEmail.autocorrectionType = .no
         createInset(textField: inputEmail)
         view.addSubview(inputEmail)
@@ -81,7 +80,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputPassword.attributedPlaceholder = inputPasswordPlaceholder
         inputPassword.backgroundColor = UIColor.white
         inputPassword.textColor = UIColor.black
-        inputPassword.layer.cornerRadius = 3
         inputPassword.isSecureTextEntry = true
         inputPassword.autocapitalizationType = .none
         inputPassword.autocorrectionType = .no
@@ -89,37 +87,28 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         view.addSubview(inputPassword)
         
         // signinButton
-        signInButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.503, width: view.frame.width * 0.256, height: view.frame.height * 0.068))
+        signInButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.516, width: view.frame.width * 0.256, height: view.frame.height * 0.068))
         signInButton.setTitle("SIGN IN", for: .normal)
         signInButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 18)
         signInButton.backgroundColor = constants.darkGray
-        signInButton.layer.cornerRadius = 3
         signInButton.addTarget(self, action: #selector(touchSignInButton), for: .touchUpInside)
         view.addSubview(signInButton)
         
         // createAccountButton
-        createAccountButton = UIButton(frame: CGRect(x: view.frame.width * 0.350, y: view.frame.height * 0.503, width: view.frame.width * 0.568, height: view.frame.height * 0.068))
+        createAccountButton = UIButton(frame: CGRect(x: view.frame.width * 0.350, y: view.frame.height * 0.516, width: view.frame.width * 0.568, height: view.frame.height * 0.068))
         createAccountButton.setTitle("CREATE ACCOUNT", for: .normal)
         createAccountButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 18)
         createAccountButton.backgroundColor = constants.red
-        createAccountButton.layer.cornerRadius = 3
         createAccountButton.addTarget(self, action: #selector(touchCreateAccountButton), for: .touchUpInside)
         view.addSubview(createAccountButton)
         
         // forgotPassword
-        forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.586, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
+        forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.609, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
         forgotPassword.text = "Forgot password?"
         forgotPassword.font = UIFont(name: "SFUIText-Regular", size: 14)
         forgotPassword.textAlignment = .center
         forgotPassword.textColor = UIColor.white
         view.addSubview(forgotPassword)
-        
-        // orDividingLine
-        orDividingLine = UIImageView(image: #imageLiteral(resourceName: "orLine"))
-        orDividingLine.frame = CGRect(x: view.frame.width * 0.098, y: view.frame.height * 0.641
-            , width: view.frame.width * 0.804, height: view.frame.height * 0.01)
-        orDividingLine.contentMode = .scaleAspectFill
-        self.view.addSubview(orDividingLine)
         
     }
     
