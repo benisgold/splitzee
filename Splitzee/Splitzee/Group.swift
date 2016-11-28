@@ -107,11 +107,24 @@ class Group: Hashable, Equatable {
         }
     }
     
+    func getTotal(withBlock: @escaping (Double) -> Void) {
+        let rootRef = FIRDatabase.database().reference()
+        let groupRef = rootRef.child("Group")
+        groupRef.child(groupID).child(Constants.GroupFields.total).observe(.value, with: { (snapshot) in
+            // Get total value
+            print(snapshot.key)
+            print(snapshot.value)
+            if let total = snapshot.value as? Double {
+                withBlock(total)
+            }
+        })
+        
+    }
+    
     func addToTotal(amount: Double) {
         total += amount
         let rootRef = FIRDatabase.database().reference()
         let groupRef = rootRef.child("Group")
         groupRef.child(groupID).child(Constants.GroupFields.total).setValue(total)
-        
     }
 }

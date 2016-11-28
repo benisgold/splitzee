@@ -43,6 +43,13 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         currUser = CurrentUser()
         setUpTableLists()
         setupUI()
+        setUpDataDependencies()
+    }
+    
+    func setUpDataDependencies() {
+        group.getTotal(withBlock: { total in
+            self.totalAmount.text = String(total)
+        })
     }
     
     func setupUI() {
