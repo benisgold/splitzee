@@ -121,26 +121,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         orDividingLine.contentMode = .scaleAspectFill
         self.view.addSubview(orDividingLine)
         
-        // signinGoogle
-        signInGoogle = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.694, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
-        signInGoogle.setTitle("Sign in with Google", for: .normal)
-        signInGoogle.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 18)
-        signInGoogle.backgroundColor = UIColor.clear
-        signInGoogle.layer.borderWidth = 1
-        signInGoogle.layer.cornerRadius = 3
-        signInGoogle.layer.borderColor = UIColor.white.cgColor
-        view.addSubview(signInGoogle)
-        
-        // signinFacebook
-        signInFacebook = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.778, width: view.frame.width * 0.841, height: view.frame.height * 0.057))
-        signInFacebook.setTitle("Sign in with Facebook", for: .normal)
-        signInFacebook.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 18)
-        signInFacebook.backgroundColor = UIColor.clear
-        signInFacebook.layer.borderWidth = 1
-        signInFacebook.layer.cornerRadius = 3
-        signInFacebook.layer.borderColor = UIColor.white.cgColor
-        view.addSubview(signInFacebook)
-        
     }
     
     func initializeTextFields() {
@@ -149,7 +129,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    // ---------------FUNCTIONS---------------------------------------------------------------
+    // FUNCTIONS---------------------------------------------------------------
     
     func touchCreateAccountButton(sender: UIButton!) {
         performSegue(withIdentifier: "signInToCreateAccount", sender: self)
@@ -199,7 +179,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     
     
-    // ---------------FIREBASE----------------------------------------------------------------
+    // FIREBASE----------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
         FIRAuth.auth()?.addStateDidChangeListener({ (auth : FIRAuth, user : FIRUser?) in
             if let user = user {
