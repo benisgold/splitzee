@@ -32,7 +32,7 @@ class SideBarTableViewCell: UITableViewCell {
         
         // Name
         name = UILabel()
-        name.frame = CGRect(x: 10 + contentView.frame.width/7, y: 0, width: contentView.frame.width/1.3, height: contentView.frame.height)
+        name.frame = CGRect(x: 15 + contentView.frame.width/7, y: 0, width: contentView.frame.width/1.3, height: contentView.frame.height)
         name.textColor = constants.fontWhite
         name.font = UIFont(name: "SFUIText-Regular", size: 17)
         contentView.addSubview(name)
