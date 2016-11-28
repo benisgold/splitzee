@@ -140,8 +140,11 @@ class Transaction {
      that have the approved value of "false". Once it is set to true, the history
      feed will now include this request*/
     
-    func approveTransaction(sender: UIButton!) {
+    func approveTransaction(){
         isApproved = true
+        
+        let ref = FIRDatabase.database().reference()
+        ref.child("Transactions/\(transactionID)").child("isApproved").setValue(true)
         
         // update money
         getGroup(withBlock: { (group) -> Void in
@@ -150,7 +153,7 @@ class Transaction {
                 total += amnt
             }
             let ref = FIRDatabase.database().reference()
-            ref.child("Groups/\(group.groupID)").setValue(total)
+            ref.child("Groups/\(group.groupID)").child("amount").setValue(total)
             
         })
         

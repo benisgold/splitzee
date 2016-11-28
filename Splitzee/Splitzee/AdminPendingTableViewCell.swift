@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseDatabase
 
 class AdminPendingTableViewCell: UITableViewCell {
     
@@ -16,6 +18,8 @@ class AdminPendingTableViewCell: UITableViewCell {
     var rejectButton: UIButton!
     var approveButton: UIButton!
     let constants = Constants()
+    let rootRef = FIRDatabase.database().reference()
+
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -56,6 +60,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         rejectButton.titleLabel?.textColor = constants.fontMediumDarkBlue
         rejectButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 14)
         rejectButton.layer.cornerRadius = 3
+        
         contentView.addSubview(rejectButton)
     }
     
@@ -68,7 +73,9 @@ class AdminPendingTableViewCell: UITableViewCell {
         contentView.addSubview(approveButton)
         
     }
+   
     
-    
+     
     
 }
+ 

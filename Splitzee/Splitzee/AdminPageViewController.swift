@@ -28,6 +28,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     var group: Group!
     let rootRef = FIRDatabase.database().reference()
     var user: User!
+    var transaction: Transaction!
    
     var transactionList: [Transaction]!
     var historyList: [Transaction]!
@@ -289,6 +290,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         {
         case 0:
             
+           
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred
@@ -338,6 +340,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             //Sets description of each transaction
             pendingCell?.descriptionLabel.text = String(describing: outgoingList[indexPath.row].description)
             
+            
         case 2:
             
             let historyCell = cell as? AdminHistoryTableViewCell
@@ -373,7 +376,13 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
        
     }
 
-
+    func approve2(sender: UIButton!,  transaction: Transaction){
+        
+        rootRef.child(transaction.transactionID).child("isApproved").setValue(true)
+        transaction.approveTransaction()
+        
+        
+    }
      
 
 
