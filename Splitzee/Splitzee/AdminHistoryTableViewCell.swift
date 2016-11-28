@@ -13,7 +13,7 @@ class AdminHistoryTableViewCell: UITableViewCell {
     var memberPicView: UIImageView!
     var memberNameLabel: UILabel!
     var descriptionLabel: UILabel!
-    var resultLabel: UILabel!
+    var amountLabel: UILabel!
     let constants = Constants()
     
     override func awakeFromNib() {
@@ -48,14 +48,14 @@ class AdminHistoryTableViewCell: UITableViewCell {
     }
     
     func makeResultLabel() {
-        resultLabel = UILabel()
-        resultLabel.frame = CGRect(x: 0.248 * contentView.frame.width, y: 0.633 * contentView.frame.height, width: 0.696 * contentView.frame.width, height: 0.291 * contentView.frame.height)
-        resultLabel.layer.borderColor = constants.lightBlue.cgColor
-        resultLabel.textColor = constants.fontMediumDarkBlue
-        resultLabel.font = UIFont(name: "SFUIText-Medium", size: 14)
-        resultLabel.textAlignment = .center
-        resultLabel.layer.cornerRadius = 3
-        contentView.addSubview(resultLabel)
+        amountLabel = UILabel()
+        amountLabel.frame = CGRect(x: 0.248 * contentView.frame.width, y: 0.633 * contentView.frame.height, width: 0.696 * contentView.frame.width, height: 0.291 * contentView.frame.height)
+        amountLabel.layer.borderColor = constants.lightBlue.cgColor
+        amountLabel.textColor = constants.fontMediumDarkBlue
+        amountLabel.font = UIFont(name: "SFUIText-Medium", size: 14)
+        amountLabel.textAlignment = .center
+        amountLabel.layer.cornerRadius = 3
+        contentView.addSubview(amountLabel)
     }
     
 }

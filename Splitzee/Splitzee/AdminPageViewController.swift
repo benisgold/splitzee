@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
-class AdminPageViewController: UIViewController {
+class AdminPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var segmentedView: UISegmentedControl!
     var groupsButton: UIButton!
@@ -27,6 +27,7 @@ class AdminPageViewController: UIViewController {
     var currUser: CurrentUser!
     var group: Group!
     let rootRef = FIRDatabase.database().reference()
+    var user: User!
    
     var transactionList: [Transaction]!
     var historyList: [Transaction]!
@@ -121,7 +122,7 @@ class AdminPageViewController: UIViewController {
         segmentedView.layer.cornerRadius = 3
         segmentedView.backgroundColor = UIColor.white
         segmentedView.tintColor = constants.mediumBlue
-        segmentedView.addTarget(self, action: #selector(switchView), for: .valueChanged)
+        //segmentedView.addTarget(self, action: #selector(switchView), for: .valueChanged)
         view.addSubview(segmentedView)
     }
     
@@ -138,18 +139,18 @@ class AdminPageViewController: UIViewController {
         performSegue(withIdentifier: "adminPageToNewAdminTransaction", sender: self)
     }
     
-    func switchView(sender: UISegmentedControl) {
-        if (sender.selectedSegmentIndex == 0) {
-            pending = true
-            //more
-        } else if (sender.selectedSegmentIndex == 1) {
-            pending = true
-            //more
-        } else {
-            pending = false
-            //more
-        }
-    }
+//    func switchView(sender: UISegmentedControl) {
+//        if (sender.selectedSegmentIndex == 0) {
+//            pending = true
+//            //more
+//        } else if (sender.selectedSegmentIndex == 1) {
+//            pending = true
+//            //more
+//        } else {
+//            pending = false
+//            //more
+//        }
+//    }
     
     func addMoneyPressed() {
         alertViewAdd = UIAlertController(title: "Add an amount:", message: "", preferredStyle: UIAlertControllerStyle.alert)
@@ -203,60 +204,165 @@ class AdminPageViewController: UIViewController {
             }
         }
 }
-    
-func setHistoryCells(){
-       
-    
-    
-}
-    
-    
-    
-    
-
-}
-    
-    
 
 
 //-----------------Sets up the tableviews---------------------------
-extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        
-            return 3
-
-        
-        
+        switch(segmentedView.selectedSegmentIndex)
+        {
+        case 0:
+            return incomingList.count
+            
+        case 1:
+            return outgoingList.count
+            
+        case 2:
+            return historyList.count
+            
+        default:
+            return 0
+            
+        }
     }
+        
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
-        let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyAdminCell", for: indexPath) as! AdminHistoryTableViewCell
-        if pending {
+
+        switch(segmentedView.selectedSegmentIndex)
+        
+        {
+            
+        case 0:
+            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
+            for subview in pendingCell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            pendingCell.awakeFromNib()
+            
+            
+            return pendingCell
+            
+        case 1:
+            
+            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
             pendingCell.awakeFromNib()
             return pendingCell
-        } else {
+            
+        case 2:
+            
+            let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyAdminCell", for: indexPath) as! AdminHistoryTableViewCell
             for subview in historyCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
             historyCell.awakeFromNib()
             return historyCell
+            
+            
+        default:
+            
+            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
+            for subview in pendingCell.contentView.subviews {
+                subview.removeFromSuperview()
+            }
+            pendingCell.awakeFromNib()
+            return pendingCell
+            
+            
         }
+        
     }
-    
+
+
+//Populates the cell with data
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if let pendingCell = cell as? AdminPendingTableViewCell {
+       
+       
+        
+        
+        
+        switch(segmentedView.selectedSegmentIndex)
+        {
+        case 0:
             
-        } else if let historyCell = cell as? AdminHistoryTableViewCell {
+            let pendingCell = cell as? AdminPendingTableViewCell
+            
+            //Displays the amount of money transferred
+            pendingCell?.approveButton.setTitle("$" + String(describing: incomingList[indexPath.row].amount)
+                , for: .normal)
+            
+            
+            //Sets the Name of each user at each index
+            user.getUser(UserID: incomingList[indexPath.row].memberID, withBlock:{(User) -> Void in
+            pendingCell?.memberNameLabel.text = User.name
+            })
+            
+            //Gets the image of each user
+            user.getUser(UserID: incomingList[indexPath.row].memberID, withBlock:{(User) -> Void in
+                User.getProfilePic(withBlock: { (UIImage) -> Void in
+                pendingCell?.memberPicView.image = UIImage
+                })
+            })
+            
+        case 1:
+            
+            let pendingCell = cell as? AdminPendingTableViewCell
+            
+            //Displays the amount of money transferred
+            pendingCell?.approveButton.setTitle("$" + String(describing: outgoingList[indexPath.row].amount)
+                , for: .normal)
+            
+            //Sets the Name of each user at each index
+            user.getUser(UserID: outgoingList[indexPath.row].memberID, withBlock:{(User) -> Void in
+                pendingCell?.memberNameLabel.text = User.name
+            })
+            
+            //Gets the image of each user
+            user.getUser(UserID: outgoingList[indexPath.row].memberID, withBlock:{(User) -> Void in
+                User.getProfilePic(withBlock: { (UIImage) -> Void in
+                    pendingCell?.memberPicView.image = UIImage
+                })
+            })
+            
+            
+        case 2:
+            
+            let historyCell = cell as? AdminHistoryTableViewCell
+            
+            //Displays the amount of money transferred
+            if historyList[indexPath.row].groupToMember == true {
+                historyCell?.amountLabel.text = "-$" + String(describing: historyList[indexPath.row].amount)
+            } else {
+                historyCell?.amountLabel.text = "+$" + String(describing: historyList[indexPath.row].amount)
+            }
+            
+            
+            //Sets the Name of each user at each index
+            user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
+                historyCell?.memberNameLabel.text = User.name
+            })
+            
+            //Gets the image of each user
+            user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
+                User.getProfilePic(withBlock: { (UIImage) -> Void in
+                    historyCell?.memberPicView.image = UIImage
+                })
+            })
+            
+        default:
+            
+            let pendingCell = cell as? AdminPendingTableViewCell
             
         }
+       
     }
+
+
+     
+
+
 }
-
-
-
-

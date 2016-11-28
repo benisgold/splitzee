@@ -18,6 +18,8 @@ class MemberPageViewController: UIViewController {
     var pending = true
     var currUser: CurrentUser!
     let constants = Constants()
+    var group: Group!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()

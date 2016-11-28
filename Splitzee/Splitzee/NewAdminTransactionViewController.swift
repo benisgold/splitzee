@@ -171,10 +171,14 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         return 1
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // should be returning the number of users
         return membersList.count
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
@@ -185,6 +189,8 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         return cell
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
         //adminTransactionCell.userImage.image = membersList[indexPath.row].profPicURL //Should be actual image
@@ -192,9 +198,13 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         // set UI stuff
     }
     
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? NewAdminTransactionCollectionViewCell
