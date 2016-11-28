@@ -23,6 +23,7 @@ class AdminPageViewController: UIViewController {
     var alertViewSub: UIAlertController!
     var pending = true
     var currUser: CurrentUser!
+    var group: Group!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +61,7 @@ class AdminPageViewController: UIViewController {
         
         // BALANCE AMOUNT
         totalAmount = UILabel(frame: CGRect(x: view.frame.width / 2 - 0.175 * view.frame.width, y: view.frame.height * 0.19, width: view.frame.width * 0.35, height: view.frame.height * 0.045))
-        totalAmount.text = "$100.00"
+        totalAmount.text = String(group.total) //Actual group total
         totalAmount.textAlignment = .center
         totalAmount.font = UIFont(name: "SFUIText-Light", size: 18)
         totalAmount.textColor = constants.fontMediumBlue
@@ -91,7 +92,7 @@ class AdminPageViewController: UIViewController {
     }
     
     func setupNavBar() {
-        self.title = "Group Name" // change to group name
+        self.title = group.name // Actual group name
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
         self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
@@ -165,16 +166,16 @@ class AdminPageViewController: UIViewController {
         }))
         self.present(alertViewSub, animated: true, completion: nil)
     }
-    
-    /*
-     // MARK: - Navigation
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
+
 }
+//-----------------functions----------------------------------
+    
+
+    
+    
+
+
+//-----------------Sets up the tableviews---------------------------
 extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -207,3 +208,7 @@ extension AdminPageViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 }
+
+
+
+

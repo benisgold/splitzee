@@ -37,12 +37,13 @@ class SideBarViewController: UIViewController {
             } else {
                 return false
             }
-        }) //Filter out to only the groups we need, aka groups that we are not an admin of
-        return Array(Set<Group>(filteredGroups)) //Get rid of duplicates and return
+        }) // Filter out to only the groups we need, aka groups that we are not an admin of
+        return Array(Set<Group>(filteredGroups)) // Get rid of duplicates and return
     }
     var numAdminGroups: Int! = 0
     var firstLoad: Bool = true
     var alertView: UIAlertController!
+    var selectedGroup: Group!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +57,10 @@ class SideBarViewController: UIViewController {
                 self.setupTableView()
                 
                 self.getGroupNames()
+                
+//                if self.groups.count == 0 {
+//                    self.alert("Create or join a new group!")
+//                }
             }
             
             
@@ -135,9 +140,6 @@ class SideBarViewController: UIViewController {
         self.automaticallyAdjustsScrollViewInsets = false
         tableView.contentInset = UIEdgeInsets.zero
         view.addSubview(tableView)
-        //        if groups.count == 0 {
-        //            alert("Create or join a new group!")
-        //        }
     }
     
     func logout() {
@@ -174,6 +176,15 @@ class SideBarViewController: UIViewController {
             self.alertView.dismiss(animated: true, completion: nil)
         }))
         self.present(alertView, animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "sideBarToMember" {
+            let nextVC = segue.destination as! MemberPageViewController
+        } else if segue.identifier == "sideBarToAdmin" {
+            let nextVC = segue.destination as! AdminPageViewController
+            
+        }
     }
     
     /*
@@ -227,7 +238,12 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "sideBarToMember", sender: self)
+        selectedGroup = groups[indexPath.row]
+        if (indexPath.row < numAdminGroups) {
+            performSegue(withIdentifier: "sideBarToAdmin", sender: self)
+        } else {
+            performSegue(withIdentifier: "sideBarToMember", sender: self)
+        }
     }
     
 }
