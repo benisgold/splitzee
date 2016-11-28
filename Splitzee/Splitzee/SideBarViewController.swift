@@ -22,21 +22,14 @@ class SideBarViewController: UIViewController {
     var groups: [Group]! = []
     var adminGroups: [Group] {
         let filteredGroups: [Group] = groups.filter({ (currGroup: Group) -> Bool in
-            if (currUser.groupAdminIDs != nil) {
-                return (currUser.groupAdminIDs!.contains(currGroup.groupID)) ? true : false
-            } else {
-                return false
-            }
+            return (currUser.groupAdminIDs.contains(currGroup.groupID)) ? true : false
         })
         return Array(Set<Group>(filteredGroups)) //Get rid of duplicates and return
     }
     var regularGroups: [Group] {
         let filteredGroups: [Group] = groups.filter({ (currGroup: Group) -> Bool in
-            if (currUser.groupIDs != nil) {
-                return (currUser.groupIDs!.contains(currGroup.groupID)) ? true : false
-            } else {
-                return false
-            }
+            return (currUser.groupIDs.contains(currGroup.groupID)) ? true : false
+            
         }) // Filter out to only the groups we need, aka groups that we are not an admin of
         return Array(Set<Group>(filteredGroups)) // Get rid of duplicates and return
     }

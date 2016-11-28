@@ -200,9 +200,6 @@ class CurrentUser {
                 groupRef.child(group.groupID).child(Constants.GroupFields.adminIDs).setValue(self.uid)
             }
             
-            
-            
-            
         })
     }
     
