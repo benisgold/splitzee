@@ -26,7 +26,12 @@ class CurrentUser {
     
     // Initiating variables
     
-    init(key: String, currentUserDict: [String: AnyObject]) {
+    init() {
+        uid = FIRAuth.auth()!.currentUser!.uid
+    }
+    
+    convenience init(key: String, currentUserDict: [String: AnyObject]) {
+        self.init()
         dbRef = FIRDatabase.database().reference()
         
         uid = key
@@ -48,17 +53,18 @@ class CurrentUser {
             transactionIDs = transaction
         }
         
-        if let admin = currentUserDict["groupAdminIDs"] as? [String] {
+        if let admin = currentUserDict["adminIDs"] as? [String] {
             groupAdminIDs = admin
         }
         
-        if let group = currentUserDict["groupIDs"] as? [String] {
+        if let group = currentUserDict["memberIDs"] as? [String] {
             groupIDs = group
         }
         
     }
     
-    init(key: String, name: String, profPicURL: String, email: String, transactionIDs: [String], groupIDs: [String], groupAdminIDs: [String], currentGroupID: String) {
+    convenience init(key: String, name: String, profPicURL: String, email: String, transactionIDs: [String], groupIDs: [String], groupAdminIDs: [String], currentGroupID: String) {
+        self.init()
         dbRef = FIRDatabase.database().reference()
         uid = key
         self.name = name
@@ -69,31 +75,25 @@ class CurrentUser {
         self.groupAdminIDs = groupAdminIDs
     }
     
-    init() {
-        dbRef = FIRDatabase.database().reference()
-        uid = (FIRAuth.auth()?.currentUser?.uid)!
-        setData()
-    }
     
-    func setData() {
-        dbRef = FIRDatabase.database().reference()
-        dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? [String:AnyObject]
-            self.name = (value?["name"] as? String)!
-            self.profPicURL = (value?["profPicURL"] as? String)!
-            self.email = (value?["email"] as? String)!
-            self.transactionIDs = value?["transactionIDs"] as? [String]
-            self.groupIDs = value?["memberIDs"] as? [String]
-            self.groupAdminIDs = value?["adminIDs"] as? [String]
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-    }
+    
+    
+    //    func setData() {
+    //        dbRef = FIRDatabase.database().reference()
+    //        dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+    //            // Get user value
+    //            print("DATA VALUEEEE:")
+    //            print(snapshot.value)
+    //
+    //        }) { (error) in
+    //            print(error.localizedDescription)
+    //        }
+    //    }
+    //
     
     // Gets the profile picture for your own profile page
     func getProfPic(withBlock: @escaping (UIImage) -> Void)  {
-//        setData()
+        //        setData()
         let storageRef = FIRStorage.storage().reference()
         let imageRef = storageRef.child(profPicURL)
         
@@ -110,7 +110,7 @@ class CurrentUser {
     
     // Gets all the transactions for the history
     func getTransactions(withBlock: @escaping (Transaction) -> Void)  {
-//        setData()
+        //        setData()
         let ref = FIRDatabase.database().reference()
         for id in transactionIDs!  {
             ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
@@ -123,7 +123,7 @@ class CurrentUser {
     
     // Gets all the groups for the sidebar
     func getGroups(withBlock: @escaping (Group) -> Void)  {
-//        setData()
+        //        setData()
         let ref = FIRDatabase.database().reference()
         for id in groupIDs!  {
             ref.child("Group").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
@@ -136,7 +136,7 @@ class CurrentUser {
     
     // Gets all admin groups for the sidebar
     func getAdminGroups(withBlock: @escaping (Group) -> Void) {
-//        setData()
+        //        setData()
         let ref = FIRDatabase.database().reference()
         for id in groupAdminIDs! {
             ref.child("Group").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -148,7 +148,7 @@ class CurrentUser {
     
     // Gets the name for your own profile page
     func getName(withBlock: @escaping (User) -> Void)  {
-//        setData()
+        //        setData()
         let ref = FIRDatabase.database().reference()
         ref.child("User").child(uid).observe(.value, with:  { snapshot -> Void in
             //  Get user name value

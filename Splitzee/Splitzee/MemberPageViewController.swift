@@ -18,7 +18,7 @@ class MemberPageViewController: UIViewController {
     var pending = true
     var currUser: CurrentUser!
     let constants = Constants()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         currUser = CurrentUser()
@@ -55,7 +55,7 @@ class MemberPageViewController: UIViewController {
     }
     
     func groupsPressed() {
-//        performSegue(withIdentifier: "memberToSideBar", sender: self)
+        //        performSegue(withIdentifier: "memberToSideBar", sender: self)
         dismiss(animated: true, completion: nil)
     }
     

@@ -82,7 +82,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         inputFullName.autocorrectionType = .no
         createInset(textField: inputFullName)
         view.addSubview(inputFullName)
-        // in progress!!!!! -------------- need to add picture to text
         
         // inputEmailOrUsername
         inputEmail = UITextField()
@@ -96,7 +95,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         inputEmail.autocorrectionType = .no
         createInset(textField: inputEmail)
         view.addSubview(inputEmail)
-        // in progress!!!!! -------------- need to add picture to text
         
         // inputPassword
         inputPassword = UITextField()
@@ -111,7 +109,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         inputPassword.autocorrectionType = .no
         createInset(textField: inputPassword)
         view.addSubview(inputPassword)
-        // in progress!!!!! -------------- need to add picture to text
         
         // inputConfirmPassword
         inputConfirmPassword = UITextField()
@@ -126,7 +123,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         inputConfirmPassword.autocorrectionType = .no
         createInset(textField: inputConfirmPassword)
         view.addSubview(inputConfirmPassword)
-        // in progress!!!!! -------------- need to add picture to text
         
         // createAccountButton
         createAccountButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.651 + (view.frame.height*0.0625), width: view.frame.width * 0.841, height: view.frame.height * 0.068))
@@ -159,7 +155,6 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
     // -----------FUNCTIONS------------------------------------------------------------------------
     
     func touchBackToLoginButton(sender: UIButton!) {
-//        performSegue(withIdentifier: "createAccountToSignIn", sender: self)
         dismiss(animated: true, completion: nil)
     }
     

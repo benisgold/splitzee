@@ -87,7 +87,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputPassword.autocorrectionType = .no
         createInset(textField: inputPassword)
         view.addSubview(inputPassword)
-        // in progress!!!!! -------------- need to add picture to text
         
         // signinButton
         signInButton = UIButton(frame: CGRect(x: view.frame.width * 0.077, y: view.frame.height * 0.503, width: view.frame.width * 0.256, height: view.frame.height * 0.068))
@@ -141,7 +140,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         signInFacebook.layer.cornerRadius = 3
         signInFacebook.layer.borderColor = UIColor.white.cgColor
         view.addSubview(signInFacebook)
-
+        
     }
     
     func initializeTextFields() {
@@ -150,7 +149,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-// ---------------FUNCTIONS---------------------------------------------------------------
+    // ---------------FUNCTIONS---------------------------------------------------------------
     
     func touchCreateAccountButton(sender: UIButton!) {
         performSegue(withIdentifier: "signInToCreateAccount", sender: self)
@@ -200,7 +199,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     
     
-// ---------------FIREBASE----------------------------------------------------------------
+    // ---------------FIREBASE----------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
         FIRAuth.auth()?.addStateDidChangeListener({ (auth : FIRAuth, user : FIRUser?) in
             if let user = user {
@@ -222,15 +221,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
             nextVC.currUser = CurrentUser()
         }
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }

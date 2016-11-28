@@ -34,44 +34,44 @@ struct Constants
     let fontMediumDarkBlue: UIColor = UIColor(hue: 0.6833, saturation: 0.24, brightness: 1, alpha: 1.0) /* #c7c0ff */
     
     
-        
+    
     /*  COLORS FOR EACH VC - - - - - - - - - - - - - - - - - - - - - - - - - - - -
      
-         Follow these instead of using the Sketch file!
+     Follow these instead of using the Sketch file!
      
-    Sign In VC
-        SHAPES: white, red, darkGray
-        FONTS:  fontWhite, fontLightGray
+     Sign In VC
+     SHAPES: white, red, darkGray
+     FONTS:  fontWhite, fontLightGray
      
-    Create Account VC
-        SHAPES: white, red,
-        FONTS:  fontWhite, fontLightGray
-    
-    Create Group VC
-        SHAPES: white, mediumBlue
-        FONTS:  fontWhite, fontMediumGray
-    
-    Admin Page VC
-        SHAPES: white, whiteTransparent, mediumBlue, lightBlue (CELL), lightRed (CELL), lightGreen (CELL)
-        FONTS:  fontWhite, fontMediumBlue, fontMediumDarkBlue (CELL)
-    
-    Member Page VC
-        SHAPES: white, whiteTransparent, mediumBlue, lightBlue (CELL), lightRed (CELL), lightGreen (CELL)
-        FONTS:  fontWhite, fontMediumBlue, fontMediumDarkBlue (CELL)
-    
-    Detail VC
-        SHAPES: white, lightRed, lightGreen, mediumBlue
-        FONTS:  fontWhite, fontMediumBlue, fontDarkGray
-    
-    New Admin Transaction VC
-        SHAPES: white, mediumBlue
-        FONTS:  fontWhite, fontMediumBlue, fontDarkGray
-    
-    New Member Transaction VC
-        SHAPES: white, mediumBlue
-        FONTS:  fontWhite, fontMediumBlue, fontDarkGray
-    
-    */
+     Create Account VC
+     SHAPES: white, red,
+     FONTS:  fontWhite, fontLightGray
+     
+     Create Group VC
+     SHAPES: white, mediumBlue
+     FONTS:  fontWhite, fontMediumGray
+     
+     Admin Page VC
+     SHAPES: white, whiteTransparent, mediumBlue, lightBlue (CELL), lightRed (CELL), lightGreen (CELL)
+     FONTS:  fontWhite, fontMediumBlue, fontMediumDarkBlue (CELL)
+     
+     Member Page VC
+     SHAPES: white, whiteTransparent, mediumBlue, lightBlue (CELL), lightRed (CELL), lightGreen (CELL)
+     FONTS:  fontWhite, fontMediumBlue, fontMediumDarkBlue (CELL)
+     
+     Detail VC
+     SHAPES: white, lightRed, lightGreen, mediumBlue
+     FONTS:  fontWhite, fontMediumBlue, fontDarkGray
+     
+     New Admin Transaction VC
+     SHAPES: white, mediumBlue
+     FONTS:  fontWhite, fontMediumBlue, fontDarkGray
+     
+     New Member Transaction VC
+     SHAPES: white, mediumBlue
+     FONTS:  fontWhite, fontMediumBlue, fontDarkGray
+     
+     */
     
     
 }
