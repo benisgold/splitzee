@@ -20,6 +20,7 @@ class Transaction {
     var groupID: String = ""
     var amount: Double?
     var isApproved: Bool?
+    var description: String = ""
     
     
     init(key: String, transactionDict: [String: AnyObject]) {
@@ -45,14 +46,19 @@ class Transaction {
         if let approved = transactionDict["isApproved"] as? Bool{
             isApproved = approved
         }
+        
+        if let descriptionText = transactionDict["description"] as? String{
+            description = descriptionText
+        }
     }
     
     
-    init(amount: Double, memberID: String, groupID: String, groupToMember: Bool) {
+    init(amount: Double, memberID: String, groupID: String, groupToMember: Bool, description: String) {
         self.amount = amount
         self.memberID = memberID
         self.groupID = groupID
         self.groupToMember = groupToMember
+        self.description = description
         
     }
     

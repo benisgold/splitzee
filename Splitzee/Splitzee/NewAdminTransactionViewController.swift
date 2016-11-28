@@ -21,7 +21,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var collectionView: UICollectionView!
     let constants = Constants()
     var groupID: String!
-    var currUser: CurrentUser!
     
     
     let rootRef: FIRDatabaseReference! = nil
@@ -30,7 +29,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currUser = CurrentUser()
         setUpUI()
         pollForUsers()
         setupCollectionView()
@@ -137,7 +135,8 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
-            newTransaction(amt: (String)(amount), memberID: member.uid, groupToMember: true)
+            let dsc = descriptionTextField.text!
+            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true)
         }
     }
     
@@ -149,14 +148,15 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
-            newTransaction(amt: (String)(amount), memberID: member.uid, groupToMember: false)
+            let dsc = descriptionTextField.text!
+            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: false)
         }
     }
     
-    func newTransaction(amt: String, memberID: String, groupToMember: Bool) {
+    func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool) {
         let transactionDict: [String:AnyObject]
         
-        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": true as AnyObject]
+        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": true as AnyObject, "description": dsc as AnyObject]
         
         let rootRef = FIRDatabase.database().reference()
         let key = rootRef.child("Transaction").childByAutoId().key
