@@ -208,9 +208,9 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             
-            return numAdminGroups
+            return adminGroups.count
         } else {
-            return groups.count - numAdminGroups
+            return regularGroups.count
         }
     }
     
