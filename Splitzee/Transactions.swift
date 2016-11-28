@@ -26,23 +26,23 @@ class Transaction {
         transactionID = key
         
         
-        if let group = transactionDict["groupID"] as? String{
+        if let group = transactionDict[Constants.TransactionFields.groupID] as? String{
             groupID = group
         }
         
-        if let sendToMember = transactionDict["groupToMember"] as? Bool{
+        if let sendToMember = transactionDict[Constants.TransactionFields.groupToMember] as? Bool{
             groupToMember = sendToMember
         }
         
-        if let member = transactionDict["memberID"] as? String{
+        if let member = transactionDict[Constants.TransactionFields.memberID] as? String{
             memberID = member
         }
         
-        if let amountSent = transactionDict["amount"] as? Double{
+        if let amountSent = transactionDict[Constants.TransactionFields.amount] as? Double{
             amount = amountSent
         }
         
-        if let approved = transactionDict["isApproved"] as? Bool{
+        if let approved = transactionDict[Constants.TransactionFields.isApproved] as? Bool{
             isApproved = approved
         }
     }

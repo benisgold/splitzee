@@ -37,27 +37,27 @@ class CurrentUser {
         uid = key
         
         
-        if let username = currentUserDict["name"] as? String  {
+        if let username = currentUserDict[Constants.UserFields.name] as? String  {
             name = username
         }
         
-        if let pic = currentUserDict["profPicURL"] as? String {
+        if let pic = currentUserDict[Constants.UserFields.profPicURL] as? String {
             profPicURL = pic
         }
         
-        if let mail = currentUserDict["email"] as? String {
+        if let mail = currentUserDict[Constants.UserFields.email] as? String {
             email = mail
         }
         
-        if let transaction = currentUserDict["transactionIDs"] as? [String] {
+        if let transaction = currentUserDict[Constants.UserFields.transactionIDs] as? [String] {
             transactionIDs = transaction
         }
         
-        if let admin = currentUserDict["adminIDs"] as? [String] {
+        if let admin = currentUserDict[Constants.UserFields.groupAdminIDs] as? [String] {
             groupAdminIDs = admin
         }
         
-        if let group = currentUserDict["memberIDs"] as? [String] {
+        if let group = currentUserDict[Constants.UserFields.groupIDs] as? [String] {
             groupIDs = group
         }
         
@@ -166,7 +166,7 @@ class CurrentUser {
     func sendNewTransaction(amount: Double, memberID: String, groupID: String, groupToMember: Bool)  {
         let ref = FIRDatabase.database().reference()
         let key = ref.child("Transactions").childByAutoId().key
-        ref.child("Transactions/\(key)").setValue(["Amount": amount, "Member": memberID, "Group": groupID, "toMember": groupToMember])
+        ref.child("Transactions/\(key)").setValue([Constants.TransactionFields.amount: amount, Constants.TransactionFields.memberID: memberID, Constants.TransactionFields.groupID: groupID, Constants.TransactionFields.groupToMember: groupToMember])
         
     }
     

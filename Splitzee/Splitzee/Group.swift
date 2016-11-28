@@ -17,7 +17,6 @@ class Group: Hashable, Equatable {
     var memberIDs: [String] = []
     var adminIDs: [String] = []
     var transactionIDs: [String] = []
-    var requestIDs: [String] = []
     var total: Double = 0
     var name: String = ""
     var picURL: String = ""
@@ -34,31 +33,27 @@ class Group: Hashable, Equatable {
     {
         groupID = key
         
-        if let name = groupDict["name"] as? String {
+        if let name = groupDict[Constants.GroupFields.name] as? String {
             self.name = name
         }
         
-        if let imageURL = groupDict["picURL"] as? String {
+        if let imageURL = groupDict[Constants.GroupFields.picURL] as? String {
             picURL = imageURL
         }
         
-        if let member = groupDict["memberIDs"] as? [String]{
+        if let member = groupDict[Constants.GroupFields.memberIDs] as? [String]{
             memberIDs = member
         }
         
-        if let admin = groupDict["adminIDs"] as? [String]{
+        if let admin = groupDict[Constants.GroupFields.adminIDs] as? [String]{
             adminIDs = admin
         }
         
-        if let transactions = groupDict["transactionIDs"] as? [String]{
+        if let transactions = groupDict[Constants.GroupFields.transactionIDs] as? [String]{
             transactionIDs = transactions
         }
         
-        if let requests = groupDict["requestIDs"] as? [String]{
-            requestIDs = requests
-        }
-        
-        if let totalMoney = groupDict["total"] as? Double{
+        if let totalMoney = groupDict[Constants.GroupFields.total] as? Double{
             total = totalMoney
         }
     }

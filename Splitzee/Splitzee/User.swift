@@ -27,11 +27,11 @@ class User {
         uid = key
         
         
-        if let username = userDict["name"] as? String{
+        if let username = userDict[Constants.UserFields.name] as? String{
             name = username
         }
         
-        if let pic = userDict["profPicURL"] as? String{
+        if let pic = userDict[Constants.UserFields.profPicURL] as? String{
             profPicURL = pic
         }
         

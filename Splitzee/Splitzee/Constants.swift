@@ -33,6 +33,34 @@ struct Constants
     let fontMediumBlue: UIColor = UIColor(hue: 0.5722, saturation: 0.39, brightness: 1, alpha: 1.0) /* #9ad3ff */
     let fontMediumDarkBlue: UIColor = UIColor(hue: 0.6833, saturation: 0.24, brightness: 1, alpha: 1.0) /* #c7c0ff */
     
+    struct UserFields {
+        static let name = "name"
+        static let profPicURL = "profPicURL"
+        static let email = "email"
+        static let transactionIDs = "transactionIDs"
+        static let groupIDs = "memberIDs"
+        static let groupAdminIDs = "adminIDs"
+    }
+    
+    struct TransactionFields {
+        static let groupID = "groupID"
+        static let groupToMember = "groupToMember"
+        static let memberID = "memberID"
+        static let amount = "amount"
+        static let isApproved = "isApproved"
+    }
+    
+    struct GroupFields {
+        static let name = "name"
+        static let picURL = "picURL"
+        static let memberIDs = "memberIDs"
+        static let adminIDs = "adminIDs"
+        static let transactionIDs = "transactionIDs"
+        static let total = "total"
+        static let memberCode = "memberCode"
+        static let adminCode = "adminCode"
+    }
+    
     
     
     /*  COLORS FOR EACH VC - - - - - - - - - - - - - - - - - - - - - - - - - - - -
