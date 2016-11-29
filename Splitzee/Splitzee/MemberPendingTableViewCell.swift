@@ -31,6 +31,7 @@ class MemberPendingTableViewCell: UITableViewCell {
         memberPicView.image = #imageLiteral(resourceName: "purpleFogBG")
         memberPicView.clipsToBounds = true
         memberPicView.contentMode = .scaleAspectFill
+        memberPicView.layer.cornerRadius = 0.5 * 0.990 * contentView.frame.height
         contentView.addSubview(memberPicView)
     }
     

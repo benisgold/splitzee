@@ -33,7 +33,10 @@ class AdminPendingTableViewCell: UITableViewCell {
     
     func makeMemberPicView() {
         memberPicView = UIImageView()
-        memberPicView.frame = CGRect(x: 0, y: 0, width: 0.188 * contentView.frame.width, height: contentView.frame.height)
+        memberPicView.frame = CGRect(x: 0.05 * contentView.frame.width, y: 0.05 * contentView.frame.height, width: 0.900 * contentView.frame.height, height: 0.900 * contentView.frame.height)
+        memberPicView.clipsToBounds = true
+        memberPicView.contentMode = .scaleAspectFill
+        memberPicView.layer.cornerRadius = 0.5 * 0.900 * contentView.frame.height
         contentView.addSubview(memberPicView)
     }
     
@@ -42,6 +45,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         memberNameLabel.frame = CGRect(x: 0.251 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.749 * contentView.frame.width, height: 0.331 * contentView.frame.height)
         memberNameLabel.textColor = constants.fontMediumDarkBlue
         memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
+        memberNameLabel.text = "Member Name"
         contentView.addSubview(memberNameLabel)
     }
     
@@ -51,6 +55,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         descriptionLabel.textColor = UIColor.blue
         descriptionLabel.textColor = constants.fontMediumDarkBlue
         descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 10)
+        descriptionLabel.text = "Description"
         contentView.addSubview(descriptionLabel)
     }
     
@@ -58,6 +63,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         rejectButton = UIButton()
         rejectButton.frame = CGRect(x: 0.248 * contentView.frame.width, y: 0.672 * contentView.frame.height, width: 0.340 * contentView.frame.width, height: 0.328 * contentView.frame.height)
         rejectButton.setTitle("Reject", for: .normal)
+        rejectButton.layer.borderColor = UIColor.blue.cgColor
         rejectButton.layer.borderColor = constants.lightBlue.cgColor
         rejectButton.titleLabel?.textColor = constants.fontMediumDarkBlue
         rejectButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 10)
@@ -72,6 +78,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         approveButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 10)
         approveButton.layer.cornerRadius = 3
         approveButton.setTitle("APPROVE!!", for: .normal)
+        approveButton.backgroundColor = constants.red
         contentView.addSubview(approveButton)
     }
     
