@@ -10,7 +10,14 @@ import UIKit
 import Firebase
 
 
+protocol CreateGroupViewControllerDelegate : class {
+    func groupCreated(group: Group)
+}
+
+
 class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate ,UINavigationControllerDelegate {
+    
+    weak var delegate : CreateGroupViewControllerDelegate?
     
     var background: UIImageView!
     var whiteBoxInBackground: UILabel!
@@ -303,23 +310,13 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                         
                         DispatchQueue.main.async {
                             self.dismiss(animated: true, completion: {
-                                self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
+                                self.delegate?.groupCreated(group: self.createdGroup!)
                             })
                             
-                            
-                            
-
                         }
                     })
                 }
             })
-        }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "createGroupToAdminPage" {
-            let nextVC = segue.destination as! AdminPageViewController
-            nextVC.group = createdGroup
         }
     }
 }

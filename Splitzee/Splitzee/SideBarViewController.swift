@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class SideBarViewController: UIViewController {
+class SideBarViewController: UIViewController, CreateGroupViewControllerDelegate {
     
     var background: UIImageView!
     var splitzeeLogo: UIImageView!
@@ -69,6 +69,11 @@ class SideBarViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func groupCreated(group: Group) {
+        selectedGroup = group
+        performSegue(withIdentifier: "sideBarToAdmin", sender: self)
     }
     
     func getGroupNames() {
@@ -158,7 +163,6 @@ class SideBarViewController: UIViewController {
         joinGroupAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.joinGroupAlert.textFields![0] as UITextField
             self.currUser.joinGroup(groupCode: textF.text!, withBlock: {
-                self.setupTableView()
                 self.getGroupNames()
             })
 //            print(textF.text!)
@@ -185,6 +189,9 @@ class SideBarViewController: UIViewController {
         } else if segue.identifier == "sideBarToAdmin" {
             let nextVC = segue.destination as! AdminPageViewController
             nextVC.group = selectedGroup
+        } else if segue.identifier == "sideBarToCreateGroup" {
+            let nextVC = segue.destination as! CreateGroupViewController
+            nextVC.delegate = self
         }
     }
     

@@ -95,15 +95,18 @@ class CurrentUser {
     
     
     // Gets all the transactions for the history
-    func getTransactions(withBlock: @escaping (Transaction) -> Void)  {
+    func getTransactions(group: Group, withBlock: @escaping (Transaction) -> Void)  {
         //        setData()
         let ref = FIRDatabase.database().reference()
         for id in transactionIDs  {
             ref.child(Constants.DataNames.Transaction).child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
                 print(snapshot.value ?? snapshot.key)
-                let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
-                withBlock(curr)
+                let trans = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
+                if trans.groupID == group.groupID {
+                    withBlock(trans)
+                }
+                
             })
         }
     }

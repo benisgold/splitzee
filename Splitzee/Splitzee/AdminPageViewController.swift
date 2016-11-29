@@ -129,7 +129,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func groupsPressed() {
-        dismiss(animated: true, completion: nil)
+        self.performSegue(withIdentifier: "adminToSideBar", sender: self)
     }
     
     func setupNavBar() {
