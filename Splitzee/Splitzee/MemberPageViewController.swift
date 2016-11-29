@@ -162,6 +162,14 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        transactionList = []
+        historyList = []
+        incomingList = []
+        outgoingList = []
+        setUpTableLists()
+    }
+    
     
     //-----------------Sets up the tableviews---------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
