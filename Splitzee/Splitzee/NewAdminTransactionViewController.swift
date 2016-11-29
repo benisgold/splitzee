@@ -138,7 +138,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             self.membersList.append(user)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                
             }
         })
     }

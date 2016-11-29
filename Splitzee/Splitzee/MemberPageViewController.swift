@@ -97,6 +97,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         self.title = group.name // change to group name
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
         self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = constants.fontMediumBlue
     }
     
     func setupSegmentedControl() {
@@ -282,14 +283,14 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         case .outgoing:
             
             let transaction = outgoingList[indexPath.row]
-
             
             let pendingCell = cell as? MemberPendingTableViewCell
             
             let amt = transaction.amount
-                let amtString = String(describing: amt)
-                pendingCell?.resultLabel.text = "$\(amtString)"
-            
+                var amtString = String(describing: amt)
+                if amtString.hasSuffix(".0") {
+                    amtString = amtString + "0"
+            }
             
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
