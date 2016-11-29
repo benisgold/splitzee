@@ -302,8 +302,11 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                         userRef.child(Constants.UserFields.groupAdminIDs).setValue(adminIDs)
                         
                         DispatchQueue.main.async {
-                            self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
-                            self.dismiss(animated: true, completion: nil)
+                            self.dismiss(animated: true, completion: {
+                                self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
+                            })
+                            
+                            
                             
 
                         }
