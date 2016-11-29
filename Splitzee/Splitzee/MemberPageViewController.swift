@@ -273,8 +273,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let nf = NumberFormatter()
             nf.numberStyle = .currency
             var amtString = nf.string(from: amt as NSNumber)!
+            pendingCell?.resultLabel.textColor = constants.lightRed
             if !amtString.hasPrefix("-") {
                 amtString = "+" + amtString
+                pendingCell?.resultLabel.textColor = constants.lightGreen
             }
             pendingCell?.resultLabel.text = amtString
             
@@ -302,20 +304,23 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let nf = NumberFormatter()
             nf.numberStyle = .currency
             var amtString = nf.string(from: amt as NSNumber)!
+            pendingCell?.resultLabel.textColor = constants.lightRed
             if !amtString.hasPrefix("-") {
                 amtString = "+" + amtString
+                pendingCell?.resultLabel.textColor = constants.lightGreen
             }
             pendingCell?.resultLabel.text = amtString
             
+            
             //Sets the Name of each user at each index
-            transaction.getUser(withBlock:{(User) -> Void in
-                pendingCell?.memberNameLabel.text = User.name
-            })
+            pendingCell?.memberNameLabel.text = group.name
+            
             
             //Gets the image of the group
-            currUser.getProfPic(withBlock: { (UIImage) -> Void in
+            group.getGroupPic(withBlock: { (UIImage) -> Void in
                 pendingCell?.memberPicView.image = UIImage
             })
+            
             
             //Sets description of each transaction
             pendingCell?.descriptionLabel.text = String(describing: transaction.description)
