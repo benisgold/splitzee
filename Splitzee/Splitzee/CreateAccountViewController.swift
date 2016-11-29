@@ -22,7 +22,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
     var inputConfirmPassword: UITextField!
     var createAccountButton: UIButton!
     var backToLoginButton: UIButton!
-    var userImage: UIImage!
+    var userImage: UIImage?
     let constants = Constants()
     
     override func viewDidLoad() {
@@ -253,6 +253,15 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         {
             let alertView = UIAlertController(title: "Error"
                 , message: "One or more fields have not been filled.", preferredStyle: UIAlertControllerStyle.alert)
+            alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
+            }))
+            self.present(alertView, animated: true, completion: nil)
+        }
+
+        if userImage == nil
+        {
+            let alertView = UIAlertController(title: "Error"
+                , message: "Please upload a profile photo.", preferredStyle: UIAlertControllerStyle.alert)
             alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             }))
             self.present(alertView, animated: true, completion: nil)
