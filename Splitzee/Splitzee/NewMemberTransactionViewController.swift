@@ -205,9 +205,9 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
     }
     
 }
-    //-------Firebase----------------------------
-    
-//--------------------------------------------
+
+// Firebase ----------------------------
+
 
 extension NewMemberTransactionViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
