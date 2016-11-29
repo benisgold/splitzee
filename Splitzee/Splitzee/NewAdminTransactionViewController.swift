@@ -24,6 +24,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var rootRef: FIRDatabaseReference?
     var membersList = [User]()
     var selectedMembers = [User]()
+    var greyImageView = UIImageView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         setUpUI()
         setMemberList()
         setupCollectionView()
+        view.bringSubview(toFront: collectionView)
         
         // Do any additional setup after loading the view.
     }
@@ -46,7 +48,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         self.view.addSubview(background)
         
         setupNavBar()
-    
+        
         amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         amountTextField.layer.masksToBounds = true
         amountTextField.backgroundColor = UIColor.white
@@ -175,7 +177,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
                 navigationController.popViewController(animated: true)
             }
         })
-
+        
     }
     
     
@@ -208,9 +210,33 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         
         //sets profile pictures for all the members
         membersList[indexPath.row].getProfilePic(withBlock:{(image) -> Void in
-                print(image)
-                adminTransactionCell.userImage.image = image
-            })
+            print(image)
+            let tapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(self.imageTapped(recog:)))
+            adminTransactionCell.userImage.isUserInteractionEnabled = true
+            adminTransactionCell.userImage.tag = indexPath.row
+            adminTransactionCell.userImage.tintColor = UIColor.clear
+            adminTransactionCell.userImage.addGestureRecognizer(tapGestureRecognizer)
+            adminTransactionCell.userImage.image = image.alpha(value: 0.95)
+        })
+    }
+    
+    func imageTapped(recog: UITapGestureRecognizer) {
+        
+        var imageView = recog.view as! UIImageView
+        
+        if imageView.tintColor == UIColor.clear {
+            imageView.tintColor = UIColor.gray
+            greyImageView = UIImageView(frame: CGRect(x: 0, y: 0, width: imageView.frame.width, height: imageView.frame.height))
+            greyImageView.image = #imageLiteral(resourceName: "Group").alpha(value: 0.5)
+            imageView.addSubview(greyImageView)
+            selectedMembers.append(membersList[imageView.tag])
+        } else {
+            imageView.tintColor = UIColor.clear
+            greyImageView.removeFromSuperview()
+            selectedMembers = selectedMembers.filter { $0.uid != selectedMembers[imageView.tag].uid }
+        }
+        
+        //imageView.image = imageView.image?.alpha(value: 0.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -239,6 +265,19 @@ extension NewAdminTransactionViewController: UITextViewDelegate {
             textView.text = "Add a short description of the transaction"
             textView.textColor = constants.fontLightGray
         }
+    }
+}
+
+extension UIImage{
+    
+    func alpha(value:CGFloat)->UIImage
+    {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+        
     }
 }
 
