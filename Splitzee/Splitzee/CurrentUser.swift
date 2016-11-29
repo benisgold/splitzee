@@ -77,20 +77,6 @@ class CurrentUser {
     
     
     
-    
-    //    func setData() {
-    //        dbRef = FIRDatabase.database().reference()
-    //        dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-    //            // Get user value
-    //            print("DATA VALUEEEE:")
-    //            print(snapshot.value)
-    //
-    //        }) { (error) in
-    //            print(error.localizedDescription)
-    //        }
-    //    }
-    //
-    
     // Gets the profile picture for your own profile page
     func getProfPic(withBlock: @escaping (UIImage) -> Void)  {
         //        setData()

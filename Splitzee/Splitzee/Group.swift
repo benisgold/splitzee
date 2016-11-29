@@ -111,8 +111,7 @@ class Group: Hashable, Equatable {
         let ref = FIRDatabase.database().reference()
         for id in transactionIDs  {
             ref.child(Constants.DataNames.Transaction).child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
-                //  Get user value
-                print(snapshot.key)
+                
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })

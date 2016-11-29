@@ -136,6 +136,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             listState = .history
             //more
         }
+        tableView.reloadData()
     }
     
 

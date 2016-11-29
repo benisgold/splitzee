@@ -181,6 +181,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             listState = .history
             //more
         }
+        tableView.reloadData()
     }
     
     func addMoneyPressed() {
@@ -232,7 +233,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     func setUpTableLists(){
         group.getTransactions(withBlock: {(trans) -> Void in
             self.transactionList.append(trans)
-            if trans.isApproved == false {
+            if trans.isApproved == true {
                 self.historyList.append(trans)
             }
             else if trans.groupToMember == true {
@@ -317,8 +318,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             pendingCell?.approveButton.setTitle("$" + String(describing: incomingList[indexPath.row].amount)
                 , for: .normal)
             
-            
-            
             //Sets the Name of each user at each index
             user.getUser(UserID: incomingList[indexPath.row].memberID, withBlock:{(User) -> Void in
                 pendingCell?.memberNameLabel.text = User.name
@@ -371,7 +370,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             } else {
                 historyCell?.amountLabel.text = "+$" + String(describing: historyList[indexPath.row].amount)
             }
-            
             
             //Sets the Name of each user at each index
             user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
