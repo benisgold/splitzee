@@ -242,8 +242,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let pendingCell = cell as? MemberPendingTableViewCell
             
             //Displays the amount of money transferred
-            pendingCell?.resultLabel.text = "$" + String(describing: transaction.amount)
-            
+            if let amt = transaction.amount {
+
+                pendingCell?.resultLabel.text = "$" + String(describing: amt)
+            }
             
             //Sets the Name of each user at each index
             pendingCell?.memberNameLabel.text = group.name
@@ -265,8 +267,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             let pendingCell = cell as? MemberPendingTableViewCell
             
-            //Displays the amount of money transferred
-            pendingCell?.resultLabel.text = "$" + String(describing: transaction.amount)
+            if let amt = transaction.amount {
+                let amtString = String(describing: amt)
+                pendingCell?.resultLabel.text = "$\(amtString)"
+            }
             
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
@@ -289,10 +293,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let historyCell = cell as? MemberHistoryTableViewCell
             
             //Displays the amount of money transferred
-            if historyList[indexPath.row].groupToMember == false {
-                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount)
+            if transaction.groupToMember == false {
+                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount!)
             } else {
-                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount)
+                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount!)
             }
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
