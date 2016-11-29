@@ -162,7 +162,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     // FIREBASE----------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
-        
+
         FIRAuth.auth()?.addStateDidChangeListener({ (auth : FIRAuth, user : FIRUser?) in
             if let user = user {
                 self.signedIn(user)
