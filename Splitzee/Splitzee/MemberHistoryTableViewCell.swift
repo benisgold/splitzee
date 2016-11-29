@@ -27,32 +27,35 @@ class MemberHistoryTableViewCell: UITableViewCell {
     
     func makeMemberPicView() {
         memberPicView = UIImageView()
-        memberPicView.frame = CGRect(x: 0.041 * contentView.frame.width, y: 0.155 * contentView.frame.height, width: 0.188 * contentView.frame.width, height: 0.188 * contentView.frame.width)
+        memberPicView.frame = CGRect(x: 0.005 * contentView.frame.width, y: 0.005 * contentView.frame.height, width: 0.990 * contentView.frame.height, height: 0.990 * contentView.frame.height)
+        memberPicView.image = #imageLiteral(resourceName: "purpleFogBG")
+        memberPicView.clipsToBounds = true
+        memberPicView.contentMode = .scaleAspectFill
         contentView.addSubview(memberPicView)
     }
     
     func makeMemberNameLabel() {
         memberNameLabel = UILabel()
-        memberNameLabel.frame = CGRect(x: 0.251 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.176 * contentView.frame.width, height: 0.173 * contentView.frame.height)
+        memberNameLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.331 * contentView.frame.height)
         memberNameLabel.textColor = constants.fontMediumDarkBlue
-        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 16)
+        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
         contentView.addSubview(memberNameLabel)
     }
     
     func makeDescriptionLabel() {
         descriptionLabel = UILabel()
-        descriptionLabel.frame = CGRect(x: 0.251 * contentView.frame.width, y: 0.273 * contentView.frame.height, width: 0.696 * contentView.frame.width, height: 0.291 * contentView.frame.height)
+        descriptionLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.418 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.577 * contentView.frame.height)
         descriptionLabel.textColor = constants.fontMediumDarkBlue
-        memberNameLabel.font = UIFont(name: "SFUIText-LightItalic", size: 14)
+        descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 14)
         contentView.addSubview(descriptionLabel)
     }
     
     func makeResultLabel() {
         resultLabel = UILabel()
-        resultLabel.frame = CGRect(x: 0.248 * contentView.frame.width, y: 0.633 * contentView.frame.height, width: 0.696 * contentView.frame.width, height: 0.291 * contentView.frame.height)
+        resultLabel.frame = CGRect(x: 0.701 * contentView.frame.width, y: 0.155 * contentView.frame.height, width: 0.294 * contentView.frame.width, height: 0.69 * contentView.frame.height)
         resultLabel.layer.borderColor = constants.lightBlue.cgColor
         resultLabel.textColor = constants.fontMediumDarkBlue
-        resultLabel.font = UIFont(name: "SFUIText-Medium", size: 14)
+        resultLabel.font = UIFont(name: "SFUIText-Medium", size: 20)
         resultLabel.textAlignment = .center
         resultLabel.layer.cornerRadius = 3
         contentView.addSubview(resultLabel)
