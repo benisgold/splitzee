@@ -79,16 +79,16 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         xButton = UIButton()
         xButton.frame = CGRect(x: 0.900 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
         xButton.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 22)
-        xButton.setTitle("X", for: .normal)
-        xButton.setTitleColor(constants.fontMediumGray, for: .normal)
-        xButton.titleLabel?.textAlignment = .center
+        xButton.setImage(#imageLiteral(resourceName: "X Button"), for: .normal)
+        xButton.contentMode = .scaleAspectFill
+        xButton.clipsToBounds = true
         xButton.addTarget(self, action: #selector(xButtonPressed), for: .touchUpInside)
         view.addSubview(xButton)
     }
     
     func makePictureButton() {
         pictureButton = UIButton()
-        pictureButton.frame = CGRect(x: 0.338 * view.frame.width, y: 0.313 * view.frame.height, width: 0.323 * view.frame.width, height: 0.323 * view.frame.width)
+        pictureButton.frame = CGRect(x: 0.338 * view.frame.width, y: 0.320 * view.frame.height, width: 0.323 * view.frame.width, height: 0.323 * view.frame.width)
         pictureButton.setImage(#imageLiteral(resourceName: "Picture"), for: .normal)
         pictureButton.contentMode = .scaleAspectFill
         pictureButton.layer.cornerRadius = 0.5 * pictureButton.frame.size.width
@@ -126,7 +126,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     func makeMemberCodeTextField() {
         memberCodeTextField = UITextField()
-        memberCodeTextField.frame = CGRect(x: 0, y: view.frame.height * 0.523, width: view.frame.width, height: 0.068 * view.frame.height)
+        memberCodeTextField.frame = CGRect(x: 0, y: view.frame.height * 0.523 + 6, width: view.frame.width, height: 0.068 * view.frame.height)
         memberCodeTextField.font = UIFont(name: "SFUIText-Light", size: 18)
         memberCodeTextField.placeholder = "Enter access code for members"
         memberCodeTextField.isSecureTextEntry = true
@@ -140,7 +140,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     }
     func makeAdminCodeTextField() {
         adminCodeTextField = UITextField()
-        adminCodeTextField.frame = CGRect(x: 0, y: view.frame.height * 0.592, width: view.frame.width, height: 0.068 * view.frame.height)
+        adminCodeTextField.frame = CGRect(x: 0, y: view.frame.height * 0.592 + 4, width: view.frame.width, height: 0.068 * view.frame.height)
         adminCodeTextField.font = UIFont(name: "SFUIText-Light", size: 18)
         adminCodeTextField.placeholder = "Enter access code for administrators"
         adminCodeTextField.isSecureTextEntry = true
@@ -153,7 +153,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         view.addSubview(adminCodeTextField)
     }
     
-    //-------------------Controller---------------------------------------------------------------
+    // Controller ---------------------------------------------------------------
     
     
     
@@ -189,7 +189,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         self.present(alertView, animated: true, completion: nil)
     }
     
-    //--------------Adding Images to the Create an Account Button---------------------------------
+    // Adding Images to the Create an Account Button ---------------------------------
     
     
     var imagePicker = UIImagePickerController()
