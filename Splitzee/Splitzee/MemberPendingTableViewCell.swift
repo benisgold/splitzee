@@ -18,7 +18,6 @@ class MemberPendingTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
         makeMemberPicView()
         makeMemberNameLabel()
         makeDescriptionLabel()
