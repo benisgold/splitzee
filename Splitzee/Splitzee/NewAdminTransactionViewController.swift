@@ -171,7 +171,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool, isPayment: Bool) {
         let transactionDict: [String:AnyObject]
         
-        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": group.groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
+        transactionDict = ["amount": Double(amt)! as AnyObject, "memberID": memberID as AnyObject, "groupID": group.groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
         
         let transaction = Transaction(key: "", transactionDict: transactionDict)
         transaction.addToDatabase(withBlock: { trans in
