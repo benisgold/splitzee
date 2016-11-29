@@ -305,6 +305,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
+            pendingCell.selectionStyle = .none
             pendingCell.awakeFromNib()
             
             
@@ -316,6 +317,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
+            pendingCell.selectionStyle = .none
             pendingCell.awakeFromNib()
             return pendingCell
             
@@ -325,6 +327,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             for subview in historyCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
+            historyCell.selectionStyle = .none
             historyCell.awakeFromNib()
             return historyCell
         }
@@ -342,11 +345,26 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .incoming:
             
-            var transaction = incomingList[indexPath.row]
+            let transaction = outgoingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
+            var negative = false
             
             //Displays the amount of money transferred
-            pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
+            let amt = transaction.amount
+            var amtString = String(describing: amt)
+            if amtString.hasPrefix("-") {
+                negative = true
+                amtString = String(-amt)
+            }
+            if amtString.hasSuffix(".0") {
+                amtString += "0"
+            }
+            if negative {
+                amtString = "-$" + amtString
+            } else {
+                amtString = "$" + amtString
+            }
+            pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
             
@@ -367,17 +385,26 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .outgoing:
             
-            var transaction = outgoingList[indexPath.row]
-            
+            let transaction = outgoingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
+            var negative = false
             
             //Displays the amount of money transferred
             let amt = transaction.amount
             var amtString = String(describing: amt)
+            if amtString.hasPrefix("-") {
+                negative = true
+                amtString = String(-amt)
+            }
             if amtString.hasSuffix(".0") {
                 amtString += "0"
             }
-            pendingCell?.approveButton.setTitle("$\(amtString)", for: .normal)
+            if negative {
+                amtString = "-$" + amtString
+            } else {
+                amtString = "$" + amtString
+            }
+            pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
             

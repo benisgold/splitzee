@@ -212,6 +212,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
+            pendingCell.selectionStyle = .none
             pendingCell.awakeFromNib()
             
             
@@ -223,6 +224,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
+            pendingCell.selectionStyle = .none
             pendingCell.awakeFromNib()
             return pendingCell
             
@@ -232,6 +234,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             for subview in historyCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
+            historyCell.selectionStyle = .none
             historyCell.awakeFromNib()
             return historyCell
             
@@ -242,6 +245,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
+            pendingCell.selectionStyle = .none
             pendingCell.awakeFromNib()
             return pendingCell
             
@@ -261,13 +265,26 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         switch listState {
         case .incoming:
             
-            let transaction = incomingList[indexPath.row]
-            
+            let transaction = outgoingList[indexPath.row]
             let pendingCell = cell as? MemberPendingTableViewCell
+            var negative = false
             
             //Displays the amount of money transferred
-             let amt = transaction.amount
-                pendingCell?.resultLabel.text = "$" + String(describing: amt)
+            let amt = transaction.amount
+            var amtString = String(describing: amt)
+            if amtString.hasPrefix("-") {
+                negative = true
+                amtString = String(-amt)
+            }
+            if amtString.hasSuffix(".0") {
+                amtString += "0"
+            }
+            if negative {
+                amtString = "-$" + amtString
+            } else {
+                amtString = "$" + amtString
+            }
+            pendingCell?.resultLabel.text = amtString
             
             
             //Sets the Name of each user at each index
@@ -286,14 +303,25 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         case .outgoing:
             
             let transaction = outgoingList[indexPath.row]
-            
             let pendingCell = cell as? MemberPendingTableViewCell
+            var negative = false
             
+            //Displays the amount of money transferred
             let amt = transaction.amount
             var amtString = String(describing: amt)
-            if amtString.hasSuffix(".0") {
-                amtString = amtString + "0"
+            if amtString.hasPrefix("-") {
+                negative = true
+                amtString = String(-amt)
             }
+            if amtString.hasSuffix(".0") {
+                amtString += "0"
+            }
+            if negative {
+                amtString = "-$" + amtString
+            } else {
+                amtString = "$" + amtString
+            }
+            pendingCell?.resultLabel.text = amtString
             
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
