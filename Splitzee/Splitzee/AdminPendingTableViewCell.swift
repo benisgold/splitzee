@@ -46,6 +46,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         memberNameLabel.textColor = constants.fontMediumDarkBlue
         memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 14)
         memberNameLabel.text = "Member Name"
+        memberNameLabel.backgroundColor = UIColor.black
         contentView.addSubview(memberNameLabel)
     }
     
@@ -61,24 +62,25 @@ class AdminPendingTableViewCell: UITableViewCell {
     
     func makeRejectButton() {
         rejectButton = UIButton()
-        rejectButton.frame = CGRect(x: 0.248 * contentView.frame.width, y: 0.672 * contentView.frame.height, width: 0.340 * contentView.frame.width, height: 0.328 * contentView.frame.height)
+        rejectButton.frame = CGRect(x: 0.248 * contentView.frame.width, y: 0.672 * contentView.frame.height, width: 0.340 * contentView.frame.width, height: 0.303 * contentView.frame.height)
         rejectButton.setTitle("Reject", for: .normal)
         rejectButton.layer.borderColor = UIColor.blue.cgColor
         rejectButton.layer.borderColor = constants.lightBlue.cgColor
         rejectButton.titleLabel?.textColor = constants.fontMediumDarkBlue
         rejectButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 10)
+        rejectButton.backgroundColor = constants.lightRed
         rejectButton.layer.cornerRadius = 3
         contentView.addSubview(rejectButton)
     }
     
     func makeApproveButton() {
         approveButton = UIButton()
-        approveButton.frame = CGRect(x: 0.603 * contentView.frame.width, y: 0.672 * contentView.frame.height, width: 0.340 * contentView.frame.width, height: 0.328 * contentView.frame.height)
+        approveButton.frame = CGRect(x: 0.603 * contentView.frame.width, y: 0.672 * contentView.frame.height, width: 0.340 * contentView.frame.width, height: 0.303 * contentView.frame.height)
         approveButton.titleLabel?.textColor = UIColor.white
         approveButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 10)
         approveButton.layer.cornerRadius = 3
         approveButton.setTitle("APPROVE!!", for: .normal)
-        approveButton.backgroundColor = constants.red
+        approveButton.backgroundColor = constants.lightGreen
         contentView.addSubview(approveButton)
     }
     

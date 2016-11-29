@@ -18,7 +18,7 @@ class Transaction {
     var groupToMember: Bool = false
     var memberID: String = ""
     var groupID: String = ""
-    var amount: Double = 0.0
+    var amount: Double = 0.00
     var isApproved: Bool = false
     var description: String = ""
     
