@@ -228,6 +228,9 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
     
     //Populates the cell with data
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {

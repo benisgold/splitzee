@@ -136,6 +136,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         self.title = group.name // Actual group name
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Medium", size: 20)!]
         self.navigationController?.navigationBar.barTintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = constants.fontMediumBlue
     }
     
     func setupSegmentedControl() {
@@ -350,7 +351,12 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred
-            pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
+            let amt = transaction.amount
+            var amtString = String(describing: amt)
+            if amtString.hasSuffix(".0") {
+                amtString += "0"
+            }
+            pendingCell?.approveButton.setTitle("$\(amtString)", for: .normal)
             
             //Sets the Name of each user at each index
             
