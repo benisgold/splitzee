@@ -62,12 +62,11 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         groupImage.contentMode = .scaleAspectFit
         groupImage.clipsToBounds = true
         
-        getGroup(withBlock: {(currGroup) -> Void in
-            currGroup.getGroupPic(withBlock: {(image) -> Void in
+        
+        group.getGroupPic(withBlock: {(image) -> Void in
             self.groupImage.image = image
-                
-            })
         })
+        
         
         view.addSubview(groupImage)
         
@@ -76,9 +75,9 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         groupLabel.textColor = constants.fontDarkGray
         groupLabel.textAlignment = .center
         
-        getGroup(withBlock: {(currGroup) -> Void in
-                self.groupLabel.text = currGroup.name
-            })
+        
+        self.groupLabel.text = group.name
+           
         
         view.addSubview(groupLabel)
         
@@ -205,18 +204,7 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
     }
     //-------Firebase----------------------------
     
-func getGroup(withBlock: @escaping (Group) -> Void) {
-        let ref = FIRDatabase.database().reference()
-        ref.child("Group/\(currUser.currentGroupID)").observe(.value, with: { snapshot -> Void in
-            // Get user value
-            if snapshot.exists(){
-                if let groupDict = snapshot.value as? [String: AnyObject]{
-                    let group = Group(key: snapshot.key, groupDict: groupDict)
-                    withBlock(group)
-                }
-            }
-        })
-    }
+
  
     
 }
