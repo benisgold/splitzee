@@ -150,6 +150,14 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         textField.leftViewMode = .always
     }
     
+    @objc(textView:shouldChangeTextInRange:replacementText:) func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if (text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
     func newTransaction(_ amt: String, _ dsc: String, _ groupToMember: Bool) {
         let transactionDict: [String:AnyObject]
         let amount = Double(amt)
