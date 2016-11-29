@@ -15,6 +15,7 @@ class NewMemberTransactionViewController: UIViewController {
     var descriptionTextField: UITextView!
     var payButton: UIButton!
     var requestButton: UIButton!
+    var xButton: UIButton!
     var groupImage: UIImageView!
     var groupLabel: UILabel!
     var alertWrongFormat: UIAlertController!
@@ -88,10 +89,10 @@ class NewMemberTransactionViewController: UIViewController {
         amountTextField.placeholder = "     $0.00"
         view.addSubview(amountTextField)
         
-        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.428 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
+        descriptionTextField = UITextView(frame: CGRect(x: 15, y: 0.426 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
         descriptionTextField.layer.masksToBounds = true
         descriptionTextField.backgroundColor = UIColor.white
-        descriptionTextField.layer.borderColor = constants.fontLightGray.cgColor
+        descriptionTextField.layer.borderColor = constants.fontWhite.cgColor
         descriptionTextField.layer.borderWidth = 1
         descriptionTextField.delegate = self
         descriptionTextField.text = "     Add a short description of the transaction"
@@ -115,6 +116,15 @@ class NewMemberTransactionViewController: UIViewController {
         requestButton.layer.cornerRadius = 2
         requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
         view.addSubview(requestButton)
+        
+        xButton = UIButton()
+        xButton.frame = CGRect(x: 0.900 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
+        xButton.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 22)
+        xButton.setTitle("X", for: .normal)
+        xButton.setTitleColor(constants.fontMediumGray, for: .normal)
+        xButton.titleLabel?.textAlignment = .center
+        xButton.addTarget(self, action: #selector(xButtonPressed), for: .touchUpInside)
+        view.addSubview(xButton)
     }
     
     func pay() {
@@ -159,6 +169,10 @@ class NewMemberTransactionViewController: UIViewController {
         } else {
             return true
         }
+    }
+    
+    func xButtonPressed() {
+        dismiss(animated: true, completion: nil)
     }
     
     func alert(msg: String) {
