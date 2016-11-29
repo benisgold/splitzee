@@ -148,7 +148,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         currUser.getTransactions(withBlock: {(trans) -> Void in
             print(trans)
             self.transactionList.append(trans)
-            if trans.isApproved == false {
+            if trans.isApproved == true {
                 self.historyList.append(trans)
             }
             else if trans.groupToMember == false {
@@ -166,19 +166,15 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     //-----------------Sets up the tableviews---------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch(segmentedView.selectedSegmentIndex)
-        {
-        case 0:
+        switch listState {
+        case .incoming:
             return incomingList.count
             
-        case 1:
+        case .outgoing:
             return outgoingList.count
             
-        case 2:
+        case .history:
             return historyList.count
-            
-        default:
-            return 0
             
         }
     }

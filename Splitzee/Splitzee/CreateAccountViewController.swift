@@ -284,15 +284,15 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                     
                     print(error)
                     return
-                } else {
+                } else if let user = user {
                     
                     //Stores the image in firebase database
                     
                     let rootRef = FIRDatabase.database().reference()
-                    let key = user?.uid
-                    let userRef = rootRef.child(Constants.DataNames.User).child(key!)
+                    let key = user.uid
+                    let userRef = rootRef.child(Constants.DataNames.User).child(key)
                     
-                    self.storeImage(id: key!, withBlock: {(urlString) -> Void in
+                    self.storeImage(id: key, withBlock: {(urlString) -> Void in
                         
                         if let urlString = urlString {
                             userRef.setValue([Constants.UserFields.email: email,Constants.UserFields.name: name, Constants.UserFields.profPicURL: urlString, Constants.UserFields.transactionIDs: [String](), Constants.UserFields.groupIDs : [String](), Constants.UserFields.groupAdminIDs : [String]()])
