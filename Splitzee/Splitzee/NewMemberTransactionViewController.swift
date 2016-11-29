@@ -60,7 +60,7 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         groupImage = UIImageView(frame: CGRect(x: 0.326 * view.frame.width, y: 0.145 * view.frame.height, width: 0.345 * view.frame.width, height: 0.160 * view.frame.height))
         groupImage.contentMode = .scaleAspectFit
         groupImage.clipsToBounds = true
-        
+        groupImage.layer.cornerRadius = 0.345 * 0.5 * view.frame.width
         
         group.getGroupPic(withBlock: {(image) -> Void in
             print(image)
