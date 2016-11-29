@@ -527,8 +527,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "170"
             endingLineNumber = "170"
-            landmarkName = "NewAdminTransactionViewController"
-            landmarkType = "3">
+            landmarkName = "newTransaction(amt:memberID:dsc:groupToMember:isApproved:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -544,6 +544,70 @@
             startingLineNumber = "96"
             endingLineNumber = "96"
             landmarkName = "setupCollectionView()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Splitzee/NewAdminTransactionViewController.swift"
+            timestampString = "502099295.897507"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "137"
+            endingLineNumber = "137"
+            landmarkName = "setMemberList()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Splitzee.NewAdminTransactionViewController.setMemberList () -&gt; ()"
+                  moduleName = "Splitzee"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shaanappel/Desktop/Splitzee/Splitzee/Splitzee/NewAdminTransactionViewController.swift"
+                  timestampString = "502099357.189068"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "137"
+                  endingLineNumber = "137"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Splitzee.NewAdminTransactionViewController.(setMemberList () -&gt; ()).(closure #1)"
+                  moduleName = "Splitzee"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/shaanappel/Desktop/Splitzee/Splitzee/Splitzee/NewAdminTransactionViewController.swift"
+                  timestampString = "502099357.19101"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "138"
+                  endingLineNumber = "138"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Splitzee/Group.swift"
+            timestampString = "502099356.090609"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "pollForUsers(withBlock:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

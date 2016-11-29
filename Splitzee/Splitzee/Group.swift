@@ -84,6 +84,7 @@ class Group: Hashable, Equatable {
     
     func pollForUsers(withBlock: @escaping (User) -> Void) {
         let ref = FIRDatabase.database().reference()
+        print(memberIDs)
         for id in memberIDs {
             ref.child(Constants.DataNames.User).child(id).observe(.value, with: { (snapshot) in
                 // Get user value

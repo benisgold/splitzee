@@ -179,8 +179,8 @@ class CurrentUser {
                 
                 userRef.child(Constants.UserFields.groupIDs).setValue(self.groupIDs)
                 userRef.child(Constants.UserFields.groupAdminIDs).setValue(self.groupAdminIDs)
-                groupRef.child(group.groupID).child(Constants.GroupFields.memberIDs).setValue(self.uid)
-                groupRef.child(group.groupID).child(Constants.GroupFields.adminIDs).setValue(self.uid)
+                groupRef.child(group.groupID).child(Constants.GroupFields.memberIDs).setValue(group.memberIDs)
+                groupRef.child(group.groupID).child(Constants.GroupFields.adminIDs).setValue(group.adminIDs)
                 withBlock()
             }
             
