@@ -40,7 +40,6 @@ class MemberPendingTableViewCell: UITableViewCell {
         memberNameLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.333 * contentView.frame.height)
         memberNameLabel.textColor = constants.fontMediumDarkBlue
         memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 14)
-        memberNameLabel.backgroundColor = UIColor.darkGray
         contentView.addSubview(memberNameLabel)
     }
     
@@ -49,7 +48,6 @@ class MemberPendingTableViewCell: UITableViewCell {
         descriptionLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.421 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.575 * contentView.frame.height)
         descriptionLabel.textColor = constants.fontMediumDarkBlue
         descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 12)
-        descriptionLabel.backgroundColor = UIColor.lightGray
         contentView.addSubview(descriptionLabel)
     }
     
