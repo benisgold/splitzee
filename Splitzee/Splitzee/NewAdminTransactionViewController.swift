@@ -23,7 +23,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var groupID: String!
     
     
-    let rootRef: FIRDatabaseReference! = nil
+    var rootRef: FIRDatabaseReference?
     var membersList = [User]()
     var selectedMembers = [User]()
     
@@ -116,16 +116,19 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     
     func pollForUsers(){
-        rootRef.child("User").queryOrderedByKey().observe(.childAdded, with: {
-            snapshot in
-            let userKey = snapshot.key as String
-            let userDict = snapshot.value as? [String: AnyObject]
-            let user = User(key: userKey, userDict: userDict!)
-            self.membersList.insert(user, at: 0)
-        })
-        DispatchQueue.main.async {
-            self.collectionView.reloadData()
-            
+        rootRef = FIRDatabase.database().reference()
+        if let rootRef = rootRef {
+            rootRef.child(Constants.DataNames.User).queryOrderedByKey().observe(.childAdded, with: {
+                snapshot in
+                let userKey = snapshot.key as String
+                let userDict = snapshot.value as? [String: AnyObject]
+                let user = User(key: userKey, userDict: userDict!)
+                self.membersList.insert(user, at: 0)
+            })
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                
+            }
         }
     }
     
@@ -158,9 +161,9 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         
         transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": true as AnyObject, "description": dsc as AnyObject]
         
-        let rootRef = FIRDatabase.database().reference()
-        let key = rootRef.child("Transaction").childByAutoId().key
-        rootRef.child("Transaction").child(key).setValue(transactionDict)
+        let transaction = Transaction(key: "", transactionDict: transactionDict)
+        transaction.addToDatabase()
+        
         dismiss(animated: true, completion: nil)
     }
     

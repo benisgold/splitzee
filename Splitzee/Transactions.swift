@@ -47,7 +47,7 @@ class Transaction {
             isApproved = approved
         }
         
-        if let descriptionText = transactionDict["description"] as? String{
+        if let descriptionText = transactionDict[Constants.TransactionFields.description] as? String{
             description = descriptionText
         }
     }
@@ -68,10 +68,10 @@ class Transaction {
         ref.child("Transactions/\(transactionID)").removeValue()
     }
     
-    // Gets the userID of the member the group is trying to send the money to
+    // Gets the user the group is trying to send the money to
     func getUser(withBlock: @escaping (User) -> Void ){
         let ref = FIRDatabase.database().reference()
-        ref.child("Members/\(memberID)").observe(.value, with: { snapshot -> Void in
+        ref.child(Constants.DataNames.User).child(memberID).observe(.value, with: { snapshot -> Void in
             // Get user value
             if snapshot.exists(){
                 if let userDict = snapshot.value as? [String: AnyObject]{
@@ -82,31 +82,10 @@ class Transaction {
         })
     }
     
-    // Gets the userIDs of all members within a group (used for Admin transactions)
-    func getMembersArray(withBlock: @escaping (User) -> Void ){
-        var membersArray = [String]()
-        for member in membersArray {
-            let ref = FIRDatabase.database().reference()
-            ref.child("Members/\(memberID)").observe(.value, with: { snapshot -> Void in
-                // Get user value
-                if snapshot.exists(){
-                    if let userDict = snapshot.value as? [String: AnyObject]{
-                        let user = User(key: snapshot.key, userDict: userDict)
-                        withBlock(user)
-                    }
-                }
-            })
-            membersArray.append(member)
-        }
-    }
-    
-    
-    
-    
     // Gets current group so that one can update the money of the group
     func getGroup(withBlock: @escaping (Group) -> Void) {
         let ref = FIRDatabase.database().reference()
-        ref.child("Group/\(groupID)").observe(.value, with: { snapshot -> Void in
+        ref.child(Constants.DataNames.Group).child(groupID).observe(.value, with: { snapshot -> Void in
             // Get user value
             if snapshot.exists(){
                 if let groupDict = snapshot.value as? [String: AnyObject]{
@@ -116,6 +95,44 @@ class Transaction {
             }
         })
         
+    }
+    
+    func addToDatabase() {
+        let transactionDict = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: memberID as AnyObject, Constants.TransactionFields.groupID: groupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: isApproved as AnyObject, Constants.TransactionFields.description: description as AnyObject]
+        
+        let rootRef = FIRDatabase.database().reference()
+        let groupRef = rootRef.child(Constants.DataNames.Group).child(groupID)
+        let userRef = rootRef.child(Constants.DataNames.User).child(memberID)
+        
+        let key = rootRef.child(Constants.DataNames.Transaction).childByAutoId().key
+        rootRef.child(Constants.DataNames.Transaction).child(key).setValue(transactionDict)
+        
+        var userTransactionIDs = [String]()
+        var groupTransactionIDs = [String]()
+
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            let userDict = snapshot.value as! [String:AnyObject]
+            
+            if let transIDs = userDict[Constants.UserFields.transactionIDs] as? [String] {
+                userTransactionIDs = transIDs
+            }
+            
+            userTransactionIDs.append(key)
+            userRef.child(Constants.UserFields.transactionIDs).setValue(userTransactionIDs)
+            
+        })
+        
+        groupRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            let groupDict = snapshot.value as! [String:AnyObject]
+            
+            if let transIDs = groupDict[Constants.GroupFields.transactionIDs] as? [String] {
+                groupTransactionIDs = transIDs
+            }
+            
+            groupTransactionIDs.append(key)
+            groupRef.child(Constants.GroupFields.transactionIDs).setValue(groupTransactionIDs)
+            
+        })
     }
     
     /*
@@ -144,7 +161,7 @@ class Transaction {
         isApproved = true
         
         let ref = FIRDatabase.database().reference()
-        ref.child("Transactions/\(transactionID)").child("isApproved").setValue(true)
+        ref.child(Constants.DataNames.Transaction).child(transactionID).child(Constants.TransactionFields.isApproved).setValue(true)
         
         // update money
         getGroup(withBlock: { (group) -> Void in
@@ -153,8 +170,7 @@ class Transaction {
                 total += amnt
             }
             let ref = FIRDatabase.database().reference()
-            ref.child("Groups/\(group.groupID)").child("amount").setValue(total)
-            
+            ref.child(Constants.DataNames.Group).child(Constants.GroupFields.total).setValue(total)
         })
         
     }

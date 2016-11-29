@@ -19,24 +19,17 @@ class SideBarViewController: UIViewController {
     var logoutButton: UIButton!
     var joinGroupAlert: UIAlertController!
     var currUser: CurrentUser!
-    var groups: [Group]! = []
+    var groups: [Group] = []
     var adminGroups: [Group] {
         let filteredGroups: [Group] = groups.filter({ (currGroup: Group) -> Bool in
-            if (currUser.groupAdminIDs != nil) {
-                return (currUser.groupAdminIDs!.contains(currGroup.groupID)) ? true : false
-            } else {
-                return false
-            }
+            return (currUser.groupAdminIDs.contains(currGroup.groupID)) ? true : false
         })
         return Array(Set<Group>(filteredGroups)) //Get rid of duplicates and return
     }
     var regularGroups: [Group] {
         let filteredGroups: [Group] = groups.filter({ (currGroup: Group) -> Bool in
-            if (currUser.groupIDs != nil) {
-                return (currUser.groupIDs!.contains(currGroup.groupID)) ? true : false
-            } else {
-                return false
-            }
+            return (currUser.groupIDs.contains(currGroup.groupID)) ? true : false
+            
         }) // Filter out to only the groups we need, aka groups that we are not an admin of
         return Array(Set<Group>(filteredGroups)) // Get rid of duplicates and return
     }
@@ -50,7 +43,7 @@ class SideBarViewController: UIViewController {
         let dbRef = FIRDatabase.database().reference()
         let uid = FIRAuth.auth()?.currentUser?.uid
         if let uid = uid {
-            dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            dbRef.child(Constants.DataNames.User).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
                 DispatchQueue.main.async {
@@ -165,10 +158,12 @@ class SideBarViewController: UIViewController {
         }
         joinGroupAlert.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.joinGroupAlert.textFields![0] as UITextField
-            self.currUser.joinGroup(groupCode: textF.text!)
+            self.currUser.joinGroup(groupCode: textF.text!, withBlock: {
+                self.setupTableView()
+                self.getGroupNames()
+            })
 //            print(textF.text!)
-            self.setupTableView()
-            self.getGroupNames()
+            
         }))
         joinGroupAlert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             self.joinGroupAlert.dismiss(animated: true, completion: nil)
@@ -213,9 +208,9 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             
-            return numAdminGroups
+            return adminGroups.count
         } else {
-            return groups.count - numAdminGroups
+            return regularGroups.count
         }
     }
     

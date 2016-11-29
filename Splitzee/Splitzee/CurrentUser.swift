@@ -17,9 +17,9 @@ class CurrentUser {
     var name: String = ""
     var profPicURL: String = ""
     var email: String = ""
-    var transactionIDs: [String]? = []
-    var groupIDs: [String]? = []
-    var groupAdminIDs: [String]? = []
+    var transactionIDs: [String] = []
+    var groupIDs: [String] = []
+    var groupAdminIDs: [String] = []
     var uid: String = ""
     var dbRef: FIRDatabaseReference!
     var currentGroupID: String = ""
@@ -77,20 +77,6 @@ class CurrentUser {
     
     
     
-    
-    //    func setData() {
-    //        dbRef = FIRDatabase.database().reference()
-    //        dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-    //            // Get user value
-    //            print("DATA VALUEEEE:")
-    //            print(snapshot.value)
-    //
-    //        }) { (error) in
-    //            print(error.localizedDescription)
-    //        }
-    //    }
-    //
-    
     // Gets the profile picture for your own profile page
     func getProfPic(withBlock: @escaping (UIImage) -> Void)  {
         //        setData()
@@ -112,9 +98,10 @@ class CurrentUser {
     func getTransactions(withBlock: @escaping (Transaction) -> Void)  {
         //        setData()
         let ref = FIRDatabase.database().reference()
-        for id in transactionIDs!  {
-            ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
+        for id in transactionIDs  {
+            ref.child(Constants.DataNames.Transaction).child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
+                print(snapshot.value ?? snapshot.key)
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })
@@ -127,8 +114,8 @@ class CurrentUser {
     func getGroups(withBlock: @escaping (Group) -> Void)  {
         //        setData()
         let ref = FIRDatabase.database().reference()
-        for id in groupIDs!  {
-            ref.child("Group").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
+        for id in groupIDs  {
+            ref.child(Constants.DataNames.Group).child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
                 let curr = Group(key: id, groupDict: snapshot.value as! [String: AnyObject])
                 withBlock(curr)
@@ -140,8 +127,8 @@ class CurrentUser {
     func getAdminGroups(withBlock: @escaping (Group) -> Void) {
         //        setData()
         let ref = FIRDatabase.database().reference()
-        for id in groupAdminIDs! {
-            ref.child("Group").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+        for id in groupAdminIDs {
+            ref.child(Constants.DataNames.Group).child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                 let curr = Group(key: id, groupDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })
@@ -152,7 +139,7 @@ class CurrentUser {
     func getName(withBlock: @escaping (User) -> Void)  {
         //        setData()
         let ref = FIRDatabase.database().reference()
-        ref.child("User").child(uid).observe(.value, with:  { snapshot -> Void in
+        ref.child(Constants.DataNames.User).child(uid).observe(.value, with:  { snapshot -> Void in
             //  Get user name value
             if snapshot.exists() {
                 if let userDict = snapshot.value as? [String: AnyObject]  {
@@ -163,30 +150,37 @@ class CurrentUser {
         })
     }
     
-    func sendNewTransaction(amount: Double, memberID: String, groupID: String, groupToMember: Bool)  {
-        let ref = FIRDatabase.database().reference()
-        let key = ref.child("Transactions").childByAutoId().key
-        ref.child("Transactions/\(key)").setValue([Constants.TransactionFields.amount: amount, Constants.TransactionFields.memberID: memberID, Constants.TransactionFields.groupID: groupID, Constants.TransactionFields.groupToMember: groupToMember])
-        
-    }
-    
     func setCurrentGroup(_ groupID: String) {
         currentGroupID = groupID
     }
     
-    func joinGroup(groupCode: String) {
+    func joinGroup(groupCode: String, withBlock: @escaping () -> Void) {
         let dbRef = FIRDatabase.database().reference()
-        dbRef.child("Group").queryOrderedByKey().observe(.childAdded, with: { (snapshot) in
+        let userRef = dbRef.child(Constants.DataNames.User).child(uid)
+        let groupRef = dbRef.child(Constants.DataNames.Group)
+        groupRef.queryOrderedByKey().observe(.childAdded, with: { (snapshot) in
             let groupDict = snapshot.value as! [String:AnyObject]
-            let key = snapshot.key 
-            let groupAdminCode = groupDict[Constants.GroupFields.adminCode] as! String
-            let groupMemberCode = groupDict[Constants.GroupFields.memberCode] as! String
-            if groupCode == groupAdminCode {
-                self.groupAdminIDs?.append(key)
-            } else if groupCode == groupMemberCode {
-                self.groupAdminIDs?.append(key)
-                self.groupIDs?.append(key)
+            let key = snapshot.key
+            let group = Group(key: key, groupDict: groupDict)
+            
+            if groupCode == group.memberCode || groupCode == group.adminCode {
+                if groupCode == group.adminCode {
+                    self.groupAdminIDs.append(key)
+                    self.groupIDs.append(key)
+                    group.memberIDs.append(key)
+                    group.adminIDs.append(key)
+                } else if groupCode == group.memberCode {
+                    self.groupIDs.append(key)
+                    group.memberIDs.append(key)
+                }
+                
+                userRef.child(Constants.UserFields.groupIDs).setValue(self.groupIDs)
+                userRef.child(Constants.UserFields.groupAdminIDs).setValue(self.groupAdminIDs)
+                groupRef.child(group.groupID).child(Constants.GroupFields.memberIDs).setValue(self.uid)
+                groupRef.child(group.groupID).child(Constants.GroupFields.adminIDs).setValue(self.uid)
+                withBlock()
             }
+            
         })
     }
     

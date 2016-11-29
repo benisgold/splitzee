@@ -276,7 +276,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                         self.present(alertView, animated: true, completion: nil)
                         
                     } else {
-                        let alertView = UIAlertController(title: "Error", message: "Email is not correctly formatted or is already in existance.", preferredStyle: UIAlertControllerStyle.alert)
+                        let alertView = UIAlertController(title: "Error", message: "Email is not correctly formatted or is already in existence.", preferredStyle: UIAlertControllerStyle.alert)
                         alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
                         }))
                         self.present(alertView, animated: true, completion: nil)
@@ -290,7 +290,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                     
                     let rootRef = FIRDatabase.database().reference()
                     let key = user?.uid
-                    let userRef = rootRef.child("User").child(key!)
+                    let userRef = rootRef.child(Constants.DataNames.User).child(key!)
                     
                     self.storeImage(id: key!, withBlock: {(urlString) -> Void in
                         

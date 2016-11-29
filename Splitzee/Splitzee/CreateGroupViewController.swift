@@ -28,11 +28,23 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
-        setUpUI()
-        imagePicker.delegate = self
-        initializeTextFields()
-        configureKeyboard()
-        currUser = CurrentUser()
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        if let uid = uid {
+            dbRef.child(Constants.DataNames.User).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.setUpUI()
+                    self.imagePicker.delegate = self
+                    self.initializeTextFields()
+                    self.configureKeyboard()
+                }
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func setUpUI(){
@@ -239,33 +251,41 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
             //Stores the image in firebase database
         else {
             let rootRef = FIRDatabase.database().reference()
-            let groupRef = rootRef.child("Group")
+            let groupRef = rootRef.child(Constants.DataNames.Group)
             let key = groupRef.childByAutoId().key
-            let userRef = rootRef.child("User").child(currUser.uid)
+            let userRef = rootRef.child(Constants.DataNames.User).child(currUser.uid)
             
             self.storeImage(id: key, withBlock: {(urlString) -> Void in
                 
-                if urlString == nil {
-                    self.alert(title: "Error", msg: "Please enter a group picture.")
-                }
-                else {
-                    
+                if let urlString = urlString {
                     groupRef.child(key).child(Constants.GroupFields.name).setValue(self.nameTextField.text)
                     groupRef.child(key).child(Constants.GroupFields.memberCode).setValue(self.memberCodeTextField.text)
                     groupRef.child(key).child(Constants.GroupFields.adminCode).setValue(self.adminCodeTextField.text)
                     groupRef.child(key).child(Constants.GroupFields.picURL).setValue(urlString)
                     
                     groupRef.child(key).child(Constants.GroupFields.transactionIDs).setValue([])
-                    groupRef.child(key).child(Constants.GroupFields.memberIDs).setValue([self.currUser.uid])
-                    groupRef.child(key).child(Constants.GroupFields.adminIDs).setValue([self.currUser.uid])
+                    var groupRefMemberIds: [String] = []
+                    var groupRefAdminIds: [String] = []
+                    groupRefMemberIds.append(self.currUser.uid)
+                    groupRefAdminIds.append(self.currUser.uid)
+                    groupRef.child(key).child(Constants.GroupFields.memberIDs).setValue(groupRefMemberIds)
+                    groupRef.child(key).child(Constants.GroupFields.adminIDs).setValue(groupRefAdminIds)
                     groupRef.child(key).child(Constants.GroupFields.total).setValue(0.00)
                     
                     var memberIDs: [String] = []
                     var adminIDs: [String] = []
                     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
                         let userDict = snapshot.value as! [String:AnyObject]
-                        memberIDs = userDict[Constants.UserFields.groupIDs] as! [String]
-                        adminIDs = userDict[Constants.UserFields.groupAdminIDs] as! [String]
+                        
+                        if let groupMemberIDs = userDict[Constants.UserFields.groupIDs] as? [String] {
+                            memberIDs = groupMemberIDs
+                        }
+                        
+                        if let groupAdminIDs = userDict[Constants.UserFields.groupAdminIDs] as? [String] {
+                            adminIDs = groupAdminIDs
+                        }
+                        
+                        
                         memberIDs.append(key)
                         adminIDs.append(key)
                         
@@ -277,9 +297,8 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                             self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
                         }
                     })
-                    
-                    
-                    
+                } else {
+                    self.alert(title: "Error", msg: "Please enter a group picture.")
                 }
             })
         }

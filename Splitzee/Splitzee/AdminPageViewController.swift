@@ -9,6 +9,12 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
+enum ListState {
+    case incoming
+    case outgoing
+    case history
+}
+
 class AdminPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var segmentedView: UISegmentedControl!
@@ -27,22 +33,40 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     var currUser: CurrentUser!
     var group: Group!
     let rootRef = FIRDatabase.database().reference()
-    var user: User!
-    var transaction: Transaction!
-   
-    var transactionList: [Transaction]!
-    var historyList: [Transaction]!
-    var incomingList: [Transaction]!
-    var outgoingList: [Transaction]!
-
+    var listState = ListState.incoming
+    
+    var transactionList: [Transaction] = []
+    var historyList: [Transaction] = []
+    var incomingList: [Transaction] = []
+    var outgoingList: [Transaction] = []
+    
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currUser = CurrentUser()
-        setUpTableLists()
-        setupUI()
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        if let uid = uid {
+            dbRef.child(Constants.DataNames.User).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.setUpTableLists()
+                    self.setupUI()
+                    self.setUpDataDependencies()
+                }
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func setUpDataDependencies() {
+        group.getTotal(withBlock: { total in
+            self.totalAmount.text = String(total)
+        })
     }
     
     func setupUI() {
@@ -99,6 +123,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         setupNavBar()
         setupSegmentedControl()
         setupTableView()
+        setUpTableLists()
         
         
     }
@@ -143,14 +168,18 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     func switchView(sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0) {
             pending = true
+            listState = .incoming
             //more
         } else if (sender.selectedSegmentIndex == 1) {
             pending = true
+            listState = .outgoing
             //more
         } else {
             pending = false
+            listState = .history
             //more
         }
+        tableView.reloadData()
     }
     
     func addMoneyPressed() {
@@ -160,6 +189,11 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         alertViewAdd.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.alertViewAdd.textFields![0] as UITextField
+            if let amountToAdd = Double(textF.text!) {
+                self.group.addToTotal(amount: amountToAdd)
+            } else {
+                print("malformedAmount")
+            }
             print(textF.text!)
         }))
         alertViewAdd.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
@@ -176,7 +210,11 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         alertViewSub.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.alertViewSub.textFields![0] as UITextField
-            print(textF.text!)
+            if let amountToAdd = Double(textF.text!) {
+                self.group.addToTotal(amount: (amountToAdd * -1))
+            } else {
+                print("malformedAmount")
+            }
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
             self.alertViewSub.dismiss(animated: true, completion: nil)
@@ -185,60 +223,54 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         
         
     }
-
     
-//-----------------functions----------------------------------
-
+    
+    //-----------------functions----------------------------------
+    
     //Create lists for different tables
     func setUpTableLists(){
-        currUser.getTransactions(withBlock: {(transaction) -> Void in
-            self.transactionList.append(transaction)
-        })
-        for trans in transactionList{
-            if trans.isApproved == false {
-                historyList.append(trans)
+        group.getTransactions(withBlock: {(trans) -> Void in
+            self.transactionList.append(trans)
+            if trans.isApproved == true {
+                self.historyList.append(trans)
             }
             else if trans.groupToMember == true {
-                outgoingList.append(trans)
+                self.outgoingList.append(trans)
             }
             else {
-                incomingList.append(trans)
+                self.incomingList.append(trans)
             }
-        }
-}
+            self.tableView.reloadData()
+        })
+    }
     
     
-
-
-//-----------------Sets up the tableviews---------------------------
+    
+    
+    //-----------------Sets up the tableviews---------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
-        switch(segmentedView.selectedSegmentIndex)
-        {
-        case 0:
+        switch listState {
+        case .incoming:
+            print(incomingList.count)
             return incomingList.count
             
-        case 1:
+        case .outgoing:
             return outgoingList.count
             
-        case 2:
+        case .history:
             return historyList.count
-            
-        default:
-            return 0
             
         }
     }
-        
+    
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        switch(segmentedView.selectedSegmentIndex)
         
-        {
+        switch listState {
             
-        case 0:
+        case .incoming:
             let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
@@ -248,7 +280,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             return pendingCell
             
-        case 1:
+        case .outgoing:
             
             let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
             for subview in pendingCell.contentView.subviews {
@@ -257,7 +289,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             pendingCell.awakeFromNib()
             return pendingCell
             
-        case 2:
+        case .history:
             
             let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyAdminCell", for: indexPath) as! AdminHistoryTableViewCell
             for subview in historyCell.contentView.subviews {
@@ -265,125 +297,97 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             }
             historyCell.awakeFromNib()
             return historyCell
-            
-            
-        default:
-            
-            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingAdminCell", for: indexPath) as! AdminPendingTableViewCell
-            for subview in pendingCell.contentView.subviews {
-                subview.removeFromSuperview()
-            }
-            pendingCell.awakeFromNib()
-            return pendingCell
-            
-            
         }
-        
     }
-
-
-//Populates the cell with data
+    
+    
+    //Populates the cell with data
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-       
         
-        switch(segmentedView.selectedSegmentIndex)
-        {
-        case 0:
+        
+        switch listState {
             
-           
+        case .incoming:
+            
+            var transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-            
+            print(transaction.amount)
             //Displays the amount of money transferred
-            pendingCell?.approveButton.setTitle("$" + String(describing: incomingList[indexPath.row].amount)
-                , for: .normal)
-            
-
+            pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
             
             //Sets the Name of each user at each index
-            user.getUser(UserID: incomingList[indexPath.row].memberID, withBlock:{(User) -> Void in
-            pendingCell?.memberNameLabel.text = User.name
-            })
-            
-            //Gets the image of each user
-            user.getUser(UserID: incomingList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                User.getProfilePic(withBlock: { (UIImage) -> Void in
-                pendingCell?.memberPicView.image = UIImage
-                })
-            })
             
             
-            //Sets description of each transaction
-            pendingCell?.descriptionLabel.text = String(describing: incomingList[indexPath.row].description)
-            
-
-            
-        case 1:
-            
-            let pendingCell = cell as? AdminPendingTableViewCell
-            
-            //Displays the amount of money transferred
-            pendingCell?.approveButton.setTitle("$" + String(describing: outgoingList[indexPath.row].amount)
-                , for: .normal)
-            
-            //Sets the Name of each user at each index
-            user.getUser(UserID: outgoingList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                pendingCell?.memberNameLabel.text = User.name
-            })
-            
-            //Gets the image of each user
-            user.getUser(UserID: outgoingList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                User.getProfilePic(withBlock: { (UIImage) -> Void in
+            transaction.getUser(withBlock:{(user) -> Void in
+                pendingCell?.memberNameLabel.text = user.name
+                
+                //get user image
+                user.getProfilePic(withBlock: { (UIImage) -> Void in
                     pendingCell?.memberPicView.image = UIImage
                 })
             })
             
             //Sets description of each transaction
-            pendingCell?.descriptionLabel.text = String(describing: outgoingList[indexPath.row].description)
+            pendingCell?.descriptionLabel.text = String(describing: transaction.description)
             
             
-        case 2:
+            
+        case .outgoing:
+            
+            var transaction = outgoingList[indexPath.row]
+            
+            let pendingCell = cell as? AdminPendingTableViewCell
+            
+            //Displays the amount of money transferred
+            pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
+            
+            //Sets the Name of each user at each index
+            
+            transaction.getUser(withBlock:{(user) -> Void in
+                pendingCell?.memberNameLabel.text = user.name
+                
+                //get user image
+                user.getProfilePic(withBlock: { (UIImage) -> Void in
+                    pendingCell?.memberPicView.image = UIImage
+                })
+            })
+            
+            //Sets description of each transaction
+            pendingCell?.descriptionLabel.text = String(describing: transaction.description)
+            
+            
+        case .history:
+            
+            var transaction = historyList[indexPath.row]
+
             
             let historyCell = cell as? AdminHistoryTableViewCell
             
             //Displays the amount of money transferred
             if historyList[indexPath.row].groupToMember == true {
-                historyCell?.amountLabel.text = "-$" + String(describing: historyList[indexPath.row].amount)
+                historyCell?.amountLabel.text = "-$" + String(describing: transaction.amount)
             } else {
-                historyCell?.amountLabel.text = "+$" + String(describing: historyList[indexPath.row].amount)
+                historyCell?.amountLabel.text = "+$" + String(describing: transaction.amount)
             }
             
-            
             //Sets the Name of each user at each index
-            user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                historyCell?.memberNameLabel.text = User.name
-            })
             
-            //Gets the image of each user
-            user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                User.getProfilePic(withBlock: { (UIImage) -> Void in
+            transaction.getUser(withBlock:{(user) -> Void in
+                historyCell?.memberNameLabel.text = user.name
+                
+                //get user image
+                user.getProfilePic(withBlock: { (UIImage) -> Void in
                     historyCell?.memberPicView.image = UIImage
                 })
             })
             
             //Sets description of each transaction
-            historyCell?.descriptionLabel.text = String(describing: historyList[indexPath.row].description)
+            historyCell?.descriptionLabel.text = String(describing: transaction.description)
             
-        default:
-            
-            let pendingCell = cell as? AdminPendingTableViewCell
             
         }
-       
     }
-
-    func approve2(sender: UIButton!,  transaction: Transaction){
-        
-        rootRef.child(transaction.transactionID).child("isApproved").setValue(true)
-        transaction.approveTransaction()
-        
-        
-    }
-     
-
-
+    
+    
+    
 }
