@@ -150,8 +150,9 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
             let amount: Double = ((Double)(amt)!*(-1))
+            group.addToTotal(amount: amount)
             let dsc = descriptionTextField.text!
-            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: true)
+            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: true, isPayment: true)
         }
     }
     
@@ -162,20 +163,25 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
             let dsc = descriptionTextField.text!
-            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: false)
+            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: false, isPayment: false)
         }
     }
     
-    func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool) {
+    func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool, isPayment: Bool) {
         let transactionDict: [String:AnyObject]
         
         transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": group.groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
         
         let transaction = Transaction(key: "", transactionDict: transactionDict)
-        transaction.addToDatabase(withBlock: {
+        transaction.addToDatabase(withBlock: { trans in
+            if isPayment {
+                trans.approveTransaction()
+            }
             if let navigationController = self.navigationController {
                 navigationController.popViewController(animated: true)
             }
+            
+            
         })
         
     }
@@ -222,7 +228,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     func imageTapped(recog: UITapGestureRecognizer) {
         
-        var imageView = recog.view as! UIImageView
+        let imageView = recog.view as! UIImageView
         
         if imageView.tintColor == UIColor.clear {
             imageView.tintColor = UIColor.gray
@@ -230,10 +236,15 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             greyImageView.image = #imageLiteral(resourceName: "Group").alpha(value: 0.5)
             imageView.addSubview(greyImageView)
             selectedMembers.append(membersList[imageView.tag])
+            
         } else {
             imageView.tintColor = UIColor.clear
-            greyImageView.removeFromSuperview()
-            selectedMembers = selectedMembers.filter { $0.uid != selectedMembers[imageView.tag].uid }
+            for view in imageView.subviews {
+                if view.isKind(of: UIImageView.self) {
+                    view.removeFromSuperview()
+                }
+            }
+            selectedMembers = selectedMembers.filter { $0.uid != membersList[imageView.tag].uid }
         }
         
         //imageView.image = imageView.image?.alpha(value: 0.5)
@@ -247,7 +258,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         let cell = collectionView.cellForItem(at: indexPath) as? NewAdminTransactionCollectionViewCell
         if cell?.backgroundColor == UIColor.black {
             cell?.backgroundColor = UIColor.clear
-            selectedMembers = selectedMembers.filter { $0.uid != selectedMembers[indexPath.row].uid }
+            selectedMembers = selectedMembers.filter { $0.uid != membersList[indexPath.row].uid }
         } else {
             cell?.backgroundColor = UIColor.black
             selectedMembers.append(membersList[indexPath.row])

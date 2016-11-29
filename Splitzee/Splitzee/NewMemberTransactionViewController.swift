@@ -163,7 +163,7 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         let amount = Double(amt)
         transactionDict = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: currUser.uid as AnyObject, Constants.TransactionFields.groupID: group.groupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: false as AnyObject, Constants.TransactionFields.description: dsc as AnyObject]
         let transaction = Transaction(key: "", transactionDict: transactionDict)
-        transaction.addToDatabase(withBlock: {
+        transaction.addToDatabase(withBlock: { trans in
             if let navigationController = self.navigationController {
                 navigationController.popViewController(animated: true)
             }

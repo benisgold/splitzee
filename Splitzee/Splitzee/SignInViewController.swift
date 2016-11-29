@@ -18,10 +18,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     var inputPassword: UITextField!
     var signInButton: UIButton!
     var createAccountButton: UIButton!
-    var forgotPassword: UILabel!
-    var orDividingLine: UIImageView!
-    var signInGoogle: UIButton!
-    var signInFacebook: UIButton!
     var background: UIImageView!
     let constants = Constants()
     var alertWrongFormat: UIAlertController!
@@ -105,14 +101,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         createAccountButton.layer.cornerRadius = 3
         createAccountButton.addTarget(self, action: #selector(touchCreateAccountButton), for: .touchUpInside)
         view.addSubview(createAccountButton)
-        
-        // forgotPassword
-        forgotPassword = UILabel(frame: CGRect(x: view.frame.width * 0.325, y: view.frame.height * 0.609, width: view.frame.width * 0.330, height: view.frame.height * 0.030))
-        forgotPassword.text = "Forgot password?"
-        forgotPassword.font = UIFont(name: "SFUIText-Regular", size: 14)
-        forgotPassword.textAlignment = .center
-        forgotPassword.textColor = UIColor.white
-        view.addSubview(forgotPassword)
         
     }
     

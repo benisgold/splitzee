@@ -348,7 +348,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .incoming:
             
-            let transaction = outgoingList[indexPath.row]
+            let transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred

@@ -21,6 +21,7 @@ class Transaction {
     var amount: Double = 0.00
     var isApproved: Bool = false
     var description: String = ""
+    var isRejected: Bool = false
     
     
     init(key: String, transactionDict: [String: AnyObject]) {
@@ -45,6 +46,10 @@ class Transaction {
         
         if let approved = transactionDict[Constants.TransactionFields.isApproved] as? Bool{
             isApproved = approved
+        }
+        
+        if let rejected = transactionDict[Constants.TransactionFields.isRejected] as? Bool{
+            isRejected = rejected
         }
         
         if let descriptionText = transactionDict[Constants.TransactionFields.description] as? String{
@@ -97,7 +102,7 @@ class Transaction {
         
     }
     
-    func addToDatabase(withBlock: @escaping () -> Void) {
+    func addToDatabase(withBlock: @escaping (Transaction) -> Void) {
         let transactionDict: [String:AnyObject] = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: memberID as AnyObject, Constants.TransactionFields.groupID: groupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: isApproved as AnyObject, Constants.TransactionFields.description: description as AnyObject]
         
         let rootRef = FIRDatabase.database().reference()
@@ -105,6 +110,7 @@ class Transaction {
         let userRef = rootRef.child(Constants.DataNames.User).child(memberID)
         
         let key = rootRef.child(Constants.DataNames.Transaction).childByAutoId().key
+        transactionID = key
         rootRef.child(Constants.DataNames.Transaction).child(key).updateChildValues(transactionDict)
         
         var userTransactionIDs = [String]()
@@ -120,7 +126,7 @@ class Transaction {
             
             userTransactionIDs.append(key)
             userRef.child(Constants.UserFields.transactionIDs).setValue(userTransactionIDs) { (error, reference) in
-                withBlock()
+                withBlock(self)
             }
         })
         
@@ -150,7 +156,12 @@ class Transaction {
     
     
     func rejectTransaction() {
-        deleteTransaction()
+        isApproved = true
+        isRejected = true
+        
+        let ref = FIRDatabase.database().reference()
+        ref.child(Constants.DataNames.Transaction).child(transactionID).child(Constants.TransactionFields.isApproved).setValue(isApproved)
+        ref.child(Constants.DataNames.Transaction).child(transactionID).child(Constants.TransactionFields.isRejected).setValue(isRejected)
     }
     
     /* In the feed for our pending requests, it will now look for transactions
@@ -165,11 +176,7 @@ class Transaction {
         
         // update money
         getGroup(withBlock: { (group) -> Void in
-            var total = group.total
-            total += self.amount
-            
-            let ref = FIRDatabase.database().reference()
-            ref.child(Constants.DataNames.Group).child(Constants.GroupFields.total).setValue(total)
+            group.addToTotal(amount: self.amount)
         })
         
     }
