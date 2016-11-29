@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "340"
-            endingLineNumber = "340"
-            landmarkName = "tableView(_:heightForRowAt:)"
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
+            startingLineNumber = "382"
+            endingLineNumber = "382"
             landmarkName = "tableView(_:willDisplay:forRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "393"
-            endingLineNumber = "393"
+            startingLineNumber = "408"
+            endingLineNumber = "408"
             landmarkName = "tableView(_:willDisplay:forRowAt:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,27 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "285"
-            endingLineNumber = "285"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "271"
-            endingLineNumber = "271"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "setUpTableLists()"
             landmarkType = "7">
          </BreakpointContent>
@@ -106,29 +90,45 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "272"
-            endingLineNumber = "272"
-            landmarkName = "setUpTableLists()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "262"
-            endingLineNumber = "262"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
             landmarkName = "AdminPageViewController"
             landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Splitzee/AdminPageViewController.swift"
+            timestampString = "502116787.63939"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "287"
+            endingLineNumber = "287"
+            landmarkName = "setUpTableLists()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Splitzee/AdminPageViewController.swift"
+            timestampString = "502116787.63939"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "alert(_:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -282,12 +282,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "264"
-            endingLineNumber = "264"
-            landmarkName = "setUpTableLists()"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "alert(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -298,13 +298,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "350"
-            endingLineNumber = "350"
-            landmarkName = "tableView(_:willDisplay:forRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "365"
+            endingLineNumber = "365"
+            landmarkName = "AdminPageViewController"
+            landmarkType = "3">
             <Locations>
                <Location
                   shouldBeEnabled = "No"
@@ -346,13 +346,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "351"
-            endingLineNumber = "351"
-            landmarkName = "tableView(_:willDisplay:forRowAt:)"
-            landmarkType = "7">
+            startingLineNumber = "366"
+            endingLineNumber = "366"
+            landmarkName = "AdminPageViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -362,13 +362,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502105712.854542"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "343"
-            endingLineNumber = "343"
-            landmarkName = "AdminPageViewController"
-            landmarkType = "3">
+            startingLineNumber = "358"
+            endingLineNumber = "358"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -922,12 +922,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Splitzee/AdminPageViewController.swift"
-            timestampString = "502116123.084056"
+            timestampString = "502116787.63939"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "67"
-            endingLineNumber = "67"
-            landmarkName = "viewDidAppear(_:)"
+            startingLineNumber = "78"
+            endingLineNumber = "78"
+            landmarkName = "AdminPageViewController"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Splitzee/AdminPageViewController.swift"
+            timestampString = "502116946.625982"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "105"
+            endingLineNumber = "105"
+            landmarkName = "setUpDataDependencies()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Transactions.swift"
+            timestampString = "502117158.747125"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
+            landmarkName = "approveTransaction()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -313,7 +313,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             })
             
             //Gets the image of the group
-            group.getGroupPic(withBlock: { (UIImage) -> Void in
+            currUser.getProfPic(withBlock: { (UIImage) -> Void in
                 pendingCell?.memberPicView.image = UIImage
             })
             

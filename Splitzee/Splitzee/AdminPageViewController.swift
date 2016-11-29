@@ -43,10 +43,16 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func approve(transaction: Transaction) {
         //
+        transaction.approveTransaction()
+        print("approved")
+        reloadAllData()
     }
     
     func reject(transaction: Transaction) {
         //
+        transaction.rejectTransaction()
+        print("rejected")
+        reloadAllData()
     }
     
     
@@ -71,6 +77,10 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        reloadAllData()
+    }
+    
+    func reloadAllData() {
         transactionList = []
         historyList = []
         incomingList = []
@@ -88,7 +98,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         }) { (error) in
             print(error.localizedDescription)
         }
-        
     }
     
     func setUpDataDependencies() {
@@ -232,7 +241,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             if let amountToAdd = Double(textF.text!) {
                 self.group.addToTotal(amount: amountToAdd)
             } else {
-                print("malformedAmount")
+                self.alert("Poorly formatted amount.")
             }
             print(textF.text!)
         }))
@@ -253,7 +262,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             if let amountToAdd = Double(textF.text!) {
                 self.group.addToTotal(amount: (amountToAdd * -1))
             } else {
-                self.alert("The amount is formatted wrong.")
+                self.alert("Poorly formated amount.")
             }
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
