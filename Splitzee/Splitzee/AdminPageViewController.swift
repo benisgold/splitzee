@@ -448,8 +448,10 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let nf = NumberFormatter()
             nf.numberStyle = .currency
             var amtString = nf.string(from: amt as NSNumber)!
+            historyCell?.resultLabel.textColor = constants.lightRed
             if !amtString.hasPrefix("-") {
                 amtString = "+" + amtString
+                historyCell?.resultLabel.textColor = constants.lightGreen
             }
             historyCell?.resultLabel.text = amtString
             
