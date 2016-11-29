@@ -15,11 +15,11 @@ import FirebaseDatabase
 class Transaction {
     
     var transactionID: String = ""
-    var groupToMember: Bool?
+    var groupToMember: Bool = false
     var memberID: String = ""
     var groupID: String = ""
-    var amount: Double?
-    var isApproved: Bool?
+    var amount: Double = 0.0
+    var isApproved: Bool = false
     var description: String = ""
     
     
@@ -98,17 +98,18 @@ class Transaction {
     }
     
     func addToDatabase() {
-        let transactionDict = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: memberID as AnyObject, Constants.TransactionFields.groupID: groupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: isApproved as AnyObject, Constants.TransactionFields.description: description as AnyObject]
+        let transactionDict: [String:AnyObject] = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: memberID as AnyObject, Constants.TransactionFields.groupID: groupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: isApproved as AnyObject, Constants.TransactionFields.description: description as AnyObject]
         
         let rootRef = FIRDatabase.database().reference()
         let groupRef = rootRef.child(Constants.DataNames.Group).child(groupID)
         let userRef = rootRef.child(Constants.DataNames.User).child(memberID)
         
         let key = rootRef.child(Constants.DataNames.Transaction).childByAutoId().key
-        rootRef.child(Constants.DataNames.Transaction).child(key).setValue(transactionDict)
+        rootRef.child(Constants.DataNames.Transaction).child(key).updateChildValues(transactionDict)
         
         var userTransactionIDs = [String]()
         var groupTransactionIDs = [String]()
+        
 
         userRef.observeSingleEvent(of: .value, with: { (snapshot) in
             let userDict = snapshot.value as! [String:AnyObject]
@@ -148,7 +149,6 @@ class Transaction {
      */
     
     
-    
     func rejectTransaction() {
         deleteTransaction()
     }
@@ -166,9 +166,8 @@ class Transaction {
         // update money
         getGroup(withBlock: { (group) -> Void in
             var total = group.total
-            if let amnt = self.amount {
-                total += amnt
-            }
+            total += self.amount
+            
             let ref = FIRDatabase.database().reference()
             ref.child(Constants.DataNames.Group).child(Constants.GroupFields.total).setValue(total)
         })
