@@ -18,6 +18,7 @@ class MemberHistoryTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        contentView.backgroundColor = UIColor.clear
         makeMemberPicView()
         makeMemberNameLabel()
         makeDescriptionLabel()

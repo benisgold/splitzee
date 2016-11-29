@@ -469,10 +469,27 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             //Sets description of each transaction
             historyCell?.descriptionLabel.text = String(describing: transaction.description)
             
-            
+            if (transaction.isRejected) {
+                historyCell?.backgroundColor = UIColor(hex: 0xe8aea8, alpha: 0.25)
+            } else {
+                historyCell?.backgroundColor = UIColor.clear
+            }
         }
     }
     
     
     
+}
+
+extension UIColor {
+    convenience init(hex: Int, alpha: CGFloat) {
+        let r = CGFloat((hex & 0xFF0000) >> 16)/255
+        let g = CGFloat((hex & 0xFF00) >> 8)/255
+        let b = CGFloat(hex & 0xFF)/255
+        self.init(red: r, green: g, blue: b, alpha: alpha)
+    }
+    
+    convenience init(hex: Int) {
+        self.init(hex:hex, alpha:1.0)
+    }
 }

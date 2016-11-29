@@ -356,6 +356,12 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             //Sets description of each transaction
             historyCell?.descriptionLabel.text = String(describing: transaction.description)
+            
+            if (transaction.isRejected) {
+                historyCell?.backgroundColor = UIColor(hex: 0xe8aea8, alpha: 0.25)
+            } else {
+                historyCell?.backgroundColor = UIColor.clear
+            }
         }
         
     }
