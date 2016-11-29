@@ -89,6 +89,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="Doi-5i-myJ"/>
+                    <connections>
+                        <segue destination="pPd-y6-ep8" kind="show" identifier="adminPageToNewAdminTransaction" id="ie0-U5-PLp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="487-2r-2QQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -107,9 +110,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="yqa-0K-NYu" kind="show" identifier="newAdminTransactionToAdminPage" id="EpA-Xs-KHC"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O2R-rC-tON" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -129,6 +129,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="U9D-Ky-0dX"/>
+                    <connections>
+                        <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="sE2-Xk-l0A"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lPR-ua-aYN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -147,9 +150,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <segue destination="206-zG-3SN" kind="show" identifier="newMemberTransactionToMemberPage" id="CoI-N0-YVl"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dXX-j3-j0T" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -171,7 +171,6 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="y9D-ok-41i" kind="relationship" relationship="rootViewController" id="D65-tt-mnl"/>
-                        <segue destination="pPd-y6-ep8" kind="show" identifier="adminPageToNewAdminTransaction" id="TZb-P9-F8V"/>
                         <segue destination="66r-rf-rxp" kind="show" identifier="adminToSideBar" id="PqR-ee-8Kb"/>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="adminPageToCreateGroup" id="l6g-B7-NEW"/>
                     </connections>
@@ -219,7 +218,6 @@
                         <segue destination="IR5-Su-HXa" kind="relationship" relationship="rootViewController" id="TgC-AV-ulp"/>
                         <segue destination="bqx-5z-ZdG" kind="show" identifier="memberPageToCreateGroup" id="TGA-WN-031"/>
                         <segue destination="66r-rf-rxp" kind="show" identifier="memberToSideBar" id="b03-Iy-zwc"/>
-                        <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="6qe-Y6-HlM"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qxP-1j-hg9" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -228,10 +226,10 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="VDx-dd-OSK"/>
-        <segue reference="PqR-ee-8Kb"/>
         <segue reference="B5x-BQ-RF1"/>
         <segue reference="l6g-B7-NEW"/>
         <segue reference="MXJ-Gl-JAB"/>
+        <segue reference="PqR-ee-8Kb"/>
+        <segue reference="sAz-cr-zkl"/>
     </inferredMetricsTieBreakers>
 </document>

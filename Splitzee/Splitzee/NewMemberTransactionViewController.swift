@@ -15,7 +15,6 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
     var descriptionTextField: UITextView!
     var payButton: UIButton!
     var requestButton: UIButton!
-    var xButton: UIButton!
     var groupImage: UIImageView!
     var groupLabel: UILabel!
     var alertWrongFormat: UIAlertController!
@@ -121,13 +120,6 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         requestButton.layer.cornerRadius = 3
         requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
         view.addSubview(requestButton)
-        
-        xButton = UIButton()
-        xButton.frame = CGRect(x: 0.900 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
-        xButton.setImage(#imageLiteral(resourceName: "X Button"), for: .normal)
-        xButton.imageView?.contentMode = .scaleAspectFill
-        xButton.addTarget(self, action: #selector(xButtonPressed), for: .touchUpInside)
-        view.addSubview(xButton)
     
 
     }
@@ -191,9 +183,6 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
-    func xButtonPressed() {
-        dismiss(animated: true, completion: nil)
-    }
     
     func alert(msg: String) {
         alertWrongFormat = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.alert)

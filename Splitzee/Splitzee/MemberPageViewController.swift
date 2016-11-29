@@ -78,7 +78,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func newTransactionPressed() {
-        dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "memberPageToNewMemberTransaction", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

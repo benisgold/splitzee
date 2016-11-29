@@ -19,7 +19,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var requestButton: UIButton!
     var collectionView: UICollectionView!
     let constants = Constants()
-    var xButton: UIButton!
     var group: Group!
     
     var rootRef: FIRDatabaseReference?
@@ -87,13 +86,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         requestButton.layer.cornerRadius = 3
         requestButton.addTarget(self, action: #selector(pressRequest), for: .touchUpInside)
         view.addSubview(requestButton)
-        
-        xButton = UIButton()
-        xButton.frame = CGRect(x: 0.900 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
-        xButton.setImage(#imageLiteral(resourceName: "X Button"), for: .normal)
-        xButton.imageView?.contentMode = .scaleAspectFill
-        xButton.addTarget(self, action: #selector(xButtonPressed), for: .touchUpInside)
-        view.addSubview(xButton)
     }
     
     func setupNavBar() {
@@ -112,7 +104,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         collectionView.backgroundColor = UIColor.clear
         
         view.addSubview(collectionView)
-        view.bringSubview(toFront: xButton)
     }
     
     
@@ -164,10 +155,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             let dsc = descriptionTextField.text!
             newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: false)
         }
-    }
-    
-    func xButtonPressed() {
-        dismiss(animated: true, completion: nil)
     }
     
     func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool) {

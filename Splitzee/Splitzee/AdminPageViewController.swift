@@ -162,7 +162,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func touchNewAdminTransactionButton(sender: UIButton!) {
-        dismiss(animated: true, completion: nil)
+        performSegue(withIdentifier: "adminPageToNewAdminTransaction", sender: self)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
