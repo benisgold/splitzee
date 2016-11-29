@@ -15,7 +15,7 @@ enum ListState {
     case history
 }
 
-class AdminPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class AdminPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, AdminPendingTableViewCellDelegate {
     
     var segmentedView: UISegmentedControl!
     var groupsButton: UIButton!
@@ -40,7 +40,13 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     var incomingList: [Transaction] = []
     var outgoingList: [Transaction] = []
     
+    func approve(transaction: Transaction) {
+        //
+    }
     
+    func reject(transaction: Transaction) {
+        //
+    }
     
     
     override func viewDidLoad() {
@@ -356,7 +362,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let nf = NumberFormatter()
             nf.numberStyle = .currency
             let amtString = nf.string(from: amt as NSNumber)!
-            self.totalAmount.text = amtString
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
@@ -373,6 +378,8 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             //Sets description of each transaction
             pendingCell?.descriptionLabel.text = String(describing: transaction.description)
+            pendingCell?.transaction = transaction
+            pendingCell?.delegate = self
             
             
             
@@ -386,7 +393,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let nf = NumberFormatter()
             nf.numberStyle = .currency
             let amtString = nf.string(from: amt as NSNumber)!
-            self.totalAmount.text = amtString
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
@@ -402,6 +408,8 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             //Sets description of each transaction
             pendingCell?.descriptionLabel.text = String(describing: transaction.description)
+            pendingCell?.transaction = transaction
+            pendingCell?.delegate = self
             
             
         case .history:
