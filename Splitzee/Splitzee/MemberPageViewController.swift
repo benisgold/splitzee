@@ -94,7 +94,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func setupNavBar() {
-        self.title = "Group Name" // change to group name
+        self.title = group.name // change to group name
         self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
         self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
