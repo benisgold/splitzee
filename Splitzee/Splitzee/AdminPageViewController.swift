@@ -42,10 +42,16 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func approve(transaction: Transaction) {
         //
+        transaction.approveTransaction()
+        print("approved")
+        reloadAllData()
     }
     
     func reject(transaction: Transaction) {
         //
+        transaction.rejectTransaction()
+        print("rejected")
+        reloadAllData()
     }
     
     
@@ -70,6 +76,10 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        reloadAllData()
+    }
+    
+    func reloadAllData() {
         transactionList = []
         historyList = []
         incomingList = []
@@ -87,7 +97,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         }) { (error) in
             print(error.localizedDescription)
         }
-        
     }
     
     func setUpDataDependencies() {
