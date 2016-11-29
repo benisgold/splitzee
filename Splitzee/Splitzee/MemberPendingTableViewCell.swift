@@ -48,6 +48,7 @@ class MemberPendingTableViewCell: UITableViewCell {
         descriptionLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.421 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.575 * contentView.frame.height)
         descriptionLabel.textColor = constants.fontMediumDarkBlue
         descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 12)
+        descriptionLabel.numberOfLines = 3
         contentView.addSubview(descriptionLabel)
     }
     

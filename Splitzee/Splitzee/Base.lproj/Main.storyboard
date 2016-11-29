@@ -88,7 +88,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Doi-5i-myJ"/>
+                    <navigationItem key="navigationItem" id="Doi-5i-myJ">
+                        <barButtonItem key="backBarButtonItem" title=" " id="Nge-Ew-JmW"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="pPd-y6-ep8" kind="show" identifier="adminPageToNewAdminTransaction" id="ie0-U5-PLp"/>
                     </connections>
@@ -128,7 +130,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" id="U9D-Ky-0dX"/>
+                    <navigationItem key="navigationItem" id="U9D-Ky-0dX">
+                        <barButtonItem key="backBarButtonItem" title=" " id="9w7-fH-3Kd"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="ptg-MC-QyH" kind="show" identifier="memberPageToNewMemberTransaction" id="sE2-Xk-l0A"/>
                     </connections>
@@ -164,7 +168,7 @@
                     <value key="contentSizeForViewInPopover" type="size" width="376" height="667"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="DhM-8Q-5bz">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="DhM-8Q-5bz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -209,7 +213,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="206-zG-3SN" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="Ixw-mr-Dk7"/>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="dfU-7a-pdf">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dfU-7a-pdf">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
