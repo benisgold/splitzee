@@ -35,7 +35,6 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .lightContent
         let dbRef = FIRDatabase.database().reference()
         let uid = FIRAuth.auth()?.currentUser?.uid
         if let uid = uid {
@@ -53,6 +52,15 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                 print(error.localizedDescription)
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .default
     }
     
     func setUpUI(){
