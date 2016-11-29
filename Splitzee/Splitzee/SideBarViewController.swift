@@ -103,7 +103,7 @@ class SideBarViewController: UIViewController, CreateGroupViewControllerDelegate
         view.addSubview(splitzeeLogo)
         
         // createGroupButton
-        createGroupButton = UIButton(frame: CGRect(x: 0, y: view.frame.height * 0.834, width: view.frame.width * 0.5, height: view.frame.height * 0.071))
+        createGroupButton = UIButton(frame: CGRect(x: 0, y: view.frame.height * 0.834 - 2, width: view.frame.width * 0.5, height: view.frame.height * 0.071))
         createGroupButton.setTitle("+ Create new group", for: .normal)
         createGroupButton.backgroundColor = UIColor.clear
         createGroupButton.layer.borderWidth = 0.5
@@ -113,7 +113,7 @@ class SideBarViewController: UIViewController, CreateGroupViewControllerDelegate
         view.addSubview(createGroupButton)
         
         // joinGroupButton
-        joinGroupButton = UIButton(frame: CGRect(x: view.frame.width * 0.5, y: view.frame.height * 0.834, width: view.frame.width * 0.5, height: view.frame.height * 0.071))
+        joinGroupButton = UIButton(frame: CGRect(x: view.frame.width * 0.5, y: view.frame.height * 0.834 - 2, width: view.frame.width * 0.5, height: view.frame.height * 0.071))
         joinGroupButton.backgroundColor = UIColor.clear
         joinGroupButton.setTitle("+ Join new group", for: .normal)
         joinGroupButton.layer.borderWidth = 0.5

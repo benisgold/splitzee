@@ -41,11 +41,7 @@ class User {
     
     func getProfilePic(withBlock: @escaping (UIImage) -> Void) {
         let storageRef = FIRStorage.storage().reference()
-        profPicURL = profPicURL.replacingOccurrences(of: "Optional(", with: "")
-        profPicURL = profPicURL.replacingOccurrences(of: ")", with: "")
-        print(profPicURL)
-        let imageRef = storageRef.child(profPicURL)
-
+        let imageRef = storageRef.child("images/"+uid)
         
         imageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
             if (error != nil) {
