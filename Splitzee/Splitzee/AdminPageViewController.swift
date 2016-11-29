@@ -365,9 +365,9 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             //Displays the amount of money transferred
             if historyList[indexPath.row].groupToMember == true {
-                historyCell?.amountLabel.text = "-$" + String(describing: transaction.amount)
+                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount)
             } else {
-                historyCell?.amountLabel.text = "+$" + String(describing: transaction.amount)
+                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount)
             }
             
             //Sets the Name of each user at each index

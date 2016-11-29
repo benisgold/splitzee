@@ -13,7 +13,7 @@ class AdminHistoryTableViewCell: UITableViewCell {
     var memberPicView: UIImageView!
     var memberNameLabel: UILabel!
     var descriptionLabel: UILabel!
-    var amountLabel: UILabel!
+    var resultLabel: UILabel!
     let constants = Constants()
     
     override func awakeFromNib() {
