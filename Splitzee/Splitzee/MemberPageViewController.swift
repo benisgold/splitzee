@@ -250,7 +250,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return 80
     }
     
     //Populates the cell with data
