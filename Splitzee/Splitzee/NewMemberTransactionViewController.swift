@@ -128,6 +128,7 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         xButton.imageView?.contentMode = .scaleAspectFill
         xButton.addTarget(self, action: #selector(xButtonPressed), for: .touchUpInside)
         view.addSubview(xButton)
+    
 
     }
     

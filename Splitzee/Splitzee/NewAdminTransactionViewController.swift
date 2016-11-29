@@ -19,9 +19,8 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var requestButton: UIButton!
     var collectionView: UICollectionView!
     let constants = Constants()
-    var groupID: String!
     var xButton: UIButton!
-    
+    var group: Group!
     
     var rootRef: FIRDatabaseReference?
     var membersList = [User]()
@@ -31,7 +30,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         super.viewDidLoad()
         configureKeyboard()
         setUpUI()
-        pollForUsers()
+        setMemberList()
         setupCollectionView()
         
         // Do any additional setup after loading the view.
@@ -113,6 +112,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         collectionView.backgroundColor = UIColor.clear
         
         view.addSubview(collectionView)
+        view.bringSubview(toFront: xButton)
     }
     
     
@@ -134,21 +134,14 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
-    func pollForUsers(){
-        rootRef = FIRDatabase.database().reference()
-        if let rootRef = rootRef {
-            rootRef.child(Constants.DataNames.User).queryOrderedByKey().observe(.childAdded, with: {
-                snapshot in
-                let userKey = snapshot.key as String
-                let userDict = snapshot.value as? [String: AnyObject]
-                let user = User(key: userKey, userDict: userDict!)
-                self.membersList.insert(user, at: 0)
-            })
+    func setMemberList(){
+        group.pollForUsers(withBlock: { user in
+            self.membersList.append(user)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
                 
             }
-        }
+        })
     }
     
     func pressPay(sender: UIButton!)
@@ -180,7 +173,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool) {
         let transactionDict: [String:AnyObject]
         
-        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
+        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": group.groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
         
         let transaction = Transaction(key: "", transactionDict: transactionDict)
         transaction.addToDatabase()
@@ -197,6 +190,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // should be returning the number of users
+        print("count:" + String(membersList.count))
         return membersList.count
     }
     

@@ -165,6 +165,14 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         dismiss(animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "adminPageToNewAdminTransaction" {
+            let nextVC = segue.destination as! NewAdminTransactionViewController
+            nextVC.group = group
+            //print(group.name)
+        }
+    }
+    
     func switchView(sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0) {
             pending = true
@@ -311,7 +319,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             var transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-            print(transaction.amount)
+
             //Displays the amount of money transferred
             pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
             
