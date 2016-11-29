@@ -276,7 +276,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                         self.present(alertView, animated: true, completion: nil)
                         
                     } else {
-                        let alertView = UIAlertController(title: "Error", message: "Email is not correctly formatted or is already in existance.", preferredStyle: UIAlertControllerStyle.alert)
+                        let alertView = UIAlertController(title: "Error", message: "Email is not correctly formatted or is already in existence.", preferredStyle: UIAlertControllerStyle.alert)
                         alertView.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
                         }))
                         self.present(alertView, animated: true, completion: nil)
