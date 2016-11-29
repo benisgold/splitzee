@@ -95,7 +95,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func setupNavBar() {
         self.title = group.name // change to group name
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Medium", size: 20)!]
         self.navigationController?.navigationBar.barTintColor = UIColor.white
         self.navigationController?.navigationBar.tintColor = constants.fontMediumBlue
     }
@@ -251,7 +251,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75
+        return 80
     }
     
     //Populates the cell with data
@@ -290,9 +290,9 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let pendingCell = cell as? MemberPendingTableViewCell
             
             let amt = transaction.amount
-                var amtString = String(describing: amt)
-                if amtString.hasSuffix(".0") {
-                    amtString = amtString + "0"
+            var amtString = String(describing: amt)
+            if amtString.hasSuffix(".0") {
+                amtString = amtString + "0"
             }
             
             //Sets the Name of each user at each index
