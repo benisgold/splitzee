@@ -356,7 +356,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let nf = NumberFormatter()
             nf.numberStyle = .currency
             let amtString = nf.string(from: amt as NSNumber)!
-            self.totalAmount.text = amtString
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
@@ -386,7 +385,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let nf = NumberFormatter()
             nf.numberStyle = .currency
             let amtString = nf.string(from: amt as NSNumber)!
-            self.totalAmount.text = amtString
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index

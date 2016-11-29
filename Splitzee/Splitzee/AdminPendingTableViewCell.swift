@@ -10,6 +10,11 @@ import UIKit
 import Firebase
 import FirebaseDatabase
 
+protocol AdminPendingTableViewCellDelegate : class {
+    func approve(transaction: Transaction)
+    func reject(transaction: Transaction)
+}
+
 class AdminPendingTableViewCell: UITableViewCell {
     
     var memberPicView: UIImageView!
@@ -17,8 +22,11 @@ class AdminPendingTableViewCell: UITableViewCell {
     var descriptionLabel: UILabel!
     var rejectButton: UIButton!
     var approveButton: UIButton!
+    var transaction: Transaction!
     let constants = Constants()
     let rootRef = FIRDatabase.database().reference()
+    
+    weak var delegate : AdminPendingTableViewCellDelegate?
 
     
     override func awakeFromNib() {
@@ -68,6 +76,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         rejectButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 10)
         rejectButton.backgroundColor = constants.lightRed
         rejectButton.layer.cornerRadius = 3
+        rejectButton.addTarget(self, action: #selector(reject), for: .touchUpInside)
         contentView.addSubview(rejectButton)
     }
     
@@ -78,7 +87,16 @@ class AdminPendingTableViewCell: UITableViewCell {
         approveButton.titleLabel?.font = UIFont(name: "SFUIText-Medium", size: 10)
         approveButton.layer.cornerRadius = 3
         approveButton.backgroundColor = constants.lightGreen
+        approveButton.addTarget(self, action: #selector(approve), for: .touchUpInside)
         contentView.addSubview(approveButton)
+    }
+    
+    func approve() {
+        delegate?.approve(transaction: transaction)
+    }
+    
+    func reject() {
+        delegate?.reject(transaction: transaction)
     }
     
 }
