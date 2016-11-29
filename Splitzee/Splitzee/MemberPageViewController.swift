@@ -265,7 +265,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         switch listState {
         case .incoming:
             
-            let transaction = outgoingList[indexPath.row]
+            let transaction = incomingList[indexPath.row]
             let pendingCell = cell as? MemberPendingTableViewCell
             var negative = false
             
