@@ -10,7 +10,7 @@ import Firebase
 import FirebaseDatabase
 import FirebaseStorage
 
-class NewAdminTransactionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
+class NewAdminTransactionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
     
     var background: UIImageView!
   //var userSelectTextField: UITextField!
@@ -29,6 +29,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureKeyboard()
         setUpUI()
         pollForUsers()
         setupCollectionView()
@@ -60,7 +61,10 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         amountTextField.layer.masksToBounds = true
         amountTextField.backgroundColor = UIColor.white
         amountTextField.layer.borderColor = constants.fontLightGray.cgColor
-        amountTextField.placeholder = "     $0.00"
+        amountTextField.placeholder = "$0.00"
+        amountTextField.delegate = self
+        amountTextField.font = UIFont(name: "SFUIText-Regular", size: 16)
+        createInset(textField: amountTextField)
         view.addSubview(amountTextField)
         
         descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.428 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
@@ -69,25 +73,28 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         descriptionTextField.layer.borderColor = constants.fontLightGray.cgColor
         descriptionTextField.layer.borderWidth = 1
         descriptionTextField.delegate = self
-        descriptionTextField.text = "     Add a short description of the transaction"
+        descriptionTextField.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        descriptionTextField.font = UIFont(name: "SFUIText-Regular", size: 14)
+        descriptionTextField.text = "Add a short description of the transaction"
         descriptionTextField.textColor = constants.fontLightGray
         view.addSubview(descriptionTextField)
         
         payButton = UIButton(frame: CGRect(x: 0, y: 0.590*view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         payButton.layer.masksToBounds = true
         payButton.backgroundColor = constants.mediumBlue
-        payButton.setTitle("Confirm Payment", for: .normal)
+        payButton.setTitle("Pay", for: .normal)
         payButton.setTitleColor(UIColor.white, for: .normal)
-        payButton.layer.cornerRadius = 2
-        //payButton.addTarget(self, action: #selector(pressPay), for: .touchUpInside)
+        payButton.layer.cornerRadius = 3
+        payButton.addTarget(self, action: #selector(pressPay), for: .touchUpInside)
         view.addSubview(payButton)
         
         requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.590 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         requestButton.layer.masksToBounds = true
-        requestButton.setTitle("Request Money", for: .normal)
+        requestButton.setTitle("Request", for: .normal)
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
-        requestButton.layer.cornerRadius = 2
+        requestButton.layer.cornerRadius = 3
+        payButton.addTarget(self, action: #selector(pressRequest), for: .touchUpInside)
         view.addSubview(requestButton)
     }
     
@@ -113,7 +120,20 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     //-------------------- Functions---------------------------------------------------
     
+    func createInset(textField: UITextField) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
+    }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+    func configureKeyboard() {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+    }
     
     func pollForUsers(){
         rootRef = FIRDatabase.database().reference()
@@ -137,9 +157,9 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         for member in selectedMembers {
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
-            let amount: Double = (Double)(amt)!
+            let amount: Double = ((Double)(amt)!*(-1))
             let dsc = descriptionTextField.text!
-            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true)
+            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: true)
         }
     }
     
@@ -152,14 +172,14 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
             let dsc = descriptionTextField.text!
-            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: false)
+            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: false)
         }
     }
     
-    func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool) {
+    func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool) {
         let transactionDict: [String:AnyObject]
         
-        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": true as AnyObject, "description": dsc as AnyObject]
+        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
         
         let transaction = Transaction(key: "", transactionDict: transactionDict)
         transaction.addToDatabase()
@@ -229,9 +249,12 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
 
 extension NewAdminTransactionViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == self.constants.fontLightGray {
+        if textView.textColor == constants.fontLightGray || textView.text != "" {
             textView.text = ""
             textView.textColor = UIColor.black
+        } else if textView.text == "" {
+            textView.text = "Add a short description of the transaction"
+            textView.textColor = constants.fontLightGray
         }
     }
 }

@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class NewMemberTransactionViewController: UIViewController {
+class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate {
     
     var amountTextField: UITextField!
     var descriptionTextField: UITextView!
@@ -25,6 +25,7 @@ class NewMemberTransactionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureKeyboard()
         let dbRef = FIRDatabase.database().reference()
         let uid = FIRAuth.auth()?.currentUser?.uid
         if let uid = uid {
@@ -86,34 +87,39 @@ class NewMemberTransactionViewController: UIViewController {
         amountTextField.backgroundColor = UIColor.white
         amountTextField.layer.borderColor = constants.fontLightGray.cgColor
         amountTextField.layer.borderWidth = 1
-        amountTextField.placeholder = "     $0.00"
+        amountTextField.placeholder = "$0.00"
+        amountTextField.font = UIFont(name: "SFUIText-Regular", size: 16)
+        amountTextField.delegate = self
+        createInset(textField: amountTextField)
         view.addSubview(amountTextField)
         
-        descriptionTextField = UITextView(frame: CGRect(x: 15, y: 0.426 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
+        descriptionTextField = UITextView(frame: CGRect(x: 0, y: 0.426 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.164))
         descriptionTextField.layer.masksToBounds = true
         descriptionTextField.backgroundColor = UIColor.white
-        descriptionTextField.layer.borderColor = constants.fontWhite.cgColor
+        descriptionTextField.layer.borderColor = constants.fontLightGray.cgColor
         descriptionTextField.layer.borderWidth = 1
         descriptionTextField.delegate = self
-        descriptionTextField.text = "     Add a short description of the transaction"
+        descriptionTextField.font = UIFont(name: "SFUIText-Regular", size: 16)
+        descriptionTextField.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        descriptionTextField.text = "Add a short description of the transaction"
         descriptionTextField.textColor = constants.fontLightGray
         view.addSubview(descriptionTextField)
         
         payButton = UIButton(frame: CGRect(x: 0, y: 0.597*view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         payButton.layer.masksToBounds = true
         payButton.backgroundColor = constants.mediumBlue
-        payButton.setTitle("Confirm Payment", for: .normal)
+        payButton.setTitle("Pay", for: .normal)
         payButton.setTitleColor(UIColor.white, for: .normal)
-        payButton.layer.cornerRadius = 2
+        payButton.layer.cornerRadius = 3
         payButton.addTarget(self, action: #selector(pay), for: .touchUpInside)
         view.addSubview(payButton)
         
         requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.597 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         requestButton.layer.masksToBounds = true
-        requestButton.setTitle("Request Money", for: .normal)
+        requestButton.setTitle("Request", for: .normal)
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
-        requestButton.layer.cornerRadius = 2
+        requestButton.layer.cornerRadius = 3
         requestButton.addTarget(self, action: #selector(request), for: .touchUpInside)
         view.addSubview(requestButton)
         
@@ -133,7 +139,7 @@ class NewMemberTransactionViewController: UIViewController {
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
             let dsc = descriptionTextField.text!
-            newTransaction((String)(amount), (String) (dsc), true)
+            newTransaction((String)(amount), (String) (dsc), false)
         }
     }
     
@@ -141,10 +147,16 @@ class NewMemberTransactionViewController: UIViewController {
         if (checkFormat()) {
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
-            let amount: Double = (Double)(amt)!
+            let amount: Double = ((Double)(amt)!*(-1))
             let dsc = descriptionTextField.text!
             newTransaction((String)(amount), (String) (dsc), false)
         }
+    }
+    
+    func createInset(textField: UITextField) {
+        let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: textField.frame.height))
+        textField.leftView = paddingView
+        textField.leftViewMode = .always
     }
     
     func newTransaction(_ amt: String, _ dsc: String, _ groupToMember: Bool) {
@@ -169,6 +181,15 @@ class NewMemberTransactionViewController: UIViewController {
         } else {
             return true
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true;
+    }
+    
+    func configureKeyboard() {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
     func xButtonPressed() {
@@ -204,9 +225,12 @@ func getGroup(withBlock: @escaping (Group) -> Void) {
 
 extension NewMemberTransactionViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if textView.textColor == constants.fontLightGray {
+        if textView.textColor == constants.fontLightGray || textView.text != "" {
             textView.text = ""
             textView.textColor = UIColor.black
+        } else if textView.text == "" {
+            textView.text = "Add a short description of the transaction"
+            textView.textColor = constants.fontLightGray
         }
     }
 }
