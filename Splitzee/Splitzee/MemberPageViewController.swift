@@ -267,23 +267,12 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             let transaction = outgoingList[indexPath.row]
             let pendingCell = cell as? MemberPendingTableViewCell
-            var negative = false
             
             //Displays the amount of money transferred
             let amt = transaction.amount
-            var amtString = String(describing: amt)
-            if amtString.hasPrefix("-") {
-                negative = true
-                amtString = String(-amt)
-            }
-            if amtString.hasSuffix(".0") {
-                amtString += "0"
-            }
-            if negative {
-                amtString = "-$" + amtString
-            } else {
-                amtString = "$" + amtString
-            }
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            let amtString = nf.string(from: amt as NSNumber)!
             pendingCell?.resultLabel.text = amtString
             
             
@@ -304,23 +293,12 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             let transaction = outgoingList[indexPath.row]
             let pendingCell = cell as? MemberPendingTableViewCell
-            var negative = false
             
             //Displays the amount of money transferred
             let amt = transaction.amount
-            var amtString = String(describing: amt)
-            if amtString.hasPrefix("-") {
-                negative = true
-                amtString = String(-amt)
-            }
-            if amtString.hasSuffix(".0") {
-                amtString += "0"
-            }
-            if negative {
-                amtString = "-$" + amtString
-            } else {
-                amtString = "$" + amtString
-            }
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            let amtString = nf.string(from: amt as NSNumber)!
             pendingCell?.resultLabel.text = amtString
             
             //Sets the Name of each user at each index

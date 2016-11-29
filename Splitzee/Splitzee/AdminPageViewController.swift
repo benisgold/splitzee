@@ -86,7 +86,10 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func setUpDataDependencies() {
         group.getTotal(withBlock: { total in
-            self.totalAmount.text = String(total)
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            let amtString = nf.string(from: total as NSNumber)!
+            self.totalAmount.text = amtString
         })
     }
     
@@ -347,23 +350,13 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             let transaction = outgoingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-            var negative = false
             
             //Displays the amount of money transferred
             let amt = transaction.amount
-            var amtString = String(describing: amt)
-            if amtString.hasPrefix("-") {
-                negative = true
-                amtString = String(-amt)
-            }
-            if amtString.hasSuffix(".0") {
-                amtString += "0"
-            }
-            if negative {
-                amtString = "-$" + amtString
-            } else {
-                amtString = "$" + amtString
-            }
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            let amtString = nf.string(from: amt as NSNumber)!
+            self.totalAmount.text = amtString
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
@@ -387,23 +380,13 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             let transaction = outgoingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-            var negative = false
             
             //Displays the amount of money transferred
             let amt = transaction.amount
-            var amtString = String(describing: amt)
-            if amtString.hasPrefix("-") {
-                negative = true
-                amtString = String(-amt)
-            }
-            if amtString.hasSuffix(".0") {
-                amtString += "0"
-            }
-            if negative {
-                amtString = "-$" + amtString
-            } else {
-                amtString = "$" + amtString
-            }
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            let amtString = nf.string(from: amt as NSNumber)!
+            self.totalAmount.text = amtString
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index

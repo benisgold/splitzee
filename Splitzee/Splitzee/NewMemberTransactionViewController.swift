@@ -103,7 +103,7 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         descriptionTextField.textColor = constants.fontLightGray
         view.addSubview(descriptionTextField)
         
-        payButton = UIButton(frame: CGRect(x: 0, y: 0.597*view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
+        payButton = UIButton(frame: CGRect(x: 0, y: 0.590 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         payButton.layer.masksToBounds = true
         payButton.backgroundColor = constants.mediumBlue
         payButton.setTitle("Pay", for: .normal)
@@ -112,7 +112,7 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         payButton.addTarget(self, action: #selector(pay), for: .touchUpInside)
         view.addSubview(payButton)
         
-        requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.597 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
+        requestButton = UIButton(frame: CGRect(x: 0.5015 * view.frame.width, y: 0.590 * view.frame.height , width: 0.4985 * view.frame.width, height: view.frame.height * 0.089))
         requestButton.layer.masksToBounds = true
         requestButton.setTitle("Request", for: .normal)
         requestButton.backgroundColor = constants.mediumBlue
