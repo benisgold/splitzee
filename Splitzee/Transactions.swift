@@ -47,7 +47,7 @@ class Transaction {
             isApproved = approved
         }
         
-        if let descriptionText = transactionDict["description"] as? String{
+        if let descriptionText = transactionDict[Constants.TransactionFields.description] as? String{
             description = descriptionText
         }
     }
@@ -116,6 +116,44 @@ class Transaction {
             }
         })
         
+    }
+    
+    func addToDatabase() {
+        let transactionDict = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: memberID as AnyObject, Constants.TransactionFields.groupID: groupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: isApproved as AnyObject, Constants.TransactionFields.description: description as AnyObject]
+        
+        let rootRef = FIRDatabase.database().reference()
+        let groupRef = rootRef.child("Group").child(groupID)
+        let userRef = rootRef.child("User").child(memberID)
+        
+        let key = rootRef.child("Transaction").childByAutoId().key
+        rootRef.child("Transaction").child(key).setValue(transactionDict)
+        
+        var userTransactionIDs = [String]()
+        var groupTransactionIDs = [String]()
+
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            let userDict = snapshot.value as! [String:AnyObject]
+            
+            if let transIDs = userDict[Constants.UserFields.transactionIDs] as? [String] {
+                userTransactionIDs = transIDs
+            }
+            
+            userTransactionIDs.append(key)
+            userRef.child(Constants.UserFields.transactionIDs).setValue(userTransactionIDs)
+            
+        })
+        
+        groupRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            let groupDict = snapshot.value as! [String:AnyObject]
+            
+            if let transIDs = groupDict[Constants.GroupFields.transactionIDs] as? [String] {
+                groupTransactionIDs = transIDs
+            }
+            
+            groupTransactionIDs.append(key)
+            groupRef.child(Constants.GroupFields.transactionIDs).setValue(groupTransactionIDs)
+            
+        })
     }
     
     /*

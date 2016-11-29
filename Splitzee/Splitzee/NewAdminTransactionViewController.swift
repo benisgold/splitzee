@@ -161,9 +161,9 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         
         transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": true as AnyObject, "description": dsc as AnyObject]
         
-        let rootRef = FIRDatabase.database().reference()
-        let key = rootRef.child("Transaction").childByAutoId().key
-        rootRef.child("Transaction").child(key).setValue(transactionDict)
+        let transaction = Transaction(key: "", transactionDict: transactionDict)
+        transaction.addToDatabase()
+        
         dismiss(animated: true, completion: nil)
     }
     

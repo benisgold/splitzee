@@ -163,13 +163,6 @@ class CurrentUser {
         })
     }
     
-    func sendNewTransaction(amount: Double, memberID: String, groupID: String, groupToMember: Bool)  {
-        let ref = FIRDatabase.database().reference()
-        let key = ref.child("Transactions").childByAutoId().key
-        ref.child("Transactions/\(key)").setValue([Constants.TransactionFields.amount: amount, Constants.TransactionFields.memberID: memberID, Constants.TransactionFields.groupID: groupID, Constants.TransactionFields.groupToMember: groupToMember])
-        
-    }
-    
     func setCurrentGroup(_ groupID: String) {
         currentGroupID = groupID
     }

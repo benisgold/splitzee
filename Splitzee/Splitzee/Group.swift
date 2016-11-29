@@ -106,12 +106,13 @@ class Group: Hashable, Equatable {
         })
     }
     
-    func getTransactions(withBlock: @escaping (Transaction) -> Void) {
+    func getTransactions(withBlock: @escaping (Transaction) -> Void)  {
+
         let ref = FIRDatabase.database().reference()
-        for id in transactionIDs {
-            ref.child("Transactions").child(id).observe(.value, with: { (snapshot) in
-                // Get user value
-                let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
+        for id in transactionIDs  {
+            ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
+                //  Get user value
+                let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })
         }

@@ -47,10 +47,22 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currUser = CurrentUser()
-        setUpTableLists()
-        setupUI()
-        setUpDataDependencies()
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        if let uid = uid {
+            dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.setUpTableLists()
+                    self.setupUI()
+                    self.setUpDataDependencies()
+                }
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func setUpDataDependencies() {
@@ -113,6 +125,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         setupNavBar()
         setupSegmentedControl()
         setupTableView()
+        setUpTableLists()
         
         
     }
@@ -217,7 +230,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     
     //Create lists for different tables
     func setUpTableLists(){
-        currUser.getTransactions(withBlock: {(trans) -> Void in
+        group.getTransactions(withBlock: {(trans) -> Void in
             self.transactionList.append(trans)
             if trans.isApproved == false {
                 self.historyList.append(trans)
@@ -228,6 +241,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             else {
                 self.incomingList.append(trans)
             }
+            self.tableView.reloadData()
         })
     }
     
@@ -239,6 +253,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         
         switch listState {
         case .incoming:
+            print(incomingList.count)
             return incomingList.count
             
         case .outgoing:

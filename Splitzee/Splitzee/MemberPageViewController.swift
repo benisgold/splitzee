@@ -11,6 +11,7 @@ import Firebase
 import FirebaseDatabase
 
 
+
 class MemberPageViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     var segmentedView: UISegmentedControl!
@@ -23,6 +24,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     let constants = Constants()
     var group: Group!
     var user: User!
+    var listState = ListState.incoming
 
     var transactionList: [Transaction] = []
     var historyList: [Transaction] = []
@@ -32,8 +34,21 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currUser = CurrentUser()
-        setupUI()
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        if let uid = uid {
+            dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.setupUI()
+                }
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+        
     }
     
     func setupUI() {
@@ -59,10 +74,18 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         setupNavBar()
         setupSegmentedControl()
         setupTableView()
+        setUpTableLists()
     }
     
     func newTransactionPressed() {
         performSegue(withIdentifier: "memberPageToNewMemberTransaction", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "memberPageToNewMemberTransaction" {
+            let nextVC = segue.destination as! NewMemberTransactionViewController
+            nextVC.group = group
+        }
     }
     
     func groupsPressed() {
@@ -102,12 +125,15 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     func switchView(sender: UISegmentedControl) {
         if (sender.selectedSegmentIndex == 0) {
             pending = true
+            listState = .incoming
             //more
         } else if (sender.selectedSegmentIndex == 1) {
             pending = true
+            listState = .outgoing
             //more
         } else {
             pending = false
+            listState = .history
             //more
         }
     }
@@ -118,20 +144,21 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     
     //Create lists for different tables
     func setUpTableLists(){
-        currUser.getTransactions(withBlock: {(transaction) -> Void in
-            self.transactionList.append(transaction)
-        })
-        for trans in transactionList{
+        currUser.getTransactions(withBlock: {(trans) -> Void in
+            print(trans)
+            self.transactionList.append(trans)
             if trans.isApproved == false {
-                historyList.append(trans)
+                self.historyList.append(trans)
             }
             else if trans.groupToMember == false {
-                outgoingList.append(trans)
+                self.outgoingList.append(trans)
             }
             else {
-                incomingList.append(trans)
+                self.incomingList.append(trans)
             }
-        }
+            self.tableView.reloadData()
+            
+        })
     }
     
     

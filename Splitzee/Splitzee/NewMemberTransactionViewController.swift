@@ -19,12 +19,27 @@ class NewMemberTransactionViewController: UIViewController {
     var groupLabel: UILabel!
     var alertWrongFormat: UIAlertController!
     var currUser: CurrentUser!
+    var group: Group!
     let constants = Constants()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        currUser = CurrentUser()
-        setUpUI()
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        if let uid = uid {
+            dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.currUser.setCurrentGroup(self.group.groupID)
+                    self.setUpUI()
+                }
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+        
         // Do any additional setup after loading the view.
     }
     
@@ -108,7 +123,7 @@ class NewMemberTransactionViewController: UIViewController {
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
             let dsc = descriptionTextField.text!
-            newTransaction((String)(amount), (String) (dsc), false)
+            newTransaction((String)(amount), (String) (dsc), true)
         }
     }
     
@@ -118,18 +133,16 @@ class NewMemberTransactionViewController: UIViewController {
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
             let dsc = descriptionTextField.text!
-            newTransaction((String)(amount), (String) (dsc), true)
+            newTransaction((String)(amount), (String) (dsc), false)
         }
     }
     
     func newTransaction(_ amt: String, _ dsc: String, _ groupToMember: Bool) {
         let transactionDict: [String:AnyObject]
         
-        transactionDict = ["amount": amt as AnyObject, "memberID": currUser.uid as AnyObject, "groupID": currUser.currentGroupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": false as AnyObject, "description": dsc as AnyObject]
-        
-        let rootRef = FIRDatabase.database().reference()
-        let key = rootRef.child("Transaction").childByAutoId().key
-        rootRef.child("Transaction").child(key).setValue(transactionDict)
+        transactionDict = [Constants.TransactionFields.amount: amt as AnyObject, Constants.TransactionFields.memberID: currUser.uid as AnyObject, Constants.TransactionFields.groupID: currUser.currentGroupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: false as AnyObject, Constants.TransactionFields.description: dsc as AnyObject]
+        let transaction = Transaction(key: "", transactionDict: transactionDict)
+        transaction.addToDatabase()
         dismiss(animated: true, completion: nil)
     }
     

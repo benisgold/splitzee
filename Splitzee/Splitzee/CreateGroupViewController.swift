@@ -28,11 +28,23 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     override func viewDidLoad() {
         super.viewDidLoad()
         UIApplication.shared.statusBarStyle = .lightContent
-        setUpUI()
-        imagePicker.delegate = self
-        initializeTextFields()
-        configureKeyboard()
-        currUser = CurrentUser()
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        if let uid = uid {
+            dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.setUpUI()
+                    self.imagePicker.delegate = self
+                    self.initializeTextFields()
+                    self.configureKeyboard()
+                }
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func setUpUI(){
@@ -252,8 +264,12 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     groupRef.child(key).child(Constants.GroupFields.picURL).setValue(urlString)
                     
                     groupRef.child(key).child(Constants.GroupFields.transactionIDs).setValue([])
-                    groupRef.child(key).child(Constants.GroupFields.memberIDs).setValue([self.currUser.uid])
-                    groupRef.child(key).child(Constants.GroupFields.adminIDs).setValue([self.currUser.uid])
+                    var groupRefMemberIds: [String] = []
+                    var groupRefAdminIds: [String] = []
+                    groupRefMemberIds.append(self.currUser.uid)
+                    groupRefAdminIds.append(self.currUser.uid)
+                    groupRef.child(key).child(Constants.GroupFields.memberIDs).setValue(groupRefMemberIds)
+                    groupRef.child(key).child(Constants.GroupFields.adminIDs).setValue(groupRefAdminIds)
                     groupRef.child(key).child(Constants.GroupFields.total).setValue(0.00)
                     
                     var memberIDs: [String] = []
