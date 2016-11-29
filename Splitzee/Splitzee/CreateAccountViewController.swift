@@ -27,11 +27,19 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .lightContent
         imagePicker.delegate = self
         setupUI()
         initializeTextFields()
         configureKeyboard()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .default
     }
     
     func setupUI() {

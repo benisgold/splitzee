@@ -30,6 +30,15 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         configureKeyboard()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarStyle = .lightContent
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        UIApplication.shared.statusBarStyle = .default
+    }
+    
     func setupUI() {
         // background
         background = UIImageView(image: #imageLiteral(resourceName: "purpleFogBG"))
@@ -162,12 +171,6 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
     
     // FIREBASE----------------------------------------------------------------
     override func viewDidAppear(_ animated: Bool) {
-        let firebaseAuth = FIRAuth.auth()
-        do {
-            try firebaseAuth?.signOut()
-        } catch let signOutError as NSError {
-            print ("Error signing out: %@", signOutError)
-        }
         FIRAuth.auth()?.addStateDidChangeListener({ (auth : FIRAuth, user : FIRUser?) in
             if let user = user {
                 self.signedIn(user)
