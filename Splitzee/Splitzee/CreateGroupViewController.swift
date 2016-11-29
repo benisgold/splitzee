@@ -24,6 +24,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     let constants = Constants()
     var currUser: CurrentUser!
     var alertView: UIAlertController!
+    var createdGroup: Group?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -272,6 +273,14 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     groupRef.child(key).child(Constants.GroupFields.adminIDs).setValue(groupRefAdminIds)
                     groupRef.child(key).child(Constants.GroupFields.total).setValue(0.00)
                     
+                    self.createdGroup = Group(name: self.nameTextField.text!, total: 0.00, picURL: urlString)
+                    self.createdGroup?.transactionIDs = []
+                    self.createdGroup?.memberIDs = [self.currUser.uid]
+                    self.createdGroup?.adminIDs = [self.currUser.uid]
+                    
+                    
+                    
+                    
                     var memberIDs: [String] = []
                     var adminIDs: [String] = []
                     userRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -301,6 +310,13 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     self.alert(title: "Error", msg: "Please enter a group picture.")
                 }
             })
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "createGroupToAdminPage" {
+            let nextVC = segue.destination as! AdminPageViewController
+            nextVC.group = createdGroup
         }
     }
 }
