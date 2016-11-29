@@ -212,7 +212,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                     
                 } else {
                     
-                    withBlock(String(describing: metadata!.downloadURL()))
+                    withBlock("images/"+id)
                 }
             }
         }

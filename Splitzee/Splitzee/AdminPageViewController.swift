@@ -63,6 +63,27 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        transactionList = []
+        historyList = []
+        incomingList = []
+        outgoingList = []
+        let dbRef = FIRDatabase.database().reference()
+        let groupID = group.groupID
+        
+        dbRef.child(Constants.DataNames.Group).child(groupID).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            self.group = Group(key: groupID, groupDict: snapshot.value as! [String: AnyObject])
+            DispatchQueue.main.async {
+                self.setUpTableLists()
+            }
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+    }
+    
     func setUpDataDependencies() {
         group.getTotal(withBlock: { total in
             self.totalAmount.text = String(total)
@@ -323,7 +344,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             var transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-
+            
             //Displays the amount of money transferred
             pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
             
@@ -376,7 +397,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         case .history:
             
             var transaction = historyList[indexPath.row]
-
+            
             
             let historyCell = cell as? AdminHistoryTableViewCell
             

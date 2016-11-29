@@ -97,7 +97,7 @@ class Transaction {
         
     }
     
-    func addToDatabase() {
+    func addToDatabase(withBlock: @escaping () -> Void) {
         let transactionDict: [String:AnyObject] = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: memberID as AnyObject, Constants.TransactionFields.groupID: groupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: isApproved as AnyObject, Constants.TransactionFields.description: description as AnyObject]
         
         let rootRef = FIRDatabase.database().reference()
@@ -119,8 +119,9 @@ class Transaction {
             }
             
             userTransactionIDs.append(key)
-            userRef.child(Constants.UserFields.transactionIDs).setValue(userTransactionIDs)
-            
+            userRef.child(Constants.UserFields.transactionIDs).setValue(userTransactionIDs) { (error, reference) in
+                withBlock()
+            }
         })
         
         groupRef.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -132,7 +133,6 @@ class Transaction {
             
             groupTransactionIDs.append(key)
             groupRef.child(Constants.GroupFields.transactionIDs).setValue(groupTransactionIDs)
-            
         })
     }
     

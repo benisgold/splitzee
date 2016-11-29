@@ -171,9 +171,12 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": group.groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
         
         let transaction = Transaction(key: "", transactionDict: transactionDict)
-        transaction.addToDatabase()
-        
-        dismiss(animated: true, completion: nil)
+        transaction.addToDatabase(withBlock: {
+            if let navigationController = self.navigationController {
+                navigationController.popViewController(animated: true)
+            }
+        })
+
     }
     
     
@@ -205,8 +208,9 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         adminTransactionCell.userName.text = membersList[indexPath.row].name
         
         //sets profile pictures for all the members
-        membersList[indexPath.row].getProfilePic(withBlock:{(UIImage) -> Void in
-                adminTransactionCell.userImage.image = UIImage
+        membersList[indexPath.row].getProfilePic(withBlock:{(image) -> Void in
+                print(image)
+                adminTransactionCell.userImage.image = image
             })
     }
     

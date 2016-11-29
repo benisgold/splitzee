@@ -162,6 +162,27 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         })
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        transactionList = []
+        historyList = []
+        incomingList = []
+        outgoingList = []
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        if let uid = uid {
+            dbRef.child(Constants.DataNames.User).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.setUpTableLists()
+                }
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     
     //-----------------Sets up the tableviews---------------------------
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
