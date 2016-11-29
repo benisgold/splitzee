@@ -246,7 +246,14 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedGroup = groups[indexPath.row]
+        
+        if (indexPath.section == 0) {
+            selectedGroup = adminGroups[indexPath.row]
+            
+        } else {
+            selectedGroup = regularGroups[indexPath.row]
+            
+        }
         if (indexPath.section == 0) {
             performSegue(withIdentifier: "sideBarToAdmin", sender: self)
         } else {

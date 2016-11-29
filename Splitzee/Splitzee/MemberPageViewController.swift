@@ -85,6 +85,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "memberPageToNewMemberTransaction" {
             let nextVC = segue.destination as! NewMemberTransactionViewController
             nextVC.group = group
+            //print(group.name)
         }
     }
     
@@ -146,7 +147,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     //Create lists for different tables
     func setUpTableLists(){
         currUser.getTransactions(group: group, withBlock: {(trans) -> Void in
-            print(trans)
+            //print(trans)
             self.transactionList.append(trans)
             if trans.isApproved == true {
                 self.historyList.append(trans)
