@@ -385,7 +385,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .outgoing:
             
-            let transaction = outgoingList[indexPath.row]
+            let transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred
@@ -396,6 +396,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
+            
             
             transaction.getUser(withBlock:{(user) -> Void in
                 pendingCell?.memberNameLabel.text = user.name
