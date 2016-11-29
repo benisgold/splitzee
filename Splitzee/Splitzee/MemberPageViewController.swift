@@ -167,7 +167,20 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         historyList = []
         incomingList = []
         outgoingList = []
-        setUpTableLists()
+        let dbRef = FIRDatabase.database().reference()
+        let uid = FIRAuth.auth()?.currentUser?.uid
+        if let uid = uid {
+            dbRef.child(Constants.DataNames.User).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                // Get user value
+                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
+                DispatchQueue.main.async {
+                    self.setUpTableLists()
+                }
+                
+            }) { (error) in
+                print(error.localizedDescription)
+            }
+        }
     }
     
     
