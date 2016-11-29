@@ -33,6 +33,13 @@ struct Constants
     let fontMediumBlue: UIColor = UIColor(hue: 0.5722, saturation: 0.39, brightness: 1, alpha: 1.0) /* #9ad3ff */
     let fontMediumDarkBlue: UIColor = UIColor(hue: 0.6833, saturation: 0.24, brightness: 1, alpha: 1.0) /* #c7c0ff */
     
+    struct DataNames {
+        static let User = "User"
+        static let Transaction = "Transaction"
+        static let Group = "Group"
+
+    }
+    
     struct UserFields {
         static let name = "name"
         static let profPicURL = "profPicURL"

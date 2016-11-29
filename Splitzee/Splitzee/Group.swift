@@ -112,6 +112,7 @@ class Group: Hashable, Equatable {
         for id in transactionIDs  {
             ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
+                print(snapshot.key)
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })

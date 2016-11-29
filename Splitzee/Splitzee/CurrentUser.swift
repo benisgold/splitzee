@@ -113,8 +113,9 @@ class CurrentUser {
         //        setData()
         let ref = FIRDatabase.database().reference()
         for id in transactionIDs  {
-            ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
+            ref.child(Constants.DataNames.Transaction).child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
+                print(snapshot.value ?? snapshot.key)
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })
@@ -128,7 +129,7 @@ class CurrentUser {
         //        setData()
         let ref = FIRDatabase.database().reference()
         for id in groupIDs  {
-            ref.child("Group").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
+            ref.child(Constants.DataNames.Group).child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
                 let curr = Group(key: id, groupDict: snapshot.value as! [String: AnyObject])
                 withBlock(curr)
@@ -141,7 +142,7 @@ class CurrentUser {
         //        setData()
         let ref = FIRDatabase.database().reference()
         for id in groupAdminIDs {
-            ref.child("Group").child(id).observeSingleEvent(of: .value, with: { (snapshot) in
+            ref.child(Constants.DataNames.Group).child(id).observeSingleEvent(of: .value, with: { (snapshot) in
                 let curr = Group(key: id, groupDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })
@@ -152,7 +153,7 @@ class CurrentUser {
     func getName(withBlock: @escaping (User) -> Void)  {
         //        setData()
         let ref = FIRDatabase.database().reference()
-        ref.child("User").child(uid).observe(.value, with:  { snapshot -> Void in
+        ref.child(Constants.DataNames.User).child(uid).observe(.value, with:  { snapshot -> Void in
             //  Get user name value
             if snapshot.exists() {
                 if let userDict = snapshot.value as? [String: AnyObject]  {
@@ -169,8 +170,8 @@ class CurrentUser {
     
     func joinGroup(groupCode: String, withBlock: @escaping () -> Void) {
         let dbRef = FIRDatabase.database().reference()
-        let userRef = dbRef.child("User").child(uid)
-        let groupRef = dbRef.child("Group")
+        let userRef = dbRef.child(Constants.DataNames.User).child(uid)
+        let groupRef = dbRef.child(Constants.DataNames.Group)
         groupRef.queryOrderedByKey().observe(.childAdded, with: { (snapshot) in
             let groupDict = snapshot.value as! [String:AnyObject]
             let key = snapshot.key
