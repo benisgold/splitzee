@@ -93,6 +93,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
         inputEmail.layer.cornerRadius = 3
         inputEmail.keyboardType = .emailAddress
         inputEmail.autocorrectionType = .no
+        inputEmail.autocapitalizationType = .none
         createInset(textField: inputEmail)
         view.addSubview(inputEmail)
         

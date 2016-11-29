@@ -44,7 +44,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         memberNameLabel = UILabel()
         memberNameLabel.frame = CGRect(x: 0.251 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.749 * contentView.frame.width, height: 0.331 * contentView.frame.height)
         memberNameLabel.textColor = constants.fontMediumDarkBlue
-        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
+        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 14)
         memberNameLabel.text = "Member Name"
         contentView.addSubview(memberNameLabel)
     }
@@ -54,7 +54,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         descriptionLabel.frame = CGRect(x: 0.251 * contentView.frame.width, y: 0.336 * contentView.frame.height, width: 0.696 * contentView.frame.width, height: 0.331 * contentView.frame.height)
         descriptionLabel.textColor = UIColor.blue
         descriptionLabel.textColor = constants.fontMediumDarkBlue
-        descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 10)
+        descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 12)
         descriptionLabel.text = "Description"
         contentView.addSubview(descriptionLabel)
     }

@@ -37,17 +37,19 @@ class MemberPendingTableViewCell: UITableViewCell {
     
     func makeMemberNameLabel() {
         memberNameLabel = UILabel()
-        memberNameLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.331 * contentView.frame.height)
+        memberNameLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.333 * contentView.frame.height)
         memberNameLabel.textColor = constants.fontMediumDarkBlue
-        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
+        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 14)
+        memberNameLabel.backgroundColor = UIColor.darkGray
         contentView.addSubview(memberNameLabel)
     }
     
     func makeDescriptionLabel() {
         descriptionLabel = UILabel()
-        descriptionLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.418 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.577 * contentView.frame.height)
+        descriptionLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.421 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.575 * contentView.frame.height)
         descriptionLabel.textColor = constants.fontMediumDarkBlue
-        descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 14)
+        descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 12)
+        descriptionLabel.backgroundColor = UIColor.lightGray
         contentView.addSubview(descriptionLabel)
     }
     

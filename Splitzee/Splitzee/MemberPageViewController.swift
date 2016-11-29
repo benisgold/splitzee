@@ -85,6 +85,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         if segue.identifier == "memberPageToNewMemberTransaction" {
             let nextVC = segue.destination as! NewMemberTransactionViewController
             nextVC.group = group
+            //print(group.name)
         }
     }
     
@@ -146,7 +147,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     //Create lists for different tables
     func setUpTableLists(){
         currUser.getTransactions(group: group, withBlock: {(trans) -> Void in
-            print(trans)
+            //print(trans)
             self.transactionList.append(trans)
             if trans.isApproved == true {
                 self.historyList.append(trans)
@@ -236,7 +237,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         switch listState {
         case .incoming:
             
-            var transaction = incomingList[indexPath.row]
+            let transaction = incomingList[indexPath.row]
             
             let pendingCell = cell as? MemberPendingTableViewCell
             
@@ -255,17 +256,17 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             
             //Sets description of each transaction
-            pendingCell?.descriptionLabel.text = String(describing: incomingList[indexPath.row].description)
+            pendingCell?.descriptionLabel.text = String(describing: transaction.description)
             
         case .outgoing:
             
-            var transaction = outgoingList[indexPath.row]
+            let transaction = outgoingList[indexPath.row]
 
             
             let pendingCell = cell as? MemberPendingTableViewCell
             
             //Displays the amount of money transferred
-            pendingCell?.resultLabel.text = "$" + String(describing: outgoingList[indexPath.row].amount)
+            pendingCell?.resultLabel.text = "$" + String(describing: transaction.amount)
             
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
@@ -278,11 +279,11 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             })
             
             //Sets description of each transaction
-            pendingCell?.descriptionLabel.text = String(describing: outgoingList[indexPath.row].description)
+            pendingCell?.descriptionLabel.text = String(describing: transaction.description)
             
         case .history:
             
-            var transaction = historyList[indexPath.row]
+            let transaction = historyList[indexPath.row]
 
             
             let historyCell = cell as? MemberHistoryTableViewCell
@@ -306,11 +307,6 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             //Sets description of each transaction
             historyCell?.descriptionLabel.text = String(describing: transaction.description)
-            
-        default:
-            
-            let pendingCell = cell as? AdminPendingTableViewCell
-            
         }
         
     }
