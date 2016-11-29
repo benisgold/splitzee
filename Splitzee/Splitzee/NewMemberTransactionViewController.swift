@@ -63,6 +63,7 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         
         
         group.getGroupPic(withBlock: {(image) -> Void in
+            print(image)
             self.groupImage.image = image
         })
         
