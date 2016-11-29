@@ -369,7 +369,10 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let amt = transaction.amount
             let nf = NumberFormatter()
             nf.numberStyle = .currency
-            let amtString = nf.string(from: amt as NSNumber)!
+            var amtString = nf.string(from: amt as NSNumber)!
+            if !amtString.hasPrefix("-") {
+                amtString = "+" + amtString
+            }
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
@@ -393,14 +396,17 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .outgoing:
             
-            let transaction = incomingList[indexPath.row]
+            let transaction = outgoingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred
             let amt = transaction.amount
             let nf = NumberFormatter()
             nf.numberStyle = .currency
-            let amtString = nf.string(from: amt as NSNumber)!
+            var amtString = nf.string(from: amt as NSNumber)!
+            if !amtString.hasPrefix("-") {
+                amtString = "+" + amtString
+            }
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
@@ -432,7 +438,10 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let amt = transaction.amount
             let nf = NumberFormatter()
             nf.numberStyle = .currency
-            let amtString = nf.string(from: amt as NSNumber)!
+            var amtString = nf.string(from: amt as NSNumber)!
+            if !amtString.hasPrefix("-") {
+                amtString = "+" + amtString
+            }
             historyCell?.resultLabel.text = amtString
             
             //Sets the Name of each user at each index

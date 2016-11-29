@@ -272,7 +272,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let amt = transaction.amount
             let nf = NumberFormatter()
             nf.numberStyle = .currency
-            let amtString = nf.string(from: amt as NSNumber)!
+            var amtString = nf.string(from: amt as NSNumber)!
+            if !amtString.hasPrefix("-") {
+                amtString = "+" + amtString
+            }
             pendingCell?.resultLabel.text = amtString
             
             
@@ -298,7 +301,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let amt = transaction.amount
             let nf = NumberFormatter()
             nf.numberStyle = .currency
-            let amtString = nf.string(from: amt as NSNumber)!
+            var amtString = nf.string(from: amt as NSNumber)!
+            if !amtString.hasPrefix("-") {
+                amtString = "+" + amtString
+            }
             pendingCell?.resultLabel.text = amtString
             
             //Sets the Name of each user at each index
@@ -325,7 +331,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let amt = transaction.amount
             let nf = NumberFormatter()
             nf.numberStyle = .currency
-            let amtString = nf.string(from: amt as NSNumber)!
+            var amtString = nf.string(from: amt as NSNumber)!
+            if !amtString.hasPrefix("-") {
+                amtString = "+" + amtString
+            }
             historyCell?.resultLabel.text = amtString
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
