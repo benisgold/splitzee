@@ -129,7 +129,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func groupsPressed() {
-        self.performSegue(withIdentifier: "adminToSideBar", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     func setupNavBar() {
@@ -163,6 +163,14 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func touchNewAdminTransactionButton(sender: UIButton!) {
         performSegue(withIdentifier: "adminPageToNewAdminTransaction", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "adminPageToNewAdminTransaction" {
+            let nextVC = segue.destination as! NewAdminTransactionViewController
+            nextVC.group = group
+            //print(group.name)
+        }
     }
     
     func switchView(sender: UISegmentedControl) {
@@ -311,7 +319,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             var transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-            print(transaction.amount)
+
             //Displays the amount of money transferred
             pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
             

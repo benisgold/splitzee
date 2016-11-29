@@ -19,9 +19,8 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     var requestButton: UIButton!
     var collectionView: UICollectionView!
     let constants = Constants()
-    var groupID: String!
     var xButton: UIButton!
-    
+    var group: Group!
     
     var rootRef: FIRDatabaseReference?
     var membersList = [User]()
@@ -180,7 +179,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool) {
         let transactionDict: [String:AnyObject]
         
-        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
+        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": group.groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
         
         let transaction = Transaction(key: "", transactionDict: transactionDict)
         transaction.addToDatabase()

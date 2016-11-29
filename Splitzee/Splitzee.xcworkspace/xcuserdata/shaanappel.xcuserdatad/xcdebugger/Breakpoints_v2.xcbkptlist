@@ -95,8 +95,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "250"
             endingLineNumber = "250"
-            landmarkName = "AdminPageViewController"
-            landmarkType = "3">
+            landmarkName = "setUpTableLists()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -111,7 +111,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "251"
             endingLineNumber = "251"
-            landmarkName = "tableView(_:numberOfRowsInSection:)"
+            landmarkName = "setUpTableLists()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
