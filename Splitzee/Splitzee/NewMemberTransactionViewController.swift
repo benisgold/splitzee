@@ -202,6 +202,8 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         }))
         self.present(alertWrongFormat, animated: true, completion: nil)
     }
+    
+}
     //-------Firebase----------------------------
     
 //--------------------------------------------
