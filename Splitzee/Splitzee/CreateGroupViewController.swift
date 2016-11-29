@@ -244,7 +244,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     // Creates a new group
     func createGroup(_ sender: UIButton) {
         
-        if ((nameTextField.text?.characters.count)! == 0 || (memberCodeTextField.text?.characters.count)! == 0 || (adminCodeTextField.text?.characters.count)! == 0 ) {
+        if ((nameTextField.text?.characters.count)! == 0 || (memberCodeTextField.text?.characters.count)! == 0 || (adminCodeTextField.text?.characters.count)! == 0 || (userImage == nil)) {
             alert(title: "Error", msg: "One or more fields have not been filled.")
         } else if (memberCodeTextField.text == adminCodeTextField.text) {
             alert(title: "Error", msg: "Member and Administrator access codes cannot be the same.")
@@ -273,7 +273,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     groupRef.child(key).child(Constants.GroupFields.adminIDs).setValue(groupRefAdminIds)
                     groupRef.child(key).child(Constants.GroupFields.total).setValue(0.00)
                     
-                    self.createdGroup = Group(name: self.nameTextField.text!, total: 0.00, picURL: urlString)
+                    self.createdGroup = Group(groupID: key,name: self.nameTextField.text!, total: 0.00, picURL: urlString)
                     self.createdGroup?.transactionIDs = []
                     self.createdGroup?.memberIDs = [self.currUser.uid]
                     self.createdGroup?.adminIDs = [self.currUser.uid]
@@ -302,12 +302,15 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                         userRef.child(Constants.UserFields.groupAdminIDs).setValue(adminIDs)
                         
                         DispatchQueue.main.async {
-                            self.dismiss(animated: true, completion: nil)
-                            self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
+                            self.dismiss(animated: true, completion: {
+                                self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
+                            })
+                            
+                            
+                            
+
                         }
                     })
-                } else {
-                    self.alert(title: "Error", msg: "Please enter a group picture.")
                 }
             })
         }

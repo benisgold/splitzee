@@ -68,8 +68,9 @@ class Group: Hashable, Equatable {
         }
     }
     
-    init(name: String, total: Double?, picURL: String) {
+    init(groupID: String, name: String, total: Double?, picURL: String) {
         self.name = name
+        self.groupID = groupID
         
         if let balance = total {
             self.total = balance
