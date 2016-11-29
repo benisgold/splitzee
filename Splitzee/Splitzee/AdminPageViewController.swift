@@ -406,17 +406,17 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .history:
             
-            var transaction = historyList[indexPath.row]
+            let transaction = historyList[indexPath.row]
             
             
             let historyCell = cell as? AdminHistoryTableViewCell
             
             //Displays the amount of money transferred
-            if historyList[indexPath.row].groupToMember == true {
-                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount)
-            } else {
-                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount)
-            }
+            let amt = transaction.amount
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            let amtString = nf.string(from: amt as NSNumber)!
+            historyCell?.resultLabel.text = amtString
             
             //Sets the Name of each user at each index
             

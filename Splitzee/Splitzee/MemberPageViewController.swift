@@ -322,11 +322,11 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             let historyCell = cell as? MemberHistoryTableViewCell
             
             //Displays the amount of money transferred
-            if transaction.groupToMember == false {
-                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount)
-            } else {
-                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount)
-            }
+            let amt = transaction.amount
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            let amtString = nf.string(from: amt as NSNumber)!
+            historyCell?.resultLabel.text = amtString
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
                 historyCell?.memberNameLabel.text = User.name
