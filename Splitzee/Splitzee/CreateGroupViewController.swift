@@ -244,7 +244,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
     // Creates a new group
     func createGroup(_ sender: UIButton) {
         
-        if ((nameTextField.text?.characters.count)! == 0 || (memberCodeTextField.text?.characters.count)! == 0 || (adminCodeTextField.text?.characters.count)! == 0 ) {
+        if ((nameTextField.text?.characters.count)! == 0 || (memberCodeTextField.text?.characters.count)! == 0 || (adminCodeTextField.text?.characters.count)! == 0 || (userImage == nil)) {
             alert(title: "Error", msg: "One or more fields have not been filled.")
         } else if (memberCodeTextField.text == adminCodeTextField.text) {
             alert(title: "Error", msg: "Member and Administrator access codes cannot be the same.")
@@ -306,8 +306,6 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                             self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
                         }
                     })
-                } else {
-                    self.alert(title: "Error", msg: "Please enter a group picture.")
                 }
             })
         }
