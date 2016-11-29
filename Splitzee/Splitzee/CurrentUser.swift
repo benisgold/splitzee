@@ -170,11 +170,11 @@ class CurrentUser {
                 if groupCode == group.adminCode {
                     self.groupAdminIDs.append(key)
                     self.groupIDs.append(key)
-                    group.memberIDs.append(key)
-                    group.adminIDs.append(key)
+                    group.memberIDs.append(self.uid)
+                    group.adminIDs.append(self.uid)
                 } else if groupCode == group.memberCode {
                     self.groupIDs.append(key)
-                    group.memberIDs.append(key)
+                    group.memberIDs.append(self.uid)
                 }
                 
                 userRef.child(Constants.UserFields.groupIDs).setValue(self.groupIDs)

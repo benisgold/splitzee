@@ -46,6 +46,7 @@ class User {
         imageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
             if (error != nil) {
                 print("An error occured: \(error!)")
+                withBlock(#imageLiteral(resourceName: "Group"))
             } else {
                 let image = UIImage(data: data!)
                 withBlock(image!)

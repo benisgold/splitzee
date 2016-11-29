@@ -228,7 +228,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     
                 } else {
                     
-                    withBlock(String(describing: metadata!.downloadURL()))
+                    withBlock("images/"+id)
                 }
             }
         }

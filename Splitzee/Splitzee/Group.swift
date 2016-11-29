@@ -96,7 +96,7 @@ class Group: Hashable, Equatable {
     
     func getGroupPic(withBlock: @escaping (UIImage) -> Void) {
         let storageRef = FIRStorage.storage().reference()
-        let imageRef = storageRef.child(picURL)
+        let imageRef = storageRef.child("images/"+groupID)
         
         imageRef.data(withMaxSize: 1 * 1024 * 1024, completion: { (data, error) -> Void in
             if (error != nil) {
