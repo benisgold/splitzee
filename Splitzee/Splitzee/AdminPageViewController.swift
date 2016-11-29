@@ -129,7 +129,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func groupsPressed() {
-        self.performSegue(withIdentifier: "adminToSideBar", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     func setupNavBar() {
@@ -162,7 +162,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func touchNewAdminTransactionButton(sender: UIButton!) {
-        performSegue(withIdentifier: "adminPageToNewAdminTransaction", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     func switchView(sender: UISegmentedControl) {

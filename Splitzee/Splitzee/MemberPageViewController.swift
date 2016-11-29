@@ -78,7 +78,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func newTransactionPressed() {
-        performSegue(withIdentifier: "memberPageToNewMemberTransaction", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -90,7 +90,6 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func groupsPressed() {
-        //        performSegue(withIdentifier: "memberToSideBar", sender: self)
         dismiss(animated: true, completion: nil)
     }
     
