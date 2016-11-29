@@ -20,6 +20,8 @@ class Group: Hashable, Equatable {
     var total: Double = 0
     var name: String = ""
     var picURL: String = ""
+    var adminCode = ""
+    var memberCode = ""
     
     var hashValue: Int {
         return self.groupID.hashValue
@@ -55,6 +57,14 @@ class Group: Hashable, Equatable {
         
         if let totalMoney = groupDict[Constants.GroupFields.total] as? Double{
             total = totalMoney
+        }
+        
+        if let groupAdminCode = groupDict[Constants.GroupFields.adminCode] as? String {
+            adminCode = groupAdminCode
+        }
+        
+        if let groupMemberCode = groupDict[Constants.GroupFields.memberCode] as? String {
+            memberCode = groupMemberCode
         }
     }
     
@@ -96,14 +106,36 @@ class Group: Hashable, Equatable {
         })
     }
     
-    func getTransactions(withBlock: @escaping (Transaction) -> Void) {
+    func getTransactions(withBlock: @escaping (Transaction) -> Void)  {
+
         let ref = FIRDatabase.database().reference()
-        for id in transactionIDs {
-            ref.child("Transactions").child(id).observe(.value, with: { (snapshot) in
-                // Get user value
-                let curr = Transaction(key: id, transactionDict: snapshot.value as! [String : AnyObject])
+        for id in transactionIDs  {
+            ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
+                //  Get user value
+                let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
             })
         }
+    }
+    
+    func getTotal(withBlock: @escaping (Double) -> Void) {
+        let rootRef = FIRDatabase.database().reference()
+        let groupRef = rootRef.child("Group")
+        groupRef.child(groupID).child(Constants.GroupFields.total).observe(.value, with: { (snapshot) in
+            // Get total value
+            print(snapshot.key)
+            print(snapshot.value)
+            if let total = snapshot.value as? Double {
+                withBlock(total)
+            }
+        })
+        
+    }
+    
+    func addToTotal(amount: Double) {
+        total += amount
+        let rootRef = FIRDatabase.database().reference()
+        let groupRef = rootRef.child("Group")
+        groupRef.child(groupID).child(Constants.GroupFields.total).setValue(total)
     }
 }
