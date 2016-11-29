@@ -63,7 +63,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         groupsButton.addTarget(self, action: #selector(groupsPressed), for: .touchUpInside)
         view.addSubview(groupsButton)
         
-        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.138, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.138, width: view.frame.width * 0.063, height: view.frame.height * 0.032))
         newTransactionButton.setTitle("+", for: .normal)
         newTransactionButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 43)
         newTransactionButton.setTitleColor(constants.fontMediumBlue, for: .normal)
@@ -78,18 +78,18 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func newTransactionPressed() {
-        performSegue(withIdentifier: "memberPageToNewMemberTransaction", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "memberPageToNewMemberTransaction" {
             let nextVC = segue.destination as! NewMemberTransactionViewController
             nextVC.group = group
+            //print(group.name)
         }
     }
     
     func groupsPressed() {
-        //        performSegue(withIdentifier: "memberToSideBar", sender: self)
         dismiss(animated: true, completion: nil)
     }
     
@@ -146,7 +146,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     //Create lists for different tables
     func setUpTableLists(){
         currUser.getTransactions(group: group, withBlock: {(trans) -> Void in
-            print(trans)
+            //print(trans)
             self.transactionList.append(trans)
             if trans.isApproved == true {
                 self.historyList.append(trans)
@@ -236,13 +236,15 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
         switch listState {
         case .incoming:
             
-            var transaction = incomingList[indexPath.row]
+            let transaction = incomingList[indexPath.row]
             
             let pendingCell = cell as? MemberPendingTableViewCell
             
             //Displays the amount of money transferred
-            pendingCell?.resultLabel.text = "$" + String(describing: transaction.amount)
-            
+            if let amt = transaction.amount {
+
+                pendingCell?.resultLabel.text = "$" + String(describing: amt)
+            }
             
             //Sets the Name of each user at each index
             pendingCell?.memberNameLabel.text = group.name
@@ -255,17 +257,19 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             
             //Sets description of each transaction
-            pendingCell?.descriptionLabel.text = String(describing: incomingList[indexPath.row].description)
+            pendingCell?.descriptionLabel.text = String(describing: transaction.description)
             
         case .outgoing:
             
-            var transaction = outgoingList[indexPath.row]
+            let transaction = outgoingList[indexPath.row]
 
             
             let pendingCell = cell as? MemberPendingTableViewCell
             
-            //Displays the amount of money transferred
-            pendingCell?.resultLabel.text = "$" + String(describing: outgoingList[indexPath.row].amount)
+            if let amt = transaction.amount {
+                let amtString = String(describing: amt)
+                pendingCell?.resultLabel.text = "$\(amtString)"
+            }
             
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
@@ -278,20 +282,20 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             })
             
             //Sets description of each transaction
-            pendingCell?.descriptionLabel.text = String(describing: outgoingList[indexPath.row].description)
+            pendingCell?.descriptionLabel.text = String(describing: transaction.description)
             
         case .history:
             
-            var transaction = historyList[indexPath.row]
+            let transaction = historyList[indexPath.row]
 
             
             let historyCell = cell as? MemberHistoryTableViewCell
             
             //Displays the amount of money transferred
-            if historyList[indexPath.row].groupToMember == false {
-                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount)
+            if transaction.groupToMember == false {
+                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount!)
             } else {
-                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount)
+                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount!)
             }
             //Sets the Name of each user at each index
             transaction.getUser(withBlock:{(User) -> Void in
@@ -306,11 +310,6 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             //Sets description of each transaction
             historyCell?.descriptionLabel.text = String(describing: transaction.description)
-            
-        default:
-            
-            let pendingCell = cell as? AdminPendingTableViewCell
-            
         }
         
     }

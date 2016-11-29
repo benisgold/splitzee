@@ -83,7 +83,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         view.addSubview(groupsButton)
         
         // NEW TRANSACTION BUTTON RIGHT
-        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.333, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.333, width: view.frame.width * 0.063, height: view.frame.height * 0.032))
         newTransactionButton.setTitle("+", for: .normal)
         newTransactionButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 43)
         newTransactionButton.setTitleColor(constants.fontMediumBlue, for: .normal)
@@ -129,7 +129,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func groupsPressed() {
-        self.performSegue(withIdentifier: "adminToSideBar", sender: self)
+        dismiss(animated: true, completion: nil)
     }
     
     func setupNavBar() {
@@ -162,7 +162,15 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func touchNewAdminTransactionButton(sender: UIButton!) {
-        performSegue(withIdentifier: "adminPageToNewAdminTransaction", sender: self)
+        dismiss(animated: true, completion: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "adminPageToNewAdminTransaction" {
+            let nextVC = segue.destination as! NewAdminTransactionViewController
+            nextVC.group = group
+            //print(group.name)
+        }
     }
     
     func switchView(sender: UISegmentedControl) {
@@ -311,7 +319,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             var transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-            print(transaction.amount)
+
             //Displays the amount of money transferred
             pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
             

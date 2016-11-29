@@ -13,15 +13,14 @@ import FirebaseStorage
 class NewAdminTransactionViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UITextFieldDelegate{
     
     var background: UIImageView!
-  //var userSelectTextField: UITextField!
     var amountTextField: UITextField!
     var descriptionTextField: UITextView!
     var payButton: UIButton!
     var requestButton: UIButton!
     var collectionView: UICollectionView!
     let constants = Constants()
-    var groupID: String!
-    
+    var xButton: UIButton!
+    var group: Group!
     
     var rootRef: FIRDatabaseReference?
     var membersList = [User]()
@@ -31,7 +30,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         super.viewDidLoad()
         configureKeyboard()
         setUpUI()
-        pollForUsers()
+        setMemberList()
         setupCollectionView()
         
         // Do any additional setup after loading the view.
@@ -48,15 +47,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         self.view.addSubview(background)
         
         setupNavBar()
-        
-//        userSelectTextField = UITextField(frame: CGRect(x: 0, y: 0.306 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
-//        userSelectTextField.layer.masksToBounds = true
-//        userSelectTextField.backgroundColor = UIColor.white
-//        userSelectTextField.layer.borderColor = constants.fontLightGray.cgColor
-//        userSelectTextField.layer.borderWidth = 1
-//        userSelectTextField.placeholder = "     Enter name, @username, or select above"
-//        view.addSubview(userSelectTextField)
-//        
+    
         amountTextField = UITextField(frame: CGRect(x: 0, y: 0.367 * view.frame.height , width: view.frame.width, height: view.frame.height * 0.061))
         amountTextField.layer.masksToBounds = true
         amountTextField.backgroundColor = UIColor.white
@@ -94,8 +85,15 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         requestButton.backgroundColor = constants.mediumBlue
         requestButton.setTitleColor(UIColor.white, for: .normal)
         requestButton.layer.cornerRadius = 3
-        payButton.addTarget(self, action: #selector(pressRequest), for: .touchUpInside)
+        requestButton.addTarget(self, action: #selector(pressRequest), for: .touchUpInside)
         view.addSubview(requestButton)
+        
+        xButton = UIButton()
+        xButton.frame = CGRect(x: 0.900 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
+        xButton.setImage(#imageLiteral(resourceName: "X Button"), for: .normal)
+        xButton.imageView?.contentMode = .scaleAspectFill
+        xButton.addTarget(self, action: #selector(xButtonPressed), for: .touchUpInside)
+        view.addSubview(xButton)
     }
     
     func setupNavBar() {
@@ -114,11 +112,12 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         collectionView.backgroundColor = UIColor.clear
         
         view.addSubview(collectionView)
+        view.bringSubview(toFront: xButton)
     }
     
     
     
-    //-------------------- Functions---------------------------------------------------
+    // Functions---------------------------------------------------
     
     func createInset(textField: UITextField) {
         let paddingView = UIView(frame: CGRect(x: 0, y: 0, width: 20, height: textField.frame.height))
@@ -135,21 +134,14 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
     }
     
-    func pollForUsers(){
-        rootRef = FIRDatabase.database().reference()
-        if let rootRef = rootRef {
-            rootRef.child(Constants.DataNames.User).queryOrderedByKey().observe(.childAdded, with: {
-                snapshot in
-                let userKey = snapshot.key as String
-                let userDict = snapshot.value as? [String: AnyObject]
-                let user = User(key: userKey, userDict: userDict!)
-                self.membersList.insert(user, at: 0)
-            })
+    func setMemberList(){
+        group.pollForUsers(withBlock: { user in
+            self.membersList.append(user)
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
                 
             }
-        }
+        })
     }
     
     func pressPay(sender: UIButton!)
@@ -163,8 +155,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         }
     }
     
-    
-    
     func pressRequest(sender: UIButton)
     {
         for member in selectedMembers {
@@ -176,10 +166,14 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         }
     }
     
+    func xButtonPressed() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool) {
         let transactionDict: [String:AnyObject]
         
-        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
+        transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": group.groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
         
         let transaction = Transaction(key: "", transactionDict: transactionDict)
         transaction.addToDatabase()
@@ -194,14 +188,11 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         return 1
     }
     
-    
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // should be returning the number of users
+        print("count:" + String(membersList.count))
         return membersList.count
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "adminTransactionCell", for: indexPath) as! NewAdminTransactionCollectionViewCell
@@ -211,8 +202,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         cell.awakeFromNib()
         return cell
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let adminTransactionCell = cell as! NewAdminTransactionCollectionViewCell
@@ -224,15 +213,11 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         membersList[indexPath.row].getProfilePic(withBlock:{(UIImage) -> Void in
                 adminTransactionCell.userImage.image = UIImage
             })
-        
     }
-    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 0.275*view.frame.width , height: 0.367*view.frame.height )
     }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as? NewAdminTransactionCollectionViewCell

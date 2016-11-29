@@ -39,7 +39,7 @@ class AdminHistoryTableViewCell: UITableViewCell {
         memberNameLabel = UILabel()
         memberNameLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.331 * contentView.frame.height)
         memberNameLabel.textColor = constants.fontMediumDarkBlue
-        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
+        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 14)
         contentView.addSubview(memberNameLabel)
     }
     
@@ -47,7 +47,7 @@ class AdminHistoryTableViewCell: UITableViewCell {
         descriptionLabel = UILabel()
         descriptionLabel.frame = CGRect(x: 0.115 * contentView.frame.width, y: 0.418 * contentView.frame.height, width: 0.581 * contentView.frame.width, height: 0.577 * contentView.frame.height)
         descriptionLabel.textColor = constants.fontMediumDarkBlue
-        descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 14)
+        descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 12)
         contentView.addSubview(descriptionLabel)
     }
     

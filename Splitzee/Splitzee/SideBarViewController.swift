@@ -184,11 +184,13 @@ class SideBarViewController: UIViewController, CreateGroupViewControllerDelegate
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "sideBarToMember" {
-            let nextVC = segue.destination as! MemberPageViewController
-            nextVC.group = selectedGroup
+            let nextVC = segue.destination as! UINavigationController
+            let vc = nextVC.topViewController as! MemberPageViewController
+            vc.group = selectedGroup
         } else if segue.identifier == "sideBarToAdmin" {
-            let nextVC = segue.destination as! AdminPageViewController
-            nextVC.group = selectedGroup
+            let nextVC = segue.destination as! UINavigationController
+            let vc = nextVC.topViewController as! AdminPageViewController
+            vc.group = selectedGroup
         } else if segue.identifier == "sideBarToCreateGroup" {
             let nextVC = segue.destination as! CreateGroupViewController
             nextVC.delegate = self
@@ -246,7 +248,14 @@ extension SideBarViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedGroup = groups[indexPath.row]
+        
+        if (indexPath.section == 0) {
+            selectedGroup = adminGroups[indexPath.row]
+            
+        } else {
+            selectedGroup = regularGroups[indexPath.row]
+            
+        }
         if (indexPath.section == 0) {
             performSegue(withIdentifier: "sideBarToAdmin", sender: self)
         } else {
