@@ -69,19 +69,19 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         incomingList = []
         outgoingList = []
         let dbRef = FIRDatabase.database().reference()
-        let uid = FIRAuth.auth()?.currentUser?.uid
-        if let uid = uid {
-            dbRef.child(Constants.DataNames.User).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
-                // Get user value
-                self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
-                DispatchQueue.main.async {
-                    self.setUpTableLists()
-                }
-                
-            }) { (error) in
-                print(error.localizedDescription)
+        let groupID = group.groupID
+        
+        dbRef.child(Constants.DataNames.Group).child(groupID).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            self.group = Group(key: groupID, groupDict: snapshot.value as! [String: AnyObject])
+            DispatchQueue.main.async {
+                self.setUpTableLists()
             }
+            
+        }) { (error) in
+            print(error.localizedDescription)
         }
+        
     }
     
     func setUpDataDependencies() {
@@ -343,7 +343,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             var transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-
+            
             //Displays the amount of money transferred
             pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
             
@@ -391,7 +391,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         case .history:
             
             var transaction = historyList[indexPath.row]
-
+            
             
             let historyCell = cell as? AdminHistoryTableViewCell
             
