@@ -273,7 +273,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                     groupRef.child(key).child(Constants.GroupFields.adminIDs).setValue(groupRefAdminIds)
                     groupRef.child(key).child(Constants.GroupFields.total).setValue(0.00)
                     
-                    self.createdGroup = Group(name: self.nameTextField.text!, total: 0.00, picURL: urlString)
+                    self.createdGroup = Group(groupID: key,name: self.nameTextField.text!, total: 0.00, picURL: urlString)
                     self.createdGroup?.transactionIDs = []
                     self.createdGroup?.memberIDs = [self.currUser.uid]
                     self.createdGroup?.adminIDs = [self.currUser.uid]
@@ -302,8 +302,10 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
                         userRef.child(Constants.UserFields.groupAdminIDs).setValue(adminIDs)
                         
                         DispatchQueue.main.async {
-                            self.dismiss(animated: true, completion: nil)
                             self.performSegue(withIdentifier: "createGroupToAdminPage", sender: self)
+                            self.dismiss(animated: true, completion: nil)
+                            
+
                         }
                     })
                 }
