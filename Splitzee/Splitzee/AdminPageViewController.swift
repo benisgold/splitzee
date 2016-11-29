@@ -241,7 +241,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             if let amountToAdd = Double(textF.text!) {
                 self.group.addToTotal(amount: amountToAdd)
             } else {
-                print("malformedAmount")
+                self.alert("Poorly formatted amount.")
             }
             print(textF.text!)
         }))
@@ -262,7 +262,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             if let amountToAdd = Double(textF.text!) {
                 self.group.addToTotal(amount: (amountToAdd * -1))
             } else {
-                self.alert("The amount is formatted wrong.")
+                self.alert("Poorly formated amount.")
             }
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in

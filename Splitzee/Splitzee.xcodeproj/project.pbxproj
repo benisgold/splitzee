@@ -406,7 +406,11 @@
 				TargetAttributes = {
 					E42ABDC21DD560340002D910 = {
 						CreatedOnToolsVersion = 8.0;
+<<<<<<< HEAD
 						DevelopmentTeam = KV9N5HK3BV;
+=======
+						DevelopmentTeam = GY2X374U5C;
+>>>>>>> 2827fd2176102ad89dc165391aa50bc7a9e7435c
 						LastSwiftMigration = 0810;
 						ProvisioningStyle = Automatic;
 					};
@@ -721,7 +725,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+<<<<<<< HEAD
 				DEVELOPMENT_TEAM = KV9N5HK3BV;
+=======
+				DEVELOPMENT_TEAM = GY2X374U5C;
+>>>>>>> 2827fd2176102ad89dc165391aa50bc7a9e7435c
 				INFOPLIST_FILE = Splitzee/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MDB.Splitzee.13;
@@ -737,7 +745,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+<<<<<<< HEAD
 				DEVELOPMENT_TEAM = KV9N5HK3BV;
+=======
+				DEVELOPMENT_TEAM = GY2X374U5C;
+>>>>>>> 2827fd2176102ad89dc165391aa50bc7a9e7435c
 				INFOPLIST_FILE = Splitzee/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = MDB.Splitzee.13;
