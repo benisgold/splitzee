@@ -99,7 +99,20 @@ class Transaction {
                 }
             }
         })
-        
+    }
+    
+    // Gets current group so that one can update the money of the group
+    func getCurrGroup(withBlock: @escaping (Group) -> Void) {
+        let ref = FIRDatabase.database().reference()
+        ref.child(Constants.DataNames.Group).child(groupID).observeSingleEvent(of: .value, with: { snapshot -> Void in
+            // Get user value
+            if snapshot.exists(){
+                if let groupDict = snapshot.value as? [String: AnyObject]{
+                    let group = Group(key: snapshot.key, groupDict: groupDict)
+                    withBlock(group)
+                }
+            }
+        })
     }
     
     func addToDatabase(withBlock: @escaping (Transaction) -> Void) {
@@ -175,7 +188,7 @@ class Transaction {
         ref.child(Constants.DataNames.Transaction).child(transactionID).child(Constants.TransactionFields.isApproved).setValue(true)
         
         // update money
-        getGroup(withBlock: { (group) -> Void in
+        getCurrGroup(withBlock: { (group) -> Void in
             group.addToTotal(amount: self.amount)
         })
         
