@@ -83,7 +83,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         view.addSubview(groupsButton)
         
         // NEW TRANSACTION BUTTON RIGHT
-        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.333, width: view.frame.width * 0.058, height: view.frame.height * 0.032))
+        newTransactionButton = UIButton(frame: CGRect(x: view.frame.width * 0.896, y: view.frame.height * 0.333, width: view.frame.width * 0.063, height: view.frame.height * 0.032))
         newTransactionButton.setTitle("+", for: .normal)
         newTransactionButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 43)
         newTransactionButton.setTitleColor(constants.fontMediumBlue, for: .normal)
