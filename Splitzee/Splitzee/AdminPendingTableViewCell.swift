@@ -33,16 +33,15 @@ class AdminPendingTableViewCell: UITableViewCell {
     
     func makeMemberPicView() {
         memberPicView = UIImageView()
-        memberPicView.frame = CGRect(x: 0.041 * contentView.frame.width, y: 0.155 * contentView.frame.height, width: 0.188 * contentView.frame.width, height: 0.188 * contentView.frame.width)
+        memberPicView.frame = CGRect(x: 0, y: 0, width: 0.188 * contentView.frame.width, height: contentView.frame.height)
         contentView.addSubview(memberPicView)
     }
     
     func makeMemberNameLabel() {
         memberNameLabel = UILabel()
         memberNameLabel.frame = CGRect(x: 0.251 * contentView.frame.width, y: 0.082 * contentView.frame.height, width: 0.749 * contentView.frame.width, height: 0.331 * contentView.frame.height)
-        memberNameLabel.text = "Jane Doe"
         memberNameLabel.textColor = constants.fontMediumDarkBlue
-        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 10)
+        memberNameLabel.font = UIFont(name: "SFUIText-Semibold", size: 15)
         contentView.addSubview(memberNameLabel)
     }
     
@@ -50,7 +49,6 @@ class AdminPendingTableViewCell: UITableViewCell {
         descriptionLabel = UILabel()
         descriptionLabel.frame = CGRect(x: 0.251 * contentView.frame.width, y: 0.336 * contentView.frame.height, width: 0.696 * contentView.frame.width, height: 0.331 * contentView.frame.height)
         descriptionLabel.textColor = UIColor.blue
-        descriptionLabel.text = "Hello. My name is Jane Doe. I love computer science."
         descriptionLabel.textColor = constants.fontMediumDarkBlue
         descriptionLabel.font = UIFont(name: "SFUIText-LightItalic", size: 10)
         contentView.addSubview(descriptionLabel)
