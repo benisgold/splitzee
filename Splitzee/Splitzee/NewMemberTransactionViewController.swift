@@ -124,12 +124,11 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
         
         xButton = UIButton()
         xButton.frame = CGRect(x: 0.900 * view.frame.width, y: 0.175 * view.frame.height, width: 0.046 * view.frame.width, height: 0.046 * view.frame.width)
-        xButton.titleLabel?.font = UIFont(name: "SFUIText-Regular", size: 22)
-        xButton.setTitle("X", for: .normal)
-        xButton.setTitleColor(constants.fontMediumGray, for: .normal)
-        xButton.titleLabel?.textAlignment = .center
+        xButton.setImage(#imageLiteral(resourceName: "X Button"), for: .normal)
+        xButton.imageView?.contentMode = .scaleAspectFill
         xButton.addTarget(self, action: #selector(xButtonPressed), for: .touchUpInside)
         view.addSubview(xButton)
+
     }
     
     func pay() {
