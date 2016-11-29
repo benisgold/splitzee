@@ -208,8 +208,9 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
         adminTransactionCell.userName.text = membersList[indexPath.row].name
         
         //sets profile pictures for all the members
-        membersList[indexPath.row].getProfilePic(withBlock:{(UIImage) -> Void in
-                adminTransactionCell.userImage.image = UIImage
+        membersList[indexPath.row].getProfilePic(withBlock:{(image) -> Void in
+                print(image)
+                adminTransactionCell.userImage.image = image
             })
     }
     
