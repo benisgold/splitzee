@@ -134,7 +134,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func setupNavBar() {
         self.title = group.name // Actual group name
-        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Light", size: 20)!]
+        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: constants.fontMediumBlue, NSFontAttributeName: UIFont(name: "SFUIText-Medium", size: 20)!]
         self.navigationController?.navigationBar.barTintColor = UIColor.white
     }
     
@@ -308,6 +308,9 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 75
+    }
     
     //Populates the cell with data
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
