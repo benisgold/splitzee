@@ -34,6 +34,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     var group: Group!
     let rootRef = FIRDatabase.database().reference()
     var listState = ListState.incoming
+    var alertView: UIAlertController!
     
     var transactionList: [Transaction] = []
     var historyList: [Transaction] = []
@@ -245,14 +246,14 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     func subMoneyPressed() {
         alertViewSub = UIAlertController(title: "Subtract an amount:", message: "", preferredStyle: UIAlertControllerStyle.alert)
         alertViewSub.addTextField { (textField) -> Void in
-            textField.placeholder = "$0.00"
+            textField.placeholder = "0.00"
         }
         alertViewSub.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.alertViewSub.textFields![0] as UITextField
             if let amountToAdd = Double(textF.text!) {
                 self.group.addToTotal(amount: (amountToAdd * -1))
             } else {
-                print("malformedAmount")
+                self.alert("The amount is formatted wrong.")
             }
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
@@ -263,6 +264,13 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    func alert(_ msg: String) {
+        alertView = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.alertView.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertView, animated: true, completion: nil)
+    }
     
     //-----------------functions----------------------------------
     
