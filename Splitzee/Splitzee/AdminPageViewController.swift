@@ -34,6 +34,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     var group: Group!
     let rootRef = FIRDatabase.database().reference()
     var listState = ListState.incoming
+    var alertView: UIAlertController!
     
     var transactionList: [Transaction] = []
     var historyList: [Transaction] = []
@@ -254,14 +255,14 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     func subMoneyPressed() {
         alertViewSub = UIAlertController(title: "Subtract an amount:", message: "", preferredStyle: UIAlertControllerStyle.alert)
         alertViewSub.addTextField { (textField) -> Void in
-            textField.placeholder = "$0.00"
+            textField.placeholder = "0.00"
         }
         alertViewSub.addAction(UIAlertAction(title: "Done", style: .default, handler: { (action) in
             let textF = self.alertViewSub.textFields![0] as UITextField
             if let amountToAdd = Double(textF.text!) {
                 self.group.addToTotal(amount: (amountToAdd * -1))
             } else {
-                print("malformedAmount")
+                self.alert("The amount is formatted wrong.")
             }
         }))
         alertViewSub.addAction(UIAlertAction(title: "Cancel", style: .default, handler: { (action) in
@@ -272,6 +273,13 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    func alert(_ msg: String) {
+        alertView = UIAlertController(title: "Error", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+        alertView.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+            self.alertView.dismiss(animated: true, completion: nil)
+        }))
+        self.present(alertView, animated: true, completion: nil)
+    }
     
     //-----------------functions----------------------------------
     
@@ -394,7 +402,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .outgoing:
             
-            let transaction = outgoingList[indexPath.row]
+            let transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred
@@ -405,6 +413,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             pendingCell?.approveButton.setTitle(amtString, for: .normal)
             
             //Sets the Name of each user at each index
+            
             
             transaction.getUser(withBlock:{(user) -> Void in
                 pendingCell?.memberNameLabel.text = user.name
@@ -423,17 +432,17 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .history:
             
-            var transaction = historyList[indexPath.row]
+            let transaction = historyList[indexPath.row]
             
             
             let historyCell = cell as? AdminHistoryTableViewCell
             
             //Displays the amount of money transferred
-            if historyList[indexPath.row].groupToMember == true {
-                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount)
-            } else {
-                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount)
-            }
+            let amt = transaction.amount
+            let nf = NumberFormatter()
+            nf.numberStyle = .currency
+            let amtString = nf.string(from: amt as NSNumber)!
+            historyCell?.resultLabel.text = amtString
             
             //Sets the Name of each user at each index
             
