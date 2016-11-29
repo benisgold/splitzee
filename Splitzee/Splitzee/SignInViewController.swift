@@ -69,6 +69,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputEmail.backgroundColor = UIColor.white
         inputEmail.autocapitalizationType = .none
         inputEmail.keyboardType = .emailAddress
+        inputEmail.layer.cornerRadius = 3
         inputEmail.autocorrectionType = .no
         createInset(textField: inputEmail)
         view.addSubview(inputEmail)
@@ -83,6 +84,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         inputPassword.isSecureTextEntry = true
         inputPassword.autocapitalizationType = .none
         inputPassword.autocorrectionType = .no
+        inputPassword.layer.cornerRadius = 3
         createInset(textField: inputPassword)
         view.addSubview(inputPassword)
         
@@ -91,6 +93,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         signInButton.setTitle("SIGN IN", for: .normal)
         signInButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 18)
         signInButton.backgroundColor = constants.darkGray
+        signInButton.layer.cornerRadius = 3
         signInButton.addTarget(self, action: #selector(touchSignInButton), for: .touchUpInside)
         view.addSubview(signInButton)
         
@@ -99,6 +102,7 @@ class SignInViewController: UIViewController, UITextFieldDelegate {
         createAccountButton.setTitle("CREATE ACCOUNT", for: .normal)
         createAccountButton.titleLabel?.font = UIFont(name: "SFUIText-Light", size: 18)
         createAccountButton.backgroundColor = constants.red
+        createAccountButton.layer.cornerRadius = 3
         createAccountButton.addTarget(self, action: #selector(touchCreateAccountButton), for: .touchUpInside)
         view.addSubview(createAccountButton)
         
