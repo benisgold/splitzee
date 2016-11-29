@@ -44,6 +44,7 @@ class AdminPendingTableViewCell: UITableViewCell {
         memberPicView.frame = CGRect(x: 0.05 * contentView.frame.width, y: 0.05 * contentView.frame.height, width: 0.900 * contentView.frame.height, height: 0.900 * contentView.frame.height)
         memberPicView.clipsToBounds = true
         memberPicView.contentMode = .scaleAspectFill
+        memberPicView.image = #imageLiteral(resourceName: "Group")
         memberPicView.layer.cornerRadius = 0.5 * 0.900 * contentView.frame.height
         contentView.addSubview(memberPicView)
     }

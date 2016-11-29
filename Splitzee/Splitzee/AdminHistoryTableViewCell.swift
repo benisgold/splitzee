@@ -30,6 +30,7 @@ class AdminHistoryTableViewCell: UITableViewCell {
         memberPicView.clipsToBounds = true
         memberPicView.contentMode = .scaleAspectFill
         memberPicView.layer.cornerRadius = 0.5 * 0.9 * contentView.frame.height
+        memberPicView.image = #imageLiteral(resourceName: "Group")
         contentView.addSubview(memberPicView)
     }
     
