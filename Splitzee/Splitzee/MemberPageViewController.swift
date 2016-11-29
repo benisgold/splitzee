@@ -145,7 +145,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     
     //Create lists for different tables
     func setUpTableLists(){
-        currUser.getTransactions(withBlock: {(trans) -> Void in
+        currUser.getTransactions(group: group, withBlock: {(trans) -> Void in
             print(trans)
             self.transactionList.append(trans)
             if trans.isApproved == true {
