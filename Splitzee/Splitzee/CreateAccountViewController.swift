@@ -290,7 +290,7 @@ class CreateAccountViewController: UIViewController, UITextFieldDelegate, UIImag
                     
                     let rootRef = FIRDatabase.database().reference()
                     let key = user?.uid
-                    let userRef = rootRef.child("User").child(key!)
+                    let userRef = rootRef.child(Constants.DataNames.User).child(key!)
                     
                     self.storeImage(id: key!, withBlock: {(urlString) -> Void in
                         

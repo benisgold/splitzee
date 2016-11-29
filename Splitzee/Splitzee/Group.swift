@@ -84,7 +84,7 @@ class Group: Hashable, Equatable {
     func pollForUsers(withBlock: @escaping (User) -> Void) {
         let ref = FIRDatabase.database().reference()
         for id in memberIDs {
-            ref.child("Users").child(id).observe(.value, with: { (snapshot) in
+            ref.child(Constants.DataNames.User).child(id).observe(.value, with: { (snapshot) in
                 // Get user value
                 let curr = User(key: id, userDict: snapshot.value as! [String:AnyObject])
                 withBlock(curr)
@@ -110,7 +110,7 @@ class Group: Hashable, Equatable {
 
         let ref = FIRDatabase.database().reference()
         for id in transactionIDs  {
-            ref.child("Transactions").child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
+            ref.child(Constants.DataNames.Transaction).child(id).observeSingleEvent(of: .value, with:  { (snapshot) in
                 //  Get user value
                 print(snapshot.key)
                 let curr = Transaction(key: id, transactionDict: snapshot.value as! [String:AnyObject])
@@ -121,11 +121,9 @@ class Group: Hashable, Equatable {
     
     func getTotal(withBlock: @escaping (Double) -> Void) {
         let rootRef = FIRDatabase.database().reference()
-        let groupRef = rootRef.child("Group")
+        let groupRef = rootRef.child(Constants.DataNames.Group)
         groupRef.child(groupID).child(Constants.GroupFields.total).observe(.value, with: { (snapshot) in
             // Get total value
-            print(snapshot.key)
-            print(snapshot.value)
             if let total = snapshot.value as? Double {
                 withBlock(total)
             }
@@ -136,7 +134,7 @@ class Group: Hashable, Equatable {
     func addToTotal(amount: Double) {
         total += amount
         let rootRef = FIRDatabase.database().reference()
-        let groupRef = rootRef.child("Group")
+        let groupRef = rootRef.child(Constants.DataNames.Group)
         groupRef.child(groupID).child(Constants.GroupFields.total).setValue(total)
     }
 }

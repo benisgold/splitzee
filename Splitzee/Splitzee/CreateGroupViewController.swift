@@ -31,7 +31,7 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
         let dbRef = FIRDatabase.database().reference()
         let uid = FIRAuth.auth()?.currentUser?.uid
         if let uid = uid {
-            dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            dbRef.child(Constants.DataNames.User).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
                 DispatchQueue.main.async {
@@ -251,9 +251,9 @@ class CreateGroupViewController: UIViewController, UITextFieldDelegate, UIImageP
             //Stores the image in firebase database
         else {
             let rootRef = FIRDatabase.database().reference()
-            let groupRef = rootRef.child("Group")
+            let groupRef = rootRef.child(Constants.DataNames.Group)
             let key = groupRef.childByAutoId().key
-            let userRef = rootRef.child("User").child(currUser.uid)
+            let userRef = rootRef.child(Constants.DataNames.User).child(currUser.uid)
             
             self.storeImage(id: key, withBlock: {(urlString) -> Void in
                 

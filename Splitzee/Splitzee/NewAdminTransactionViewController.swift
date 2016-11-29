@@ -118,7 +118,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     func pollForUsers(){
         rootRef = FIRDatabase.database().reference()
         if let rootRef = rootRef {
-            rootRef.child("User").queryOrderedByKey().observe(.childAdded, with: {
+            rootRef.child(Constants.DataNames.User).queryOrderedByKey().observe(.childAdded, with: {
                 snapshot in
                 let userKey = snapshot.key as String
                 let userDict = snapshot.value as? [String: AnyObject]

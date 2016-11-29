@@ -50,7 +50,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
         let dbRef = FIRDatabase.database().reference()
         let uid = FIRAuth.auth()?.currentUser?.uid
         if let uid = uid {
-            dbRef.child("User").child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            dbRef.child(Constants.DataNames.User).child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
                 // Get user value
                 self.currUser = CurrentUser(key: uid, currentUserDict: snapshot.value as! [String: AnyObject])
                 DispatchQueue.main.async {
@@ -390,14 +390,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             
         }
-    }
-    
-    func approve2(sender: UIButton!,  transaction: Transaction){
-        
-        rootRef.child(transaction.transactionID).child("isApproved").setValue(true)
-        transaction.approveTransaction()
-        
-        
     }
     
     
