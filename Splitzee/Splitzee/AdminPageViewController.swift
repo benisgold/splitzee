@@ -311,12 +311,12 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
             var transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
-            
+            print(transaction.amount)
             //Displays the amount of money transferred
-            pendingCell?.approveButton.setTitle("$" + String(describing: transaction.amount)
-                , for: .normal)
+            pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
             
             //Sets the Name of each user at each index
+            
             
             transaction.getUser(withBlock:{(user) -> Void in
                 pendingCell?.memberNameLabel.text = user.name
@@ -339,8 +339,7 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred
-            pendingCell?.approveButton.setTitle("$" + String(describing: transaction.amount)
-                , for: .normal)
+            pendingCell?.approveButton.setTitle("$ \(transaction.amount)", for: .normal)
             
             //Sets the Name of each user at each index
             

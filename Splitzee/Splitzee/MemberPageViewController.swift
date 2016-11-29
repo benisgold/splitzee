@@ -187,12 +187,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        switch(segmentedView.selectedSegmentIndex)
+        switch listState{
             
-        {
-            
-        case 0:
-            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! AdminPendingTableViewCell
+        case .incoming:
+            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! MemberPendingTableViewCell
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
@@ -201,18 +199,18 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             
             return pendingCell
             
-        case 1:
+        case .outgoing:
             
-            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! AdminPendingTableViewCell
+            let pendingCell = tableView.dequeueReusableCell(withIdentifier: "pendingMemberCell", for: indexPath) as! MemberPendingTableViewCell
             for subview in pendingCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
             pendingCell.awakeFromNib()
             return pendingCell
             
-        case 2:
+        case .history:
             
-            let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyMemberCell", for: indexPath) as! AdminHistoryTableViewCell
+            let historyCell = tableView.dequeueReusableCell(withIdentifier: "historyMemberCell", for: indexPath) as! MemberHistoryTableViewCell
             for subview in historyCell.contentView.subviews {
                 subview.removeFromSuperview()
             }
