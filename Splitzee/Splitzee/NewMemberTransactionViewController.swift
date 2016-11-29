@@ -161,7 +161,7 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
     func newTransaction(_ amt: String, _ dsc: String, _ groupToMember: Bool) {
         let transactionDict: [String:AnyObject]
         let amount = Double(amt)
-        transactionDict = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: currUser.uid as AnyObject, Constants.TransactionFields.groupID: currUser.currentGroupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: false as AnyObject, Constants.TransactionFields.description: dsc as AnyObject]
+        transactionDict = [Constants.TransactionFields.amount: amount as AnyObject, Constants.TransactionFields.memberID: currUser.uid as AnyObject, Constants.TransactionFields.groupID: group.groupID as AnyObject, Constants.TransactionFields.groupToMember: groupToMember as AnyObject, Constants.TransactionFields.isApproved: false as AnyObject, Constants.TransactionFields.description: dsc as AnyObject]
         let transaction = Transaction(key: "", transactionDict: transactionDict)
         transaction.addToDatabase()
         dismiss(animated: true, completion: nil)
@@ -204,11 +204,6 @@ class NewMemberTransactionViewController: UIViewController, UITextFieldDelegate 
     }
     //-------Firebase----------------------------
     
-
- 
-    
-}
-
 //--------------------------------------------
 
 extension NewMemberTransactionViewController: UITextViewDelegate {
