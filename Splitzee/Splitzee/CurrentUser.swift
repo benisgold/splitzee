@@ -83,7 +83,7 @@ class CurrentUser {
         let storageRef = FIRStorage.storage().reference()
         let imageRef = storageRef.child(profPicURL)
         
-        imageRef.data(withMaxSize: 1 * 1024 * 1024, completion:  { (data, error) -> Void in
+        imageRef.data(withMaxSize: 3 * 1024 * 1024, completion:  { (data, error) -> Void in
             if (error != nil)  {
                 print("An error occured: \(error)")
             } else  {

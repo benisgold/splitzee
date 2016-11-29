@@ -158,6 +158,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
     
     func pressRequest(sender: UIButton)
     {
+        print(selectedMembers.count)
         for member in selectedMembers {
             var amt = amountTextField.text!
             amt.remove(at: (amt.startIndex))
@@ -180,8 +181,6 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             if let navigationController = self.navigationController {
                 navigationController.popViewController(animated: true)
             }
-            
-            
         })
         
     }

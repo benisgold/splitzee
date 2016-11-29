@@ -98,7 +98,7 @@ class Group: Hashable, Equatable {
         let storageRef = FIRStorage.storage().reference()
         let imageRef = storageRef.child("images/"+groupID)
         
-        imageRef.data(withMaxSize: 2 * 1024 * 1024, completion: { (data, error) -> Void in
+        imageRef.data(withMaxSize: 3 * 1024 * 1024, completion: { (data, error) -> Void in
             if (error != nil) {
                 print("An error occured: \(error)")
             } else {
