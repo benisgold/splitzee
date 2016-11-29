@@ -239,18 +239,19 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         
-        switch(segmentedView.selectedSegmentIndex)
-        {
-        case 0:
+        switch listState {
+        case .incoming:
+            
+            var transaction = incomingList[indexPath.row]
             
             let pendingCell = cell as? MemberPendingTableViewCell
             
             //Displays the amount of money transferred
-            pendingCell?.resultLabel.text = "$" + String(describing: incomingList[indexPath.row].amount)
+            pendingCell?.resultLabel.text = "$" + String(describing: transaction.amount)
             
             
             //Sets the Name of each user at each index
-                pendingCell?.memberNameLabel.text = group.name
+            pendingCell?.memberNameLabel.text = group.name
         
             
             //Gets the image of the group
@@ -262,7 +263,10 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             //Sets description of each transaction
             pendingCell?.descriptionLabel.text = String(describing: incomingList[indexPath.row].description)
             
-        case 1:
+        case .outgoing:
+            
+            var transaction = outgoingList[indexPath.row]
+
             
             let pendingCell = cell as? MemberPendingTableViewCell
             
@@ -270,7 +274,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             pendingCell?.resultLabel.text = "$" + String(describing: outgoingList[indexPath.row].amount)
             
             //Sets the Name of each user at each index
-            user.getUser(UserID: outgoingList[indexPath.row].memberID, withBlock:{(User) -> Void in
+            transaction.getUser(withBlock:{(User) -> Void in
                 pendingCell?.memberNameLabel.text = User.name
             })
             
@@ -282,20 +286,21 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             //Sets description of each transaction
             pendingCell?.descriptionLabel.text = String(describing: outgoingList[indexPath.row].description)
             
-        case 2:
+        case .history:
+            
+            var transaction = historyList[indexPath.row]
+
             
             let historyCell = cell as? MemberHistoryTableViewCell
             
             //Displays the amount of money transferred
             if historyList[indexPath.row].groupToMember == false {
-                historyCell?.resultLabel.text = "-$" + String(describing: historyList[indexPath.row].amount)
+                historyCell?.resultLabel.text = "-$" + String(describing: transaction.amount)
             } else {
-                historyCell?.resultLabel.text = "+$" + String(describing: historyList[indexPath.row].amount)
+                historyCell?.resultLabel.text = "+$" + String(describing: transaction.amount)
             }
-            
-            
             //Sets the Name of each user at each index
-            user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
+            transaction.getUser(withBlock:{(User) -> Void in
                 historyCell?.memberNameLabel.text = User.name
             })
             
@@ -306,7 +311,7 @@ class MemberPageViewController: UIViewController, UITableViewDelegate, UITableVi
             })
             
             //Sets description of each transaction
-            historyCell?.descriptionLabel.text = String(describing: historyList[indexPath.row].description)
+            historyCell?.descriptionLabel.text = String(describing: transaction.description)
             
         default:
             

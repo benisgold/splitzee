@@ -33,8 +33,6 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
     var currUser: CurrentUser!
     var group: Group!
     let rootRef = FIRDatabase.database().reference()
-    var user: User!
-    var transaction: Transaction!
     var listState = ListState.incoming
     
     var transactionList: [Transaction] = []
@@ -311,80 +309,81 @@ class AdminPageViewController: UIViewController, UITableViewDelegate, UITableVie
             
         case .incoming:
             
-            
+            var transaction = incomingList[indexPath.row]
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred
-            pendingCell?.approveButton.setTitle("$" + String(describing: incomingList[indexPath.row].amount)
+            pendingCell?.approveButton.setTitle("$" + String(describing: transaction.amount)
                 , for: .normal)
             
             //Sets the Name of each user at each index
-            user.getUser(UserID: incomingList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                pendingCell?.memberNameLabel.text = User.name
-            })
             
-            //Gets the image of each user
-            user.getUser(UserID: incomingList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                User.getProfilePic(withBlock: { (UIImage) -> Void in
+            transaction.getUser(withBlock:{(user) -> Void in
+                pendingCell?.memberNameLabel.text = user.name
+                
+                //get user image
+                user.getProfilePic(withBlock: { (UIImage) -> Void in
                     pendingCell?.memberPicView.image = UIImage
                 })
             })
             
-            
             //Sets description of each transaction
-            pendingCell?.descriptionLabel.text = String(describing: incomingList[indexPath.row].description)
+            pendingCell?.descriptionLabel.text = String(describing: transaction.description)
             
             
             
         case .outgoing:
             
+            var transaction = outgoingList[indexPath.row]
+            
             let pendingCell = cell as? AdminPendingTableViewCell
             
             //Displays the amount of money transferred
-            pendingCell?.approveButton.setTitle("$" + String(describing: outgoingList[indexPath.row].amount)
+            pendingCell?.approveButton.setTitle("$" + String(describing: transaction.amount)
                 , for: .normal)
             
             //Sets the Name of each user at each index
-            user.getUser(UserID: outgoingList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                pendingCell?.memberNameLabel.text = User.name
-            })
             
-            //Gets the image of each user
-            user.getUser(UserID: outgoingList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                User.getProfilePic(withBlock: { (UIImage) -> Void in
+            transaction.getUser(withBlock:{(user) -> Void in
+                pendingCell?.memberNameLabel.text = user.name
+                
+                //get user image
+                user.getProfilePic(withBlock: { (UIImage) -> Void in
                     pendingCell?.memberPicView.image = UIImage
                 })
             })
             
             //Sets description of each transaction
-            pendingCell?.descriptionLabel.text = String(describing: outgoingList[indexPath.row].description)
+            pendingCell?.descriptionLabel.text = String(describing: transaction.description)
             
             
         case .history:
+            
+            var transaction = historyList[indexPath.row]
+
             
             let historyCell = cell as? AdminHistoryTableViewCell
             
             //Displays the amount of money transferred
             if historyList[indexPath.row].groupToMember == true {
-                historyCell?.amountLabel.text = "-$" + String(describing: historyList[indexPath.row].amount)
+                historyCell?.amountLabel.text = "-$" + String(describing: transaction.amount)
             } else {
-                historyCell?.amountLabel.text = "+$" + String(describing: historyList[indexPath.row].amount)
+                historyCell?.amountLabel.text = "+$" + String(describing: transaction.amount)
             }
             
             //Sets the Name of each user at each index
-            user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                historyCell?.memberNameLabel.text = User.name
-            })
             
-            //Gets the image of each user
-            user.getUser(UserID: historyList[indexPath.row].memberID, withBlock:{(User) -> Void in
-                User.getProfilePic(withBlock: { (UIImage) -> Void in
+            transaction.getUser(withBlock:{(user) -> Void in
+                historyCell?.memberNameLabel.text = user.name
+                
+                //get user image
+                user.getProfilePic(withBlock: { (UIImage) -> Void in
                     historyCell?.memberPicView.image = UIImage
                 })
             })
             
             //Sets description of each transaction
-            historyCell?.descriptionLabel.text = String(describing: historyList[indexPath.row].description)
+            historyCell?.descriptionLabel.text = String(describing: transaction.description)
             
             
         }

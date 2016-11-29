@@ -54,20 +54,5 @@ class User {
     }
     
     
-    func getUser(UserID: String, withBlock: @escaping (User) -> Void)  {
-        //        setData()
-        let ref = FIRDatabase.database().reference()
-        ref.child("User").child(UserID).observe(.value, with:  { snapshot -> Void in
-            //  Get user name value
-            if snapshot.exists() {
-                if let userDict = snapshot.value as? [String: AnyObject]  {
-                    let user = User(key: snapshot.key, userDict: userDict)
-                    withBlock(user)
-                }
-            }
-        })
-    }
-    
-    
     
 }
