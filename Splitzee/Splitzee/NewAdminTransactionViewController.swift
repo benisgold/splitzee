@@ -152,7 +152,7 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             let amount: Double = ((Double)(amt)!*(-1))
             group.addToTotal(amount: amount)
             let dsc = descriptionTextField.text!
-            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: true)
+            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: true, isPayment: true)
         }
     }
     
@@ -163,20 +163,25 @@ class NewAdminTransactionViewController: UIViewController, UICollectionViewDataS
             amt.remove(at: (amt.startIndex))
             let amount: Double = (Double)(amt)!
             let dsc = descriptionTextField.text!
-            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: false)
+            newTransaction(amt: (String)(amount), memberID: member.uid, dsc: dsc, groupToMember: true, isApproved: false, isPayment: false)
         }
     }
     
-    func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool) {
+    func newTransaction(amt: String, memberID: String, dsc: String, groupToMember: Bool, isApproved: Bool, isPayment: Bool) {
         let transactionDict: [String:AnyObject]
         
         transactionDict = ["amount": amt as AnyObject, "memberID": memberID as AnyObject, "groupID": group.groupID as AnyObject, "groupToMember": groupToMember as AnyObject, "isApproved": isApproved as AnyObject, "description": dsc as AnyObject]
         
         let transaction = Transaction(key: "", transactionDict: transactionDict)
-        transaction.addToDatabase(withBlock: {
+        transaction.addToDatabase(withBlock: { trans in
+            if isPayment {
+                trans.approveTransaction()
+            }
             if let navigationController = self.navigationController {
                 navigationController.popViewController(animated: true)
             }
+            
+            
         })
         
     }
